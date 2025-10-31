@@ -1,5 +1,3 @@
-"use client";
-
 import StepWrapper from "@/components/StepWrapper";
 import { Button } from "@/components/ui/button";
 import { useStepperContext } from "@/components/stepper/Stepper.context";

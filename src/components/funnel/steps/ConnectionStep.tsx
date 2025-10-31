@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 
 import { useStepperContext } from "@/components/stepper/Stepper.context";
 
-import { FunnelSchema } from "@/features/funnel/hooks/useFunnelForm";
+import { FunnelSchema } from "@/hooks/funnel/useFunnelForm";
 
 import { connections } from "@/constants/connections";
 

@@ -6,7 +6,7 @@ import { useStepperContext } from "@/components/stepper/Stepper.context";
 import CheckboxField from "@/components/funnel/fields/CheckboxField";
 import { Button } from "@/components/ui/button";
 
-import { FunnelSchema } from "@/features/funnel/hooks/useFunnelForm";
+import { FunnelSchema } from "@/hooks/funnel/useFunnelForm";
 
 import { interests } from "@/constants/interests";
 

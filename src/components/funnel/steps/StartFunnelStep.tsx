@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { useStepperContext } from "@/components/stepper/Stepper.context";
 import SpriteIcon from "@/components/SpriteIcon";
-import { defaultValues, type FunnelSchema } from "../../../features/funnel/hooks/useFunnelForm";
+import { defaultValues, type FunnelSchema } from "../../../hooks/funnel/useFunnelForm";
 import { useFormContext } from "react-hook-form";
 import { usePostHog } from "posthog-js/react";
 

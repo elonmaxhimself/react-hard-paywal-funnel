@@ -6,7 +6,7 @@ import { useStepperContext } from "@/components/stepper/Stepper.context";
 import BadgeField from "@/components/funnel/fields/BadgeField";
 import { Button } from "@/components/ui/button";
 
-import { FunnelSchema } from "@/features/funnel/hooks/useFunnelForm";
+import { FunnelSchema } from "@/hooks/funnel/useFunnelForm";
 
 import { personalityTraits } from "@/constants/personality-traits";
 

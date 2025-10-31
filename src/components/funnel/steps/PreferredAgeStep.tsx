@@ -5,7 +5,7 @@ import StepWrapper from "@/components/StepWrapper";
 import { useStepperContext } from "@/components/stepper/Stepper.context";
 import ButtonField from "@/components/funnel/fields/ButtonField";
 
-import { FunnelSchema } from "@/features/funnel/hooks/useFunnelForm";
+import { FunnelSchema } from "@/hooks/funnel/useFunnelForm";
 
 import { preferredAge } from "@/constants/preferred-age";
 

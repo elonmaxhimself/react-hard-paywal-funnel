@@ -3,7 +3,7 @@ import ImageCard from "@/components/ImageCard";
 import Stepper from "@/components/stepper";
 import StepWrapper from "@/components/StepWrapper";
 import { useStepperContext } from "@/components/stepper/Stepper.context";
-import { FunnelSchema } from "@/features/funnel/hooks/useFunnelForm";
+import { FunnelSchema } from "@/hooks/funnel/useFunnelForm";
 import { BODY_TYPES } from "@/constants/body-types";
 
 export function BodyTypeStep() {

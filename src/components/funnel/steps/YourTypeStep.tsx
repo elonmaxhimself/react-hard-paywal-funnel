@@ -4,7 +4,7 @@ import Stepper from "@/components/stepper";
 import StepWrapper from "@/components/StepWrapper";
 import { Button } from "@/components/ui/button";
 import { useStepperContext } from "@/components/stepper/Stepper.context";
-import { FunnelSchema } from "@/features/funnel/hooks/useFunnelForm";
+import { FunnelSchema } from "@/hooks/funnel/useFunnelForm";
 import { YOUR_TYPE } from "@/constants/your-type";
 
 export function YourTypeStep() {

@@ -5,7 +5,7 @@ import StepWrapper from "@/components/StepWrapper";
 import { useStepperContext } from "@/components/stepper/Stepper.context";
 import ImageCard from "@/components/ImageCard";
 
-import { FunnelSchema } from "@/features/funnel/hooks/useFunnelForm";
+import { FunnelSchema } from "@/hooks/funnel/useFunnelForm";
 
 import { characterStyle } from "@/constants/character-style";
 

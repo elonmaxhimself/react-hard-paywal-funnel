@@ -45,6 +45,11 @@ import { TurnsOfYouStep } from "@/components/funnel/steps/TurnsOfYouStep";
 import { WantToTryStep } from "@/components/funnel/steps/WantToTryStep";
 import { WhatTurnsOffInDatingStep } from "@/components/funnel/steps/WhatTurnsOffInDatingStep";
 import YourAiPartnerStep from "@/components/funnel/steps/YourAiPartnerStep";
+import FinalOfferModal from "@/components/modals/FinalOfferModal";
+import FinalOfferUnlockedModal from "@/components/modals/FinalOfferUnlockedModal";
+import SecretOfferModal from "@/components/modals/SecretOfferModal";
+import ShowVideoModal from "@/components/modals/ShowVideoModal";
+import SpecialOfferModal from "@/components/modals/SpecialOfferModal";
 
 export default function FunnelView() {
     const { form, stepper, isReady } = useFunnelForm();
@@ -350,22 +355,29 @@ export default function FunnelView() {
                             <DreamCompanionStep />
                         </Stepper.Content>
 
-                        {/* Step 42 */}
+                        {/* Step 43 */}
                         <Stepper.Content>
                             <AuthStep />
                         </Stepper.Content>
 
-                        {/* Step 43 */}
+                        {/* Step 44 */}
                         <Stepper.Content>
                             <SubscriptionStep />
                         </Stepper.Content>
 
-                        {/* Step 44 */}
+                        {/* Step 45 */}
                         <Stepper.Content>
                             <PaymentFormStep />
                         </Stepper.Content>
                     </Stepper.Contents>
 
+                    {/* Modals */}
+                    <SecretOfferModal />
+                    <FinalOfferModal />
+                    <SpecialOfferModal />
+                    <FinalOfferUnlockedModal />
+                    <ShowVideoModal />
+                    
                 </Stepper>
             </div>
         </FormProvider>

@@ -109,7 +109,7 @@ export function usePaymentForm(posthog?: any) {
 
         const initializeShift4 = () => {
             try {
-                const publicKey = import.meta.env.VITE_SHIFT4_PUBLISHABLE_KEY;
+                const publicKey = import.meta.env.VITE_PUBLIC_SHIFT4_PUBLISHABLE_KEY;
                 if (!publicKey) {
                     triggerToast({
                         title: "Payment system configuration error.",
@@ -282,7 +282,7 @@ export function usePaymentForm(posthog?: any) {
                                         mpPayload,
                                     );
 
-                                    const redirectUrl = import.meta.env.VITE_SHIFT4_PAYMENT_REDIRECT || "/";
+                                    const redirectUrl = import.meta.env.VITE_PUBLIC_SHIFT4_PAYMENT_REDIRECT || "/";
                                     const redirectUrlWithToken = redirectUrl + "?authToken=" + authToken;
                                     authReset();
                                     funnelReset();

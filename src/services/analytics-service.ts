@@ -49,7 +49,7 @@ class AnalyticsService {
 
     private isTrackingEnabled() {
         const isProduction = import.meta.env.PROD;
-        const enableDevTracking = import.meta.env.VITE_ENABLE_DEV_ANALYTICS === "true";
+        const enableDevTracking = import.meta.env.VITE_PUBLIC_ENABLE_DEV_ANALYTICS === "true";
         return isProduction || enableDevTracking;
     }
 

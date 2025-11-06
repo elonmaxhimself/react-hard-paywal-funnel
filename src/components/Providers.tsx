@@ -1,4 +1,5 @@
 import { QueryProvider } from "@/components/QueryProvider";
+import { ClientPosthogProvider } from "./PostHogProvider";
 
 interface IProvidersProps {
     children: React.ReactNode;
@@ -6,7 +7,9 @@ interface IProvidersProps {
 
 const Providers = ({ children }: IProvidersProps) => {
     return (
+        <ClientPosthogProvider>
             <QueryProvider>{children}</QueryProvider>
+        </ClientPosthogProvider>
     );
 };
 

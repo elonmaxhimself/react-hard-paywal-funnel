@@ -46,7 +46,7 @@ Configure the following variables in your `.env` file:
 
 ### Development Mode
 
-Development mode uses `docker-compose.dev.yml` configuration with hot-reload enabled for faster iteration. The application connects to the development backend API and uses Shift4 test keys for payment processing. Analytics can be disabled by setting `VITE_PUBLIC_ENABLE_DEV_ANALYTICS` to false to avoid polluting production analytics data. Payment redirects point to preview or staging URLs.
+Development mode uses `docker-compose.dev.yml` configuration with hot-reload enabled for faster iteration. The application connects to the development backend API. Analytics can be disabled by setting `VITE_PUBLIC_ENABLE_DEV_ANALYTICS` to false to avoid polluting production analytics data. 
 
 **Run development mode:**
 

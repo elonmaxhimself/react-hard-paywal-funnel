@@ -15,7 +15,7 @@ export function StartFunnelStep() {
         localStorage.removeItem("auth-storage");
         localStorage.removeItem("funnel-storage");
         form.reset(defaultValues);
-    }, [form]);
+    }, []);
 
     return (
         <div className="w-full min-h-dvh box-border py-4 sm:py-6 px-[10px] sm:px-[15px] flex flex-col items-center justify-center overflow-hidden">

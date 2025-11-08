@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
+import { usePostHog } from 'posthog-js/react';
+import { EXPERIMENTS } from '@/congifs/experiment.config';
 
 import { getFunnelStore } from "@/store/states/funnel";
 
@@ -69,8 +71,10 @@ const STEPS_COUNT = 44;
 const STEPS_INDICATOR_COUNT = 32;
 
 export function useFunnelForm() {
+    const posthog = usePostHog();
     const [active, setActive] = useState(0);
     const [isReady, setIsReady] = useState(false);
+    const [startingStep, setStartingStep] = useState(0);
 
     const form = useForm<FunnelSchema>({
         resolver: zodResolver(funnelV3Schema),
@@ -78,19 +82,63 @@ export function useFunnelForm() {
     });
 
     useEffect(() => {
-        try {
-            const savedData = getFunnelStore().form;
-            const savedStep = getFunnelStore().step;
+        const initializeFunnel = () => {
+            try {
+                const savedData = getFunnelStore().form;
+                const savedStep = getFunnelStore().step;
+                const savedStartingStep = getFunnelStore().startingStep;
+                const savedVariant = getFunnelStore().variant;
 
-            if (savedData) form.reset(savedData);
-            if (savedStep) setActive(savedStep);
-        } catch {
-            form.reset();
-            setActive(0);
-        } finally {
-            setIsReady(true);
-        }
-    }, [form]);
+                if (savedData) form.reset(savedData);
+                
+                if (savedStep !== undefined && savedStep !== null) {
+                    setActive(savedStep);
+                    if (savedStartingStep !== undefined && savedStartingStep !== null) {
+                        setStartingStep(savedStartingStep);
+                    }
+                    setIsReady(true);
+                    return;
+                }
+
+                if (!posthog) {
+                    setActive(0);
+                    setStartingStep(0);
+                    setIsReady(true);
+                    return;
+                }
+
+                posthog.onFeatureFlags(() => {
+                    const variant = posthog.getFeatureFlag(EXPERIMENTS.STARTING_STEP.flagKey);
+                    const variantKey = (variant as string) || 'first-step_video0';
+                    
+                    const config = EXPERIMENTS.STARTING_STEP.variants[
+                        variantKey as keyof typeof EXPERIMENTS.STARTING_STEP.variants
+                    ] || EXPERIMENTS.STARTING_STEP.variants['first-step_video0'];
+                    
+                    setActive(config.startStep);
+                    setStartingStep(config.startStep);
+                    
+                    getFunnelStore().setStartingStep(config.startStep);
+                    getFunnelStore().setVariant(variantKey);
+                    
+                    posthog.capture('funnel_started', {
+                        variant: variantKey,
+                        starting_step: config.startStep,
+                    });
+                    
+                    setIsReady(true);
+                });
+
+            } catch (error) {
+                console.error('Error:', error);
+                setActive(0);
+                setStartingStep(0);
+                setIsReady(true);
+            }
+        };
+
+        initializeFunnel();
+    }, []);
 
     const nextStep = () => {
         const trigger = triggers[active as keyof typeof triggers];
@@ -107,7 +155,9 @@ export function useFunnelForm() {
         }
     };
 
-    const prevStep = () => setActive((current) => (current > 0 ? current - 1 : current));
+    const prevStep = () => setActive((current) => 
+        (current > startingStep ? current - 1 : current)
+    );
 
     return {
         form,
@@ -115,6 +165,7 @@ export function useFunnelForm() {
             value: active,
             onChange: setActive,
             max: STEPS_INDICATOR_COUNT,
+            startingStep,
             nextStep,
             prevStep,
         },

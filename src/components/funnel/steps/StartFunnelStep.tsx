@@ -12,7 +12,6 @@ export function StartFunnelStep() {
     const form = useFormContext<FunnelSchema>();
     const posthog = usePostHog();
 
-    // Получаем variant напрямую из PostHog
     const variant = (posthog?.getFeatureFlag(EXPERIMENTS.STARTING_STEP.flagKey) as string) || 'first-step_video0';
 
     const videoUrl = useMemo(() => {

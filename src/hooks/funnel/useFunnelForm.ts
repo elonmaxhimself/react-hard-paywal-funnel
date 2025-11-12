@@ -82,63 +82,59 @@ export function useFunnelForm() {
     });
 
     useEffect(() => {
-        const initializeFunnel = () => {
-            try {
-                const savedData = getFunnelStore().form;
-                const savedStep = getFunnelStore().step;
-                const savedStartingStep = getFunnelStore().startingStep;
-                const savedVariant = getFunnelStore().variant;
+        const savedVariant = getFunnelStore().variant;
+        const savedStartingStep = getFunnelStore().startingStep;
+        
+        if (savedVariant && savedStartingStep !== undefined && savedStartingStep !== null) {
+            setStartingStep(savedStartingStep);
+            return;
+        }
 
-                if (savedData) form.reset(savedData);
-                
-                if (savedStep !== undefined && savedStep !== null) {
-                    setActive(savedStep);
-                    if (savedStartingStep !== undefined && savedStartingStep !== null) {
-                        setStartingStep(savedStartingStep);
-                    }
-                    setIsReady(true);
-                    return;
-                }
+        if (!posthog) {
+            getFunnelStore().setVariant('first-step_video0');
+            getFunnelStore().setStartingStep(0);
+            setStartingStep(0);
+            return;
+        }
 
-                if (!posthog) {
-                    setActive(0);
-                    setStartingStep(0);
-                    setIsReady(true);
-                    return;
-                }
+        posthog.onFeatureFlags(() => {
+            const variant = posthog.getFeatureFlag(EXPERIMENTS.STARTING_STEP.flagKey);
+            const variantKey = (variant as string) || 'first-step_video0';
+            
+            const config = EXPERIMENTS.STARTING_STEP.variants[
+                variantKey as keyof typeof EXPERIMENTS.STARTING_STEP.variants
+            ] || EXPERIMENTS.STARTING_STEP.variants['first-step_video0'];
+            
+            getFunnelStore().setVariant(variantKey);
+            getFunnelStore().setStartingStep(config.startStep);
+            setStartingStep(config.startStep);
+            
+            posthog.capture('funnel_started', {
+                variant: variantKey,
+                starting_step: config.startStep,
+            });
+        });
+    }, [posthog]);
 
-                posthog.onFeatureFlags(() => {
-                    const variant = posthog.getFeatureFlag(EXPERIMENTS.STARTING_STEP.flagKey);
-                    const variantKey = (variant as string) || 'first-step_video0';
-                    
-                    const config = EXPERIMENTS.STARTING_STEP.variants[
-                        variantKey as keyof typeof EXPERIMENTS.STARTING_STEP.variants
-                    ] || EXPERIMENTS.STARTING_STEP.variants['first-step_video0'];
-                    
-                    setActive(config.startStep);
-                    setStartingStep(config.startStep);
-                    
-                    getFunnelStore().setStartingStep(config.startStep);
-                    getFunnelStore().setVariant(variantKey);
-                    
-                    posthog.capture('funnel_started', {
-                        variant: variantKey,
-                        starting_step: config.startStep,
-                    });
-                    
-                    setIsReady(true);
-                });
-
-            } catch (error) {
-                console.error('Error:', error);
-                setActive(0);
-                setStartingStep(0);
-                setIsReady(true);
+    useEffect(() => {
+        try {
+            const savedData = getFunnelStore().form;
+            const savedStep = getFunnelStore().step;
+            const savedStartingStep = getFunnelStore().startingStep;
+            
+            if (savedData) form.reset(savedData);
+            if (savedStep) setActive(savedStep);
+            
+            if (savedStartingStep !== undefined && savedStartingStep !== null) {
+                setStartingStep(savedStartingStep);
             }
-        };
-
-        initializeFunnel();
-    }, []);
+        } catch {
+            form.reset();
+            setActive(0);
+        } finally {
+            setIsReady(true);
+        }
+    }, [form]);
 
     const nextStep = () => {
         const trigger = triggers[active as keyof typeof triggers];

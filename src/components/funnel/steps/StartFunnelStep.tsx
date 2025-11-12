@@ -18,7 +18,7 @@ export function StartFunnelStep() {
         const config = EXPERIMENTS.STARTING_STEP.variants[
             variant as keyof typeof EXPERIMENTS.STARTING_STEP.variants
         ];
-        return config?.videoUrl || '/video/video-compressed.mp4';
+        return config?.videoUrl || '/video/0.mp4';
     }, [variant]);
 
     useEffect(() => {

@@ -64,8 +64,8 @@ export function useSignUpForm(posthog?: any) {
         defaultValues: {
             email: "",
             password: "",
-            isAdult: undefined,
-            acceptedTerms: undefined,
+            isAdult: false,
+            acceptedTerms: false,
         },
     });
 

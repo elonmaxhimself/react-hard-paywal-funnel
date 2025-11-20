@@ -205,6 +205,7 @@ export function usePaymentForm(posthog?: any) {
                     title: "An unexpected error occurred. Please try again later.",
                     type: toastType.error,
                 });
+                setIsSubmitting(false);
                 return;
             }
 
@@ -311,6 +312,11 @@ export function usePaymentForm(posthog?: any) {
                                 AnalyticsEventTypeEnum.PAYMENT_FAILED,
                                 mpPayload,
                             );
+
+                            triggerToast({
+                                title: "An unexpected error occurred. Please try again later.",
+                                type: toastType.error,
+                            });
                         }
                     },
                     onError: (error) => {

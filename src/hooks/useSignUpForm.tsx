@@ -182,7 +182,7 @@ export function useSignUpForm(posthog?: any) {
                                 user_id: String(response.userId),
                                 email_domain: values.email.split("@")[1] || "",
                             });
-                        }, 100);
+                        }, 500);
                     }
                 } catch (e) {
                     console.warn("PostHog sign up tracking failed", e);

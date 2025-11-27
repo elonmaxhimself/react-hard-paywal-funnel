@@ -49,6 +49,7 @@ export function usePaymentForm(posthog?: any) {
 
     const addToCartTrackedRef = useRef(false);
 
+    // Polling function for payment status
     const pollPaymentStatus = async (
         subscriptionId: string,
         mpPayload: any,
@@ -150,6 +151,7 @@ export function usePaymentForm(posthog?: any) {
 
                     addToCartTrackedRef.current = true;
 
+                    // PostHog paywall opened tracking
                     try {
                         if (typeof window !== 'undefined' && posthog && product) {
                             const cycle = product.durationMonths === 12 ? 'yearly' : 
@@ -248,6 +250,7 @@ export function usePaymentForm(posthog?: any) {
                                 response.subscriptionId,
                                 mpPayload,
                                 () => {
+                                    // FACEBOOK PIXEL TRACKING — Purchase
                                     const fbq = (window as any).fbq;
                                     fbq?.("track", "Purchase", {
                                         product_name: product.name,
@@ -255,11 +258,13 @@ export function usePaymentForm(posthog?: any) {
                                         currency: "USD",
                                     });
 
+                                    // GOOGLE ADS — Purchase
                                     reportPurchase(response.subscriptionId, {
                                         value: product.amount / 100,
                                         currency: "USD",
                                     });
 
+                                    // GTM / dataLayer — Purchase
                                     window.dataLayer = window.dataLayer || [];
                                     window.dataLayer.push({
                                         event: "cd_purchase",
@@ -270,6 +275,7 @@ export function usePaymentForm(posthog?: any) {
                                         product_name: product.name,
                                     });
 
+                                    // PostHog — Payment Success
                                     if (typeof window !== 'undefined' && posthog) {
                                         posthog.capture('payment_success', {
                                             value: product.amount / 100,
@@ -280,6 +286,7 @@ export function usePaymentForm(posthog?: any) {
                                         });
                                     }
 
+                                    // Mixpanel
                                     analyticsService.trackPaymentEvent(
                                         AnalyticsEventTypeEnum.PAYMENT_SUCCESS,
                                         mpPayload,

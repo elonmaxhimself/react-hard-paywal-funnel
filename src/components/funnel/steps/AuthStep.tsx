@@ -127,7 +127,7 @@ export function AuthStep() {
                                                 <Checkbox
                                                     id={id}
                                                     name={field.name}
-                                                    checked={field.value}
+                                                    checked={!!field.value}
                                                     onCheckedChange={field.onChange}
                                                     onBlur={field.onBlur}
                                                     className="cursor-pointer"

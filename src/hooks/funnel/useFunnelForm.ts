@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { usePostHog } from 'posthog-js/react';
-import { EXPERIMENTS } from '@/congifs/experiment.config';
+import { EXPERIMENTS } from '@/configs/experiment.config';
 
 import { getFunnelStore } from "@/store/states/funnel";
 
@@ -73,7 +73,8 @@ const STEPS_INDICATOR_COUNT = 32;
 export function useFunnelForm() {
     const posthog = usePostHog();
     const [active, setActive] = useState(0);
-    const [isReady, setIsReady] = useState(false);
+    const [isExperimentReady, setIsExperimentReady] = useState(false);
+    const [isFormReady, setIsFormReady] = useState(false);
     const [startingStep, setStartingStep] = useState(0);
 
     const form = useForm<FunnelSchema>({
@@ -82,59 +83,57 @@ export function useFunnelForm() {
     });
 
     useEffect(() => {
-        const savedVariant = getFunnelStore().variant;
-        const savedStartingStep = getFunnelStore().startingStep;
-        
-        if (savedVariant && savedStartingStep !== undefined && savedStartingStep !== null) {
-            setStartingStep(savedStartingStep);
-            return;
-        }
+        if (!posthog) return;
 
-        if (!posthog) {
-            getFunnelStore().setVariant('first-step_video0');
-            getFunnelStore().setStartingStep(0);
-            setStartingStep(0);
-            return;
-        }
-
-        posthog.onFeatureFlags(() => {
-            const variant = posthog.getFeatureFlag(EXPERIMENTS.STARTING_STEP.flagKey);
-            const variantKey = (variant as string) || 'first-step_video0';
-            
-            const config = EXPERIMENTS.STARTING_STEP.variants[
-                variantKey as keyof typeof EXPERIMENTS.STARTING_STEP.variants
-            ] || EXPERIMENTS.STARTING_STEP.variants['first-step_video0'];
-            
-            getFunnelStore().setVariant(variantKey);
-            getFunnelStore().setStartingStep(config.startStep);
-            setStartingStep(config.startStep);
-            
-            posthog.capture('funnel_started', {
-                variant: variantKey,
-                starting_step: config.startStep,
-            });
+        const cleanup = posthog.onFeatureFlags(() => {
+            try {
+                const variant = posthog.getFeatureFlag(EXPERIMENTS.STARTING_STEP.flagKey);
+                const variantKey = (variant as string) || 'first-step_video0';
+                
+                const config = EXPERIMENTS.STARTING_STEP.variants[
+                    variantKey as keyof typeof EXPERIMENTS.STARTING_STEP.variants
+                ] || EXPERIMENTS.STARTING_STEP.variants['first-step_video0'];
+                
+                setStartingStep(config.startStep);
+                setIsExperimentReady(true);
+                
+                posthog.capture('funnel_started', {
+                    variant: variantKey,
+                    starting_step: config.startStep,
+                });
+            } catch (error) {
+                console.error('PostHog feature flag processing error:', error);
+                setStartingStep(0);
+                setIsExperimentReady(true);
+            }
         });
+
+        return () => {
+            if (cleanup) cleanup();
+        };
     }, [posthog]);
 
     useEffect(() => {
+        if (!isExperimentReady) return;
+
         try {
             const savedData = getFunnelStore().form;
             const savedStep = getFunnelStore().step;
-            const savedStartingStep = getFunnelStore().startingStep;
             
             if (savedData) form.reset(savedData);
-            if (savedStep) setActive(savedStep);
-            
-            if (savedStartingStep !== undefined && savedStartingStep !== null) {
-                setStartingStep(savedStartingStep);
+            if (savedStep !== undefined && savedStep !== null) {
+                setActive(savedStep);
+            } else {
+                setActive(startingStep);
             }
-        } catch {
-            form.reset();
-            setActive(0);
+        } catch (error) {
+            console.error('Form restoration error:', error);
+            form.reset(defaultValues);
+            setActive(startingStep);
         } finally {
-            setIsReady(true);
+            setIsFormReady(true);
         }
-    }, [form]);
+    }, [isExperimentReady, startingStep]);
 
     const nextStep = () => {
         const trigger = triggers[active as keyof typeof triggers];
@@ -165,6 +164,6 @@ export function useFunnelForm() {
             nextStep,
             prevStep,
         },
-        isReady,
+        isReady: isExperimentReady && isFormReady,
     };
 }

@@ -5,7 +5,7 @@ import SpriteIcon from "@/components/SpriteIcon";
 import { defaultValues, type FunnelSchema } from "../../../hooks/funnel/useFunnelForm";
 import { useFormContext } from "react-hook-form";
 import { usePostHog } from "posthog-js/react";
-import { EXPERIMENTS } from '@/congifs/experiment.config';
+import { EXPERIMENTS } from '@/configs/experiment.config';
 
 export function StartFunnelStep() {
     const { nextStep } = useStepperContext();

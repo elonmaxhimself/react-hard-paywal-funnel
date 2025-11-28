@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -76,6 +76,7 @@ export function useFunnelForm() {
     const [isExperimentReady, setIsExperimentReady] = useState(false);
     const [isFormReady, setIsFormReady] = useState(false);
     const [startingStep, setStartingStep] = useState(0);
+    const hasTrackedFunnelStart = useRef(false);
 
     const form = useForm<FunnelSchema>({
         resolver: zodResolver(funnelV3Schema),
@@ -97,10 +98,13 @@ export function useFunnelForm() {
                 setStartingStep(config.startStep);
                 setIsExperimentReady(true);
                 
-                posthog.capture('funnel_started', {
-                    variant: variantKey,
-                    starting_step: config.startStep,
-                });
+                if (!hasTrackedFunnelStart.current) {
+                    posthog.capture('funnel_started', {
+                        variant: variantKey,
+                        starting_step: config.startStep,
+                    });
+                    hasTrackedFunnelStart.current = true;
+                }
             } catch (error) {
                 console.error('PostHog feature flag processing error:', error);
                 setStartingStep(0);

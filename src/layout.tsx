@@ -1,7 +1,6 @@
-// src/layouts/RootLayout.tsx
 import { Toaster } from 'sonner'
 import MainContentWrapper from '@/components/layout/MainContentWrapper'
-import Providers from '@/components/Providers'
+import Providers from '@/providers/Providers'
 
 interface RootLayoutProps {
     children: React.ReactNode

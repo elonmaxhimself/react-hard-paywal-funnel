@@ -1,4 +1,4 @@
-import { QueryProvider } from "@/components/QueryProvider";
+import { QueryProvider } from "@/providers/QueryProvider";
 import { ClientPosthogProvider } from "./PostHogProvider";
 
 interface IProvidersProps {

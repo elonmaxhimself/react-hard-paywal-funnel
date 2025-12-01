@@ -35,11 +35,6 @@ export function StartFunnelStep() {
             <div className="inline-block rounded-[10px] overflow-hidden bg-primary-gradient p-[1.5px]">
                 <div
                     onClick={() => {
-                        if (typeof window !== "undefined") {
-                            posthog?.capture("character_creation_started", {
-                                video_variant: variant
-                            });
-                        }
                         nextStep();
                     }}
                     className="relative bg-black rounded-[10px] overflow-hidden flex items-center justify-center"
@@ -63,11 +58,6 @@ export function StartFunnelStep() {
                         <Button
                             onClick={(event) => {
                                 event.stopPropagation();
-                                if (typeof window !== "undefined") {
-                                    posthog?.capture("character_creation_started", {
-                                        video_variant: variant
-                                    });
-                                }
                                 nextStep();
                             }}
                             className="w-full sm:fit h-[45px] bg-primary-gradient text-white"

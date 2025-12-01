@@ -32,6 +32,8 @@ export function usePaymentForm(posthog?: any) {
     const [shift4Instance, setShift4Instance] = useState<any>(null);
     const [componentsGroup, setComponentsGroup] = useState<any>(null);
     const [isPolling, setIsPolling] = useState(false);
+    const [isSubmitting, setIsSubmitting] = useState(false);
+    const [paymentCompleted, setPaymentCompleted] = useState(false);
     const s4ComponentsRef = useRef<any>(null);
 
     const { mutate: payment, isPending } = useShift4Payment();
@@ -54,8 +56,8 @@ export function usePaymentForm(posthog?: any) {
         onSuccess: () => void,
         onError: (errorMessage: string) => void,
     ) => {
-        const pollInterval = 2000; // 2 seconds
-        const maxAttempts = 30; // 1 minute total
+        const pollInterval = 5000;
+        const maxAttempts = 30;
         let attempts = 0;
 
         setIsPolling(true);
@@ -67,6 +69,7 @@ export function usePaymentForm(posthog?: any) {
 
                 if (statusResponse.paid_status === "paid") {
                     setIsPolling(false);
+                    setPaymentCompleted(true);
                     onSuccess();
                     return;
                 } else if (statusResponse.paid_status === "failed") {
@@ -192,30 +195,37 @@ export function usePaymentForm(posthog?: any) {
     }, [shift4Error]);
 
     const onSubmit = async () => {
-        if (!shift4Instance || !componentsGroup || !product) {
-            triggerToast({
-                title: "An unexpected error occurred. Please try again later.",
-                type: toastType.error,
-            });
+        if (isSubmitting || paymentCompleted) {
+            console.warn('Payment already in progress or completed');
             return;
         }
-
-        let utm: Record<string, any> | undefined;
-        try {
-            const stored = localStorage.getItem("utm_params");
-            if (stored) utm = JSON.parse(stored);
-        } catch {}
-
-        const mpPayload = {
-            distinct_id: String(userId ?? ""),
-            product_name: product.name,
-            value: product.amount / 100,
-            currency: "USD",
-            product_id: product.id,
-            tid: utm?.deal,
-        };
+        setIsSubmitting(true);
 
         try {
+            if (!shift4Instance || !componentsGroup || !product) {
+                triggerToast({
+                    title: "An unexpected error occurred. Please try again later.",
+                    type: toastType.error,
+                });
+                setIsSubmitting(false);
+                return;
+            }
+
+            let utm: Record<string, any> | undefined;
+            try {
+                const stored = localStorage.getItem("utm_params");
+                if (stored) utm = JSON.parse(stored);
+            } catch {}
+
+            const mpPayload = {
+                distinct_id: String(userId ?? ""),
+                product_name: product.name,
+                value: product.amount / 100,
+                currency: "USD",
+                product_id: product.id,
+                tid: utm?.deal,
+            };
+
             analyticsService.trackPaymentEvent(AnalyticsEventTypeEnum.PAYMENT_INITIATED, mpPayload);
 
             if (typeof window !== 'undefined' && posthog) {
@@ -289,6 +299,8 @@ export function usePaymentForm(posthog?: any) {
                                     window.location.href = redirectUrlWithToken;
                                 },
                                 (errorMessage: string) => {
+                                    setIsSubmitting(false);
+                                    
                                     analyticsService.trackPaymentEvent(
                                         AnalyticsEventTypeEnum.PAYMENT_FAILED,
                                         mpPayload,
@@ -301,15 +313,24 @@ export function usePaymentForm(posthog?: any) {
                                 },
                             );
                         } else {
+                            setIsSubmitting(false);
+                            
                             analyticsService.trackPaymentEvent(
                                 AnalyticsEventTypeEnum.PAYMENT_FAILED,
                                 mpPayload,
                             );
+
+                            triggerToast({
+                                title: "An unexpected error occurred. Please try again later.",
+                                type: toastType.error,
+                            });
                         }
                     },
                     onError: (error) => {
                         console.error("Payment processing error:", error);
+                        
                         setIsPolling(false);
+                        setIsSubmitting(false);
 
                         analyticsService.trackPaymentEvent(
                             AnalyticsEventTypeEnum.PAYMENT_FAILED,
@@ -326,7 +347,17 @@ export function usePaymentForm(posthog?: any) {
             );
         } catch (error: any) {
             console.error("Payment processing error:", error);
+            
             setIsPolling(false);
+            setIsSubmitting(false);
+
+            const mpPayload = {
+                distinct_id: String(userId ?? ""),
+                product_name: product?.name || "",
+                value: product?.amount ? product.amount / 100 : 0,
+                currency: "USD",
+                product_id: product?.id || "",
+            };
 
             analyticsService.trackPaymentEvent(AnalyticsEventTypeEnum.PAYMENT_FAILED, mpPayload);
 
@@ -340,7 +371,7 @@ export function usePaymentForm(posthog?: any) {
     return {
         product: product!,
         onSubmit,
-        isPending: isPending || isPolling || !componentsGroup || !isShift4Ready,
+        isPending: isPending || isPolling || isSubmitting || paymentCompleted || !componentsGroup || !isShift4Ready,
         isShift4Ready,
         shift4Error,
     };

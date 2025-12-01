@@ -277,7 +277,7 @@ export function usePaymentForm(posthog?: any) {
                                             product_id: product.id,
                                             product_name: product.name,
                                             user_id: userId,
-                                        });
+                                        },  {send_instantly: true});
                                     }
 
                                     analyticsService.trackPaymentEvent(

@@ -10,7 +10,6 @@ export function ClientPosthogProvider({
 }) {
   useEffect(() => {
     if (typeof window !== 'undefined' && !posthog.__loaded) {
-      console.log(import.meta.env.VITE_PUBLIC_POSTHOG_TOKEN!)
       posthog.init(import.meta.env.VITE_PUBLIC_POSTHOG_TOKEN!, {
         api_host: import.meta.env.VITE_PUBLIC_POSTHOG_HOST || 'https://eu.i.posthog.com',
         person_profiles: "identified_only",

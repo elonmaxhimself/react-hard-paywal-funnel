@@ -5,9 +5,9 @@ type VariantConfig = {
 
 export const EXPERIMENTS = {
   STARTING_STEP: {
-    flagKey: 'starting-steps',
+    flagKey: 'first-step-test',
     variants: {
-      'first-step_video0': {
+      'control ': {
         startStep: 0,
         videoUrl: '/video/0.mp4',
       } as VariantConfig,

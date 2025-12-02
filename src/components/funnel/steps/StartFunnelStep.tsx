@@ -11,7 +11,7 @@ export function StartFunnelStep() {
     const { nextStep } = useStepperContext();
     const form = useFormContext<FunnelSchema>();
     const posthog = usePostHog();
-    const variant = (posthog?.getFeatureFlag(EXPERIMENTS.STARTING_STEP.flagKey) as string) || 'first-step_video0';
+    const variant = (posthog?.getFeatureFlag(EXPERIMENTS.STARTING_STEP.flagKey) as string) || 'control ';
 
     const videoUrl = useMemo(() => {
         const config = EXPERIMENTS.STARTING_STEP.variants[

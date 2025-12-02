@@ -88,11 +88,11 @@ export function useFunnelForm() {
         const cleanup = posthog.onFeatureFlags(() => {
             try {
                 const variant = posthog.getFeatureFlag(EXPERIMENTS.STARTING_STEP.flagKey);
-                const variantKey = (variant as string) || 'first-step_video0';
+                const variantKey = (variant as string) || 'control ';
                 
                 const config = EXPERIMENTS.STARTING_STEP.variants[
                     variantKey as keyof typeof EXPERIMENTS.STARTING_STEP.variants
-                ] || EXPERIMENTS.STARTING_STEP.variants['first-step_video0'];
+                ] || EXPERIMENTS.STARTING_STEP.variants['control '];
                 
                 setStartingStep(config.startStep);
                 setIsExperimentReady(true);

@@ -11,7 +11,6 @@ export function StartFunnelStep() {
     const { nextStep } = useStepperContext();
     const form = useFormContext<FunnelSchema>();
     const posthog = usePostHog();
-
     const variant = (posthog?.getFeatureFlag(EXPERIMENTS.STARTING_STEP.flagKey) as string) || 'first-step_video0';
 
     const videoUrl = useMemo(() => {
@@ -27,6 +26,15 @@ export function StartFunnelStep() {
         form.reset(defaultValues);
     }, [form]);
 
+    const handleContainerClick = () => {
+        nextStep();
+    };
+
+    const handleButtonClick = (event: React.MouseEvent) => {
+        event.stopPropagation();
+        nextStep();
+    };
+
     return (
         <div className="w-full min-h-dvh box-border py-4 sm:py-6 px-[10px] sm:px-[15px] flex flex-col items-center justify-center overflow-hidden">
             <div className="mb-4">
@@ -34,9 +42,7 @@ export function StartFunnelStep() {
             </div>
             <div className="inline-block rounded-[10px] overflow-hidden bg-primary-gradient p-[1.5px]">
                 <div
-                    onClick={() => {
-                        nextStep();
-                    }}
+                    onClick={handleContainerClick}
                     className="relative bg-black rounded-[10px] overflow-hidden flex items-center justify-center"
                 >
                     <video
@@ -56,10 +62,7 @@ export function StartFunnelStep() {
                             create ai girlfriend for <span className="uppercase">free now</span>
                         </p>
                         <Button
-                            onClick={(event) => {
-                                event.stopPropagation();
-                                nextStep();
-                            }}
+                            onClick={handleButtonClick}
                             className="w-full sm:fit h-[45px] bg-primary-gradient text-white"
                         >
                             <img

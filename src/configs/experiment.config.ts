@@ -7,7 +7,7 @@ export const EXPERIMENTS = {
   STARTING_STEP: {
     flagKey: 'first-step-test',
     variants: {
-      'control ': {
+      'control': {
         startStep: 0,
         videoUrl: '/video/0.mp4',
       } as VariantConfig,

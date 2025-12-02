@@ -64,8 +64,8 @@ export function useSignUpForm(posthog?: any) {
         defaultValues: {
             email: "",
             password: "",
-            isAdult: undefined,
-            acceptedTerms: undefined,
+            isAdult: false,
+            acceptedTerms: false,
         },
     });
 
@@ -176,10 +176,13 @@ export function useSignUpForm(posthog?: any) {
                         posthog.identify(String(response.userId), {
                             email_domain: values.email.split("@")[1] || "",
                         });
-                        posthog.capture("account_created", {
-                            user_id: String(response.userId),
-                            email_domain: values.email.split("@")[1] || "",
-                        });
+
+                         setTimeout(() => {
+                            posthog.capture("account_created", {
+                                user_id: String(response.userId),
+                                email_domain: values.email.split("@")[1] || "",
+                            });
+                        }, 500);
                     }
                 } catch (e) {
                     console.warn("PostHog sign up tracking failed", e);

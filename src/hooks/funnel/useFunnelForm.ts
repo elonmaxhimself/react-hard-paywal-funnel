@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
+import { usePostHog } from 'posthog-js/react';
+import { EXPERIMENTS } from '@/configs/experiment.config';
 
 import { getFunnelStore } from "@/store/states/funnel";
 
@@ -69,8 +71,11 @@ const STEPS_COUNT = 44;
 const STEPS_INDICATOR_COUNT = 32;
 
 export function useFunnelForm() {
+    const posthog = usePostHog();
     const [active, setActive] = useState(0);
-    const [isReady, setIsReady] = useState(false);
+    const [isExperimentReady, setIsExperimentReady] = useState(false);
+    const [isFormReady, setIsFormReady] = useState(false);
+    const [startingStep, setStartingStep] = useState(0);
 
     const form = useForm<FunnelSchema>({
         resolver: zodResolver(funnelV3Schema),
@@ -78,19 +83,64 @@ export function useFunnelForm() {
     });
 
     useEffect(() => {
+        if (!posthog) return;
+
+        const cleanup = posthog.onFeatureFlags(() => {
+            try {
+                const variant = posthog.getFeatureFlag(EXPERIMENTS.STARTING_STEP.flagKey);
+                const variantKey = (variant as string) || 'first-step_video0';
+                
+                const config = EXPERIMENTS.STARTING_STEP.variants[
+                    variantKey as keyof typeof EXPERIMENTS.STARTING_STEP.variants
+                ] || EXPERIMENTS.STARTING_STEP.variants['first-step_video0'];
+                
+                setStartingStep(config.startStep);
+                setIsExperimentReady(true);
+                
+                posthog.capture('funnel_started', {
+                    variant: variantKey,
+                    starting_step: config.startStep,
+                });
+                
+                posthog.capture('character_creation_started', {
+                    variant: variantKey,
+                    starting_step: config.startStep,
+                });
+                
+                if (cleanup) cleanup();
+            } catch (error) {
+                console.error('PostHog feature flag processing error:', error);
+                setStartingStep(0);
+                setIsExperimentReady(true);
+            }
+        });
+
+        return () => {
+            if (cleanup) cleanup();
+        };
+    }, [posthog]);
+
+    useEffect(() => {
+        if (!isExperimentReady) return;
+
         try {
             const savedData = getFunnelStore().form;
             const savedStep = getFunnelStore().step;
-
+            
             if (savedData) form.reset(savedData);
-            if (savedStep) setActive(savedStep);
-        } catch {
-            form.reset();
-            setActive(0);
+            if (savedStep !== undefined && savedStep !== null) {
+                setActive(savedStep);
+            } else {
+                setActive(startingStep);
+            }
+        } catch (error) {
+            console.error('Form restoration error:', error);
+            form.reset(defaultValues);
+            setActive(startingStep);
         } finally {
-            setIsReady(true);
+            setIsFormReady(true);
         }
-    }, [form]);
+    }, [isExperimentReady, startingStep]);
 
     const nextStep = () => {
         const trigger = triggers[active as keyof typeof triggers];
@@ -107,7 +157,9 @@ export function useFunnelForm() {
         }
     };
 
-    const prevStep = () => setActive((current) => (current > 0 ? current - 1 : current));
+    const prevStep = () => setActive((current) => 
+        (current > startingStep ? current - 1 : current)
+    );
 
     return {
         form,
@@ -115,9 +167,10 @@ export function useFunnelForm() {
             value: active,
             onChange: setActive,
             max: STEPS_INDICATOR_COUNT,
+            startingStep,
             nextStep,
             prevStep,
         },
-        isReady,
+        isReady: isExperimentReady && isFormReady,
     };
 }

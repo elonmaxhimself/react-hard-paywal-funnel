@@ -3,7 +3,7 @@ import react from '@vitejs/plugin-react'
 import path from 'path'
 
 // https://vite.dev/config/
-export default defineConfig({
+export default defineConfig(({ mode }) => ({
   plugins: [react()],
   resolve: {
     alias: {
@@ -20,4 +20,4 @@ export default defineConfig({
     'import.meta.env.VITE_PUBLIC_POSTHOG_HOST': JSON.stringify(process.env.VITE_PUBLIC_POSTHOG_HOST || ''),
     'import.meta.env.VITE_PUBLIC_ENABLE_DEV_ANALYTICS': JSON.stringify(process.env.VITE_PUBLIC_ENABLE_DEV_ANALYTICS || ''),
   },
-})
+}))

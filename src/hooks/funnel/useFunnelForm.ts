@@ -83,16 +83,34 @@ export function useFunnelForm() {
     });
 
     useEffect(() => {
-        if (!posthog) return;
+        const token = import.meta.env.VITE_PUBLIC_POSTHOG_TOKEN;
+        
+        if (!token) {
+            setStartingStep(0);
+            setIsExperimentReady(true);
+            return;
+        }
+
+        const timeout = setTimeout(() => {
+            console.warn('PostHog initialization timeout - continuing without analytics');
+            setStartingStep(0);
+            setIsExperimentReady(true);
+        }, 5000);
+
+        if (!posthog) {
+            return () => clearTimeout(timeout);
+        }
 
         const cleanup = posthog.onFeatureFlags(() => {
             try {
+                clearTimeout(timeout);
+                
                 const variant = posthog.getFeatureFlag(EXPERIMENTS.STARTING_STEP.flagKey);
-                const variantKey = (variant as string) || 'control ';
+                const variantKey = (variant as string) || 'control';
                 
                 const config = EXPERIMENTS.STARTING_STEP.variants[
                     variantKey as keyof typeof EXPERIMENTS.STARTING_STEP.variants
-                ] || EXPERIMENTS.STARTING_STEP.variants['control '];
+                ] || EXPERIMENTS.STARTING_STEP.variants['control'];
                 
                 setStartingStep(config.startStep);
                 setIsExperimentReady(true);
@@ -106,16 +124,16 @@ export function useFunnelForm() {
                     variant: variantKey,
                     starting_step: config.startStep,
                 });
-                
-                if (cleanup) cleanup();
             } catch (error) {
                 console.error('PostHog feature flag processing error:', error);
+                clearTimeout(timeout);
                 setStartingStep(0);
                 setIsExperimentReady(true);
             }
         });
 
         return () => {
+            clearTimeout(timeout);
             if (cleanup) cleanup();
         };
     }, [posthog]);

@@ -9,7 +9,7 @@ export default defineConfig(({ mode }) => {
   
   console.log('\n--- Your variables via process.env ---')
   console.log('VITE_PUBLIC_POSTHOG_TOKEN:', process.env.VITE_PUBLIC_POSTHOG_TOKEN)
-  console.log('VITE_PUBLIC_API_BASE_URL:', process.env.VITE_PUBLIC_API_BASE_URL)
+  console.log('VITE_PUBLIC_API_BASE_URL:', process.env.VITE_PUBLIC_API_BASE_URL, '1234')
   
   console.log('\n--- Default Cloudflare variables ---')
   console.log('CF_PAGES:', process.env.CF_PAGES)

@@ -4,14 +4,28 @@ import path from 'path'
 
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), '')
-
+  
   const defineConfig = mode === 'production' 
-    ? Object.keys(env)
-        .filter(key => key.startsWith('VITE_PUBLIC_'))
-        .reduce((acc, key) => {
-          acc[`import.meta.env.${key}`] = JSON.stringify(env[key])
-          return acc
-        }, {} as Record<string, string>)
+    ? {
+        'import.meta.env.VITE_PUBLIC_API_BASE_URL': JSON.stringify(
+          env.VITE_PUBLIC_API_BASE_URL || process.env.VITE_PUBLIC_API_BASE_URL
+        ),
+        'import.meta.env.VITE_PUBLIC_POSTHOG_TOKEN': JSON.stringify(
+          env.VITE_PUBLIC_POSTHOG_TOKEN || process.env.VITE_PUBLIC_POSTHOG_TOKEN
+        ),
+        'import.meta.env.VITE_PUBLIC_POSTHOG_HOST': JSON.stringify(
+          env.VITE_PUBLIC_POSTHOG_HOST || process.env.VITE_PUBLIC_POSTHOG_HOST
+        ),
+        'import.meta.env.VITE_PUBLIC_SHIFT4_PUBLISHABLE_KEY': JSON.stringify(
+          env.VITE_PUBLIC_SHIFT4_PUBLISHABLE_KEY || process.env.VITE_PUBLIC_SHIFT4_PUBLISHABLE_KEY
+        ),
+        'import.meta.env.VITE_PUBLIC_SHIFT4_PAYMENT_REDIRECT': JSON.stringify(
+          env.VITE_PUBLIC_SHIFT4_PAYMENT_REDIRECT || process.env.VITE_PUBLIC_SHIFT4_PAYMENT_REDIRECT
+        ),
+        'import.meta.env.VITE_PUBLIC_ENABLE_DEV_ANALYTICS': JSON.stringify(
+          env.VITE_PUBLIC_ENABLE_DEV_ANALYTICS || process.env.VITE_PUBLIC_ENABLE_DEV_ANALYTICS
+        ),
+      }
     : {}
 
   return {

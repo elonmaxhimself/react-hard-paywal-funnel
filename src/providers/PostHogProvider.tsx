@@ -8,7 +8,7 @@ export function ClientPosthogProvider({
   children: React.ReactNode
 }) {
   const token = import.meta.env.VITE_PUBLIC_POSTHOG_TOKEN;
-  console.log('test')
+  console.log(!!token)
   useEffect(() => {
     if (typeof window === 'undefined' || !token || posthog.__loaded) return;
 

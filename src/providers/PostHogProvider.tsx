@@ -23,7 +23,7 @@ export function ClientPosthogProvider({
       }
     })
   }, [token])
-
+ 
   if (!token) {
     return <>{children}</>
   }

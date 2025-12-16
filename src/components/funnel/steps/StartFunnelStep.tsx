@@ -27,11 +27,17 @@ export function StartFunnelStep() {
     }, [form]);
 
     const handleContainerClick = () => {
+        if (typeof window !== "undefined") {
+            posthog?.capture("character_creation_started");
+        }
         nextStep();
     };
 
     const handleButtonClick = (event: React.MouseEvent) => {
         event.stopPropagation();
+        if (typeof window !== "undefined") {
+            posthog?.capture("character_creation_started");
+        }
         nextStep();
     };
 

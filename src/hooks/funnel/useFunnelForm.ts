@@ -119,11 +119,6 @@ export function useFunnelForm() {
                     variant: variantKey,
                     starting_step: config.startStep,
                 });
-                
-                posthog.capture('character_creation_started', {
-                    variant: variantKey,
-                    starting_step: config.startStep,
-                });
             } catch (error) {
                 console.error('PostHog feature flag processing error:', error);
                 clearTimeout(timeout);

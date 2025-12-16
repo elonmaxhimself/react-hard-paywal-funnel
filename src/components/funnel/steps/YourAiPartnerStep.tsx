@@ -5,9 +5,11 @@ import { Button } from "@/components/ui/button";
 import { useStepperContext } from "@/components/stepper/Stepper.context";
 import StepWrapper from "@/components/StepWrapper";
 import SpriteIcon from "@/components/SpriteIcon";
+import { usePostHog } from "posthog-js/react";
 
 export function YourAiPartnerStep() {
     const { nextStep } = useStepperContext();
+    const posthog = usePostHog();
 
     return (
         <StepWrapper>
@@ -59,7 +61,12 @@ export function YourAiPartnerStep() {
                                     >
                                         <div className="max-w-[450px] w-full">
                                             <Button
-                                                onClick={nextStep}
+                                                onClick={() => {
+                                                    if (typeof window !== "undefined") {
+                                                        posthog?.capture("create_companion_button_clicked");
+                                                    }
+                                                    nextStep();
+                                                }}
                                                 className="w-full h-[45px] bg-primary-gradient flex items-center justify-center gap-2"
                                             >
                                                 <img

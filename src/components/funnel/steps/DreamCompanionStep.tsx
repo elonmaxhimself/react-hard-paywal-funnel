@@ -156,7 +156,7 @@ export function DreamCompanionStep() {
                             <Button
                                 onClick={() => {
                                     if (typeof window !== "undefined") {
-                                        posthog?.capture("create_ai_girlfriend_clicked");
+                                        posthog?.capture("start_chat_button_clicked");
                                     }
                                     nextStep();
                                 }}

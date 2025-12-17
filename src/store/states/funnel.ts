@@ -42,5 +42,5 @@ export const useFunnelStore = create<IFunnelState>()(
 );
 
 export const getFunnelStore = () => {
-  return useFunnelStore.getState();
+    return useFunnelStore.getState();
 };

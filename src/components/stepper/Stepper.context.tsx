@@ -4,6 +4,7 @@ export type StepperProps = {
     value: number;
     onChange: (stepIndex: number) => void;
     max: number;
+    startingStep?: number;
     nextStep: () => void;
     prevStep: () => void;
     classNames?: {
@@ -22,10 +23,8 @@ export function StepperContextProvider({ children, ...props }: PropsWithChildren
 
 export function useStepperContext() {
     const context = useContext(StepperContext);
-
     if (!context) {
         throw new Error("useStepperContext must be used within StepperContextProvider");
     }
-
     return context;
 }

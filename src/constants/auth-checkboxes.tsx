@@ -11,7 +11,7 @@ export const CHECKBOXES = [
         id: "agree-terms",
         label: (
             <span>
-                You agree to be bound by our&nbsp;
+                You agree to our&nbsp;
                 <a
                     href="https://valuable-wishbone-63d.notion.site/Terms-of-Service-2615e53c779980cb9a05ce9981c1f0fa"
                     target="_blank"

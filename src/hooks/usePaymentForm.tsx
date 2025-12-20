@@ -154,12 +154,15 @@ export function usePaymentForm(posthog?: any) {
                     // PostHog paywall opened tracking
                     try {
                         if (typeof window !== 'undefined' && posthog && product) {
-                            const cycle = product.durationMonths === 12 ? 'yearly' : 
-                                          product.durationMonths === 3 ? 'quarterly' : 'monthly';
                             posthog.capture('paywall_opened', {
-                                price_id: String(product.id),
-                                cycle: cycle,
-                                amount: product.amount / 100,
+                                value: product.amount / 100,
+                                currency: "USD",
+                                product_id: product.id,
+                                product_name: product.name,
+                                user_id: userId,
+                                payment_type: "subscription_initial_payment",
+                                monthly_billing_cycle: product.durationMonths,
+                                payment_provider: "shift4"
                             });
                         }
                     } catch (e) {
@@ -230,11 +233,14 @@ export function usePaymentForm(posthog?: any) {
 
             if (typeof window !== 'undefined' && posthog) {
                 posthog.capture('payment_initiated', {
-                    product_id: product.id,
-                    product_name: product.name,
                     value: product.amount / 100,
                     currency: "USD",
+                    product_id: product.id,
+                    product_name: product.name,
                     user_id: userId,
+                    payment_type: "subscription_initial_payment",
+                    monthly_billing_cycle: product.durationMonths,
+                    payment_provider: "shift4"                    
                 });
             }
 
@@ -283,6 +289,9 @@ export function usePaymentForm(posthog?: any) {
                                             product_id: product.id,
                                             product_name: product.name,
                                             user_id: userId,
+                                            payment_type: "subscription_initial_payment",
+                                            monthly_billing_cycle: product.durationMonths,
+                                            payment_provider: "shift4"
                                         },  {send_instantly: true});
                                     }
 

@@ -181,6 +181,8 @@ export function useSignUpForm(posthog?: any) {
                             posthog.capture("account_created", {
                                 user_id: String(response.userId),
                                 email_domain: values.email.split("@")[1] || "",
+                                auth_method: "email",
+                                source: "hard_paywall_funnel"
                             });
                         }, 500);
                     }

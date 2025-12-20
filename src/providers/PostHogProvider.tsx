@@ -15,7 +15,7 @@ export function ClientPosthogProvider({
     posthog.init(token, {
       api_host: import.meta.env.VITE_PUBLIC_POSTHOG_HOST || 'https://eu.i.posthog.com',
       person_profiles: "identified_only",
-      capture_pageview: false,
+      capture_pageview: true,
       persistence: 'sessionStorage',
       loaded: (posthog) => {
         const authData = localStorage.getItem("auth-storage");

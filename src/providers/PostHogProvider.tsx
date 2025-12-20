@@ -35,6 +35,8 @@ export function ClientPosthogProvider({
         if (import.meta.env.DEV && import.meta.env.VITE_PUBLIC_ENABLE_DEV_ANALYTICS !== 'true') {
           posthog.opt_out_capturing()
         }
+        
+        window.dispatchEvent(new CustomEvent('posthog-loaded'));
       }
     })
   }, [token])

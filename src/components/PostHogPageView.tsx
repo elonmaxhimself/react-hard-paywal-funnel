@@ -1,4 +1,3 @@
-// src/components/PostHogPageView.tsx
 import { useEffect } from "react";
 import { usePostHog } from "posthog-js/react";
 
@@ -6,13 +5,25 @@ export default function PostHogPageView() {
   const posthog = usePostHog();
   
   useEffect(() => {
-    if (typeof window !== 'undefined' && posthog) {
-      const url = window.location.href;
+    if (!posthog) return;
+    
+    const sendPageview = () => {
       posthog.capture("$pageview", {
-        $current_url: url,
+        $current_url: window.location.href,
       });
+    };
+    
+    if (posthog.__loaded) {
+      sendPageview();
+    } else {
+      const handleLoaded = () => sendPageview();
+      window.addEventListener('posthog-loaded', handleLoaded, { once: true });
+      
+      return () => {
+        window.removeEventListener('posthog-loaded', handleLoaded);
+      };
     }
   }, [posthog]);
-
+  
   return null;
 }

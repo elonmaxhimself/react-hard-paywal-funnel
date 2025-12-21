@@ -57,7 +57,7 @@ export function usePaymentForm(posthog?: any) {
         onError: (errorMessage: string) => void,
     ) => {
         const pollInterval = 5000;
-        const maxAttempts = 30;
+        const maxAttempts = 48;
         let attempts = 0;
 
         setIsPolling(true);

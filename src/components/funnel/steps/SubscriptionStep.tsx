@@ -192,7 +192,7 @@ const BENEFITS = [
     "Discreet",
 ] as const;
 
-const DEFAULT_PRODUCT_ID = 102;
+
 
 function useMeasure() {
     const ref = useRef<HTMLDivElement>(null);
@@ -219,7 +219,8 @@ export function SubscriptionStep() {
   
     const pricingVariant = String(posthog?.getFeatureFlag('pricing_ab_test') || 'control');
     const productIds: readonly number[] = EXPERIMENTS.PRICING.variants[pricingVariant as keyof typeof EXPERIMENTS.PRICING.variants] || EXPERIMENTS.PRICING.variants.control;
-
+    const DEFAULT_PRODUCT_ID = productIds[1];
+    
     const activeSubscriptions = useMemo(() => {
         return subscriptions.filter(sub => productIds.includes(sub.productId));
     }, [productIds]);

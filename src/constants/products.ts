@@ -4,8 +4,6 @@ export interface Product {
   amount: number;
   currency: string;
   durationMonths: number;
-  isIntroOffer?: boolean;
-  upgradesTo?: number;
 }
 
 export const products: Product[] = [
@@ -50,8 +48,6 @@ export const products: Product[] = [
     amount: 499,
     currency: "USD",
     durationMonths: 0,
-    isIntroOffer: true,
-    upgradesTo: 36,
   },
   {
     id: 102,
@@ -59,8 +55,6 @@ export const products: Product[] = [
     amount: 1999,
     currency: "USD",
     durationMonths: 1,
-    isIntroOffer: true,
-    upgradesTo: 36,
   },
   {
     id: 103,
@@ -68,8 +62,6 @@ export const products: Product[] = [
     amount: 2999,
     currency: "USD",
     durationMonths: 3,
-    isIntroOffer: true,
-    upgradesTo: 38,
   },
   {
     id: 104,
@@ -77,8 +69,6 @@ export const products: Product[] = [
     amount: 799,
     currency: "USD",
     durationMonths: 0,
-    isIntroOffer: true,
-    upgradesTo: 152,
   },
   {
     id: 105,
@@ -86,8 +76,6 @@ export const products: Product[] = [
     amount: 999,
     currency: "USD",
     durationMonths: 0,
-    isIntroOffer: true,
-    upgradesTo: 152,
   },
   {
     id: 152,

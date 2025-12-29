@@ -4,6 +4,8 @@ export interface Product {
   amount: number;
   currency: string;
   durationMonths: number;
+  isIntroOffer?: boolean;
+  upgradesTo?: number;
 }
 
 export const products: Product[] = [
@@ -48,6 +50,8 @@ export const products: Product[] = [
     amount: 499,
     currency: "USD",
     durationMonths: 0,
+    isIntroOffer: true,
+    upgradesTo: 36,
   },
   {
     id: 102,
@@ -55,6 +59,8 @@ export const products: Product[] = [
     amount: 1999,
     currency: "USD",
     durationMonths: 1,
+    isIntroOffer: true,
+    upgradesTo: 36,
   },
   {
     id: 103,
@@ -62,5 +68,46 @@ export const products: Product[] = [
     amount: 2999,
     currency: "USD",
     durationMonths: 3,
+    isIntroOffer: true,
+    upgradesTo: 38,
+  },
+  {
+    id: 104,
+    name: "7 Days Intro Offer",
+    amount: 799,
+    currency: "USD",
+    durationMonths: 0,
+    isIntroOffer: true,
+    upgradesTo: 152,
+  },
+  {
+    id: 105,
+    name: "7 Days Intro Offer",
+    amount: 999,
+    currency: "USD",
+    durationMonths: 0,
+    isIntroOffer: true,
+    upgradesTo: 152,
+  },
+  {
+    id: 152,
+    name: "Monthly Deluxe Subscription",
+    amount: 1999,
+    currency: "USD",
+    durationMonths: 1,
+  },
+  {
+    id: 153,
+    name: "Quarterly Deluxe Subscription",
+    amount: 2999,
+    currency: "USD",
+    durationMonths: 3,
+  },
+  {
+    id: 154,
+    name: "Yearly Deluxe Subscription",
+    amount: 6999,
+    currency: "USD",
+    durationMonths: 12,
   },
 ];

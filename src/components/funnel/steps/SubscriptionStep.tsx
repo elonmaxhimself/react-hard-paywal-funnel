@@ -215,21 +215,18 @@ export function SubscriptionStep() {
     const { nextStep } = useStepperContext();
     const setIsSpecialOfferOpened = useStore((state) => state.offer.setIsSpecialOfferOpened);
     const isSpecialOfferOpened = useStore((state) => state.offer.isSpecialOfferOpened);
-    const posthog = usePostHog();
-
-  
     const savedPricingVariant = useFunnelStore((s) => s.pricingVariant);
     const setPricingVariant = useFunnelStore((s) => s.setPricingVariant);
+    const posthog = usePostHog();
 
-    const pricingVariant = useMemo(() => {
-        if (savedPricingVariant) {
-            return savedPricingVariant;
-        }
+    useEffect(() => {
+        if (savedPricingVariant || !posthog) return;
         
-        const variant = String(posthog?.getFeatureFlag('pricing_ab_test') || 'control');
+        const variant = String(posthog.getFeatureFlag('pricing_ab_test') || 'control');
         setPricingVariant(variant);
-        return variant;
     }, [savedPricingVariant, posthog, setPricingVariant]);
+
+    const pricingVariant = savedPricingVariant || 'control';
 
     const productIds: readonly number[] = EXPERIMENTS.PRICING.variants[pricingVariant as keyof typeof EXPERIMENTS.PRICING.variants] || EXPERIMENTS.PRICING.variants.control;
     const DEFAULT_PRODUCT_ID = productIds[1];

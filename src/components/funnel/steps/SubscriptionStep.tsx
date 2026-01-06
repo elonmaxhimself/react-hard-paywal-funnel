@@ -5,6 +5,7 @@ import { useFormContext } from "react-hook-form";
 import SaleBanner from "@/components/SaleBanner";
 import { Button } from "@/components/ui/button";
 import { useStepperContext } from "@/components/stepper/Stepper.context";
+import { useFunnelStore } from "@/store/states/funnel"; 
 import {
     Accordion,
     AccordionContent,
@@ -217,7 +218,19 @@ export function SubscriptionStep() {
     const posthog = usePostHog();
 
   
-    const pricingVariant = String(posthog?.getFeatureFlag('pricing_ab_test') || 'control');
+    const savedPricingVariant = useFunnelStore((s) => s.pricingVariant);
+    const setPricingVariant = useFunnelStore((s) => s.setPricingVariant);
+
+    const pricingVariant = useMemo(() => {
+        if (savedPricingVariant) {
+            return savedPricingVariant;
+        }
+        
+        const variant = String(posthog?.getFeatureFlag('pricing_ab_test') || 'control');
+        setPricingVariant(variant);
+        return variant;
+    }, [savedPricingVariant, posthog, setPricingVariant]);
+
     const productIds: readonly number[] = EXPERIMENTS.PRICING.variants[pricingVariant as keyof typeof EXPERIMENTS.PRICING.variants] || EXPERIMENTS.PRICING.variants.control;
     const DEFAULT_PRODUCT_ID = productIds[1];
     

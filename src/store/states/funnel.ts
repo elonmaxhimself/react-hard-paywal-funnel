@@ -6,8 +6,10 @@ import { FunnelSchema } from "@/hooks/funnel/useFunnelForm";
 export interface IFunnelState {
     form: FunnelSchema | null;
     step: number | null;
+    pricingVariant: string | null;
     setFormState(form: FunnelSchema): void;
     setStep(step: number): void;
+    setPricingVariant(variant: string): void;
     reset(): void;
 }
 
@@ -16,6 +18,7 @@ export const useFunnelStore = create<IFunnelState>()(
         immer((set) => ({
             form: null,
             step: null,
+            pricingVariant: null,
             setFormState: (form) =>
                 set((state) => {
                     state.form = form;
@@ -24,10 +27,15 @@ export const useFunnelStore = create<IFunnelState>()(
                 set((state) => {
                     state.step = step;
                 }),
+            setPricingVariant: (variant) =>
+                set((state) => {
+                    state.pricingVariant = variant;
+                }),
             reset: () =>
                 set((state) => {
                     state.form = null;
                     state.step = null;
+                    state.pricingVariant = null;
                 }),
         })),
         {
@@ -36,6 +44,7 @@ export const useFunnelStore = create<IFunnelState>()(
             partialize: (state) => ({
                 form: state.form,
                 step: state.step,
+                pricingVariant: state.pricingVariant,
             }),
         },
     ),

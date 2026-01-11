@@ -19,6 +19,11 @@ export function ClientPosthogProvider({
       autocapture: false,
       capture_performance: false,
       persistence: 'sessionStorage',
+      capture_exceptions: {
+        capture_unhandled_errors: true,
+        capture_unhandled_rejections: true,
+        capture_console_errors: false
+      },
       loaded: (posthog) => {
         const authData = localStorage.getItem("auth-storage");
         if (authData) {

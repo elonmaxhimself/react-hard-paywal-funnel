@@ -17,6 +17,7 @@ export function ClientPosthogProvider({
       person_profiles: "identified_only",
       capture_pageview: true,
       autocapture: false,
+      capture_performance: false,
       persistence: 'sessionStorage',
       loaded: (posthog) => {
         const authData = localStorage.getItem("auth-storage");

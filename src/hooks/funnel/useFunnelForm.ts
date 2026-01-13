@@ -104,9 +104,7 @@ export function useFunnelForm() {
         const cleanup = posthog.onFeatureFlags(() => {
             try {
                 clearTimeout(timeout);
-                
-                console.log('🔔 onFeatureFlags callback fired');
-                
+
                 const variant = posthog.getFeatureFlag(EXPERIMENTS.STARTING_STEP.flagKey);
                 const variantKey = (variant as string) || 'control';
                 

@@ -122,17 +122,9 @@ export function useFunnelForm() {
                 const pricingVariant = funnelStore.pricingVariant || 
                                        String(posthog.getFeatureFlag('pricing_ab_test') || 'control');
                 
-                console.log('Current Zustand variant:', funnelStore.pricingVariant);
-                console.log('Variant to use:', pricingVariant);
-                console.log('PostHog distinct_id:', posthog.get_distinct_id());
-                
                 if (!funnelStore.pricingVariant) {
                     funnelStore.setPricingVariant(pricingVariant);
-                    console.log('Saved to Zustand:', pricingVariant);
-                } else {
-                    console.log('Skipped - already saved:', funnelStore.pricingVariant);
-                }
-                
+                } 
                 posthog.capture('funnel_started', {
                     variant: variantKey,
                     starting_step: config.startStep,

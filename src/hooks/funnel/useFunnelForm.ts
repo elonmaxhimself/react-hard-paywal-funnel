@@ -105,6 +105,8 @@ export function useFunnelForm() {
             try {
                 clearTimeout(timeout);
                 
+                console.log('🔔 onFeatureFlags callback fired');
+                
                 const variant = posthog.getFeatureFlag(EXPERIMENTS.STARTING_STEP.flagKey);
                 const variantKey = (variant as string) || 'control';
                 
@@ -115,14 +117,21 @@ export function useFunnelForm() {
                 setStartingStep(config.startStep);
                 setIsExperimentReady(true);
                 
-                const pricingVariant = String(posthog.getFeatureFlag(EXPERIMENTS.PRICING.flagKey) || 'control');
+                const funnelStore = getFunnelStore();
+            
+                const pricingVariant = funnelStore.pricingVariant || 
+                                       String(posthog.getFeatureFlag('pricing_ab_test') || 'control');
                 
-                posthog.capture('pricing_variant_assigned', {
-                    $set_once: {
-                        pricing_ab_test_variant: pricingVariant
-                    }
-                });
+                console.log('Current Zustand variant:', funnelStore.pricingVariant);
+                console.log('Variant to use:', pricingVariant);
+                console.log('PostHog distinct_id:', posthog.get_distinct_id());
                 
+                if (!funnelStore.pricingVariant) {
+                    funnelStore.setPricingVariant(pricingVariant);
+                    console.log('Saved to Zustand:', pricingVariant);
+                } else {
+                    console.log('Skipped - already saved:', funnelStore.pricingVariant);
+                }
                 
                 posthog.capture('funnel_started', {
                     variant: variantKey,

@@ -14,7 +14,7 @@ export function ClientPosthogProvider({
     
     posthog.init(token, {
       api_host: import.meta.env.VITE_PUBLIC_POSTHOG_HOST || 'https://eu.i.posthog.com',
-      person_profiles: "identified_only",
+      person_profiles: "always",
       capture_pageview: true,
       autocapture: false,
       capture_performance: false,

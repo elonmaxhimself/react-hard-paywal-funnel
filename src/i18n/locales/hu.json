@@ -256,7 +256,7 @@
         "answer3": "A prémium élmény nyújtására összpontosítunk, igényeidhez igazítva. Szolgáltatásunk fejlett technológiát, felhasználóbarát felületet és gyors támogatást egyesít, hogy biztosítsuk valódi értéket. Ne csak a szavunkra higgy — fedezd fel valódi értékeléseinket, hasonlítsd össze funkciókat és lásd meg, miért bíznak bennünk naponta ezrek. Még mindig bizonytalan vagy? <br />Lépj kapcsolatba velünk közvetlenül: ",
         "question4": "Hogyan van biztonságban személyes információm?",
         "answer4": "Komolyan vesszük adataid bizalmasságát. Fizetési feldolgozónk kezeli minden fizetési folyamatunkat, és mi nem tárolhatjuk vagy nézegethetjük hitelkártya-adataidat. Erős biztonsági protokollokat alkalmazunk, hogy biztosítsuk pénzügyi információid mindig biztonságban vannak. Minden információd titkosítva és biztonságosan tárolva, és bármikor törölheted fiókodat és adataidat.",
-        "supportEmail": "support@mydreamcompanion.com"
+        "answer3Suffix": " személyre szabott bemutatóért."
       },
       "benefits": {
         "dataProtection": "Adatvédelem banki kimutatásokban",

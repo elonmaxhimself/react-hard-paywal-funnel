@@ -256,7 +256,7 @@
         "answer3": "Ci concentriamo sull'offrire un'esperienza premium su misura per le tue esigenze. Il nostro servizio combina tecnologia avanzata, un'interfaccia user-friendly e un supporto reattivo per assicurarti un valore reale. Non crederci sulla parola — esplora le recensioni reali, confronta le funzionalità e scopri perché migliaia si fidano di noi ogni giorno. Ancora incerto? <br />Contattaci direttamente all'indirizzo ",
         "question4": "Come vengono protette le mie informazioni personali?",
         "answer4": "Prendiamo sul serio la riservatezza dei tuoi dati. Il nostro elaboratore di pagamenti gestisce tutti i nostri processi di pagamento e non possiamo conservare o visualizzare i dettagli della tua carta di credito. Implementiamo protocolli di sicurezza robusti per assicurarci che le tue informazioni finanziarie siano sempre al sicuro. Tutte le tue informazioni sono crittografate e archiviate in modo sicuro e puoi sempre eliminare il tuo account e i tuoi dati in qualsiasi momento.",
-        "supportEmail": "support@mydreamcompanion.com"
+        "answer3Suffix": " per una guida personalizzata."
       },
       "benefits": {
         "dataProtection": "Protezione dei dati negli estratti conto bancari",

@@ -256,7 +256,7 @@
         "answer3": "Wir konzentrieren uns darauf, ein Premium-Erlebnis zu bieten, das auf deine Bedürfnisse zugeschnitten ist. Unser Service kombiniert fortschrittliche Technologie, eine benutzerfreundliche Oberfläche und reaktionsschnellen Support, um sicherzustellen, dass du echten Mehrwert erhältst. Verlasse dich nicht nur auf unser Wort – erkunde echte Bewertungen, vergleiche Funktionen und sieh, warum Tausende uns täglich vertrauen. Immer noch unsicher? <br />Kontaktiere uns direkt unter ",
         "question4": "Wie werden meine persönlichen Daten geschützt?",
         "answer4": "Wir nehmen die Vertraulichkeit deiner Daten ernst. Unser Zahlungsabwickler kümmert sich um alle unsere Zahlungsprozesse, und wir können deine Kreditkartendaten weder speichern noch einsehen. Wir implementieren starke Sicherheitsprotokolle, um sicherzustellen, dass deine Finanzinformationen immer sicher sind. Alle deine Informationen sind verschlüsselt und sicher gespeichert, und du kannst dein Konto und deine Daten jederzeit löschen.",
-        "supportEmail": "support@mydreamcompanion.com"
+        "answer3Suffix": " für eine persönliche Führung."
       },
       "benefits": {
         "dataProtection": "Datenschutz in Kontoauszügen",

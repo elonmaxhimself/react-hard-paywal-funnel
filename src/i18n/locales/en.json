@@ -256,7 +256,7 @@
         "answer3": "We focus on delivering a premium experience tailored to your needs. Our service combines advanced technology, a user-friendly interface, and responsive support to ensure you get real value. Don't just take our word for it — explore real reviews, compare features, and see why thousands trust us daily. Still unsure? <br />Contact us directly at ",
         "question4": "How is my personal information kept secure??",
         "answer4": "We take the confidentiality of your data seriously. Our payment processor handles all our payment processes, and we can't keep or look at your credit card details. We implement strong security protocols to make sure your financial information is always safe. All your information is encrypted and stored securely and you can always delete your account and data at any time.",
-        "supportEmail": "support@mydreamcompanion.com"
+        "answer3Suffix": " for a personalized walkthrough."
       },
       "benefits": {
         "dataProtection": "Data protection in bank statements",

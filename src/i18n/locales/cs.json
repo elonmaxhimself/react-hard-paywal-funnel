@@ -256,7 +256,7 @@
         "answer3": "Zaměřujeme se na poskytování prémiové zkušenosti přizpůsobené vašim potřebám. Naše služba kombinuje pokročilou technologii, uživatelsky přívětivé rozhraní a rychlou podporu, abychom zajistili, že získáte skutečnou hodnotu. Neberte nás za slovo — prozkoumejte skutečné recenze, porovnejte funkce a zjistěte, proč nám tisíce lidí denně důvěřují. Stále si nejste jistí? <br />Kontaktujte nás přímo na ",
         "question4": "Jak jsou moje osobní údaje zabezpečeny?",
         "answer4": "Bereme důvěrnost vašich dat vážně. Náš platební procesor zpracovává všechny naše platební procesy a nemůžeme ukládat ani prohlížet údaje o vaší kreditní kartě. Implementujeme silné bezpečnostní protokoly, abychom zajistili, že vaše finanční informace jsou vždy v bezpečí. Všechny vaše informace jsou šifrovány a bezpečně uloženy a svůj účet a data můžete kdykoli smazat.",
-        "supportEmail": "support@mydreamcompanion.com"
+        "answer3Suffix": " pro personalizované prohlídky."
       },
       "benefits": {
         "dataProtection": "Ochrana dat ve výpisech z banky",

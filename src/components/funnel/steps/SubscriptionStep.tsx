@@ -1,6 +1,7 @@
 import { clsx } from "clsx";
-import { useEffect, useRef, useState, useMemo  } from "react";
+import { useEffect, useRef, useState, useMemo } from "react";
 import { useFormContext } from "react-hook-form";
+import { useTranslation, Trans } from "react-i18next";
 
 import SaleBanner from "@/components/SaleBanner";
 import { Button } from "@/components/ui/button";
@@ -26,172 +27,13 @@ import { getBlurredCharacterImage } from "@/utils/helpers/getBlurredCharacterIma
 
 import { type FunnelSchema } from "@/hooks/funnel/useFunnelForm";
 
-import { subscriptions } from "@/constants/subscriptions";
-import { reviews } from "@/constants/reviews";
+import { useSubscriptions } from "@/constants/subscriptions";
+import { useReviews } from "@/constants/reviews";
 import { brands } from "@/constants/brands";
-import { subscriptionTermsTexts } from "@/constants/subscriptionTermsTexts";
+import { useSubscriptionTermsTexts } from "@/constants/subscriptionTermsTexts";
 
 import SpriteIcon from "@/components/SpriteIcon";
 import { EXPERIMENTS } from "@/configs/experiment.config";
-
-const PERKS = [
-    { text: "🌶️ Spicy images" },
-    { text: "🥵 Spicy videos" },
-    { text: "🧠 Smartest Chat AI on the market" },
-    { text: "⏳ Long chat memory" },
-    { text: "👩🏼 Create multiple AI girls" },
-    { text: "📚 2000+ AI girls in 20+ categories" },
-    { text: "🔒 100% Content Privacy" },
-] as const;
-
-const FAQS = [
-    {
-        value: "item-1",
-        question: "What should I do if my payment card isn't working?",
-        answer: (
-            <>
-                We take extra precautions to prevent any unauthorized use of cards. Should your card
-                be declined, try the following steps: Turn off any VPNs or proxies; Double-check
-                your card details and that they match your bank's records; Ensure the country of
-                your card issuer matches your billing address; Use 3D Secure or a similar
-                verification service from your bank. If you're still having trouble, please contact
-                us at&nbsp;
-                <a
-                    target="_blank"
-                    href="mailto:support@mydreamcompanion.com"
-                    className="underline"
-                    rel="noopener noreferrer"
-                >
-                    support@mydreamcompanion.com
-                </a>
-                .
-            </>
-        ),
-    },
-    {
-        value: "item-2",
-        question: "How can I stop my subscription?",
-        answer: (
-            <>
-                You can cancel your subscription at any time from your account settings. Simply go
-                to the Billing section and click Cancel Subscription. Your access will remain active
-                until the end of the current billing cycle. If you experience any issues or need
-                help, feel free to reach out to us at&nbsp;
-                <a
-                    target="_blank"
-                    href="mailto:support@mydreamcompanion.com"
-                    className="underline"
-                    rel="noopener noreferrer"
-                >
-                    support@mydreamcompanion.com
-                </a>
-                .
-            </>
-        ),
-    },
-    {
-        value: "item-3",
-        question: "How can I be sure your service is the best out there?",
-        answer: (
-            <>
-                We focus on delivering a premium experience tailored to your needs. Our service
-                combines advanced technology, a user-friendly interface, and responsive support to
-                ensure you get real value. Don't just take our word for it — explore real reviews,
-                compare features, and see why thousands trust us daily. Still unsure? <br />
-                Contact us directly at&nbsp;
-                <a
-                    target="_blank"
-                    href="mailto:support@mydreamcompanion.com"
-                    className="underline"
-                    rel="noopener noreferrer"
-                >
-                    support@mydreamcompanion.com
-                </a>
-                &nbsp;for a personalized walkthrough.
-            </>
-        ),
-    },
-    {
-        value: "item-4",
-        question: "How is my personal information kept secure??",
-        answer: (
-            <>
-                We take the confidentiality of your data seriously. Our payment processor handles
-                all our payment processes, and we can't keep or look at your credit card details. We
-                implement strong security protocols to make sure your financial information is
-                always safe. All your information is encrypted and stored securely and you can
-                always delete your account and data at any time.
-            </>
-        ),
-    },
-] as const;
-
-const stats = [
-    {
-        icon: "/images/gold-icons/icons.svg",
-        value: "20 000 000 +",
-        label: "AI companions created",
-    },
-    {
-        icon: "/images/gold-icons/icons.svg",
-        value: "50 000 000",
-        label: "photos and videos",
-    },
-    {
-        icon: "/images/gold-icons/star-award.svg",
-        value: "4.9/5",
-        label: "average satisfaction score",
-    },
-    {
-        icon: "/images/gold-icons/star.svg",
-        value: "5+",
-        label: "New Features every month",
-    },
-];
-
-const steps = [
-    {
-        step: "Step 1",
-        title: "Get your plan",
-        desc: "We've already set your profile! You will get access immediately after your purchase",
-        img: "/images/how-it-work/circle.png",
-        bgFrom: "#361728",
-        bgTo: "#2B2136",
-        borderFrom: "#361728",
-        borderTo: "#2B2136",
-    },
-    {
-        step: "Step 2",
-        title: "Connect & chat",
-        desc: "Start Chatting with your AI girl, create new one or chat with one of 4000+ ready AI companions",
-        img: "/images/how-it-work/photo.png",
-        pClass: "mb-[-35px]",
-        bgFrom: "#361728",
-        bgTo: "#2B2136",
-        borderFrom: "#361728",
-        borderTo: "#2B2136",
-    },
-    {
-        step: "Step 3",
-        title: "Dive in pleasure",
-        desc: "Flirt, develop relationships, generate images and videos, have fun and enjoy your experience",
-        img: "/images/how-it-work/chat.png",
-        bgFrom: "#361728",
-        bgTo: "#313137",
-        borderFrom: "#36172880",
-        borderTo: "#31313780",
-    },
-];
-
-const BENEFITS = [
-    "Data protection in bank statements",
-    <>
-        No hidden fees. <br /> Cancel anytime
-    </>,
-    "Antivirus Secured",
-    "Discreet",
-] as const;
-
 
 
 function useMeasure() {
@@ -211,12 +53,15 @@ function useMeasure() {
 }
 
 export function SubscriptionStep() {
+    const subscriptions = useSubscriptions();
+    const { t } = useTranslation();
+    const reviews = useReviews();
+    const subscriptionTermsTexts = useSubscriptionTermsTexts();
     const { nextStep } = useStepperContext();
     const setIsSpecialOfferOpened = useStore((state) => state.offer.setIsSpecialOfferOpened);
     const isSpecialOfferOpened = useStore((state) => state.offer.isSpecialOfferOpened);
     const posthog = usePostHog();
 
-  
     const pricingVariant = String(posthog?.getFeatureFlag('pricing_ab_test') || 'control');
     const productIds: readonly number[] = EXPERIMENTS.PRICING.variants[pricingVariant as keyof typeof EXPERIMENTS.PRICING.variants] || EXPERIMENTS.PRICING.variants.control;
     const DEFAULT_PRODUCT_ID = productIds[1];
@@ -224,6 +69,146 @@ export function SubscriptionStep() {
     const activeSubscriptions = useMemo(() => {
         return subscriptions.filter(sub => productIds.includes(sub.productId));
     }, [productIds]);
+
+    const stats = useMemo(() => [
+        {
+            icon: "/images/gold-icons/icons.svg",
+            value: "20 000 000 +",
+            label: t('funnel.subscriptionStep.stats.companionsCreated'),
+        },
+        {
+            icon: "/images/gold-icons/icons.svg",
+            value: "50 000 000",
+            label: t('funnel.subscriptionStep.stats.photosAndVideos'),
+        },
+        {
+            icon: "/images/gold-icons/star-award.svg",
+            value: "4.9/5",
+            label: t('funnel.subscriptionStep.stats.satisfactionScore'),
+        },
+        {
+            icon: "/images/gold-icons/star.svg",
+            value: "5+",
+            label: t('funnel.subscriptionStep.stats.newFeatures'),
+        },
+    ], [t]);
+
+    const steps = useMemo(() => [
+        {
+            step: t('funnel.subscriptionStep.steps.step1.step'),
+            title: t('funnel.subscriptionStep.steps.step1.title'),
+            desc: t('funnel.subscriptionStep.steps.step1.desc'),
+            img: "/images/how-it-work/circle.png",
+            bgFrom: "#361728",
+            bgTo: "#2B2136",
+            borderFrom: "#361728",
+            borderTo: "#2B2136",
+        },
+        {
+            step: t('funnel.subscriptionStep.steps.step2.step'),
+            title: t('funnel.subscriptionStep.steps.step2.title'),
+            desc: t('funnel.subscriptionStep.steps.step2.desc'),
+            img: "/images/how-it-work/photo.png",
+            pClass: "mb-[-35px]",
+            bgFrom: "#361728",
+            bgTo: "#2B2136",
+            borderFrom: "#361728",
+            borderTo: "#2B2136",
+        },
+        {
+            step: t('funnel.subscriptionStep.steps.step3.step'),
+            title: t('funnel.subscriptionStep.steps.step3.title'),
+            desc: t('funnel.subscriptionStep.steps.step3.desc'),
+            img: "/images/how-it-work/chat.png",
+            bgFrom: "#361728",
+            bgTo: "#313137",
+            borderFrom: "#36172880",
+            borderTo: "#31313780",
+        },
+    ], [t]);
+
+    const PERKS = useMemo(() => [
+        { text: `🌶️ ${t('funnel.subscriptionStep.perks.spicyImages')}` },
+        { text: `🥵 ${t('funnel.subscriptionStep.perks.spicyVideos')}` },
+        { text: `🧠 ${t('funnel.subscriptionStep.perks.smartestChat')}` },
+        { text: `⏳ ${t('funnel.subscriptionStep.perks.longMemory')}` },
+        { text: `👩🏼 ${t('funnel.subscriptionStep.perks.multipleGirls')}` },
+        { text: `📚 ${t('funnel.subscriptionStep.perks.aiGirlsLibrary')}` },
+        { text: `🔒 ${t('funnel.subscriptionStep.perks.contentPrivacy')}` },
+    ] as const, [t]);
+
+    const FAQS = useMemo(() => [
+        {
+            value: "item-1",
+            question: t('funnel.subscriptionStep.faqs.question1'),
+            answer: (
+                <>
+                    {t('funnel.subscriptionStep.faqs.answer1')}
+                    <a
+                        target="_blank"
+                        href={`mailto:${t('funnel.subscriptionStep.faqs.supportEmail')}`}
+                        className="underline"
+                        rel="noopener noreferrer"
+                    >
+                        {t('funnel.subscriptionStep.faqs.supportEmail')}
+                    </a>
+                    .
+                </>
+            ),
+        },
+        {
+            value: "item-2",
+            question: t('funnel.subscriptionStep.faqs.question2'),
+            answer: (
+                <>
+                    {t('funnel.subscriptionStep.faqs.answer2')}
+                    <a
+                        target="_blank"
+                        href={`mailto:${t('funnel.subscriptionStep.faqs.supportEmail')}`}
+                        className="underline"
+                        rel="noopener noreferrer"
+                    >
+                        {t('funnel.subscriptionStep.faqs.supportEmail')}
+                    </a>
+                    .
+                </>
+            ),
+        },
+        {
+            value: "item-3",
+            question: t('funnel.subscriptionStep.faqs.question3'),
+            answer: (
+                <>
+                    {t('funnel.subscriptionStep.faqs.answer3')}
+                    <a
+                        target="_blank"
+                        href={`mailto:${t('funnel.subscriptionStep.faqs.supportEmail')}`}
+                        className="underline"
+                        rel="noopener noreferrer"
+                    >
+                        {t('funnel.subscriptionStep.faqs.supportEmail')}
+                    </a>
+                    &nbsp;for a personalized walkthrough.
+                </>
+            ),
+        },
+        {
+            value: "item-4",
+            question: t('funnel.subscriptionStep.faqs.question4'),
+            answer: <>{t('funnel.subscriptionStep.faqs.answer4')}</>,
+        },
+    ] as const, [t]);
+
+    const BENEFITS = useMemo(() => [
+        t('funnel.subscriptionStep.benefits.dataProtection'),
+        <Trans 
+            key="benefit-2"
+            i18nKey="funnel.subscriptionStep.benefits.noHiddenFees"
+            components={{ br: <br /> }}
+        />,
+        t('funnel.subscriptionStep.benefits.antivirusSecured'),
+        t('funnel.subscriptionStep.benefits.discreet'),
+    ] as const, [t]);
 
     const [carouselApi, setCarouselApi] = useState<CarouselApi>();
 
@@ -240,7 +225,7 @@ export function SubscriptionStep() {
             form.setValue("productId", DEFAULT_PRODUCT_ID);
             setIsSpecialOfferOpened(false);
         }
-    }, [isSpecialOfferOpened, form, setIsSpecialOfferOpened]);
+    }, [isSpecialOfferOpened, form, setIsSpecialOfferOpened, DEFAULT_PRODUCT_ID]);
 
     useEffect(() => {
         if (!carouselApi) return;
@@ -292,7 +277,7 @@ export function SubscriptionStep() {
                         {hero.w > 0 && hero.h > 0 && (
                             <SpriteIcon
                                 src={characterPreviewImage}
-                                fallbackAlt={"Character Placeholder"}
+                                fallbackAlt={t('funnel.subscriptionStep.altCharacterPlaceholder')}
                                 targetW={hero.w}
                                 targetH={hero.h}
                                 fit="cover"
@@ -305,11 +290,13 @@ export function SubscriptionStep() {
 
                 <div className={"mt-[-20px] mb-[25px]"}>
                     <div className={"text-white text-[28px] font-bold text-center"}>
-                        Your Ai Girlfriend is Ready
+                        {t('funnel.subscriptionStep.title')}
                     </div>
                     <div className={"text-white/70 text-base font-medium text-center"}>
-                        Get access to everything she can do <br />
-                        for you right now
+                        <Trans 
+                            i18nKey="funnel.subscriptionStep.subtitle"
+                            components={{ br: <br /> }}
+                        />
                     </div>
                 </div>
 
@@ -331,7 +318,7 @@ export function SubscriptionStep() {
                                     {subscription.isBestChoice && (
                                         <div className="absolute top-[-12px] left-3 sm:left-4 bg-primary-gradient rounded-full flex items-center justify-center">
                                             <span className="text-white text-[10px] sm:text-xs font-semibold uppercase px-[10px] py-1">
-                                                BEST CHOICE
+                                                {t('funnel.subscriptionStep.bestChoice')}
                                             </span>
                                         </div>
                                     )}
@@ -358,7 +345,7 @@ export function SubscriptionStep() {
                                             ${subscription.salePriceInDays}
                                         </div>
                                         <span className="text-[10px] sm:text-[11px] text-white/50">
-                                            per day
+                                            {t('funnel.subscriptionStep.perDay')}
                                         </span>
                                     </div>
                                 </div>
@@ -366,20 +353,20 @@ export function SubscriptionStep() {
                         ))}
                         <div className="bg-white/3 flex gap-3 items-center justify-center h-[42px] rounded-[10px]">
                             <img
-                                alt="basket-cancel"
+                                alt={t('funnel.subscriptionStep.altBasketCancel')}
                                 src={"/icons/basket-cancel.svg"}
                                 width={20}
                                 height={20}
                             />
                             <p className="text-white font-medium text-[11px]">
-                                No commitment. Cancel anytime!
+                                {t('funnel.subscriptionStep.noCommitment')}
                             </p>
                         </div>
                         <Button
                             onClick={nextStep}
                             className={"w-full h-[45px] bg-primary-gradient"}
                         >
-                            <span className={"text-base font-bold"}>Get Exclusive Discount</span>
+                            <span className={"text-base font-bold"}>{t('funnel.subscriptionStep.getDiscount')}</span>
                         </Button>
                         {productId && subscriptionTermsTexts[productId] && (
                             <div
@@ -394,7 +381,7 @@ export function SubscriptionStep() {
                                 <div key={i} className="flex items-center gap-2">
                                     <img
                                         src="/icons/security-check-icon.svg"
-                                        alt="Sale Icon"
+                                        alt={t('funnel.subscriptionStep.altSecurityCheck')}
                                         width={20}
                                         height={20}
                                         className="w-[20px] h-[19px] invert brightness-0"
@@ -412,7 +399,7 @@ export function SubscriptionStep() {
                             <div className="flex-1 flex items-center relative">
                                 <SpriteIcon
                                     src={"/images/avatars/avatar_2.webp"}
-                                    fallbackAlt={"Avatar 1"}
+                                    fallbackAlt={t('funnel.subscriptionStep.altAvatar') + " 1"}
                                     targetW={31}
                                     targetH={31}
                                     fit="cover"
@@ -423,7 +410,7 @@ export function SubscriptionStep() {
                                 />
                                 <SpriteIcon
                                     src={"/images/avatars/avatar_7.webp"}
-                                    fallbackAlt={"Avatar 2"}
+                                    fallbackAlt={t('funnel.subscriptionStep.altAvatar') + " 2"}
                                     targetW={31}
                                     targetH={31}
                                     fit="cover"
@@ -434,7 +421,7 @@ export function SubscriptionStep() {
                                 />
                                 <SpriteIcon
                                     src={"/images/avatars/avatar_8.webp"}
-                                    fallbackAlt={"Avatar 3"}
+                                    fallbackAlt={t('funnel.subscriptionStep.altAvatar') + " 3"}
                                     targetW={31}
                                     targetH={31}
                                     fit="cover"
@@ -454,13 +441,13 @@ export function SubscriptionStep() {
                             </div>
 
                             <div className={"flex-1 text-white text-[10px] font-bold uppercase"}>
-                                3M+ happy users
+                                {t('funnel.subscriptionStep.happyUsers')}
                             </div>
 
                             <div className={"relative flex-1"}>
                                 <SpriteIcon
                                     src={"/images/award-ranking.svg"}
-                                    fallbackAlt={"#1 RANKED NSFW AI APP"}
+                                    fallbackAlt={t('funnel.subscriptionStep.altAwardRanking')}
                                     targetW={126}
                                     targetH={38}
                                     fit="contain"
@@ -534,14 +521,14 @@ export function SubscriptionStep() {
 
                         <div className="absolute top-3 right-0 w-[60px] h-[420px] bg-gray-2 rounded-[10px] text-white px-[9px] py-[8px]">
                             <p className="bg-gradient-primary font-bold text-[12px] p-[3px] text-center rounded-[4px]">
-                                PRO
+                                {t('funnel.subscriptionStep.pro')}
                             </p>
                             <div className="flex flex-col gap-7 mt-5 text-center items-center">
                                 {Array.from({ length: 7 }).map((_, i) => (
                                     <img
                                         key={i}
                                         src="/icons/tick.svg"
-                                        alt="ratingStar"
+                                        alt={t('funnel.subscriptionStep.altTick')}
                                         width={26}
                                         height={26}
                                         className="block"
@@ -557,7 +544,7 @@ export function SubscriptionStep() {
                         }
                     >
                         <div className={"text-white text-[20px] font-bold text-center mb-2"}>
-                            As Featured In
+                            {t('funnel.subscriptionStep.asFeatureIn')}
                         </div>
                         <div className={"grid grid-cols-3 gap-6 items-center justify-center"}>
                             {brands.map((brand) => (
@@ -576,15 +563,12 @@ export function SubscriptionStep() {
 
                     <div className={"w-full flex flex-col items-center gap-5 mb-[35px]"}>
                         <div className={"text-white text-[20px] font-bold text-center"}>
-                            Over{" "}
-                            <span
-                                className={
-                                    "bg-gradient-to-r from-[#ffc5b3] to-[#ff417d] text-transparent bg-clip-text"
-                                }
-                            >
-                                8000+ 5-star
-                            </span>{" "}
-                            reviews
+                            <Trans 
+                                i18nKey="funnel.subscriptionStep.reviews"
+                                components={{
+                                    gradient: <span className="bg-gradient-to-r from-[#ffc5b3] to-[#ff417d] text-transparent bg-clip-text" />
+                                }}
+                            />
                         </div>
                         <div className={"w-full"}>
                             <Carousel
@@ -628,7 +612,7 @@ export function SubscriptionStep() {
                                                                     <img
                                                                         key={i}
                                                                         src="/icons/rating-star.svg"
-                                                                        alt="ratingStar"
+                                                                        alt={t('funnel.subscriptionStep.altRatingStar')}
                                                                         width={16}
                                                                         height={16}
                                                                         className="inline-block"
@@ -657,10 +641,12 @@ export function SubscriptionStep() {
 
                     <div className="w-full flex flex-col gap-[15px] mb-[35px]">
                         <div className="text-white text-[20px] font-bold text-center">
-                            How it{" "}
-                            <span className="bg-gradient-to-r from-[#ff6b96] to-[#ff417d] text-transparent bg-clip-text">
-                                works
-                            </span>
+                            <Trans 
+                                i18nKey="funnel.subscriptionStep.howItWorks"
+                                components={{
+                                    gradient: <span className="bg-gradient-to-r from-[#ff6b96] to-[#ff417d] text-transparent bg-clip-text" />
+                                }}
+                            />
                         </div>
 
                         <div className="grid gap-[20px]">
@@ -721,7 +707,7 @@ export function SubscriptionStep() {
                         <div className="flex justify-center">
                             <img
                                 src="/images/3m-users.svg"
-                                alt="3m-users"
+                                alt={t('funnel.subscriptionStep.alt3mUsers')}
                                 width={400}
                                 height={400}
                                 className="block"
@@ -757,7 +743,7 @@ export function SubscriptionStep() {
 
                     <div className="w-full flex flex-col gap-[15px] mb-[35px]">
                         <div className="text-white text-[20px] font-bold text-center">
-                            Frequently Asked Questions
+                            {t('funnel.subscriptionStep.faq')}
                         </div>
                         <Accordion type="multiple" className="w-full" defaultValue={["item-1"]}>
                             {FAQS.map(({ value, question, answer }) => (

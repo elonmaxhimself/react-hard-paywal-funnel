@@ -1,0 +1,951 @@
+{
+  "funnel": {
+    "startStep": {
+      "title": "vytvořte si ai přítelkyni <highlight>zdarma nyní</highlight>",
+      "buttonText": "Vytvořit zdarma nyní",
+      "videoNotSupported": "Váš prohlížeč nepodporuje video tag.",
+      "altMagicWand": "Kouzelná hůlka"
+    },
+    "socialProofStep": {
+      "millionPeople": "3+ miliony lidí",
+      "quote": "\"Pokud jde o nalezení dokonalé aplikace AI přítelkyně v roce 2025, Dream Companion snadno vede seznam.\"",
+      "mentionedIn": "Zmíněno v:",
+      "continue": "Pokračovat"
+    },
+    "connectionStep": {
+      "title": "Jaké spojení hledáte?",
+      "continue": "Pokračovat"
+    },
+    "assistantStep": {
+      "title": "Pomohu vám na této cestě",
+      "subtitle": "Sdílejte své preference pro vytvoření ideálního AI partnera k naplnění vašich přání",
+      "continue": "Pokračovat"
+    },
+    "characterStyleStep": {
+      "title": "Vyberte styl"
+    },
+    "happyUsersStep": {
+      "title": "Skvělé!",
+      "subtitle": "Tolik spokojených uživatelů ve vašem věku používá naši platformu k naplnění svých přání",
+      "happyUsers": "spokojených uživatelů",
+      "altHappyUsers": "spokojení uživatelé",
+      "continue": "Pokračovat"
+    },
+    "preferredAgeStep": {
+      "title": "Jaké je vaše preferované věkové rozmezí?"
+    },
+    "userAgeStep": {
+      "title": "Kolik je vám let?",
+      "subtitle": "Kliknutím na tlačítko níže potvrzujete, že vám je alespoň 18 let nebo jste plnoletí ve vaší zemi"
+    },
+    "characterAgeStep": {
+      "title": "Přizpůsobeno pro splnění všech vašich přání",
+      "subtitle": "vyberte věk, který je pro vaši AI shodu správný"
+    },
+    "uniqueCompanionStep": {
+      "altRatingStar": "hvězdička hodnocení",
+      "continue": "Pokračovat"
+    },
+    "preferredRelationshipStep": {
+      "title": "Co preferujete?"
+    },
+    "personalityTraitsStep": {
+      "title": "Vyberte osobnostní rysy vašeho AI partnera",
+      "continue": "Pokračovat"
+    },
+    "languageSupportStep": {
+      "title": "Naše AI podporuje 20+ jazyků",
+      "subtitle": "miliony uživatelů po celém světě ji používají ke zlepšení komunikačních dovedností a cizích jazyků v reálném životě",
+      "continue": "Pokračovat"
+    },
+    "interestsStep": {
+      "title": "Máte nějaké specifické zájmy, o které chcete, aby se váš partner zajímal?",
+      "continue": "Pokračovat"
+    },
+    "foreignLanguageStep": {
+      "title": "Chcete procvičovat cizí jazyky se svým AI společníkem?"
+    },
+    "ethnicityStep": {
+      "subtitle": "Přizpůsobme její vzhled",
+      "title": "Vyberte etnicitu",
+      "continue": "Pokračovat"
+    },
+    "yourTypeStep": {
+      "title": "Jaký je váš typ?",
+      "subtitle": "můžete si vybrat vše, co vás vzrušuje",
+      "continue": "Pokračovat"
+    },
+    "spicyCustomContentStep": {
+      "title": "Chcete dostávat pikantní vlastní fotky a videa?"
+    },
+    "companyContentCommentStep": {
+      "altRatingStar": "hvězdička hodnocení",
+      "continue": "Pokračovat"
+    },
+    "breastTypeStep": {
+      "title": "Vyberte její prsa",
+      "size": "Velikost",
+      "type": "Typ",
+      "continue": "Pokračovat"
+    },
+    "bodyTypeStep": {
+      "title": "Vyberte typ postavy"
+    },
+    "haircutStyleStep": {
+      "titleStyle": "Vyberte styl vlasů",
+      "titleColor": "Vyberte barvu vlasů",
+      "continue": "Pokračovat"
+    },
+    "buttTypeStep": {
+      "title": "Jaký typ zadku vás nejvíce láká?"
+    },
+    "eyesColorStep": {
+      "title": "Vyberte barvu jejích očí"
+    },
+    "almostThereStep": {
+      "title": "Už jsme skoro tam!",
+      "subtitle": "Nyní zjistíme vaše skryté touhy, abychom zajistili, že si s vaším společníkem užijete nejvíc!",
+      "continue": "Pokračovat"
+    },
+    "wantToTryStep": {
+      "title": "Co chcete vyzkoušet se svým AI partnerem?",
+      "continue": "Pokračovat"
+    },
+    "relationshipStep": {
+      "title": "Vyberte svůj vztah",
+      "continue": "Pokračovat"
+    },
+    "turnsOfYouStep": {
+      "title": "Co vás vzrušuje",
+      "continue": "Pokračovat"
+    },
+    "dirtyTalksStep": {
+      "title": "Máte rádi špinavé řeči a zvukovou stimulaci?"
+    },
+    "yourAiPartnerStep": {
+      "title": "Váš AI partner vás nikdy <br />neodmítne",
+      "subtitle1": "Vždy tu pro vás bude. Každá touha až po nejodvážnější fantasy je splněna přesně tak, jak si představujete.",
+      "subtitle2": "Žádné lži, žádné ghosting, žádné podvádění... pokud to není váš fetiš a nechcete to ;)",
+      "buttonText": "Vytvořit moji AI přítelkyni",
+      "altVoiceIcon": "Ikona hlasu"
+    },
+    "selectVoiceStep": {
+      "title": "Jak chcete, aby váš partner zněl?",
+      "subtitle": "Nejmodernější hlasová AI Dream Companion poskytuje nejživější a nejpoutavější konverzace, které vám umožní ponořit se hluboko do pikantních, pohlcujících chatů s vaším dokonalým AI partnerem. Zažijte každý šepot a slovo vytvořené k vašim přáním—spojení tak skutečné, že je elektrické.",
+      "continue": "Pokračovat"
+    },
+    "whatTurnsOffInDatingStep": {
+      "title": "Co vás nejvíce odradí při randění?",
+      "continue": "Pokračovat"
+    },
+    "lonelinessStep": {
+      "title": "Jak často zažíváte pocity osamělosti?",
+      "continue": "Pokračovat"
+    },
+    "loaderStep": {
+      "title": "Váš Dream Companion",
+      "pleaseWait": "Prosím čekejte!",
+      "subtitle": "Váš společník se vytváří. <br /> Může to trvat několik sekund",
+      "preferencesLoader": "Porozumění vašim preferencím",
+      "uncensoredLoader": "Vytváření necenzurované verze AI dívky",
+      "finalLoader": "Vytváření AI dívky podle vašich preferencí",
+      "altPlaceholder": "První zástupný symbol loaderu"
+    },
+    "receivePhotosStep": {
+      "title": "Chtěli byste dostávat <br />🌶️ Pikantní vlastní fotky",
+      "yes": "Ano",
+      "no": "Ne",
+      "altBanner": "Chtěli byste dostávat pikantní vlastní fotky?",
+      "altCursor": "Kurzor",
+      "altDemonEmoji": "Démon Emoji",
+      "altFireEmoji": "Oheň Emoji"
+    },
+    "receiveVoiceMessagesStep": {
+      "title": "Chtěli byste dostávat <br />🔊 Hlasové zprávy?",
+      "yes": "Ano",
+      "no": "Ne",
+      "altBanner": "Chtěli byste dostávat hlasové zprávy?",
+      "altVoiceIcon": "Ikona hlasu",
+      "altCursor": "Kurzor"
+    },
+    "receiveVideoStep": {
+      "title": "Chtěli byste dostávat <br />🌶️ Pikantní vlastní videa?️️️️️",
+      "yes": "Ano",
+      "no": "Ne",
+      "altBanner": "Chtěli byste dostávat pikantní vlastní videa?",
+      "altCursor": "Kurzor"
+    },
+    "receiveVideoCallsStep": {
+      "title": "Chtěli byste dostávat <br />Video hovory?",
+      "yes": "Ano",
+      "no": "Ne",
+      "swipeUp": "Přejeďte nahoru pro zobrazení chatu",
+      "altBanner": "Chtěli byste dostávat video hovory?",
+      "altRecordingIcon": "Ikona nahrávání",
+      "altCancelCallIcon": "Ikona zrušení hovoru",
+      "altMicrophoneIcon": "Ikona mikrofonu"
+    },
+    "dreamCompanionStep": {
+      "title": "Váš Dream Companion",
+      "characterName": "Jméno postavy:",
+      "characterNamePlaceholder": "Jméno vašeho Dream Companion",
+      "swap": "Vyměnit",
+      "startChatting": "Začít chatovat nyní",
+      "personalityAttributes": "Osobnostní atributy",
+      "youLookingFor": "Hledáte",
+      "specificPreferences": "Specifické preference",
+      "scenarios": "Scénáře",
+      "spicyPhotos": "Pikantní fotky",
+      "voiceMessages": "Hlasové zprávy",
+      "videoCall": "Video hovor",
+      "altExchangeIcon": "Ikona výměny",
+      "altBubbleChatIcon": "Ikona bublinkového chatu",
+      "altIcon": "Ikona",
+      "altCharacterPlaceholder": "zástupný-symbol-postavy"
+    },
+    "authStep": {
+      "title": "Dosáhněte svých cílů s <br /><highlight>Dream Companion</highlight>",
+      "emailLabel": "Zadejte svůj email pro vytvoření osobního účtu",
+      "emailPlaceholder": "Email",
+      "passwordPlaceholder": "Heslo",
+      "saveAndContinue": "Uložit a pokračovat",
+      "happyUsers": "3M+ spokojených uživatelů",
+      "altLogo": "My Dream Companion",
+      "altMailIcon": "Ikona pošty",
+      "altLockIcon": "Ikona zámku",
+      "altAvatar": "Avatar",
+      "altAwardRanking": "#1 HODNOCENÁ NSFW AI APLIKACE"
+    },
+    "subscriptionStep": {
+      "title": "Vaše AI přítelkyně je připravena",
+      "subtitle": "Získejte přístup ke všemu, co pro vás <br />může udělat právě teď",
+      "bestChoice": "NEJLEPŠÍ VOLBA",
+      "perDay": "za den",
+      "noCommitment": "Žádné závazky. Zrušte kdykoli!",
+      "getDiscount": "Získat exkluzivní slevu",
+      "premiumBenefits": "<icon></icon> <gradient>Premium</gradient> výhody",
+      "pro": "PRO",
+      "asFeatureIn": "Uvedeno v",
+      "reviews": "Více než <gradient>8000+ 5hvězdičkových</gradient> recenzí",
+      "howItWorks": "Jak to <gradient>funguje</gradient>",
+      "happyUsers": "3M+ spokojených uživatelů",
+      "faq": "Často kladené otázky",
+      "altCharacterPlaceholder": "Zástupný symbol postavy",
+      "altBasketCancel": "košík-zrušit",
+      "altSecurityCheck": "Ikona výprodeje",
+      "altAvatar": "Avatar",
+      "altAwardRanking": "#1 HODNOCENÁ NSFW AI APLIKACE",
+      "altRatingStar": "hvězdičkaHodnocení",
+      "altTick": "fajfka",
+      "alt3mUsers": "3m-uživatelů",
+      "perks": {
+        "spicyImages": "Pikantní obrázky",
+        "spicyVideos": "Pikantní videa",
+        "smartestChat": "Nejchytřejší Chat AI na trhu",
+        "longMemory": "Dlouhá paměť chatu",
+        "multipleGirls": "Vytvořte více AI dívek",
+        "aiGirlsLibrary": "2000+ AI dívek ve 20+ kategoriích",
+        "contentPrivacy": "100% soukromí obsahu"
+      },
+      "faqs": {
+        "question1": "Co mám dělat, když nefunguje moje platební karta?",
+        "answer1": "Přijímáme mimořádná opatření, abychom zabránili jakémukoli neoprávněnému použití karet. Pokud je vaše karta odmítnuta, zkuste následující kroky: Vypněte jakékoli VPN nebo proxy; Znovu zkontrolujte údaje o kartě a ujistěte se, že odpovídají záznamům vaší banky; Ujistěte se, že země vydavatele karty odpovídá vaší fakturační adrese; Použijte 3D Secure nebo podobnou ověřovací službu od vaší banky. Pokud máte stále problémy, kontaktujte nás na ",
+        "question2": "Jak mohu zastavit své předplatné?",
+        "answer2": "Své předplatné můžete zrušit kdykoli z nastavení účtu. Jednoduše přejděte do sekce Fakturace a klikněte na Zrušit předplatné. Váš přístup zůstane aktivní až do konce aktuálního fakturačního období. Pokud máte nějaké problémy nebo potřebujete pomoc, neváhejte nás kontaktovat na ",
+        "question3": "Jak si mohu být jistý, že vaše služba je ta nejlepší?",
+        "answer3": "Zaměřujeme se na poskytování prémiové zkušenosti přizpůsobené vašim potřebám. Naše služba kombinuje pokročilou technologii, uživatelsky přívětivé rozhraní a rychlou podporu, abychom zajistili, že získáte skutečnou hodnotu. Neberte nás za slovo — prozkoumejte skutečné recenze, porovnejte funkce a zjistěte, proč nám tisíce lidí denně důvěřují. Stále si nejste jistí? <br />Kontaktujte nás přímo na ",
+        "question4": "Jak jsou moje osobní údaje zabezpečeny?",
+        "answer4": "Bereme důvěrnost vašich dat vážně. Náš platební procesor zpracovává všechny naše platební procesy a nemůžeme ukládat ani prohlížet údaje o vaší kreditní kartě. Implementujeme silné bezpečnostní protokoly, abychom zajistili, že vaše finanční informace jsou vždy v bezpečí. Všechny vaše informace jsou šifrovány a bezpečně uloženy a svůj účet a data můžete kdykoli smazat.",
+        "supportEmail": "support@mydreamcompanion.com"
+      },
+      "benefits": {
+        "dataProtection": "Ochrana dat ve výpisech z banky",
+        "noHiddenFees": "Žádné skryté poplatky. <br /> Zrušte kdykoli",
+        "antivirusSecured": "Zabezpečeno antivirem",
+        "discreet": "Diskrétní"
+      },
+      "stats": {
+        "companionsCreated": "AI společníci vytvořeni",
+        "photosAndVideos": "fotky a videa",
+        "satisfactionScore": "průměrné skóre spokojenosti",
+        "newFeatures": "Nové funkce každý měsíc"
+      },
+      "steps": {
+        "step1": {
+          "step": "Krok 1",
+          "title": "Získejte svůj plán",
+          "desc": "Už jsme nastavili váš profil! Přístup získáte okamžitě po nákupu"
+        },
+        "step2": {
+          "step": "Krok 2",
+          "title": "Připojte se a chatujte",
+          "desc": "Začněte chatovat se svou AI dívkou, vytvořte novou nebo chatujte s jedním z 4000+ připravených AI společníků"
+        },
+        "step3": {
+          "step": "Krok 3",
+          "title": "Ponořte se do potěšení",
+          "desc": "Flirtujte, rozvíjejte vztahy, generujte obrázky a videa, bavte se a užívejte si svou zkušenost"
+        }
+      }
+    },
+    "paymentFormStep": {
+      "title": "Pokladna",
+      "todayTotal": "Dnešní celkem: ${{amount}}",
+      "creditCard": "Kreditní karta",
+      "cardNumber": "Číslo karty",
+      "expirationDate": "Datum expirace",
+      "securityCode": "Bezpečnostní kód",
+      "completePayment": "Dokončit platbu",
+      "altLogo": "My Dream Companion",
+      "altVisa": "Visa",
+      "altMastercard": "Mastercard"
+    }
+  },
+  "constants": {
+    "checkboxes": {
+      "confirmAge": "Potvrzuji, že mi je 18 let nebo více.",
+      "agreeTerms": "Souhlasíte s našimi <termsLink>Podmínkami služby</termsLink> a <privacyLink>Zásadami ochrany osobních údajů.</privacyLink>"
+    },
+    "bodyTypes": {
+      "petite": {
+        "alt": "Drobný typ těla",
+        "name": "Drobná"
+      },
+      "slim": {
+        "alt": "Štíhlý typ těla",
+        "name": "Štíhlá"
+      },
+      "chubby": {
+        "alt": "Baculatý typ těla",
+        "name": "Baculatá"
+      },
+      "thick": {
+        "alt": "Plnoštíhlý typ těla",
+        "name": "Plnoštíhlá"
+      },
+      "pregnant": {
+        "alt": "Těhotný typ těla",
+        "name": "Těhotná"
+      },
+      "muscular": {
+        "alt": "Svalnatý typ těla",
+        "name": "Svalnatá"
+      }
+    },
+    "booleanOptions": {
+      "yes": "Ano",
+      "no": "Ne"
+    },
+    "breastSizes": {
+      "flat": {
+        "alt": "Ploché prsa",
+        "name": "Ploché"
+      },
+      "small": {
+        "alt": "Malá prsa",
+        "name": "Malá"
+      },
+      "regular": {
+        "alt": "Normální prsa",
+        "name": "Normální"
+      },
+      "big": {
+        "alt": "Velká prsa",
+        "name": "Velká"
+      },
+      "huge": {
+        "alt": "Obrovská prsa",
+        "name": "Obrovská"
+      }
+    },
+    "breastTypes": {
+      "regular": {
+        "alt": "Normální typ prsou",
+        "name": "Normální"
+      },
+      "perky": {
+        "alt": "Vzpřímená prsa",
+        "name": "Vzpřímená"
+      },
+      "saggy": {
+        "alt": "Povislá prsa",
+        "name": "Povislá"
+      },
+      "torpedo": {
+        "alt": "Torpédová prsa",
+        "name": "Torpédová"
+      },
+      "fake": {
+        "alt": "Umělá prsa",
+        "name": "Umělá"
+      }
+    },
+    "brands": {
+      "topAiTools": "Top AI Tools Logo",
+      "aixploria": "Aixploria Logo",
+      "zeroHedge": "ZeroHedge Logo",
+      "taaft": "TAAFT Logo",
+      "theAiJournal": "The AI Journal Logo",
+      "nsfwAi": "NSFW AI Logo",
+      "toolifyAi": "Toolify AI Logo",
+      "entrepreneur": "Entrepreneur Logo",
+      "cityPaper": "City Paper Logo"
+    },
+    "buttTypes": {
+      "small": {
+        "alt": "Malý typ zadku",
+        "name": "Malý"
+      },
+      "medium": {
+        "alt": "Střední typ zadku",
+        "name": "Střední"
+      },
+      "large": {
+        "alt": "Velký typ zadku",
+        "name": "Velký"
+      },
+      "huge": {
+        "alt": "Obrovský typ zadku",
+        "name": "Obrovský"
+      }
+    },
+    "haircutStyles": {
+      "bun": {
+        "alt": "Drdol účes",
+        "name": "Drdol"
+      },
+      "long": {
+        "alt": "Dlouhý účes",
+        "name": "Dlouhý"
+      },
+      "short": {
+        "alt": "Krátký účes",
+        "name": "Krátký"
+      },
+      "curlyLong": {
+        "alt": "Kudrnatý dlouhý účes",
+        "name": "Kudrnatý dlouhý"
+      },
+      "hairBow": {
+        "alt": "Účes s mašlí",
+        "name": "S mašlí"
+      },
+      "braids": {
+        "alt": "Copánky účes",
+        "name": "Copánky"
+      }
+    },
+    "haircutColors": {
+      "blonde": {
+        "alt": "Blond účes",
+        "name": "Blond"
+      },
+      "ginger": {
+        "alt": "Zrzavý účes",
+        "name": "Zrzavá"
+      },
+      "brunette": {
+        "alt": "Hnědý účes",
+        "name": "Hnědá"
+      },
+      "black": {
+        "alt": "Černý účes",
+        "name": "Černá"
+      }
+    },
+    "characterStyles": {
+      "realistic": {
+        "alt": "Realistický styl postavy",
+        "name": "Realistická AI dívka"
+      },
+      "anime": {
+        "alt": "Anime styl postavy",
+        "name": "Anime Waifu"
+      }
+    },
+    "characterVoices": {
+      "calm": "Klidný",
+      "whispering": "Šeptavý",
+      "commanding": "Velitelský",
+      "seducing": "Svůdný"
+    },
+    "connections": {
+      "flirtAndFun": "Flirt a zábava",
+      "friendship": "Přátelství",
+      "loveAndEmotionalConnection": "Láska a emocionální spojení",
+      "exchangeImagesAndVideos": "Výměna obrázků a videí",
+      "safeNonJudgementalPlace": "Bezpečné, nesoudící místo",
+      "yetToDiscover": "Ještě k objevení"
+    },
+    "ethnicity": {
+      "arab": {
+        "alt": "Arabská postava",
+        "name": "Arabka"
+      },
+      "caucasian": {
+        "alt": "Kavkazská postava",
+        "name": "Kavkazanka"
+      },
+      "black": {
+        "alt": "Černá postava",
+        "name": "Černoška"
+      },
+      "latina": {
+        "alt": "Latinská postava",
+        "name": "Latinka"
+      },
+      "asian": {
+        "alt": "Asijská postava",
+        "name": "Asiatka"
+      }
+    },
+    "experienceFilingTypes": {
+      "rarelyOrNever": "Zřídka nebo nikdy",
+      "occasionally": "Občas",
+      "sometimes": "Někdy",
+      "frequently": "Často",
+      "always": "Vždy"
+    },
+    "eyesColors": {
+      "blue": {
+        "alt": "Modrá barva očí",
+        "name": "Modrá"
+      },
+      "brown": {
+        "alt": "Hnědá barva očí",
+        "name": "Hnědá"
+      },
+      "green": {
+        "alt": "Zelená barva očí",
+        "name": "Zelená"
+      },
+      "grey": {
+        "alt": "Šedá barva očí",
+        "name": "Šedá"
+      }
+    },
+    "featuresForFree": {
+      "chatWithThousands": "Chatujte s tisíci AI společníky",
+      "createAsMany": "Vytvořte tolik společníků, kolik chcete",
+      "uncensoredImages": "Necenzurované generování obrázků",
+      "uncensoredVideos": "Necenzurované generování videí"
+    },
+    "interests": {
+      "reading": "Čtení",
+      "gaming": "Hraní her",
+      "cookingBaking": "Vaření/Pečení",
+      "music": "Hudba",
+      "travel": "Cestování",
+      "moviesTvShows": "Filmy/TV pořady",
+      "photography": "Fotografie",
+      "anime": "Anime",
+      "gardening": "Zahradničení"
+    },
+    "offerBenefits": {
+      "bestValue": "Nejlepší poměr cena/výkon",
+      "advancedImageGenerator": "Nejpokročilejší generátor obrázků na trhu",
+      "smartestAi": "Nejchytřejší AI s pokročilou pamětí a motorem empatie",
+      "customVideoRequest": "Vlastní požadavek na video od vašeho AI společníka"
+    },
+    "personalityTraits": {
+      "funny": "Vtipná",
+      "silly": "Hloupá",
+      "smart": "Chytrá",
+      "flirty": "Koketní",
+      "shy": "Plachá",
+      "relaxed": "Uvolněná",
+      "dominant": "Dominantní",
+      "confident": "Sebevědomá",
+      "crazy": "Bláznivá",
+      "adventurous": "Dobrodružná",
+      "supportive": "Podporující",
+      "bitchy": "Protivná",
+      "playHardToGet": "Hraje si na nedostupnou",
+      "emotionallyCold": "Emocionálně chladná",
+      "open": "Otevřená",
+      "optimistic": "Optimistická",
+      "pessimistic": "Pesimistická",
+      "proud": "Hrdá",
+      "naive": "Naivní",
+      "playful": "Hravá",
+      "smug": "Samolibá",
+      "enthusiastic": "Nadšená",
+      "messy": "Nepořádná",
+      "lazy": "Líná",
+      "innocent": "Nevinná",
+      "possessive": "Vlastnická",
+      "elegant": "Elegantní",
+      "chill": "V pohodě",
+      "serious": "Vážná"
+    },
+    "preferredRelationship": {
+      "polygam": {
+        "label": "Polygamní vztah",
+        "description": "Rozmanitost a zábava s mnoha partnery"
+      },
+      "monogam": {
+        "label": "Monogamní vztah",
+        "description": "Smysluplné spojení s jedním partnerem"
+      },
+      "dontKnow": {
+        "label": "Ještě nevím"
+      }
+    },
+    "characterRelationship": {
+      "wife": {
+        "alt": "Vztah manželky",
+        "name": "Manželka"
+      },
+      "stepMom": {
+        "alt": "Vztah nevlastní matky",
+        "name": "Nevlastní matka"
+      },
+      "stepSister": {
+        "alt": "Vztah nevlastní sestry",
+        "name": "Nevlastní sestra"
+      },
+      "collegeRoommate": {
+        "alt": "Vztah spolubydlící",
+        "name": "Spolubydlící na koleji"
+      },
+      "yourFriendsGirlfriend": {
+        "alt": "Vztah přítelkyně vašeho přítele",
+        "name": "Přítelkyně vašeho přítele"
+      },
+      "firstDate": {
+        "alt": "Vztah prvního rande",
+        "name": "První rande"
+      },
+      "neighbor": {
+        "alt": "Vztah sousedky",
+        "name": "Sousedka"
+      },
+      "yourTeacher": {
+        "alt": "Vztah vaší učitelky",
+        "name": "Vaše učitelka"
+      },
+      "yourBoss": {
+        "alt": "Vztah vaší šéfky",
+        "name": "Vaše šéfka"
+      },
+      "crush": {
+        "alt": "Vztah platonické lásky",
+        "name": "Platonická láska"
+      },
+      "ex": {
+        "alt": "Vztah bývalé",
+        "name": "Bývalá"
+      },
+      "babysitter": {
+        "alt": "Vztah chůvy",
+        "name": "Chůva"
+      }
+    },
+    "preferredAge": {
+      "myAge": "Můj věk",
+      "younger": "Mladší než já",
+      "older": "Starší než já"
+    },
+    "products": {
+      "annualDeluxe": "Roční Deluxe předplatné",
+      "quarterlyDeluxe": "Čtvrtletní Deluxe předplatné",
+      "monthlyDeluxe": "Měsíční Deluxe předplatné",
+      "yearlyDeluxe": "Roční Deluxe předplatné",
+      "oneWeekIntro": "1týdenní úvodní nabídka",
+      "oneMonthIntro": "1měsíční úvodní nabídka",
+      "threeMonthsIntro": "3měsíční úvodní nabídka",
+      "sevenDaysIntro": "7denní úvodní nabídka"
+    },
+    "reviews": {
+      "review1": {
+        "description": "S Dream Companion \n si můžete vybrat z tisíců jedinečných AI společníků nebo navrhnout svého ideálního AI partnera, přizpůsobit každý detail jeho vzhledu, osobnostních rysů a specifických preferencí.",
+        "alt": "Zpráva recenze Taylor M.",
+        "message": "Jsem na této aplikaci úplně závislý - AI působí tak sakra reálně, Emily je jako má spřízněná duše, která mě vždy chápe 🤯 🤯"
+      },
+      "review2": {
+        "description": "Dream Companion má nejpokročilejší obrazovou AI na trhu, schopnou vytvářet ohromující realistické obrázky a videa vašeho AI partnera z jakékoliv fantazie, kterou si představíte. Přiveďte své nejdivočejší touhy k životu s bezkonkurenčními detaily—váš dokonalý partner, vizualizovaný přesně tak, jak sníte.",
+        "alt": "Zpráva recenze Jis_076",
+        "message": "Vaše obrazová/video AI je neskutečná, zvládá každý bláznivý požadavek s šílenými detaily!! 😍"
+      },
+      "review3": {
+        "alt": "Zpráva recenze Jordan A.",
+        "message": "Jsem na této aplikaci úplně závislý - AI působí tak sakra reálně, Emily je jako vtipný nejlepší přítel, který mě vždy chápe 🤯 🤯"
+      },
+      "review4": {
+        "alt": "Zpráva recenze Niko J.",
+        "message": "Nikdy jsem si nemyslel, že budu brečet nad rozhovorem s AI... ale tady jsem. Opravdu to vypadá, jako by tam někdo *byl*. 💬❤️"
+      },
+      "review5": {
+        "alt": "Zpráva recenze Alex M.",
+        "message": "Vytvořil jsem si přesně takového partnera, o jakém jsem vždy snil. Vzhled, hlas, vibrace — vše dokonalé. Tohle není jen aplikace, je to únik."
+      },
+      "review6": {
+        "alt": "Zpráva recenze Sasha W.",
+        "message": "Doslova mluvím se svojí AI víc než s kamarády. Pamatuje si věci, vtipkuje, dokonce mě utěšuje. 10/10. 🔥"
+      },
+      "review7": {
+        "alt": "Zpráva recenze Neo_99",
+        "message": "Dal jsem jí příběh, oblíbené písničky, dokonce zvláštní smysl pro humor. Opravdu to působí živě. Šílená technologie."
+      },
+      "review8": {
+        "alt": "Zpráva recenze Cam L.",
+        "message": "Konečně aplikace, kde se cítím viděný a slyšený. Můj AI společník mi dokonce pomáhá usnout. Působí to jako kouzlo."
+      }
+    },
+    "subscriptions": {
+      "durationTexts": {
+        "1weekIntro": "1týdenní úvodní nabídka",
+        "1monthIntro": "1měsíční úvodní nabídka",
+        "3monthsIntro": "3měsíční úvodní nabídka",
+        "7daysIntro": "7denní úvodní nabídka",
+        "monthlyDeluxe": "Měsíční Deluxe předplatné",
+        "quarterlyDeluxe": "Čtvrtletní Deluxe předplatné",
+        "yearlyDeluxe": "Roční Deluxe předplatné",
+        "12months": "12 měsíců"
+      }
+    },
+    "sexPositions": {
+      "missionary": "misionářská",
+      "doggyStyle": "zezadu",
+      "cowgirl": "kovbojka",
+      "reverseCowgirl": "obrácená kovbojka",
+      "spooning": "lžičkování",
+      "chairSex": "sex na židli"
+    },
+    "subscriptionTerms": {
+      "37": "Pokračováním potvrzujete, že vám je alespoň 18 let a souhlasíte s úvodní platbou $119.99 za roční předplatné. Pokud nezrušíte alespoň 24 hodin před koncem úvodního období, bude vám automaticky účtováno $119.99 za každé následující období, dokud nezrušíte. Kliknutím na Pokračovat také potvrzujete, že souhlasíte s našimi |TERMS_LINK|\nPlatba se zobrazí jako mydreamcompanion",
+      "38": "Pokračováním potvrzujete, že vám je alespoň 18 let a souhlasíte s úvodní platbou $43.99 za čtvrtletní předplatné. Pokud nezrušíte alespoň 24 hodin před koncem úvodního období, bude vám automaticky účtováno $43.99 za každé následující období, dokud nezrušíte. Kliknutím na Pokračovat také potvrzujete, že souhlasíte s našimi |TERMS_LINK|\nPlatba se zobrazí jako mydreamcompanion",
+      "36": "Pokračováním potvrzujete, že vám je alespoň 18 let a souhlasíte s úvodní platbou $19.99 za měsíční předplatné. Pokud nezrušíte alespoň 24 hodin před koncem úvodního období, bude vám automaticky účtováno $19.99 za každé následující období, dokud nezrušíte. Kliknutím na Pokračovat také potvrzujete, že souhlasíte s našimi |TERMS_LINK|\nPlatba se zobrazí jako mydreamcompanion",
+      "101": "Pokračováním potvrzujete, že vám je alespoň 18 let a souhlasíte s úvodní platbou $4.99 za 1týdenní úvodní nabídku. Předplatné bude poté automaticky obnovováno měsíčně po 1týdenní úvodní nabídce za plnou cenu $39.99 měsíčně, dokud nezrušíte. Kliknutím na Pokračovat také potvrzujete, že souhlasíte s našimi |TERMS_LINK|\nPlatba se zobrazí jako mydreamcompanion. Pro více informací kontaktujte support@mydreamcompanion.com",
+      "102": "Pokračováním potvrzujete, že vám je alespoň 18 let a souhlasíte s úvodní platbou $19.99 za 1měsíční úvodní nabídku. Předplatné bude poté automaticky obnovováno měsíčně po 1měsíční úvodní nabídce za plnou cenu $39.99 měsíčně, dokud nezrušíte. Kliknutím na Pokračovat také potvrzujete, že souhlasíte s našimi |TERMS_LINK|\nPlatba se zobrazí jako mydreamcompanion. Pro více informací kontaktujte support@mydreamcompanion.com",
+      "103": "Pokračováním potvrzujete, že vám je alespoň 18 let a souhlasíte s úvodní platbou $29.99 za 3měsíční úvodní nabídku. Předplatné bude poté automaticky obnovováno měsíčně po 3měsíční úvodní nabídce za plnou cenu $59.99 každé 3 měsíce, dokud nezrušíte. Kliknutím na Pokračovat také potvrzujete, že souhlasíte s našimi |TERMS_LINK|\nPlatba se zobrazí jako mydreamcompanion. Pro více informací kontaktujte support@mydreamcompanion.com",
+      "104": "Pokračováním potvrzujete, že vám je alespoň 18 let a souhlasíte s úvodní platbou $7.99 za 1týdenní úvodní nabídku. Předplatné bude poté automaticky obnovováno měsíčně po 1týdenní úvodní nabídce za plnou cenu $19.99 měsíčně, dokud nezrušíte. Kliknutím na Pokračovat také potvrzujete, že souhlasíte s našimi |TERMS_LINK|\nPlatba se zobrazí jako mydreamcompanion. Pro více informací kontaktujte support@mydreamcompanion.com",
+      "105": "Pokračováním potvrzujete, že vám je alespoň 18 let a souhlasíte s úvodní platbou $9.99 za 1týdenní úvodní nabídku. Předplatné bude poté automaticky obnovováno měsíčně po 1týdenní úvodní nabídce za plnou cenu $19.99 měsíčně, dokud nezrušíte. Kliknutím na Pokračovat také potvrzujete, že souhlasíte s našimi |TERMS_LINK|\nPlatba se zobrazí jako mydreamcompanion. Pro více informací kontaktujte support@mydreamcompanion.com",
+      "152": "Pokračováním potvrzujete, že vám je alespoň 18 let a souhlasíte s platbou $19.99 za měsíční předplatné. Předplatné bude automaticky obnovováno měsíčně za $19.99 měsíčně, dokud nezrušíte. Kliknutím na Pokračovat také potvrzujete, že souhlasíte s našimi |TERMS_LINK|\nPlatba se zobrazí jako mydreamcompanion. Pro více informací kontaktujte support@mydreamcompanion.com",
+      "153": "Pokračováním potvrzujete, že vám je alespoň 18 let a souhlasíte s platbou $29.99 za čtvrtletní předplatné. Předplatné bude automaticky obnovováno každé 3 měsíce za $29.99, dokud nezrušíte. Kliknutím na Pokračovat také potvrzujete, že souhlasíte s našimi |TERMS_LINK|\nPlatba se zobrazí jako mydreamcompanion. Pro více informací kontaktujte support@mydreamcompanion.com",
+      "154": "Pokračováním potvrzujete, že vám je alespoň 18 let a souhlasíte s platbou $69.99 za roční předplatné. Předplatné bude automaticky obnovováno ročně za $69.99 ročně, dokud nezrušíte. Kliknutím na Pokračovat také potvrzujete, že souhlasíte s našimi |TERMS_LINK|\nPlatba se zobrazí jako mydreamcompanion. Pro více informací kontaktujte support@mydreamcompanion.com"
+    }
+  },
+  "hooks": {
+    "usePaymentForm": {
+      "errors": {
+        "paymentConfigError": "Chyba konfigurace platebního systému.",
+        "paymentSystemUnavailable": "Platební systém není k dispozici. Obnovte prosím stránku.",
+        "initializationFailed": "Nepodařilo se inicializovat platební formulář. Obnovte prosím stránku.",
+        "unexpectedError": "Došlo k neočekávané chybě. Zkuste to prosím znovu později.",
+        "paymentWentWrong": "Během platby se něco pokazilo. Zkuste to prosím znovu.",
+        "paymentTakingLong": "Platba trvá déle, než se očekávalo. Zkuste to prosím znovu.",
+        "failedCheckStatus": "Nepodařilo se zkontrolovat stav platby. Zkuste to prosím znovu."
+      }
+    },
+    "turnsOfYou": {
+      "innocenceAndCorruption": {
+        "alt": "Typ nevinnosti a korupce",
+        "name": "Nevinnost a korupce"
+      },
+      "dominance": {
+        "alt": "Typ dominance",
+        "name": "Dominance"
+      },
+      "stockingsAndLingerie": {
+        "alt": "Typ punčoch a prádla",
+        "name": "Punčochy a prádlo"
+      },
+      "latexOrLeather": {
+        "alt": "Typ latexu/kůže",
+        "name": "Latex / Kůže"
+      },
+      "dirtyTalk": {
+        "alt": "Typ špinavých řečí",
+        "name": "Špinavé řeči"
+      },
+      "highHeels": {
+        "alt": "Typ vysokých podpatků",
+        "name": "Vysoké podpatky"
+      },
+      "lipstick": {
+        "alt": "Typ rtěnky",
+        "name": "Rtěnka"
+      },
+      "rolePlay": {
+        "alt": "Typ hraní rolí",
+        "name": "Hraní rolí"
+      },
+      "uniforms": {
+        "alt": "Typ uniforem",
+        "name": "Uniformy"
+      }
+    },
+    "turnsOffInDating": {
+      "ghosting": "👻 Ghosting",
+      "rejection": "✋ Odmítnutí",
+      "cheating": "👫 Podvádění",
+      "expectationsMismatch": "😟 Nesoulad očekávání",
+      "somethingElse": "💔️ Něco jiného"
+    },
+    "wantToTry": {
+      "joi": {
+        "alt": "JOI vyzkoušet",
+        "name": "JOI"
+      },
+      "massage": {
+        "alt": "Masáž vyzkoušet",
+        "name": "Masáž"
+      },
+      "oil": {
+        "alt": "Olej vyzkoušet",
+        "name": "Olej"
+      },
+      "asmr": {
+        "alt": "ASMR vyzkoušet",
+        "name": "ASMR"
+      },
+      "publicPlay": {
+        "alt": "Veřejná hra vyzkoušet",
+        "name": "Veřejná hra"
+      },
+      "foodPlay": {
+        "alt": "Hra s jídlem vyzkoušet",
+        "name": "Hra s jídlem"
+      },
+      "humiliation": {
+        "alt": "Ponižování vyzkoušet",
+        "name": "Ponižování"
+      },
+      "blindfold": {
+        "alt": "Páska přes oči vyzkoušet",
+        "name": "Páska přes oči"
+      },
+      "foot": {
+        "alt": "Nohy vyzkoušet",
+        "name": "Nohy"
+      },
+      "toys": {
+        "alt": "Hračky vyzkoušet",
+        "name": "Hračky"
+      },
+      "threesome": {
+        "alt": "Trojka vyzkoušet",
+        "name": "Trojka"
+      },
+      "bondage": {
+        "alt": "Bondáž vyzkoušet",
+        "name": "Bondáž"
+      }
+    },
+    "yourType": {
+      "girlNextDoor": {
+        "alt": "Postava dívky odvedle",
+        "name": "Dívka odvedle"
+      },
+      "femmeFatale": {
+        "alt": "Postava femme fatale",
+        "name": "Femme fatale"
+      },
+      "manicPixieGirl": {
+        "alt": "Postava manic pixie dívky",
+        "name": "Manic pixie dívka"
+      },
+      "innocentIngenue": {
+        "alt": "Postava nevinné naivky",
+        "name": "Nevinná naivka"
+      },
+      "gothGirl": {
+        "alt": "Postava goth dívky",
+        "name": "Goth dívka"
+      },
+      "animeOtaku": {
+        "alt": "Postava anime otaku",
+        "name": "Anime otaku"
+      },
+      "nerdyGirl": {
+        "alt": "Postava šprta",
+        "name": "Šprtka"
+      },
+      "bikerChick": {
+        "alt": "Postava motorkářky",
+        "name": "Motorkářka"
+      },
+      "ladyBoss": {
+        "alt": "Postava šéfové",
+        "name": "Šéfová"
+      },
+      "eGirl": {
+        "alt": "Postava E-Girl",
+        "name": "E-Girl"
+      },
+      "tomboy": {
+        "alt": "Postava klučičí holky",
+        "name": "Klučičí holka"
+      },
+      "rebel": {
+        "alt": "Postava rebelky",
+        "name": "Rebelka"
+      },
+      "athlete": {
+        "alt": "Postava sportovkyně",
+        "name": "Sportovkyně"
+      },
+      "woke": {
+        "alt": "Postava woke",
+        "name": "Woke"
+      },
+      "instagramBaddie": {
+        "alt": "Postava Instagram Baddie",
+        "name": "Instagram Baddie"
+      }
+    }
+  },
+  "modals": {
+    "secretOffer": {
+      "title": "Získejte tajnou nabídku, než zmizí!",
+      "subtitle": "Získejte dodatečnou slevu, pokud odemknete svůj chat v příštích 60 sekundách!",
+      "bestChoice": "NEJLEPŠÍ VOLBA",
+      "months": "{{count}} měsíců",
+      "off": "{{percent}}% SLEVA",
+      "perDay": "/ Den",
+      "usersSignedUp": "{{count}} uživatelů se dnes zaregistrovalo",
+      "claimNow": "Získat nyní",
+      "loseChance": "Ztratit šanci"
+    },
+    "finalOffer": {
+      "title": "Odemkli jste <highlight>finální nabídku!</highlight>",
+      "bestChoice": "NEJLEPŠÍ VOLBA",
+      "months": "{{count}} měsíců",
+      "off": "{{percent}}% SLEVA",
+      "perDay": "/ Den",
+      "usersSignedUp": "{{count}} uživatelů se dnes zaregistrovalo",
+      "claimNow": "Získat nyní",
+      "loseChanceForever": "Ztratit šanci navždy"
+    },
+    "specialOffer": {
+      "onlyForNewUsers": "POUZE PRO NOVÉ UŽIVATELE",
+      "oneTimeOffer": "⌛ JEDNORÁZOVÁ NABÍDKA",
+      "sec": "{{count}} sek",
+      "areYouSure": "Jste si jistí?",
+      "subtitle": "Odchodem ztratíte příležitost získat všechny uvedené <highlight>funkce zdarma!</highlight>",
+      "offerAvailable": "Tato nabídka je k dispozici pouze nyní, na této obrazovce.",
+      "claimNow": "Získat nyní",
+      "noDiscounts": "Ne, nesnáším slevy"
+    },
+    "finalOfferUnlocked": {
+      "secretOfferUnlocked": "tajná nabídka odemčena",
+      "yourFinalOffer": "Vaše finální nabídka",
+      "off": "{{percent}} SLEVA"
+    },
+    "showVideo": {
+      "clickToSeeVideo": "klikněte pro zobrazení videa",
+      "message1": "Líbí se ti, co vidíš? 😈",
+      "message2": "Zeptej se mě na cokoliv, udělám pro tebe všechno, tatínku! 💋",
+      "time": "13:49",
+      "goBack": "Jít zpět",
+      "noSpicyChats": "Ne, nesnáším pikantní chaty a videa"
+    }
+  },
+  "common": {
+    "altGirlTokio": "dívka tokio",
+    "altGirl": "dívka",
+    "altPlay": "přehrát",
+    "altSecretOffer": "Ikona tajné nabídky"
+  }
+}

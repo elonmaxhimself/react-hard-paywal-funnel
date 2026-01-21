@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -8,7 +8,8 @@ import { EXPERIMENTS } from '@/configs/experiment.config';
 import { getFunnelStore } from "@/store/states/funnel";
 
 import { funnelV3Schema } from "@/features/funnel/validation";
-import { subscriptions } from "@/constants/subscriptions";
+import { useSubscriptions } from "@/constants/subscriptions";
+
 
 export type FunnelSchema = z.infer<typeof funnelV3Schema>;
 
@@ -64,7 +65,7 @@ export const defaultValues = {
     receiveVideoCalls: undefined,
     receiveVoiceMessages: undefined,
 
-    productId: subscriptions.find((subscription) => subscription.isBestChoice)?.productId,
+    productId: undefined as number | undefined,
 };
 
 const STEPS_COUNT = 44;
@@ -72,14 +73,21 @@ const STEPS_INDICATOR_COUNT = 32;
 
 export function useFunnelForm() {
     const posthog = usePostHog();
+    const subscriptions = useSubscriptions();
     const [active, setActive] = useState(0);
     const [isExperimentReady, setIsExperimentReady] = useState(false);
     const [isFormReady, setIsFormReady] = useState(false);
     const [startingStep, setStartingStep] = useState(0);
 
+    // Дополняем defaultValues значением productId из локализованных subscriptions
+    const formDefaultValues = useMemo(() => ({
+        ...defaultValues,
+        productId: subscriptions.find((subscription) => subscription.isBestChoice)?.productId,
+    }), [subscriptions]);
+
     const form = useForm<FunnelSchema>({
         resolver: zodResolver(funnelV3Schema),
-        defaultValues,
+        defaultValues: formDefaultValues,
     });
 
     useEffect(() => {
@@ -157,11 +165,12 @@ export function useFunnelForm() {
             }
         } catch (error) {
             console.error('Form restoration error:', error);
-            form.reset(defaultValues);
+            form.reset(formDefaultValues);
             setActive(startingStep);
         } finally {
             setIsFormReady(true);
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [isExperimentReady, startingStep]);
 
     const nextStep = () => {

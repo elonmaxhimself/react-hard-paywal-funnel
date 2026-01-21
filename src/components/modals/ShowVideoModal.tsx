@@ -1,3 +1,5 @@
+import { useTranslation } from "react-i18next";
+
 import Modal from "@/components/modals/Modal";
 import { Button } from "@/components/ui/button";
 import { useStore } from "@/store/state";
@@ -7,22 +9,10 @@ import { useStepperContext } from "../stepper/Stepper.context";
 import girlAvatar9Background from "@@/images/avatars/avatar_9.webp";
 import playButtonIcon from "@@/images/play-button.png";
 
-const texts = [
-    {
-        id: 1,
-        text: <>Do you like what you see? 😈</>,
-        noBLRadius: false,
-    },
-    {
-        id: 2,
-        text: <>Ask me about anything, I will do everything for you, daddy! 💋</>,
-        noBLRadius: true,
-    },
-];
-
 const STEPS_COUNT = 44;
 
 export default function ShowVideoModal() {
+    const { t } = useTranslation();
     const { onChange } = useStepperContext();
     const title = useStore((state) => state.modal.title);
     const setOpen = useStore((state) => state.modal.setOpen);
@@ -47,6 +37,19 @@ export default function ShowVideoModal() {
         }
     };
 
+    const texts = [
+        {
+            id: 1,
+            text: t('modals.showVideo.message1'),
+            noBLRadius: false,
+        },
+        {
+            id: 2,
+            text: t('modals.showVideo.message2'),
+            noBLRadius: true,
+        },
+    ];
+
     return (
         <Modal
             triggers={[ModalTriggers.SHOW_VIDEO_MODAL]}
@@ -61,16 +64,15 @@ export default function ShowVideoModal() {
                         className="relative w-full overflow-hidden rounded-md cursor-pointer"
                         style={{ aspectRatio: "16/10" }}
                     >
-                        {/* Заменяем Next.js Image на img */}
                         <img
                             src={girlAvatar9Background}
-                            alt="girl"
+                            alt={t('common.altGirl')}
                             className="absolute inset-0 w-full h-full object-cover object-[center_45%] filter blur-sm"
                         />
                         <div className="absolute inset-0 flex items-center justify-center">
                             <img
                                 src={playButtonIcon}
-                                alt="play"
+                                alt={t('common.altPlay')}
                                 width={64}
                                 height={64}
                                 className="z-10"
@@ -78,7 +80,7 @@ export default function ShowVideoModal() {
                         </div>
                     </div>
                     <Button onClick={setClose} variant="ghost" className="w-full mt-5 capitalize">
-                        click to see video
+                        {t('modals.showVideo.clickToSeeVideo')}
                     </Button>
                 </div>
 
@@ -92,7 +94,7 @@ export default function ShowVideoModal() {
                                 {text}
                             </div>
                         ))}
-                        <span className="text-white/40 text-[14px]">1:49 PM</span>
+                        <span className="text-white/40 text-[14px]">{t('modals.showVideo.time')}</span>
                     </div>
                 </div>
 
@@ -101,11 +103,11 @@ export default function ShowVideoModal() {
                         onClick={handleOpen}
                         className="w-full h-12 bg-primary-gradient hover:bg-secondary-gradient text-white font-bold text-base rounded-lg"
                     >
-                        Go back
+                        {t('modals.showVideo.goBack')}
                     </Button>
 
                     <Button onClick={handleOpen} variant="lose" className="w-full">
-                        No, I hate spicy chats & videos
+                        {t('modals.showVideo.noSpicyChats')}
                     </Button>
                 </div>
             </div>

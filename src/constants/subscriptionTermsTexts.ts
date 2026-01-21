@@ -1,23 +1,19 @@
-export const subscriptionTermsTexts: { [key: number]: string } = {
-    37: "By continuing, you confirm that you are at least 18 years old and agree to an introductory payment of $119.99 for a yearly subscription. If you do not cancel at least 24 hours before the end of the introductory period, you will automatically be charged $119.99 for each subsequent period until you cancel. By clicking Continue, you also confirm that you agree to our |TERMS_LINK|\nPayment will be shown as mydreamcompanion",
+import { useTranslation } from "react-i18next";
 
-    38: "By continuing, you confirm that you are at least 18 years old and agree to an introductory payment of $43.99 for a quarterly subscription. If you do not cancel at least 24 hours before the end of the introductory period, you will automatically be charged $43.99 for each subsequent period until you cancel. By clicking Continue, you also confirm that you agree to our |TERMS_LINK|\nPayment will be shown as mydreamcompanion",
-
-    36: "By continuing, you confirm that you are at least 18 years old and agree to an introductory payment of $19.99 for a monthly subscription. If you do not cancel at least 24 hours before the end of the introductory period, you will automatically be charged $19.99 for each subsequent period until you cancel. By clicking Continue, you also confirm that you agree to our |TERMS_LINK|\nPayment will be shown as mydreamcompanion",
-
-    101: "By continuing, you confirm that you are at least 18 years old and agree to an introductory payment of $4.99 for a 1-week intro offer. The subscription will then be auto-renewed monthly after a 1-week intro offer at the full price of $39.99 per month until you cancel. By clicking Continue, you also confirm that you agree to our |TERMS_LINK|\nPayment will be shown as mydreamcompanion. For more information contact support@mydreamcompanion.com",
-
-    102: "By continuing, you confirm that you are at least 18 years old and agree to an introductory payment of $19.99 for a 1-month intro offer. The subscription will then be auto-renewed monthly after a 1-month intro offer at the full price of $39.99 per month until you cancel. By clicking Continue, you also confirm that you agree to our |TERMS_LINK|\nPayment will be shown as mydreamcompanion. For more information contact support@mydreamcompanion.com",
-
-    103: "By continuing, you confirm that you are at least 18 years old and agree to an introductory payment of $29.99 for a 3-months intro offer. The subscription will then be auto-renewed monthly after a 3-months intro offer at the full price of $59.99 every 3 monthsuntil you cancel. By clicking Continue, you also confirm that you agree to our |TERMS_LINK|\nPayment will be shown as mydreamcompanion. For more information contact support@mydreamcompanion.com",
-
-    104: "By continuing, you confirm that you are at least 18 years old and agree to an introductory payment of $7.99 for a 1-week intro offer. The subscription will then be auto-renewed monthly after a 1-week intro offer at the full price of $19.99 per month until you cancel. By clicking Continue, you also confirm that you agree to our |TERMS_LINK|\nPayment will be shown as mydreamcompanion. For more information contact support@mydreamcompanion.com",
+export const useSubscriptionTermsTexts = (): { [key: number]: string } => {
+    const { t } = useTranslation();
     
-    105: "By continuing, you confirm that you are at least 18 years old and agree to an introductory payment of $9.99 for a 1-week intro offer. The subscription will then be auto-renewed monthly after a 1-week intro offer at the full price of $19.99 per month until you cancel. By clicking Continue, you also confirm that you agree to our |TERMS_LINK|\nPayment will be shown as mydreamcompanion. For more information contact support@mydreamcompanion.com",
-    
-    152: "By continuing, you confirm that you are at least 18 years old and agree to a payment of $19.99 for a monthly subscription. The subscription will be auto-renewed monthly at $19.99 per month until you cancel. By clicking Continue, you also confirm that you agree to our |TERMS_LINK|\nPayment will be shown as mydreamcompanion. For more information contact support@mydreamcompanion.com",
-    
-    153: "By continuing, you confirm that you are at least 18 years old and agree to a payment of $29.99 for a quarterly subscription. The subscription will be auto-renewed every 3 months at $29.99 until you cancel. By clicking Continue, you also confirm that you agree to our |TERMS_LINK|\nPayment will be shown as mydreamcompanion. For more information contact support@mydreamcompanion.com",
-    
-    154: "By continuing, you confirm that you are at least 18 years old and agree to a payment of $69.99 for a yearly subscription. The subscription will be auto-renewed yearly at $69.99 per year until you cancel. By clicking Continue, you also confirm that you agree to our |TERMS_LINK|\nPayment will be shown as mydreamcompanion. For more information contact support@mydreamcompanion.com",
+    return {
+        37: t('constants.subscriptionTerms.37'),
+        38: t('constants.subscriptionTerms.38'),
+        36: t('constants.subscriptionTerms.36'),
+        101: t('constants.subscriptionTerms.101'),
+        102: t('constants.subscriptionTerms.102'),
+        103: t('constants.subscriptionTerms.103'),
+        104: t('constants.subscriptionTerms.104'),
+        105: t('constants.subscriptionTerms.105'),
+        152: t('constants.subscriptionTerms.152'),
+        153: t('constants.subscriptionTerms.153'),
+        154: t('constants.subscriptionTerms.154'),
+    };
 };

@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import clsx from "clsx";
 import { usePostHog } from "posthog-js/react";
+import { useTranslation, Trans } from "react-i18next";
 
 import Modal from "@/components/modals/Modal";
 import { Button } from "@/components/ui/button";
@@ -12,11 +13,15 @@ import { useTimer } from "@/hooks/useTimerCount";
 import { ModalTriggers } from "@/utils/enums/modal-triggers";
 
 import specialOfferGirlBackground from "@@/images/backgrounds/girl.png";
-import { featuresForFree } from "@/constants/featuresForFree";
+import { useFeaturesForFree } from "@/constants/featuresForFree";
+
 
 const TIMMER_OFFER = 30;
 
 export default function SpecialOfferModal() {
+    const { t } = useTranslation();
+    const featuresForFree = useFeaturesForFree();
+
     const [timeLeft, setTimeLeft] = useState(TIMMER_OFFER);
     const setClose = useStore((state) => state.modal.setClose);
     const setOpen = useStore((state) => state.modal.setOpen);
@@ -68,22 +73,22 @@ export default function SpecialOfferModal() {
             <div className="relative w-full " style={{ aspectRatio: "16/9" }}>
                 <img
                     src={specialOfferGirlBackground}
-                    alt="girl tokio"
+                    alt={t('common.altGirlTokio')}
                     className="absolute inset-0 w-full h-full object-cover object-[center_27%]"
                 />
                 <div>
                     <div className="absolute top-4 right-4 bg-gradient-to-r from-pink to-orange px-3 py-1.5 rounded-full flex items-center justify-center">
                         <span className="text-white text-xs font-bold uppercase text-center">
-                            ONLY FOR NEW USERS
+                            {t('modals.specialOffer.onlyForNewUsers')}
                         </span>
                     </div>
                 </div>
 
                 <div className="absolute bottom-0 left-0 right-0 bg-pink-red/30 h-[35px] flex items-center justify-center px-4">
                     <div className="flex items-center gap-4 text-white">
-                        <span className="text-sm font-medium">⌛ ONE TIME OFFER</span>
+                        <span className="text-sm font-medium">{t('modals.specialOffer.oneTimeOffer')}</span>
                         <div className="bg-black/70 px-3 py-1.5 rounded-lg h-[25px] flex items-center justify-center">
-                            <span className="text-sm font-bold">{timeLeft} sec</span>
+                            <span className="text-sm font-bold">{t('modals.specialOffer.sec', { count: timeLeft })}</span>
                         </div>
                     </div>
                 </div>
@@ -92,11 +97,13 @@ export default function SpecialOfferModal() {
             <div className="bg-black-2 px-6 pb-6 pt-3 sm:pt-6">
                 <DialogHeader className="text-center mb-3 sm:mb-6">
                     <h2 className="text-white text-center text-xl sm:text-2xl font-bold mb-0 sm:mb-2">
-                        Are You Sure?
+                        {t('modals.specialOffer.areYouSure')}
                     </h2>
                     <p className="text-white/70 text-sm text-center">
-                        By going away, you&apos;ll lose the opportunity to receive all listed{" "}
-                        <span className="text-white font-semibold">features for free!</span>
+                        <Trans 
+                            i18nKey="modals.specialOffer.subtitle"
+                            components={{ highlight: <span className="text-white font-semibold" /> }}
+                        />
                     </p>
                 </DialogHeader>
 
@@ -120,7 +127,7 @@ export default function SpecialOfferModal() {
                 </div>
 
                 <p className="text-gray-1 text-xs text-center mb-4 sm:mb-6">
-                    This offer is available only now, on this screen.
+                    {t('modals.specialOffer.offerAvailable')}
                 </p>
 
                 <div className="space-y-3">
@@ -138,12 +145,12 @@ export default function SpecialOfferModal() {
                             />
                         )}
                         <span className="flex items-center justify-center gap-2 relative z-10">
-                            Claim now
+                            {t('modals.specialOffer.claimNow')}
                         </span>
                     </Button>
 
                     <Button onClick={onOpenSpecialOffer} variant="lose" className="w-full">
-                        No, I hate discounts
+                        {t('modals.specialOffer.noDiscounts')}
                     </Button>
                 </div>
             </div>

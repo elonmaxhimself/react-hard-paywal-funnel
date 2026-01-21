@@ -1,22 +1,19 @@
 import { useFormContext } from "react-hook-form";
-
+import { useTranslation } from "react-i18next";
 import Stepper from "@/components/stepper";
 import StepWrapper from "@/components/StepWrapper";
 import { useStepperContext } from "@/components/stepper/Stepper.context";
 import BadgeField from "@/components/funnel/fields/BadgeField";
 import { Button } from "@/components/ui/button";
-
 import { FunnelSchema } from "@/hooks/funnel/useFunnelForm";
-
-import { personalityTraits } from "@/constants/personality-traits";
+import { usePersonalityTraits } from "@/constants/personality-traits";
 
 export function PersonalityTraitsStep() {
+    const { t } = useTranslation();
     const { nextStep } = useStepperContext();
-
     const form = useFormContext<FunnelSchema>();
-
     const personality_traits = form.watch("personality_traits");
-
+    const personalityTraits = usePersonalityTraits();
     return (
         <StepWrapper>
             <div
@@ -33,7 +30,7 @@ export function PersonalityTraitsStep() {
                         <Stepper.Progress />
                     </div>
                     <h2 className={"text-white text-lg font-bold mb-5 md:mb-[30px] text-center"}>
-                        Select Personality Traits Of Your AI Partner
+                        {t('funnel.personalityTraitsStep.title')}
                     </h2>
                     <div className={"w-full flex flex-wrap justify-center gap-[10px]"}>
                         {personalityTraits.map((trait) => (
@@ -44,7 +41,6 @@ export function PersonalityTraitsStep() {
                                 onCheckedChange={() => {
                                     const isSelected = personality_traits.includes(trait.value);
                                     const currentValues = [...personality_traits];
-
                                     if (isSelected) {
                                         form.setValue(
                                             "personality_traits",
@@ -70,7 +66,7 @@ export function PersonalityTraitsStep() {
                 <div className="w-full flex items-center justify-center px-[15px] sm:px-5 p-5 bg-black-2 sm:static fixed bottom-0 left-0 z-100">
                     <div className="max-w-[450px] w-full">
                         <Button onClick={nextStep} className="w-full h-[45px] bg-primary-gradient">
-                            <span className="text-base font-bold">Continue</span>
+                            <span className="text-base font-bold">{t('funnel.personalityTraitsStep.continue')}</span>
                         </Button>
                     </div>
                 </div>

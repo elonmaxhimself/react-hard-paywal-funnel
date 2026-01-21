@@ -2,6 +2,7 @@ import clsx from "clsx";
 import { useFormContext } from "react-hook-form";
 import { usePostHog } from "posthog-js/react";
 import { useEffect } from "react";
+import { useTranslation, Trans } from "react-i18next";
 
 import Modal from "@/components/modals/Modal";
 import { Button } from "@/components/ui/button";
@@ -13,19 +14,23 @@ import { useTimer } from "@/hooks/useTimerCount";
 import { ModalTriggers } from "@/utils/enums/modal-triggers";
 import { FunnelSchema } from "@/hooks/funnel/useFunnelForm";
 
-import { finalOffer } from "@/constants/subscriptions";
+import { useFinalOffer } from "@/constants/subscriptions";
 import { avatars } from "@/constants/avatars";
-import { offerBenefits } from "@/constants/offerBenefits";
+import { useOfferBenefits } from "@/constants/offerBenefits";
 
 import girlTokioIcon from "@@/images/backgrounds/tokio-girl.avif";
 
 const TIMER = 30;
 
 export default function FinalOfferModal() {
+    const { t } = useTranslation();
+    const offerBenefits = useOfferBenefits();
     const trigger = useStore((state) => state.modal.trigger);
     const setClose = useStore((state) => state.modal.setClose);
     const setOpen = useStore((state) => state.modal.setOpen);
     const posthog = usePostHog();
+;
+    const finalOffer = useFinalOffer();
 
     const isFinalOfferModalOpen = trigger === ModalTriggers.FINAL_OFFER_MODAL;
 
@@ -63,17 +68,19 @@ export default function FinalOfferModal() {
             showCloseButton={false}
             disableOutsideClick
         >
-            {/* Изображение - заменяем Next.js Image на обычный img */}
             <div className="relative w-full" style={{ aspectRatio: "16/7" }}>
                 <img
                     src={girlTokioIcon}
-                    alt="girl tokio"
+                    alt={t('common.altGirlTokio')}
                     className="absolute inset-0 w-full h-full object-cover object-[center_16%]"
                 />
             </div>
 
             <h2 className="capitalize text-xl sm:text-2xl font-bold text-white text-center my-3 sm:my-5">
-                You Unlocked The <span className="text-orange">Final Offer!</span>
+                <Trans 
+                    i18nKey="modals.finalOffer.title"
+                    components={{ highlight: <span className="text-orange" /> }}
+                />
             </h2>
 
             <div className="px-[15px] pb-[15px] flex flex-col gap-[30px]">
@@ -102,17 +109,17 @@ export default function FinalOfferModal() {
                             {finalOffer.isBestChoice && (
                                 <div className="absolute top-[-12px] left-3 sm:left-4 bg-primary-gradient rounded-full flex items-center justify-center">
                                     <span className="text-white text-[10px] sm:text-xs font-semibold uppercase px-[10px] py-1">
-                                        BEST CHOICE
+                                        {t('modals.finalOffer.bestChoice')}
                                     </span>
                                 </div>
                             )}
 
                             <div className="flex flex-col">
                                 <div className="text-white text-base sm:text-lg font-semibold leading-none">
-                                    {finalOffer.months} months
+                                    {t('modals.finalOffer.months', { count: finalOffer.months })}
                                 </div>
                                 <div className="text-coral-red text-sm font-extrabold leading-none">
-                                    {finalOffer.saleOff}% OFF
+                                    {t('modals.finalOffer.off', { percent: finalOffer.saleOff })}
                                 </div>
                             </div>
 
@@ -122,7 +129,7 @@ export default function FinalOfferModal() {
                                 </div>
                                 <div className="text-white text-[24px] sm:text-[32px] font-semibold leading-none">
                                     ${finalOffer.salePriceInDays}
-                                    <span className="text-[10px] sm:text-[11px]"> / Day</span>
+                                    <span className="text-[10px] sm:text-[11px]"> {t('modals.finalOffer.perDay')}</span>
                                 </div>
                             </div>
                         </div>
@@ -143,7 +150,7 @@ export default function FinalOfferModal() {
                         </div>
 
                         <div className="text-white/70 text-[11px] font-[600] capitalize whitespace-nowrap">
-                            220 users signed up today
+                            {t('modals.finalOffer.usersSignedUp', { count: 220 })}
                         </div>
                     </div>
 
@@ -165,7 +172,7 @@ export default function FinalOfferModal() {
                             )}
 
                             <span className="flex items-center justify-center gap-2 relative z-10">
-                                Claim now
+                                {t('modals.finalOffer.claimNow')}
                                 <span className="bg-black/30 px-2 py-1 rounded text-sm font-medium text-white">
                                     {formattedTime}
                                 </span>
@@ -177,7 +184,7 @@ export default function FinalOfferModal() {
                         variant="lose"
                         onClick={onLoseChanceForever}
                     >
-                        Lose the chance forever
+                        {t('modals.finalOffer.loseChanceForever')}
                     </Button>
                 </div>
             </div>

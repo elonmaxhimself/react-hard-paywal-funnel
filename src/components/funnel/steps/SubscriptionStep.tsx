@@ -68,7 +68,7 @@ export function SubscriptionStep() {
     
     const activeSubscriptions = useMemo(() => {
         return subscriptions.filter(sub => productIds.includes(sub.productId));
-    }, [productIds]);
+    }, [productIds, subscriptions]);
 
     const stats = useMemo(() => [
         {
@@ -146,11 +146,11 @@ export function SubscriptionStep() {
                     {t('funnel.subscriptionStep.faqs.answer1')}
                     <a
                         target="_blank"
-                        href={`mailto:${t('funnel.subscriptionStep.faqs.supportEmail')}`}
+                        href="mailto:support@mydreamcompanion.com"
                         className="underline"
                         rel="noopener noreferrer"
                     >
-                        {t('funnel.subscriptionStep.faqs.supportEmail')}
+                        support@mydreamcompanion.com
                     </a>
                     .
                 </>
@@ -164,11 +164,11 @@ export function SubscriptionStep() {
                     {t('funnel.subscriptionStep.faqs.answer2')}
                     <a
                         target="_blank"
-                        href={`mailto:${t('funnel.subscriptionStep.faqs.supportEmail')}`}
+                        href="mailto:support@mydreamcompanion.com"
                         className="underline"
                         rel="noopener noreferrer"
                     >
-                        {t('funnel.subscriptionStep.faqs.supportEmail')}
+                        support@mydreamcompanion.com
                     </a>
                     .
                 </>
@@ -179,16 +179,19 @@ export function SubscriptionStep() {
             question: t('funnel.subscriptionStep.faqs.question3'),
             answer: (
                 <>
-                    {t('funnel.subscriptionStep.faqs.answer3')}
+                    <Trans 
+                        i18nKey="funnel.subscriptionStep.faqs.answer3"
+                        components={{ br: <br /> }}
+                    />
                     <a
                         target="_blank"
-                        href={`mailto:${t('funnel.subscriptionStep.faqs.supportEmail')}`}
+                        href="mailto:support@mydreamcompanion.com"
                         className="underline"
                         rel="noopener noreferrer"
                     >
-                        {t('funnel.subscriptionStep.faqs.supportEmail')}
+                        support@mydreamcompanion.com
                     </a>
-                    &nbsp;for a personalized walkthrough.
+                    {t('funnel.subscriptionStep.faqs.answer3Suffix')}
                 </>
             ),
         },

@@ -57,7 +57,7 @@ export function usePaymentForm(posthog?: any) {
         onError: (errorMessage: string) => void,
     ) => {
         const pollInterval = 5000;
-        const maxAttempts = 30;
+        const maxAttempts = 48;
         let attempts = 0;
 
         setIsPolling(true);
@@ -231,18 +231,18 @@ export function usePaymentForm(posthog?: any) {
 
             analyticsService.trackPaymentEvent(AnalyticsEventTypeEnum.PAYMENT_INITIATED, mpPayload);
 
-            if (typeof window !== 'undefined' && posthog) {
-                posthog.capture('payment_initiated', {
-                    value: product.amount / 100,
-                    currency: "USD",
-                    product_id: product.id,
-                    product_name: product.name,
-                    user_id: userId,
-                    payment_type: "subscription_initial_payment",
-                    monthly_billing_cycle: product.durationMonths,
-                    payment_provider: "shift4"                    
-                });
-            }
+            // if (typeof window !== 'undefined' && posthog) {
+            //     posthog.capture('payment_initiated', {
+            //         value: product.amount / 100,
+            //         currency: "USD",
+            //         product_id: product.id,
+            //         product_name: product.name,
+            //         user_id: userId,
+            //         payment_type: "subscription_initial_payment",
+            //         monthly_billing_cycle: product.durationMonths,
+            //         payment_provider: "shift4"                    
+            //     });
+            // }
 
             const result = await shift4Instance.createToken(componentsGroup);
             if (result.error) throw new Error(result.error.message);
@@ -282,18 +282,18 @@ export function usePaymentForm(posthog?: any) {
                                     });
 
                                     // PostHog — Payment Success
-                                    if (typeof window !== 'undefined' && posthog) {
-                                        posthog.capture('payment_success', {
-                                            value: product.amount / 100,
-                                            currency: "USD",
-                                            product_id: product.id,
-                                            product_name: product.name,
-                                            user_id: userId,
-                                            payment_type: "subscription_initial_payment",
-                                            monthly_billing_cycle: product.durationMonths,
-                                            payment_provider: "shift4"
-                                        },  {send_instantly: true});
-                                    }
+                                    // if (typeof window !== 'undefined' && posthog) {
+                                    //     posthog.capture('payment_success', {
+                                    //         value: product.amount / 100,
+                                    //         currency: "USD",
+                                    //         product_id: product.id,
+                                    //         product_name: product.name,
+                                    //         user_id: userId,
+                                    //         payment_type: "subscription_initial_payment",
+                                    //         monthly_billing_cycle: product.durationMonths,
+                                    //         payment_provider: "shift4"
+                                    //     },  {send_instantly: true});
+                                    // }
 
                                     // Mixpanel
                                     analyticsService.trackPaymentEvent(

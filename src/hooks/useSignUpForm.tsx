@@ -19,6 +19,7 @@ import { passwordRegex } from "@/utils/helpers/password-regex";
 import { SignUpPayload } from "@/utils/types/auth";
 
 import { voicesMap } from "@/constants/voices-map";
+import { useSexPositions } from "@/constants/sex-positions";
 
 import { analyticsService } from "@/services/analytics-service";
 import { AnalyticsEventTypeEnum } from "@/utils/enums/analytics-event-types";
@@ -50,6 +51,7 @@ export function useSignUpForm(posthog?: any) {
     const { mutate: signUp, isPending, error: apiError } = useSignUp();
 
     const utm = useUtmStore((state) => state.utm);
+    const sexPositions = useSexPositions();
 
     const setUserId = useAuthStore((state) => state.setUserId);
     const setToken = useAuthStore((state) => state.setToken);
@@ -86,7 +88,7 @@ export function useSignUpForm(posthog?: any) {
         customCharacterPrompt = appendHobbies(customCharacterPrompt, funnelFormValues.interests);
         const customBreast = funnelFormValues.breast_size + "-" + funnelFormValues.breast_type;
         const customKinks = [...funnelFormValues.turns_of_you, ...funnelFormValues.want_to_try];
-        const customSexPosition = getRandomSexPosition();
+        const customSexPosition = getRandomSexPosition(sexPositions);
 
         const url =
             import.meta.env.DEV

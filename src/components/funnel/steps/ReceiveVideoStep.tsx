@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { useFormContext } from "react-hook-form";
+import { useTranslation, Trans } from "react-i18next";
 
 import { useStepperContext } from "@/components/stepper/Stepper.context";
 import { Button } from "@/components/ui/button";
@@ -7,6 +8,7 @@ import { FunnelSchema } from "@/hooks/funnel/useFunnelForm";
 import SpriteIcon from "@/components/SpriteIcon";
 
 export function ReceiveVideoStep() {
+    const { t } = useTranslation();
     const { nextStep } = useStepperContext();
     const form = useFormContext<FunnelSchema>();
 
@@ -38,7 +40,7 @@ export function ReceiveVideoStep() {
                             {bannerSize.w > 0 && bannerSize.h > 0 && (
                                 <SpriteIcon
                                     src={"/images/banners/video-banner.webp"}
-                                    fallbackAlt={"Would you like to receive Spicy Custom Videos?"}
+                                    fallbackAlt={t('funnel.receiveVideoStep.altBanner')}
                                     targetW={bannerSize.w}
                                     targetH={bannerSize.h}
                                     fit="cover"
@@ -66,7 +68,7 @@ export function ReceiveVideoStep() {
 
                                 <SpriteIcon
                                     src={"/images/cursor.png"}
-                                    fallbackAlt={"Cursor"}
+                                    fallbackAlt={t('funnel.receiveVideoStep.altCursor')}
                                     targetW={50}
                                     targetH={50}
                                     fit="contain"
@@ -86,21 +88,23 @@ export function ReceiveVideoStep() {
                 >
                     <div className="max-w-[450px] w-full mx-auto">
                         <h2 className="text-white text-lg font-bold text-center mb-[30px] sm:mb-[20px] capitalize">
-                            Would you like to receive <br />
-                            🌶️ Spicy Custom Videos?️️️️️
+                            <Trans 
+                                i18nKey="funnel.receiveVideoStep.title"
+                                components={{ br: <br /> }}
+                            />
                         </h2>
                         <div className="w-full flex items-center justify-center gap-[12px]">
                             <Button
                                 onClick={() => onSelectValue(false)}
                                 className="h-[45px] flex-1 bg-white/10 hover:bg-white/20 transition-colors"
                             >
-                                <span className="text-base font-bold">No</span>
+                                <span className="text-base font-bold">{t('funnel.receiveVideoStep.no')}</span>
                             </Button>
                             <Button
                                 onClick={() => onSelectValue(true)}
                                 className="h-[45px] flex-1 bg-primary-gradient"
                             >
-                                <span className="text-base font-bold">Yes</span>
+                                <span className="text-base font-bold">{t('funnel.receiveVideoStep.yes')}</span>
                             </Button>
                         </div>
                     </div>

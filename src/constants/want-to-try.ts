@@ -1,110 +1,116 @@
-export const WANT_TO_TRY = [
-    {
-        id: 1,
-        image: {
-            src: `/images/want-to-try/joi-try.webp`,
-            alt: "JOI Try",
-            name: "JOI",
+import { useTranslation } from "react-i18next";
+
+export const useWantToTry = () => {
+    const { t } = useTranslation();
+    
+    return [
+        {
+            id: 1,
+            image: {
+                src: `/images/want-to-try/joi-try.webp`,
+                alt: t('hooks.wantToTry.joi.alt'),
+                name: t('hooks.wantToTry.joi.name'),
+            },
+            value: "joi",
         },
-        value: "joi",
-    },
-    {
-        id: 2,
-        image: {
-            src: `/images/want-to-try/massage-try.webp`,
-            alt: "Massage Try",
-            name: "Massage",
+        {
+            id: 2,
+            image: {
+                src: `/images/want-to-try/massage-try.webp`,
+                alt: t('hooks.wantToTry.massage.alt'),
+                name: t('hooks.wantToTry.massage.name'),
+            },
+            value: "massage",
         },
-        value: "massage",
-    },
-    {
-        id: 3,
-        image: {
-            src: `/images/want-to-try/oil-try.webp`,
-            alt: "Oil Try",
-            name: "Oil",
+        {
+            id: 3,
+            image: {
+                src: `/images/want-to-try/oil-try.webp`,
+                alt: t('hooks.wantToTry.oil.alt'),
+                name: t('hooks.wantToTry.oil.name'),
+            },
+            value: "oil",
         },
-        value: "oil",
-    },
-    {
-        id: 4,
-        image: {
-            src: `/images/want-to-try/asmr-try.webp`,
-            alt: "ASMR Try",
-            name: "ASMR",
+        {
+            id: 4,
+            image: {
+                src: `/images/want-to-try/asmr-try.webp`,
+                alt: t('hooks.wantToTry.asmr.alt'),
+                name: t('hooks.wantToTry.asmr.name'),
+            },
+            value: "asmr",
         },
-        value: "asmr",
-    },
-    {
-        id: 5,
-        image: {
-            src: `/images/want-to-try/public-play-try.webp`,
-            alt: "Public Play Try",
-            name: "Public Play",
+        {
+            id: 5,
+            image: {
+                src: `/images/want-to-try/public-play-try.webp`,
+                alt: t('hooks.wantToTry.publicPlay.alt'),
+                name: t('hooks.wantToTry.publicPlay.name'),
+            },
+            value: "public-play",
         },
-        value: "public-play",
-    },
-    {
-        id: 6,
-        image: {
-            src: `/images/want-to-try/food-play-try.webp`,
-            alt: "Food Play Try",
-            name: "Food Play",
+        {
+            id: 6,
+            image: {
+                src: `/images/want-to-try/food-play-try.webp`,
+                alt: t('hooks.wantToTry.foodPlay.alt'),
+                name: t('hooks.wantToTry.foodPlay.name'),
+            },
+            value: "food-play",
         },
-        value: "food-play",
-    },
-    {
-        id: 7,
-        image: {
-            src: `/images/want-to-try/humiliation-try.webp`,
-            alt: "Humiliation Try",
-            name: "Humiliation",
+        {
+            id: 7,
+            image: {
+                src: `/images/want-to-try/humiliation-try.webp`,
+                alt: t('hooks.wantToTry.humiliation.alt'),
+                name: t('hooks.wantToTry.humiliation.name'),
+            },
+            value: "humiliation",
         },
-        value: "humiliation",
-    },
-    {
-        id: 8,
-        image: {
-            src: `/images/want-to-try/blindfold-try.webp`,
-            alt: "Blindfold Try",
-            name: "Blindfold",
+        {
+            id: 8,
+            image: {
+                src: `/images/want-to-try/blindfold-try.webp`,
+                alt: t('hooks.wantToTry.blindfold.alt'),
+                name: t('hooks.wantToTry.blindfold.name'),
+            },
+            value: "blindfold",
         },
-        value: "blindfold",
-    },
-    {
-        id: 9,
-        image: {
-            src: `/images/want-to-try/foot-try.webp`,
-            alt: "Foot Try",
-            name: "Foot",
+        {
+            id: 9,
+            image: {
+                src: `/images/want-to-try/foot-try.webp`,
+                alt: t('hooks.wantToTry.foot.alt'),
+                name: t('hooks.wantToTry.foot.name'),
+            },
+            value: "foot",
         },
-        value: "foot",
-    },
-    {
-        id: 10,
-        image: {
-            src: `/images/want-to-try/toys-try.webp`,
-            alt: "Toys Try",
-            name: "Toys",
+        {
+            id: 10,
+            image: {
+                src: `/images/want-to-try/toys-try.webp`,
+                alt: t('hooks.wantToTry.toys.alt'),
+                name: t('hooks.wantToTry.toys.name'),
+            },
+            value: "toys",
         },
-        value: "toys",
-    },
-    {
-        id: 11,
-        image: {
-            src: `/images/want-to-try/treesome-try.webp`,
-            alt: "Treesome Try",
-            name: "Treesome",
+        {
+            id: 11,
+            image: {
+                src: `/images/want-to-try/treesome-try.webp`,
+                alt: t('hooks.wantToTry.threesome.alt'),
+                name: t('hooks.wantToTry.threesome.name'),
+            },
+            value: "treesome",
         },
-        value: "treesome",
-    },
-    {
-        id: 12,
-        image: {
-            src: `/images/want-to-try/bondage-try.webp`,
-            alt: "Bondage Try",
-            name: "Bondage",
+        {
+            id: 12,
+            image: {
+                src: `/images/want-to-try/bondage-try.webp`,
+                alt: t('hooks.wantToTry.bondage.alt'),
+                name: t('hooks.wantToTry.bondage.name'),
+            },
+            value: "bondage",
         },
-        value: "bondage",
-    },
-];
+    ];
+};

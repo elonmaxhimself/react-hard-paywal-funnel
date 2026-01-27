@@ -1,16 +1,17 @@
 import { useFormContext } from "react-hook-form";
+import { useTranslation } from "react-i18next";
 import ImageCard from "@/components/ImageCard";
 import Stepper from "@/components/stepper";
 import StepWrapper from "@/components/StepWrapper";
 import { useStepperContext } from "@/components/stepper/Stepper.context";
 import { FunnelSchema } from "@/hooks/funnel/useFunnelForm";
-import { EYES_COLORS } from "@/constants/eyes-colors";
+import { useEyesColors } from "@/constants/eyes-colors";
 
 export function EyesColorStep() {
+    const { t } = useTranslation();
+    const EYES_COLORS = useEyesColors();
     const { nextStep } = useStepperContext();
-
     const form = useFormContext<FunnelSchema>();
-
     const eyes_color = form.watch("eyes");
 
     return (
@@ -33,7 +34,7 @@ export function EyesColorStep() {
                             "text-white text-lg font-bold mb-5 md:mb-[30px] capitalize text-center"
                         }
                     >
-                        Choose her eyes color
+                        {t('funnel.eyesColorStep.title')}
                     </h2>
                     <div className="grid grid-cols-1 gap-y-[20px] w-full">
                         {EYES_COLORS.map((eyes) => (

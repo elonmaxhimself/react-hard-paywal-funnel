@@ -1,21 +1,18 @@
 import { Controller, useFormContext } from "react-hook-form";
-
+import { useTranslation } from "react-i18next";
 import Stepper from "@/components/stepper";
 import { useStepperContext } from "@/components/stepper/Stepper.context";
 import StepWrapper from "@/components/StepWrapper";
 import ButtonField from "@/components/funnel/fields/ButtonField";
 import { Button } from "@/components/ui/button";
-
 import { FunnelSchema } from "@/hooks/funnel/useFunnelForm";
-
-import { experienceFilingTypes } from "@/constants/experience-filings-types";
-
+import { useExperienceFilingTypes } from "@/constants/experience-filings-types";
 
 export function LonelinessStep() {
+    const { t } = useTranslation();
     const { nextStep } = useStepperContext();
-
     const form = useFormContext<FunnelSchema>();
-
+    const experienceFilingTypes = useExperienceFilingTypes();
     return (
         <StepWrapper>
             <div
@@ -36,7 +33,7 @@ export function LonelinessStep() {
                             "text-white text-lg font-bold mb-5 md:mb-[30px] text-center capitalize"
                         }
                     >
-                        How often do you experience feelings of loneliness?
+                        {t('funnel.lonelinessStep.title')}
                     </h2>
                     <div className={"w-full flex flex-col items-center gap-[10px]"}>
                         {experienceFilingTypes.map((experience) => (
@@ -65,7 +62,7 @@ export function LonelinessStep() {
                 <div className="w-full flex items-center justify-center px-[15px] sm:px-0 p-5 bg-black-2 sm:static fixed bottom-0 left-0 z-100">
                     <div className="max-w-[450px] w-full">
                         <Button onClick={nextStep} className="w-full h-[45px] bg-primary-gradient">
-                            <span className="text-base font-bold">Continue</span>
+                            <span className="text-base font-bold">{t('funnel.lonelinessStep.continue')}</span>
                         </Button>
                     </div>
                 </div>

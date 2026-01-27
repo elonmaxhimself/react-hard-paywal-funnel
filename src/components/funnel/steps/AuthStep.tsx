@@ -1,5 +1,6 @@
 import { Controller } from "react-hook-form";
 import { Loader2Icon } from "lucide-react";
+import { useTranslation, Trans } from "react-i18next";
 
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
@@ -11,9 +12,11 @@ import SpriteIcon from "@/components/SpriteIcon";
 import { useSignUpForm } from "@/hooks/useSignUpForm";
 import { usePostHog } from "posthog-js/react";
 
-import { CHECKBOXES } from "@/constants/auth-checkboxes";
+import { useCheckboxes } from "@/constants/auth-checkboxes";
 
 export function AuthStep() {
+    const { t } = useTranslation();
+    const CHECKBOXES = useCheckboxes();
     const posthog = usePostHog();
     const { form, onSubmit, onValueReset, isPending, apiError } = useSignUpForm(posthog);
 
@@ -28,7 +31,7 @@ export function AuthStep() {
                 >
                     <SpriteIcon
                         src={"/images/logo.svg"}
-                        fallbackAlt={"My Dream Companion"}
+                        fallbackAlt={t('funnel.authStep.altLogo')}
                         targetW={35}
                         targetH={35}
                         fit="contain"
@@ -36,17 +39,20 @@ export function AuthStep() {
                     />
 
                     <div className="text-white text-2xl font-bold text-center mb-[30px]">
-                        Achieve your goals with <br />
-                        <span className="text-transparent bg-clip-text bg-primary-gradient">
-                            Dream Companion
-                        </span>
+                        <Trans 
+                            i18nKey="funnel.authStep.title"
+                            components={{ 
+                                br: <br />,
+                                highlight: <span className="text-transparent bg-clip-text bg-primary-gradient" />
+                            }}
+                        />
                     </div>
 
                     <div className="w-full">
                         <div className="w-full flex flex-col gap-[10px] mb-10">
                             <div>
                                 <Label className="text-white/70 mb-2.5" htmlFor="email">
-                                    Enter your email to create a personal account
+                                    {t('funnel.authStep.emailLabel')}
                                 </Label>
                                 <Controller
                                     name="email"
@@ -57,14 +63,14 @@ export function AuthStep() {
                                             icon={
                                                 <img
                                                     src="/icons/mail-icon.svg"
-                                                    alt="Mail Icon"
+                                                    alt={t('funnel.authStep.altMailIcon')}
                                                     width={22}
                                                     height={22}
                                                     className="w-[22px] h-[22px] invert brightness-0"
                                                 />
                                             }
                                             type="email"
-                                            placeholder="Email"
+                                            placeholder={t('funnel.authStep.emailPlaceholder')}
                                             value={field.value}
                                             onChange={field.onChange}
                                             isError={apiError?.message}
@@ -89,14 +95,14 @@ export function AuthStep() {
                                             icon={
                                                 <img
                                                     src="/icons/lock-icon.svg"
-                                                    alt="Lock Icon"
+                                                    alt={t('funnel.authStep.altLockIcon')}
                                                     width={22}
                                                     height={22}
                                                     className="w-[22px] h-[22px] invert brightness-0"
                                                 />
                                             }
                                             type="password"
-                                            placeholder={"Password"}
+                                            placeholder={t('funnel.authStep.passwordPlaceholder')}
                                             value={field.value}
                                             onChange={(event) => {
                                                 field.onChange(event);
@@ -156,7 +162,7 @@ export function AuthStep() {
                             className={"w-full h-[45px] bg-primary-gradient mb-[30px]"}
                         >
                             {isPending && <Loader2Icon className="animate-spin" />}
-                            <span className={"text-base font-bold"}>Save And Continue</span>
+                            <span className={"text-base font-bold"}>{t('funnel.authStep.saveAndContinue')}</span>
                         </Button>
 
                         <div className="w-full p-2.5 bg-[#222327]/90 border border-white/6 rounded-[10px]">
@@ -164,7 +170,7 @@ export function AuthStep() {
                                 <div className="flex-1 flex items-center relative">
                                     <SpriteIcon
                                         src={"/images/avatars/avatar_2.webp"}
-                                        fallbackAlt={"Avatar 1"}
+                                        fallbackAlt={t('funnel.authStep.altAvatar') + " 1"}
                                         targetW={31}
                                         targetH={31}
                                         fit="cover"
@@ -175,7 +181,7 @@ export function AuthStep() {
                                     />
                                     <SpriteIcon
                                         src={"/images/avatars/avatar_7.webp"}
-                                        fallbackAlt={"Avatar 2"}
+                                        fallbackAlt={t('funnel.authStep.altAvatar') + " 2"}
                                         targetW={31}
                                         targetH={31}
                                         fit="cover"
@@ -186,7 +192,7 @@ export function AuthStep() {
                                     />
                                     <SpriteIcon
                                         src={"/images/avatars/avatar_8.webp"}
-                                        fallbackAlt={"Avatar 3"}
+                                        fallbackAlt={t('funnel.authStep.altAvatar') + " 3"}
                                         targetW={31}
                                         targetH={31}
                                         fit="cover"
@@ -208,13 +214,13 @@ export function AuthStep() {
                                 <div
                                     className={"flex-1 text-white text-[10px] font-bold uppercase"}
                                 >
-                                    3M+ happy users
+                                    {t('funnel.authStep.happyUsers')}
                                 </div>
 
                                 <div className={"relative flex-1"}>
                                     <SpriteIcon
                                         src={"/images/award-ranking.svg"}
-                                        fallbackAlt={"#1 RANKED NSFW AI APP"}
+                                        fallbackAlt={t('funnel.authStep.altAwardRanking')}
                                         targetW={126}
                                         targetH={38}
                                         fit="contain"

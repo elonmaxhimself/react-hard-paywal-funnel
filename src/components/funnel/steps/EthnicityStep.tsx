@@ -1,17 +1,18 @@
 import { useFormContext } from "react-hook-form";
+import { useTranslation } from "react-i18next";
 import ImageCard from "@/components/ImageCard";
 import Stepper from "@/components/stepper";
 import StepWrapper from "@/components/StepWrapper";
 import { useStepperContext } from "@/components/stepper/Stepper.context";
 import { Button } from "@/components/ui/button";
 import { FunnelSchema } from "@/hooks/funnel/useFunnelForm";
-import { ethnicity } from "@/constants/ethnicity";
+import { useEthnicity } from "@/constants/ethnicity";
 
 export function EthnicityStep() {
+    const { t } = useTranslation();
     const { nextStep } = useStepperContext();
-
     const form = useFormContext<FunnelSchema>();
-
+    const ethnicity = useEthnicity();
     const character_ethnicity = form.watch("ethnicity");
 
     const onSelectEthnicity = (ethnicityValue: string) => {
@@ -34,10 +35,10 @@ export function EthnicityStep() {
                         <Stepper.Progress />
                     </div>
                     <h2 className={"text-white/70 text-sm font-medium text-center"}>
-                        Lets Customize Her Appearance
+                        {t('funnel.ethnicityStep.subtitle')}
                     </h2>
                     <p className={"text-white text-[18px] font-bold text-center mb-5 md:mb-[25px]"}>
-                        Choose Ethnicity
+                        {t('funnel.ethnicityStep.title')}
                     </p>
                     <div className={"w-full px-8 flex flex-col gap-[10px]"}>
                         <div className={"grid grid-cols-2 gap-[10px]"}>
@@ -82,7 +83,7 @@ export function EthnicityStep() {
                 <div className="w-full flex items-center justify-center px-[15px] sm:px-5 p-5 bg-black-2 sm:static fixed bottom-0 left-0 z-100">
                     <div className="max-w-[450px] w-full">
                         <Button onClick={nextStep} className="w-full h-[45px] bg-primary-gradient">
-                            <span className="text-base font-bold">Continue</span>
+                            <span className="text-base font-bold">{t('funnel.ethnicityStep.continue')}</span>
                         </Button>
                     </div>
                 </div>

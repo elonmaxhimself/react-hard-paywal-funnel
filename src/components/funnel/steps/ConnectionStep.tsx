@@ -1,21 +1,18 @@
 import { useFormContext } from "react-hook-form";
-
+import { useTranslation } from "react-i18next";
 import Stepper from "@/components/stepper";
 import CheckboxField from "@/components/funnel/fields/CheckboxField";
 import StepWrapper from "@/components/StepWrapper";
 import { Button } from "@/components/ui/button";
-
 import { useStepperContext } from "@/components/stepper/Stepper.context";
-
 import { FunnelSchema } from "@/hooks/funnel/useFunnelForm";
-
-import { connections } from "@/constants/connections";
+import { useConnections } from "@/constants/connections";
 
 export function ConnectionStep() {
+    const { t } = useTranslation();
+    const connections = useConnections()
     const { nextStep } = useStepperContext();
-
     const form = useFormContext<FunnelSchema>();
-
     const personality_connections = form.watch("connections");
 
     return (
@@ -34,7 +31,7 @@ export function ConnectionStep() {
                         <Stepper.Progress />
                     </div>
                     <h2 className={"text-white text-lg font-bold mb-5 md:mb-[30px] capitalize"}>
-                        What connection are you up for?
+                        {t('funnel.connectionStep.title')}
                     </h2>
                     <div className={"w-full flex flex-col items-center justify-center gap-[10px]"}>
                         {connections.map((connection) => (
@@ -49,7 +46,6 @@ export function ConnectionStep() {
                                         connection.value,
                                     );
                                     const currentValues = [...personality_connections];
-
                                     if (isSelected) {
                                         form.setValue(
                                             "connections",
@@ -72,11 +68,10 @@ export function ConnectionStep() {
                         </div>
                     )}
                 </div>
-
                 <div className="w-full flex items-center justify-center px-[15px] sm:px-0 p-5 bg-black-2 sm:static fixed bottom-0 left-0">
                     <div className="max-w-[450px] w-full">
                         <Button onClick={nextStep} className="w-full h-[45px] bg-primary-gradient">
-                            <span className="text-base font-bold">Continue</span>
+                            <span className="text-base font-bold">{t('funnel.connectionStep.continue')}</span>
                         </Button>
                     </div>
                 </div>

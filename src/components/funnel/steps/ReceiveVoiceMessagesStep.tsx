@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { useFormContext } from "react-hook-form";
+import { useTranslation, Trans } from "react-i18next";
 
 import { useStepperContext } from "@/components/stepper/Stepper.context";
 import { Button } from "@/components/ui/button";
@@ -7,6 +8,7 @@ import { type FunnelSchema } from "@/hooks/funnel/useFunnelForm";
 import SpriteIcon from "@/components/SpriteIcon";
 
 export function ReceiveVoiceMessagesStep() {
+    const { t } = useTranslation();
     const { nextStep } = useStepperContext();
     const form = useFormContext<FunnelSchema>();
 
@@ -38,7 +40,7 @@ export function ReceiveVoiceMessagesStep() {
                             {bannerSize.w > 0 && bannerSize.h > 0 && (
                                 <SpriteIcon
                                     src={"/images/banners/voice-message-banner.webp"}
-                                    fallbackAlt={"Would you like to receive Voice Messages?"}
+                                    fallbackAlt={t('funnel.receiveVoiceMessagesStep.altBanner')}
                                     targetW={bannerSize.w}
                                     targetH={bannerSize.h}
                                     fit="cover"
@@ -54,7 +56,7 @@ export function ReceiveVoiceMessagesStep() {
                                 <div className="size-[56px] flex items-center justify-center bg-coral-red rounded-full border border-white/6 voice-icon-shadow">
                                     <img
                                         src="/icons/voice-lg-icon.svg"
-                                        alt="Voice Icon"
+                                        alt={t('funnel.receiveVoiceMessagesStep.altVoiceIcon')}
                                         width={22}
                                         height={22}
                                         className="w-[22px] h-[22px] invert brightness-0"
@@ -81,7 +83,7 @@ export function ReceiveVoiceMessagesStep() {
 
                                 <SpriteIcon
                                     src={"/images/cursor.png"}
-                                    fallbackAlt={"Cursor"}
+                                    fallbackAlt={t('funnel.receiveVoiceMessagesStep.altCursor')}
                                     targetW={50}
                                     targetH={50}
                                     fit="contain"
@@ -101,21 +103,23 @@ export function ReceiveVoiceMessagesStep() {
                 >
                     <div className="max-w-[450px] w-full mx-auto">
                         <h2 className="text-white text-lg font-bold text-center mb-[30px] sm:mb-[20px] capitalize">
-                            Would you like to receive <br />
-                            🔊 Voice Messages?
+                            <Trans 
+                                i18nKey="funnel.receiveVoiceMessagesStep.title"
+                                components={{ br: <br /> }}
+                            />
                         </h2>
                         <div className="w-full flex items-center justify-center gap-[12px]">
                             <Button
                                 onClick={() => onSelectValue(false)}
                                 className="h-[45px] flex-1 bg-white/10 hover:bg-white/20 transition-colors"
                             >
-                                <span className="text-base font-bold">No</span>
+                                <span className="text-base font-bold">{t('funnel.receiveVoiceMessagesStep.no')}</span>
                             </Button>
                             <Button
                                 onClick={() => onSelectValue(true)}
                                 className="h-[45px] flex-1 bg-primary-gradient"
                             >
-                                <span className="text-base font-bold">Yes</span>
+                                <span className="text-base font-bold">{t('funnel.receiveVoiceMessagesStep.yes')}</span>
                             </Button>
                         </div>
                     </div>

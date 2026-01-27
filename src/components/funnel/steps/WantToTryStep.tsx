@@ -1,13 +1,16 @@
 import { useFormContext } from "react-hook-form";
+import { useTranslation } from "react-i18next";
 import ImageCard from "@/components/ImageCard";
 import Stepper from "@/components/stepper";
 import StepWrapper from "@/components/StepWrapper";
 import { useStepperContext } from "@/components/stepper/Stepper.context";
 import { Button } from "@/components/ui/button";
 import { FunnelSchema } from "@/hooks/funnel/useFunnelForm";
-import { WANT_TO_TRY } from "@/constants/want-to-try";
+import { useWantToTry } from "@/constants/want-to-try";
 
 export function WantToTryStep() {
+    const { t } = useTranslation();
+    const WANT_TO_TRY = useWantToTry()
     const { nextStep } = useStepperContext();
 
     const form = useFormContext<FunnelSchema>();
@@ -30,7 +33,7 @@ export function WantToTryStep() {
                         <Stepper.Progress />
                     </div>
                     <h2 className={"text-white text-lg font-bold mb-5 text-center capitalize"}>
-                        What do you want to try with your AI partner?
+                        {t('funnel.wantToTryStep.title')}
                     </h2>
                     <div className={"w-full flex flex-col items-center gap-2"}>
                         <div className={"w-full grid grid-cols-3 gap-[10px]"}>
@@ -76,7 +79,7 @@ export function WantToTryStep() {
                 <div className="w-full flex items-center justify-center px-[15px] sm:px-0 p-5 bg-black-2 sm:static fixed bottom-0 left-0 z-100">
                     <div className="max-w-[450px] w-full">
                         <Button onClick={nextStep} className="w-full h-[45px] bg-primary-gradient">
-                            <span className="text-base font-bold">Continue</span>
+                            <span className="text-base font-bold">{t('funnel.wantToTryStep.continue')}</span>
                         </Button>
                     </div>
                 </div>

@@ -1,4 +1,5 @@
 import { useFormContext } from "react-hook-form";
+import { useTranslation } from "react-i18next";
 
 import ImageCard from "@/components/ImageCard";
 import Stepper from "@/components/stepper";
@@ -8,10 +9,13 @@ import { Button } from "@/components/ui/button";
 
 import { FunnelSchema } from "@/hooks/funnel/useFunnelForm";
 
-import { breastSizes } from "@/constants/breast_size";
-import { breastTypes } from "@/constants/breast-types";
+import { useBreastSizes } from "@/constants/breast_size";
+import { useBreastTypes } from "@/constants/breast-types";
 
-export function BreastTypeStep() {
+export function BreastTypeStep() { 
+    const breastSizes = useBreastSizes()
+    const breastTypes = useBreastTypes();
+    const { t } = useTranslation();
     const { nextStep } = useStepperContext();
 
     const form = useFormContext<FunnelSchema>();
@@ -35,11 +39,11 @@ export function BreastTypeStep() {
                         <Stepper.Progress />
                     </div>
                     <h2 className={"text-white text-lg font-bold mb-5 md:mb-[30px] capitalize"}>
-                        Choose her breast
+                        {t('funnel.breastTypeStep.title')}
                     </h2>
                     <div className={"w-full mb-[30px]"}>
                         <h2 className="text-white text-base font-semibold mb-[7px] capitalize">
-                            Size
+                            {t('funnel.breastTypeStep.size')}
                         </h2>
                         <div className="w-full grid grid-cols-3 gap-[10px]">
                             {breastSizes.map((size) => (
@@ -68,7 +72,7 @@ export function BreastTypeStep() {
                     </div>
                     <div className={"w-full"}>
                         <h2 className={"text-white text-base font-semibold mb-[7px] capitalize"}>
-                            Type
+                            {t('funnel.breastTypeStep.type')}
                         </h2>
                         <div className="grid grid-cols-3 gap-[10px] w-full">
                             {breastTypes.map((type) => (
@@ -99,7 +103,7 @@ export function BreastTypeStep() {
                 <div className="w-full flex items-center justify-center px-[15px] sm:px-0 p-5 bg-black-2 sm:static fixed bottom-0 left-0 z-100">
                     <div className="max-w-[450px] w-full">
                         <Button onClick={nextStep} className="w-full h-[45px] bg-primary-gradient">
-                            <span className="text-base font-bold">Continue</span>
+                            <span className="text-base font-bold">{t('funnel.breastTypeStep.continue')}</span>
                         </Button>
                     </div>
                 </div>

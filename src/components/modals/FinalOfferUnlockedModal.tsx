@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useTranslation } from "react-i18next";
 
 import Modal from "@/components/modals/Modal";
 
@@ -14,6 +15,7 @@ const PAUSE_FOR_STEP = 1000;
 const AUTO_CLICK_DELAY = 3000;
 
 const FinalOfferUnlockedModal = () => {
+    const { t } = useTranslation();
     const { trigger, open, setOpen, title } = useStore((state) => state.modal);
     const [step, setStep] = useState<"none" | "first" | "second">("none");
     const [gifKey, setGifKey] = useState<number>(DEFAULT_GIF_KEY);
@@ -76,12 +78,12 @@ const FinalOfferUnlockedModal = () => {
                                 <img
                                     key={gifKey}
                                     src={`/gifs/percentage.gif?v=${gifKey}`}
-                                    alt="Secret Offer Icon"
+                                    alt={t('common.altSecretOffer')}
                                     className="object-contain opacity-70 h-[170px] sm:h-[270px] w-auto"
                                 />
                             </div>
                             <h2 className="capitalize text-2xl font-bold text-white text-center mb-5 px-3">
-                                secret offer unlocked
+                                {t('modals.finalOfferUnlocked.secretOfferUnlocked')}
                             </h2>
                         </motion.div>
                     )}
@@ -97,17 +99,17 @@ const FinalOfferUnlockedModal = () => {
                         >
                             <img
                                 src={fireworksIcon}
-                                alt="Secret Offer Icon"
+                                alt={t('common.altSecretOffer')}
                                 className="h-[280px] w-auto object-contain opacity-70"
                             />
 
                             <div className="absolute inset-0 top-10 flex flex-col items-center justify-center w-full px-3 text-center">
                                 <h2 className="capitalize text-[32px] font-bold text-white mb-4">
-                                    Your Final Offer
+                                    {t('modals.finalOfferUnlocked.yourFinalOffer')}
                                 </h2>
 
                                 <div className="uppercase text-[35px] px-16 font-bold gradient-pink">
-                                    {title} OFF
+                                    {t('modals.finalOfferUnlocked.off', { percent: title })}
                                 </div>
                             </div>
                         </motion.div>

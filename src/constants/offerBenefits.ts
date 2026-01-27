@@ -1,6 +1,12 @@
-export const offerBenefits = [
-    { id: 1, text: "Best value for money" },
-    { id: 2, text: "Most advanced image generator on the market" },
-    { id: 3, text: "Smartest AI with advanced memory and empathy engine" },
-    { id: 4, text: "Custom video request from your AI companion" },
-];
+import { useTranslation } from "react-i18next";
+
+export const useOfferBenefits = () => {
+  const { t } = useTranslation();
+  
+  return [
+    { id: 1, text: t('constants.offerBenefits.bestValue') },
+    { id: 2, text: t('constants.offerBenefits.advancedImageGenerator') },
+    { id: 3, text: t('constants.offerBenefits.smartestAi') },
+    { id: 4, text: t('constants.offerBenefits.customVideoRequest') },
+  ];
+};

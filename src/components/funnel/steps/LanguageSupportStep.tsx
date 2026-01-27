@@ -1,6 +1,7 @@
 "use client";
 
 import { clsx } from "clsx";
+import { useTranslation } from "react-i18next";
 import Stepper from "@/components/stepper";
 import StepWrapper from "@/components/StepWrapper";
 import { useStepperContext } from "@/components/stepper/Stepper.context";
@@ -9,6 +10,7 @@ import SpriteIcon from "@/components/SpriteIcon";
 import { FLAGS_LANGUAGE_SUPPORT } from "@/constants/flagsLanguageSupport";
 
 export function LanguageSupportStep() {
+    const { t } = useTranslation();
     const { nextStep } = useStepperContext();
 
     return (
@@ -20,11 +22,10 @@ export function LanguageSupportStep() {
                     </div>
 
                     <h2 className="text-white text-[24px] font-bold mb-[15px] text-center">
-                        Our AI Supports 20+ Languages
+                        {t('funnel.languageSupportStep.title')}
                     </h2>
                     <p className="text-white/70 text-sm font-medium text-center mb-[15px] first-letter:uppercase">
-                        millions of users around the globe use it to improve their communication
-                        skills and foreign languages in real life
+                        {t('funnel.languageSupportStep.subtitle')}
                     </p>
 
                     <div className="w-full h-auto aspect-square flex flex-col items-center justify-end relative">
@@ -80,7 +81,7 @@ export function LanguageSupportStep() {
                 <div className="w-full flex items-center justify-center px-[15px] sm:px-0 p-5 sm:static fixed bottom-0 left-0 z-100">
                     <div className="max-w-[450px] w-full">
                         <Button onClick={nextStep} className="w-full h-[45px] bg-primary-gradient">
-                            <span className="text-base font-bold">Continue</span>
+                            <span className="text-base font-bold">{t('funnel.languageSupportStep.continue')}</span>
                         </Button>
                     </div>
                 </div>

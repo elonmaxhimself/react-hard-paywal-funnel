@@ -1,17 +1,16 @@
 import { Controller, useFormContext } from "react-hook-form";
-
+import { useTranslation } from "react-i18next";
 import Stepper from "@/components/stepper";
 import StepWrapper from "@/components/StepWrapper";
 import { useStepperContext } from "@/components/stepper/Stepper.context";
 import ButtonField from "@/components/funnel/fields/ButtonField";
-
 import { FunnelSchema } from "@/hooks/funnel/useFunnelForm";
-
-import { preferredAge } from "@/constants/preferred-age";
+import { usePreferredAge } from "@/constants/preferred-age";
 
 export function PreferredAgeStep() {
+    const { t } = useTranslation();
     const { nextStep } = useStepperContext();
-
+    const preferredAge = usePreferredAge();
     const form = useFormContext<FunnelSchema>();
 
     return (
@@ -30,7 +29,7 @@ export function PreferredAgeStep() {
                         <Stepper.Progress />
                     </div>
                     <h2 className={"text-white text-lg font-bold mb-5 md:mb-[30px] capitalize"}>
-                        What is your preferred age range?
+                        {t('funnel.preferredAgeStep.title')}
                     </h2>
                     <div className={"w-full flex flex-col gap-[10px]"}>
                         {preferredAge.map((age) => (

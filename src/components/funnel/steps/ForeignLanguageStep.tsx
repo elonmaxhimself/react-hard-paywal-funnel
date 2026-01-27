@@ -1,17 +1,16 @@
 import { Controller, useFormContext } from "react-hook-form";
-
+import { useTranslation } from "react-i18next";
 import Stepper from "@/components/stepper";
 import StepWrapper from "@/components/StepWrapper";
 import { useStepperContext } from "@/components/stepper/Stepper.context";
 import ButtonField from "@/components/funnel/fields/ButtonField";
-
 import { FunnelSchema } from "@/hooks/funnel/useFunnelForm";
-
-import { booleanOptions } from "@/constants/boolean-options";
+import { useBooleanOptions } from "@/constants/boolean-options";
 
 export function ForeignLanguageStep() {
+    const { t } = useTranslation();
+    const booleanOptions = useBooleanOptions();
     const { nextStep } = useStepperContext();
-
     const form = useFormContext<FunnelSchema>();
 
     return (
@@ -30,7 +29,7 @@ export function ForeignLanguageStep() {
                         <Stepper.Progress />
                     </div>
                     <h2 className={"text-white text-lg font-bold mb-5 mb-[30px] text-center"}>
-                        Do You Want To Practice Foreign Languages With Your AI Companion?
+                        {t('funnel.foreignLanguageStep.title')}
                     </h2>
                     <div className={"w-full flex flex-col gap-[10px] mb-2"}>
                         {booleanOptions.map((option) => (

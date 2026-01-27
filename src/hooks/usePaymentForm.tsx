@@ -67,7 +67,6 @@ export function usePaymentForm(posthog?: any) {
         
         if (channel) {
             const handleMessage = (event: MessageEvent) => {
-                // Игнорируем свои сообщения
                 if (event.data.senderId === tabId.current) {
                     return;
                 }

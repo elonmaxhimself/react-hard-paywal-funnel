@@ -80,6 +80,8 @@ export function usePaymentForm(posthog?: any) {
                 }
                 
                 if (event.data.type === 'PAYMENT_SUCCESS') {
+                    setPaymentCompleted(true);
+                    setIsSubmitting(true);
                     setTimeout(() => {
                         window.location.reload();
                     }, 100);

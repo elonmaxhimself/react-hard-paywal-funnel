@@ -278,7 +278,7 @@ export function SubscriptionStep() {
     if (DEFAULT_PRODUCT_ID) {
         form.setValue('productId', DEFAULT_PRODUCT_ID);
     }
-}, [DEFAULT_PRODUCT_ID, productId, form, pricingVariant]);
+}, [DEFAULT_PRODUCT_ID]);
 
     const renderTermsText = (text: string) => {
         const parts = text.split("|TERMS_LINK|");

@@ -224,7 +224,7 @@ export function SubscriptionStep() {
         return subscriptions.filter(sub => productIds.includes(sub.productId));
     }, [productIds]);
 
-    const DEFAULT_PRODUCT_ID = useMemo(() => {
+    const defaultProduct = useMemo(() => {
     const bestChoice = activeSubscriptions.find(sub => sub.isBestChoice);
     if (bestChoice) return bestChoice.productId;
     if (activeSubscriptions.length === 0) return productIds[0];
@@ -248,7 +248,7 @@ export function SubscriptionStep() {
 
     useEffect(() => {
         if (isSpecialOfferOpened) {
-            form.setValue("productId", DEFAULT_PRODUCT_ID);
+            form.setValue("productId", defaultProduct);
             setIsSpecialOfferOpened(false);
         }
     }, [isSpecialOfferOpened, form, setIsSpecialOfferOpened]);
@@ -275,10 +275,10 @@ export function SubscriptionStep() {
     const featured = useMeasure();
 
     useEffect(() => {
-    if (DEFAULT_PRODUCT_ID) {
-        form.setValue('productId', DEFAULT_PRODUCT_ID);
+    if (defaultProduct) {
+        form.setValue('productId', defaultProduct);
     }
-}, [DEFAULT_PRODUCT_ID, form]);
+}, [defaultProduct, form]);
 
     const renderTermsText = (text: string) => {
         const parts = text.split("|TERMS_LINK|");

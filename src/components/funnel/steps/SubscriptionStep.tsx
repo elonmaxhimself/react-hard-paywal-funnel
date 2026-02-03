@@ -216,14 +216,25 @@ export function SubscriptionStep() {
     const isSpecialOfferOpened = useStore((state) => state.offer.isSpecialOfferOpened);
     const posthog = usePostHog();
 
-  
-    const pricingVariant = String(posthog?.getFeatureFlag('pricing_ab_test') || 'control');
+    const pricingVariant = String(posthog?.getFeatureFlag(EXPERIMENTS.PRICING.flagKey) || 'control');
     const productIds: readonly number[] = EXPERIMENTS.PRICING.variants[pricingVariant as keyof typeof EXPERIMENTS.PRICING.variants] || EXPERIMENTS.PRICING.variants.control;
-    const DEFAULT_PRODUCT_ID = productIds[1];
+    
     
     const activeSubscriptions = useMemo(() => {
         return subscriptions.filter(sub => productIds.includes(sub.productId));
     }, [productIds]);
+
+    const DEFAULT_PRODUCT_ID = useMemo(() => {
+    const bestChoice = activeSubscriptions.find(sub => sub.isBestChoice);
+    if (bestChoice) return bestChoice.productId;
+    if (activeSubscriptions.length === 0) return productIds[0];
+    const sorted = [...activeSubscriptions].sort((a, b) => 
+        parseFloat(a.salePriceFull) - parseFloat(b.salePriceFull)
+    );
+    
+    const middleIndex = Math.floor(sorted.length / 2);
+    return sorted[middleIndex].productId;
+}, [activeSubscriptions, productIds]);
 
     const [carouselApi, setCarouselApi] = useState<CarouselApi>();
 
@@ -262,6 +273,12 @@ export function SubscriptionStep() {
 
     const hero = useMeasure();
     const featured = useMeasure();
+
+    useEffect(() => {
+    if (DEFAULT_PRODUCT_ID) {
+        form.setValue('productId', DEFAULT_PRODUCT_ID);
+    }
+}, [DEFAULT_PRODUCT_ID, productId, form, pricingVariant]);
 
     const renderTermsText = (text: string) => {
         const parts = text.split("|TERMS_LINK|");

@@ -238,6 +238,7 @@ export function SubscriptionStep() {
 
     const [carouselApi, setCarouselApi] = useState<CarouselApi>();
 
+    
     useEffect(() => {
         if (typeof window === "undefined") return;
         const fbq = (window as any).fbq;
@@ -245,13 +246,6 @@ export function SubscriptionStep() {
     }, []);
 
     const form = useFormContext<FunnelSchema>();
-
-    useEffect(() => {
-        if (isSpecialOfferOpened) {
-            form.setValue("productId", defaultProduct);
-            setIsSpecialOfferOpened(false);
-        }
-    }, [isSpecialOfferOpened, form, setIsSpecialOfferOpened]);
 
     useEffect(() => {
         if (!carouselApi) return;
@@ -274,11 +268,24 @@ export function SubscriptionStep() {
     const hero = useMeasure();
     const featured = useMeasure();
 
-    useEffect(() => {
-    if (defaultProduct) {
-        form.setValue('productId', defaultProduct);
-    }
-}, [defaultProduct, form]);
+const hasInitializedProduct = useRef(false);
+
+useEffect(() => {
+  if (!defaultProduct) return;
+
+  if (isSpecialOfferOpened) {
+    form.setValue("productId", defaultProduct);
+    setIsSpecialOfferOpened(false);
+    hasInitializedProduct.current = true;
+    return;
+  }
+  if (hasInitializedProduct.current) return;
+
+  form.setValue("productId", defaultProduct);
+  hasInitializedProduct.current = true;
+}, [isSpecialOfferOpened, defaultProduct, form, setIsSpecialOfferOpened]);
+
+
 
     const renderTermsText = (text: string) => {
         const parts = text.split("|TERMS_LINK|");

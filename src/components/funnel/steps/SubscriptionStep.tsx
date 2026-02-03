@@ -268,22 +268,21 @@ export function SubscriptionStep() {
     const hero = useMeasure();
     const featured = useMeasure();
 
-const hasInitializedProduct = useRef(false);
+    useEffect(() => {
+    if (!defaultProduct) return;
 
-useEffect(() => {
-  if (!defaultProduct) return;
-
-  if (isSpecialOfferOpened) {
+    const currentProductId = form.getValues("productId");
+    if (isSpecialOfferOpened) {
+        form.setValue("productId", defaultProduct);
+        setIsSpecialOfferOpened(false);
+        return;
+    }
+    if (currentProductId && productIds.includes(currentProductId)) {
+        return;
+    }
     form.setValue("productId", defaultProduct);
-    setIsSpecialOfferOpened(false);
-    hasInitializedProduct.current = true;
-    return;
-  }
-  if (hasInitializedProduct.current) return;
+    }, [isSpecialOfferOpened, defaultProduct, productIds, form, setIsSpecialOfferOpened]);
 
-  form.setValue("productId", defaultProduct);
-  hasInitializedProduct.current = true;
-}, [isSpecialOfferOpened, defaultProduct, form, setIsSpecialOfferOpened]);
 
 
 

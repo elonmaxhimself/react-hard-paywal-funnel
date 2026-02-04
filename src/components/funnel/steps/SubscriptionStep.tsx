@@ -1,6 +1,5 @@
-// src/features/funnel/components/Steps/SubscriptionStep.tsx
 import { clsx } from "clsx";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useMemo  } from "react";
 import { useFormContext } from "react-hook-form";
 
 import SaleBanner from "@/components/SaleBanner";
@@ -19,6 +18,7 @@ import {
     CarouselDots,
     type CarouselApi,
 } from "@/components/ui/carousel";
+import { usePostHog } from "posthog-js/react";
 
 import { useStore } from "@/store/state";
 
@@ -32,6 +32,7 @@ import { brands } from "@/constants/brands";
 import { subscriptionTermsTexts } from "@/constants/subscriptionTermsTexts";
 
 import SpriteIcon from "@/components/SpriteIcon";
+import { EXPERIMENTS } from "@/configs/experiment.config";
 
 const PERKS = [
     { text: "🌶️ Spicy images" },
@@ -191,7 +192,7 @@ const BENEFITS = [
     "Discreet",
 ] as const;
 
-const DEFAULT_PRODUCT_ID = 102;
+
 
 function useMeasure() {
     const ref = useRef<HTMLDivElement>(null);
@@ -213,9 +214,31 @@ export function SubscriptionStep() {
     const { nextStep } = useStepperContext();
     const setIsSpecialOfferOpened = useStore((state) => state.offer.setIsSpecialOfferOpened);
     const isSpecialOfferOpened = useStore((state) => state.offer.isSpecialOfferOpened);
+    const posthog = usePostHog();
+
+    const pricingVariant = String(posthog?.getFeatureFlag(EXPERIMENTS.PRICING.flagKey) || 'control');
+    const productIds: readonly number[] = EXPERIMENTS.PRICING.variants[pricingVariant as keyof typeof EXPERIMENTS.PRICING.variants] || EXPERIMENTS.PRICING.variants.control;
+    
+    
+    const activeSubscriptions = useMemo(() => {
+        return subscriptions.filter(sub => productIds.includes(sub.productId));
+    }, [productIds]);
+
+    const defaultProduct = useMemo(() => {
+    const bestChoice = activeSubscriptions.find(sub => sub.isBestChoice);
+    if (bestChoice) return bestChoice.productId;
+    if (activeSubscriptions.length === 0) return productIds[0];
+    const sorted = [...activeSubscriptions].sort((a, b) => 
+        parseFloat(a.salePriceFull) - parseFloat(b.salePriceFull)
+    );
+    
+    const middleIndex = Math.floor(sorted.length / 2);
+    return sorted[middleIndex].productId;
+}, [activeSubscriptions, productIds]);
 
     const [carouselApi, setCarouselApi] = useState<CarouselApi>();
 
+    
     useEffect(() => {
         if (typeof window === "undefined") return;
         const fbq = (window as any).fbq;
@@ -223,13 +246,6 @@ export function SubscriptionStep() {
     }, []);
 
     const form = useFormContext<FunnelSchema>();
-
-    useEffect(() => {
-        if (isSpecialOfferOpened) {
-            form.setValue("productId", DEFAULT_PRODUCT_ID);
-            setIsSpecialOfferOpened(false);
-        }
-    }, [isSpecialOfferOpened, form, setIsSpecialOfferOpened]);
 
     useEffect(() => {
         if (!carouselApi) return;
@@ -251,6 +267,24 @@ export function SubscriptionStep() {
 
     const hero = useMeasure();
     const featured = useMeasure();
+
+    useEffect(() => {
+    if (!defaultProduct) return;
+
+    const currentProductId = form.getValues("productId");
+    if (isSpecialOfferOpened) {
+        form.setValue("productId", defaultProduct);
+        setIsSpecialOfferOpened(false);
+        return;
+    }
+    if (currentProductId && productIds.includes(currentProductId)) {
+        return;
+    }
+    form.setValue("productId", defaultProduct);
+    }, [isSpecialOfferOpened, defaultProduct, productIds, form, setIsSpecialOfferOpened]);
+
+
+
 
     const renderTermsText = (text: string) => {
         const parts = text.split("|TERMS_LINK|");
@@ -304,7 +338,7 @@ export function SubscriptionStep() {
 
                 <div className={"w-full px-[15px] sm:px-0"}>
                     <div className={"w-full flex flex-col gap-[15px] mb-[30px]"}>
-                        {subscriptions.slice(0, 3).map((subscription) => (
+                        {activeSubscriptions.map((subscription) => (
                             <Button
                                 key={subscription.id}
                                 variant={"unstyled"}

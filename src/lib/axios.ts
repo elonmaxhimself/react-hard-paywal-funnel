@@ -4,7 +4,6 @@ import { getAuthStore } from "@/store/states/auth";
 const axiosInstance = axios.create({
     baseURL: import.meta.env.VITE_PUBLIC_API_BASE_URL || "https://devapi.mydreamcompanion.com",
     timeout: 10000,
-    adapter: 'fetch',
     headers: {
         "Content-Type": "application/json",
     },

@@ -14,16 +14,9 @@ export function ClientPosthogProvider({
     
     posthog.init(token, {
       api_host: import.meta.env.VITE_PUBLIC_POSTHOG_HOST || 'https://eu.i.posthog.com',
-      person_profiles: "always",
+      person_profiles: "identified_only",
       capture_pageview: true,
-      autocapture: false,
-      capture_performance: false,
       persistence: 'sessionStorage',
-      capture_exceptions: {
-        capture_unhandled_errors: true,
-        capture_unhandled_rejections: true,
-        capture_console_errors: false
-      },
       loaded: (posthog) => {
         const authData = localStorage.getItem("auth-storage");
         if (authData) {

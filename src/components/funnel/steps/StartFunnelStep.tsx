@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef } from "react";
+import { useEffect, useMemo } from "react";
 import { Button } from "@/components/ui/button";
 import { useStepperContext } from "@/components/stepper/Stepper.context";
 import SpriteIcon from "@/components/SpriteIcon";
@@ -20,12 +20,7 @@ export function StartFunnelStep() {
         return config?.videoUrl || '/video/0.mp4';
     }, [variant]);
 
-    const hasReset = useRef(false);
-
     useEffect(() => {
-        if (hasReset.current) return;
-
-        hasReset.current = true;
         localStorage.removeItem("auth-storage");
         localStorage.removeItem("funnel-storage");
         form.reset(defaultValues);

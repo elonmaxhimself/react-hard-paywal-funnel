@@ -115,15 +115,6 @@ export function useFunnelForm() {
                 setStartingStep(config.startStep);
                 setIsExperimentReady(true);
                 
-                const pricingVariant = String(posthog.getFeatureFlag(EXPERIMENTS.PRICING.flagKey) || 'control');
-                
-                posthog.capture('pricing_variant_assigned', {
-                    $set_once: {
-                        pricing_ab_test_variant: pricingVariant
-                    }
-                });
-                
-                
                 posthog.capture('funnel_started', {
                     variant: variantKey,
                     starting_step: config.startStep,

@@ -13,18 +13,18 @@ import { subscriptions } from "@/constants/subscriptions";
 export type FunnelSchema = z.infer<typeof funnelV3Schema>;
 
 const triggers: Record<number, keyof FunnelSchema | Array<keyof FunnelSchema>> = {
-    2: "connections",
-    11: "personality_traits",
-    12: "interests",
-    15: "ethnicity",
-    16: "your_type",
-    20: ["breast_size", "breast_type"],
-    23: ["hair_style", "hair_color"],
-    25: "character_relationship",
-    26: "turns_of_you",
-    27: "want_to_try",
-    29: "voice",
-    30: "turns_off_in_dating",
+    1: "connections",
+    10: "personality_traits",
+    11: "interests",
+    14: "ethnicity",
+    15: "your_type",
+    19: ["breast_size", "breast_type"],
+    22: ["hair_style", "hair_color"],
+    24: "character_relationship",
+    25: "turns_of_you",
+    26: "want_to_try",
+    28: "voice",
+    29: "turns_off_in_dating",
 };
 
 export const defaultValues = {
@@ -67,15 +67,14 @@ export const defaultValues = {
     productId: subscriptions.find((subscription) => subscription.isBestChoice)?.productId,
 };
 
-const STEPS_COUNT = 44;
-const STEPS_INDICATOR_COUNT = 32;
+const STEPS_COUNT = 43;
+const STEPS_INDICATOR_COUNT = 31;
 
 export function useFunnelForm() {
     const posthog = usePostHog();
     const [active, setActive] = useState(0);
     const [isExperimentReady, setIsExperimentReady] = useState(false);
     const [isFormReady, setIsFormReady] = useState(false);
-    const [startingStep, setStartingStep] = useState(0);
 
     const form = useForm<FunnelSchema>({
         resolver: zodResolver(funnelV3Schema),
@@ -86,14 +85,12 @@ export function useFunnelForm() {
         const token = import.meta.env.VITE_PUBLIC_POSTHOG_TOKEN;
         
         if (!token) {
-            setStartingStep(0);
             setIsExperimentReady(true);
             return;
         }
 
         const timeout = setTimeout(() => {
             console.warn('PostHog initialization timeout - continuing without analytics');
-            setStartingStep(0);
             setIsExperimentReady(true);
         }, 5000);
 
@@ -105,16 +102,6 @@ export function useFunnelForm() {
             try {
                 clearTimeout(timeout);
                 
-                const variant = posthog.getFeatureFlag(EXPERIMENTS.STARTING_STEP.flagKey);
-                const variantKey = (variant as string) || 'control';
-                
-                const config = EXPERIMENTS.STARTING_STEP.variants[
-                    variantKey as keyof typeof EXPERIMENTS.STARTING_STEP.variants
-                ] || EXPERIMENTS.STARTING_STEP.variants['control'];
-                
-                setStartingStep(config.startStep);
-                setIsExperimentReady(true);
-                
                 const pricingVariant = String(posthog.getFeatureFlag(EXPERIMENTS.PRICING.flagKey) || 'control');
                 
                 posthog.capture('pricing_variant_assigned', {
@@ -123,15 +110,12 @@ export function useFunnelForm() {
                     }
                 });
                 
+                posthog.capture('funnel_started');
                 
-                posthog.capture('funnel_started', {
-                    variant: variantKey,
-                    starting_step: config.startStep,
-                });
+                setIsExperimentReady(true);
             } catch (error) {
                 console.error('PostHog feature flag processing error:', error);
                 clearTimeout(timeout);
-                setStartingStep(0);
                 setIsExperimentReady(true);
             }
         });
@@ -152,17 +136,15 @@ export function useFunnelForm() {
             if (savedData) form.reset(savedData);
             if (savedStep !== undefined && savedStep !== null) {
                 setActive(savedStep);
-            } else {
-                setActive(startingStep);
             }
         } catch (error) {
             console.error('Form restoration error:', error);
             form.reset(defaultValues);
-            setActive(startingStep);
+            setActive(0);
         } finally {
             setIsFormReady(true);
         }
-    }, [isExperimentReady, startingStep]);
+    }, [isExperimentReady]);
 
     const nextStep = () => {
         const trigger = triggers[active as keyof typeof triggers];
@@ -179,9 +161,7 @@ export function useFunnelForm() {
         }
     };
 
-    const prevStep = () => setActive((current) => 
-        (current > startingStep ? current - 1 : current)
-    );
+    const prevStep = () => setActive((current) => (current > 0 ? current - 1 : current));
 
     return {
         form,
@@ -189,7 +169,7 @@ export function useFunnelForm() {
             value: active,
             onChange: setActive,
             max: STEPS_INDICATOR_COUNT,
-            startingStep,
+            startingStep: 0,
             nextStep,
             prevStep,
         },

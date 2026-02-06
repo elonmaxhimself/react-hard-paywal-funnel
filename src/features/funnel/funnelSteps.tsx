@@ -33,7 +33,6 @@ import { RelationshipStep } from "@/components/funnel/steps/RelationshipStep";
 import { SelectVoiceStep } from "@/components/funnel/steps/SelectVoiceStep";
 import SocialProofStep from "@/components/funnel/steps/SocialProofStep";
 import { SpicyCustomContentStep } from "@/components/funnel/steps/SpicyCustomContentStep";
-import { StartFunnelStep } from "@/components/funnel/steps/StartFunnelStep";
 import SubscriptionStep from "@/components/funnel/steps/SubscriptionStep";
 import { TurnsOfYouStep } from "@/components/funnel/steps/TurnsOfYouStep";
 import { UniqueCompanionStep } from "@/components/funnel/steps/UniqueCompanionStep";
@@ -44,7 +43,6 @@ import { YourTypeStep } from "@/components/funnel/steps/YourTypeStep";
 import YourAiPartnerStep from "@/components/funnel/steps/YourAiPartnerStep";
 
 export const funnelSteps: ReactNode[] = [
-    <StartFunnelStep />,
     <SocialProofStep />,
     <ConnectionStep />,
     <AssistantStep />,

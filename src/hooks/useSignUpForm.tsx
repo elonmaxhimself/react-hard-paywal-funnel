@@ -1,4 +1,3 @@
-// src/hooks/funnel/useSignUpForm.ts
 import { useForm, useFormContext } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -20,10 +19,9 @@ import { SignUpPayload } from "@/utils/types/auth";
 
 import { voicesMap } from "@/constants/voices-map";
 
-import { analyticsService } from "@/services/analytics-service";
-import { AnalyticsEventTypeEnum } from "@/utils/enums/analytics-event-types";
 import { reportEmailVerified, reportSignUp } from "@/lib/gtag";
 import { useUtmStore } from "@/store/states/utm";
+import { handleAuthSuccess } from "@/utils/auth/handleAuthSuccess";
 
 const signUpSchema = z.object({
     email: z.string().email("Please enter a valid email address"),
@@ -133,68 +131,19 @@ export function useSignUpForm(posthog?: any) {
             onSuccess: (data) => {
                 const response = data as SignUpResponse;
                 
-                const fbq = (window as any).fbq;
-                fbq?.("track", "Lead", {
-                    user_id: response.userId,
+                handleAuthSuccess({
+                    userId: response.userId,
                     email: values.email,
+                    authToken: response.authToken,
+                    posthog,
+                    setUserId,
+                    setToken,
+                    setFormState,
+                    setStep,
+                    nextStep,
+                    funnelFormValues,
+                    activeStep,
                 });
-
-                // Google Ads conversions
-                reportSignUp();
-                reportEmailVerified();
-
-                // GTM / dataLayer event
-                window.dataLayer = window.dataLayer || [];
-                window.dataLayer.push({
-                    event: "cd_signup",
-                    user_id: String(response.userId),
-                    email_domain: values.email.split("@")[1] || "",
-                });
-
-                // Mixpanel identify + sign up tracking
-                try {
-                    analyticsService.identify(String(response.userId));
-
-                    let utmOnRegistration: Record<string, any> | undefined;
-                    try {
-                        const stored = localStorage.getItem("utm_params");
-                        if (stored) utmOnRegistration = JSON.parse(stored);
-                    } catch {}
-
-                    analyticsService.trackSignUpEvent(AnalyticsEventTypeEnum.UNVERIFIED_SIGN_UP, {
-                        distinct_id: String(response.userId),
-                        tid: utmOnRegistration?.deal,
-                        utmOnRegistration,
-                    });
-                } catch (e) {
-                    console.warn("Mixpanel sign up tracking failed", e);
-                }
-
-                // PostHog identify + account created tracking
-                try {
-                    if (typeof window !== "undefined" && posthog) {
-                        posthog.identify(String(response.userId), {
-                            email_domain: values.email.split("@")[1] || "",
-                        });
-
-                        //  setTimeout(() => {
-                        //     posthog.capture("account_created", {
-                        //         user_id: String(response.userId),
-                        //         email_domain: values.email.split("@")[1] || "",
-                        //         auth_method: "email",
-                        //         source: "hard_paywall_funnel"
-                        //     });
-                        // }, 500);
-                    }
-                } catch (e) {
-                    console.warn("PostHog sign up tracking failed", e);
-                }
-
-                setUserId(response.userId);
-                setToken(response.authToken);
-                setFormState(funnelForm.getValues());
-                setStep(activeStep + 1);
-                nextStep();
             },
             onError: (error: any) => {
                 triggerToast({

@@ -2,7 +2,7 @@ import axios from "axios";
 import { getAuthStore } from "@/store/states/auth";
 
 const axiosInstance = axios.create({
-    baseURL: import.meta.env.VITE_PUBLIC_API_BASE_URL || "https://devapi.mydreamcompanion.com",
+    baseURL: import.meta.env.VITE_PUBLIC_API_BASE_URL,
     timeout: 10000,
     adapter: 'fetch',
     headers: {

@@ -9,6 +9,7 @@ import CustomInput from "@/components/CustomInput";
 import SpriteIcon from "@/components/SpriteIcon";
 
 import { useSignUpForm } from "@/hooks/useSignUpForm";
+import { useOAuth } from "@/hooks/useOAuth";
 import { usePostHog } from "posthog-js/react";
 
 import { CHECKBOXES } from "@/constants/auth-checkboxes";
@@ -16,6 +17,13 @@ import { CHECKBOXES } from "@/constants/auth-checkboxes";
 export function AuthStep() {
     const posthog = usePostHog();
     const { form, onSubmit, onValueReset, isPending, apiError } = useSignUpForm(posthog);
+    
+    const { 
+        signIn: oauthSignIn,
+        isGoogleLoading,
+        isTwitterLoading,
+        isDiscordLoading,
+    } = useOAuth(posthog);
 
     const errors = form.formState.errors;
 
@@ -153,11 +161,62 @@ export function AuthStep() {
                         <Button
                             type={"submit"}
                             disabled={isPending}
-                            className={"w-full h-[45px] bg-primary-gradient mb-[30px]"}
+                            className={"w-full h-[45px] bg-primary-gradient mb-5"}
                         >
                             {isPending && <Loader2Icon className="animate-spin" />}
                             <span className={"text-base font-bold"}>Save And Continue</span>
                         </Button>
+
+                        <div className="relative mb-5">
+                            <div className="absolute inset-0 flex items-center">
+                                <div className="w-full border-t border-white/10"></div>
+                            </div>
+                            <div className="relative flex justify-center text-xs uppercase">
+                                <span className="bg-[#1a1a1a] px-2 text-white/50">Or continue with</span>
+                            </div>
+                        </div>
+
+                        <div className="flex gap-3 mb-[30px]">
+                            <Button
+                                type="button"
+                                variant="outline"
+                                className="flex-1 h-[45px] bg-transparent border-white/10 hover:bg-white/5"
+                                onClick={() => oauthSignIn("google")}
+                                disabled={isGoogleLoading}
+                            >
+                                {isGoogleLoading ? (
+                                    <Loader2Icon className="animate-spin" size={20} />
+                                ) : (
+                                    <img src="/icons/google.png" alt="Google" className="w-5 h-5" />
+                                )}
+                            </Button>
+                            <Button
+                                type="button"
+                                variant="outline"
+                                className="flex-1 h-[45px] bg-transparent border-white/10 hover:bg-white/5"
+                                onClick={() => oauthSignIn("twitter")}
+                                disabled={isTwitterLoading}
+                            >
+                                {isTwitterLoading ? (
+                                    <Loader2Icon className="animate-spin" size={20} />
+                                ) : (
+                                    <img src="/icons/X.png" alt="Twitter" className="w-5 h-5" />
+                                )}
+                            </Button>
+                            <Button
+                                type="button"
+                                variant="outline"
+                                className="flex-1 h-[45px] bg-transparent border-white/10 hover:bg-white/5"
+                                onClick={() => oauthSignIn("discord")}
+                                disabled={isDiscordLoading}
+                            >
+                                {isDiscordLoading ? (
+                                    <Loader2Icon className="animate-spin" size={20} />
+                                ) : (
+                                    <img src="/icons/discord.png" alt="Discord" className="w-5 h-5" />
+                                )}
+                            </Button>
+                        </div>
 
                         <div className="w-full p-2.5 bg-[#222327]/90 border border-white/6 rounded-[10px]">
                             <div className="flex gap-2 items-center justify-between">

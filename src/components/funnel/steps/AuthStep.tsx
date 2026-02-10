@@ -8,8 +8,8 @@ import { Checkbox } from "@/components/ui/checkbox";
 import CustomInput from "@/components/CustomInput";
 import SpriteIcon from "@/components/SpriteIcon";
 
-import { useSignUpForm } from "@/hooks/useSignUpForm";
-import { useOAuth } from "@/hooks/useOAuth";
+import { useSignUpForm } from "@/hooks/auth/useSignUpForm";
+import { useOAuth } from "@/hooks/auth/useOAuth";
 import { usePostHog } from "posthog-js/react";
 
 import { CHECKBOXES } from "@/constants/auth-checkboxes";

@@ -1,5 +1,5 @@
 import { FormProvider } from "react-hook-form";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { usePostHog } from "posthog-js/react";
 import Stepper from "@/components/stepper";
 import { useFunnelForm } from "@/hooks/funnel/useFunnelForm";
@@ -9,20 +9,27 @@ import FinalOfferUnlockedModal from "@/components/modals/FinalOfferUnlockedModal
 import SecretOfferModal from "@/components/modals/SecretOfferModal";
 import ShowVideoModal from "@/components/modals/ShowVideoModal";
 import SpecialOfferModal from "@/components/modals/SpecialOfferModal";
-import { authService } from "@/services/auth-service";
-import { handleAuthSuccess } from "@/utils/auth/handleAuthSuccess";
 import { useAuthStore } from "@/store/states/auth";
 import { useFunnelStore } from "@/store/states/funnel";
-import { toastType, triggerToast } from "@/components/AlertToast";
+import { processOAuthCallback } from "@/hooks/auth/processOAuthCallback"
+
+type OAuthProviderType = "google" | "twitter" | "discord";
+
+const OAUTH_PROVIDERS: OAuthProviderType[] = ["google", "twitter", "discord"];
 
 export default function FunnelView() {
     const { form, stepper, isReady } = useFunnelForm();
     const posthog = usePostHog();
-    
+
     const setUserId = useAuthStore((state) => state.setUserId);
     const setToken = useAuthStore((state) => state.setToken);
+    const restoreOAuthState = useAuthStore((state) => state.restoreOAuthState);
+    const clearOAuthState = useAuthStore((state) => state.clearOAuthState);
+
     const setStep = useFunnelStore((state) => state.setStep);
     const setFormState = useFunnelStore((state) => state.setFormState);
+
+    const hasProcessedOAuth = useRef(false);
 
     const [isProcessingOAuth, setIsProcessingOAuth] = useState(() => {
         const params = new URLSearchParams(window.location.search);
@@ -30,91 +37,38 @@ export default function FunnelView() {
     });
 
     useEffect(() => {
+        if (!isReady) return;
+
         const params = new URLSearchParams(window.location.search);
         const code = params.get("code");
-        const state = params.get("state");
-        
-        if (!isReady || !code || !state || !(state === "google" || state === "twitter" || state === "discord")) {
-            return;
-        }
-        
-        console.log('OAuth callback detected, restoring state...');
-        
-        const savedState = localStorage.getItem('oauth_funnel_state');
-        let restoredFormValues = null;
-        let restoredStep = 0;
-        
-        if (savedState) {
-            try {
-                const parsed = JSON.parse(savedState);
-                restoredFormValues = parsed.formValues;
-                restoredStep = parsed.step;
-                
-                console.log('Restored funnel state:', { 
-                    step: restoredStep,
-                    timestamp: parsed.timestamp,
-                });
-                
-                form.reset(restoredFormValues);
-                localStorage.removeItem('oauth_funnel_state');
-            } catch (error) {
-                console.error('Failed to restore state:', error);
-            }
-        }
-        
-        authService.verifyOAuthToken(state as any, { code })
-            .then((data: any) => {
-                console.log('OAuth verification successful:', data);
-                
-                try {
-                    const payload = JSON.parse(atob(data.authToken.split('.')[1]));
-                    console.log('JWT payload:', payload);
-                    
-                    const funnelFormValues = restoredFormValues || form.getValues();
-                    const targetStep = restoredStep + 1;
-                    
-                    setTimeout(() => {
-                        console.log('Calling handleAuthSuccess with step:', restoredStep);
-                        
-                        handleAuthSuccess({
-                            userId: payload.userId,
-                            email: payload.email,
-                            authToken: data.authToken,
-                            posthog,
-                            setUserId,
-                            setToken,
-                            setFormState,
-                            setStep,
-                            nextStep: () => {
-                                console.log('OAuth: setting stepper to:', targetStep);
-                                stepper.onChange(targetStep);
-                            },
-                            funnelFormValues,
-                            activeStep: restoredStep,
-                        });
-                        
-                        setIsProcessingOAuth(false);
-                    }, 100);
-                } catch (decodeError) {
-                    console.error('Failed to decode JWT:', decodeError);
-                    setIsProcessingOAuth(false);
-                    triggerToast({
-                        title: "Failed to process authentication",
-                        type: toastType.error,
-                    });
-                }
-            })
-            .catch((error: any) => {
-                console.error('OAuth verification error:', error);
-                setIsProcessingOAuth(false);
-                triggerToast({
-                    title: error.response?.data?.messages?.[0] || "OAuth verification failed",
-                    type: toastType.error,
-                });
+        const state = params.get("state") as OAuthProviderType | null;
+
+        if (!code || !state || !OAUTH_PROVIDERS.includes(state)) return;
+
+        if (hasProcessedOAuth.current) return;
+        hasProcessedOAuth.current = true;
+
+        const handleOAuth = async () => {
+            await processOAuthCallback({
+                code,
+                state,
+                restoreOAuthState,
+                clearOAuthState,
+                form,
+                stepper,
+                posthog,
+                setUserId,
+                setToken,
+                setFormState,
+                setStep,
             });
-        
-        window.history.replaceState({}, document.title, window.location.pathname);
-    }, [isReady, form, stepper, posthog, setUserId, setToken, setFormState, setStep]);
+
+            setIsProcessingOAuth(false);
+            window.history.replaceState({}, document.title, window.location.pathname);
+        };
+
+        handleOAuth();
+    }, [isReady, form, stepper, posthog, setUserId, setToken, setFormState, setStep, restoreOAuthState, clearOAuthState]);
 
     if (!isReady || isProcessingOAuth) {
         return (

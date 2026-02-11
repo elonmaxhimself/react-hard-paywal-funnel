@@ -177,7 +177,6 @@ export function useFunnelForm() {
             value: active,
             onChange: setActive,
             max: STEPS_INDICATOR_COUNT,
-            startingStep: 0,
             nextStep,
             prevStep,
         },

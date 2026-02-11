@@ -4,13 +4,10 @@ import { Progress } from "@/components/ui/progress";
 import { useStepperContext } from "@/components/stepper/Stepper.context";
 
 export default function StepperProgress() {
-    const { prevStep, value, max, startingStep = 0 } = useStepperContext();
+    const { prevStep, value, max } = useStepperContext();
     
-    const actualSteps = max - startingStep;
-    const currentProgress = value - startingStep;
-    const percentValue = (currentProgress * 100) / actualSteps;
-    
-    const isAtStart = value <= startingStep;
+    const percentValue = (value * 100) / max;
+    const isAtStart = value === 0;
     
     return (
         <div className={"w-full"}>

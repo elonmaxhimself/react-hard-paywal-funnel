@@ -14,7 +14,7 @@ import { FunnelSchema } from "@/hooks/funnel/useFunnelForm";
 
 import { Shift4Statuses } from "@/utils/enums/shift4-statuses";
 
-import { useProducts } from "@/constants/products";
+import { products } from "@/constants/products";
 
 import { analyticsService } from "@/services/analytics-service";
 import { shift4Service } from "@/services/shift4-service";
@@ -46,9 +46,8 @@ export function usePaymentForm(posthog?: any) {
     const authReset = useAuthStore((state) => state.reset);
     const funnelReset = useFunnelStore((state) => state.reset);
 
-    const products = useProducts();
     const productId = form.watch("productId");
-    const product = useMemo(() => products.find((p) => p.id === productId), [productId, products]);
+    const product = useMemo(() => products.find((p) => p.id === productId), [productId]);
 
     const addToCartTrackedRef = useRef(false);
 

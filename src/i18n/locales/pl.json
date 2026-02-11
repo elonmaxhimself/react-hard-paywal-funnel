@@ -646,16 +646,6 @@
       "younger": "Młodsza ode mnie",
       "older": "Starsza ode mnie"
     },
-    "products": {
-      "annualDeluxe": "Roczna Subskrypcja Deluxe",
-      "quarterlyDeluxe": "Kwartalna Subskrypcja Deluxe",
-      "monthlyDeluxe": "Miesięczna Subskrypcja Deluxe",
-      "yearlyDeluxe": "Roczna Subskrypcja Deluxe",
-      "oneWeekIntro": "1-Tygodniowa Oferta Wprowadzająca",
-      "oneMonthIntro": "1-Miesięczna Oferta Wprowadzająca",
-      "threeMonthsIntro": "3-Miesięczna Oferta Wprowadzająca",
-      "sevenDaysIntro": "7-Dniowa Oferta Wprowadzająca"
-    },
     "reviews": {
       "review1": {
         "description": "Z Dream Companion, \n możesz wybrać spośród tysięcy unikalnych towarzyszy AI lub zaprojektować własnego idealnego partnera AI, dostosowując każdy szczegół jego wyglądu, cech osobowości i konkretnych preferencji.",

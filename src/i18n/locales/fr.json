@@ -725,7 +725,8 @@
         "unexpectedError": "Une erreur inattendue s'est produite. Veuillez réessayer plus tard.",
         "paymentWentWrong": "Une erreur s'est produite lors du paiement. Veuillez réessayer.",
         "paymentTakingLong": "Le paiement prend plus de temps que prévu. Veuillez réessayer.",
-        "failedCheckStatus": "Échec de la vérification du statut du paiement. Veuillez réessayer."
+        "failedCheckStatus": "Échec de la vérification du statut du paiement. Veuillez réessayer.",
+        "paymentInAnotherTab": "Le paiement est en cours de traitement dans un autre onglet."
       }
     },
     "turnsOfYou": {

@@ -725,7 +725,8 @@
         "unexpectedError": "Wystąpił nieoczekiwany błąd. Spróbuj ponownie później.",
         "paymentWentWrong": "Coś poszło nie tak podczas płatności. Spróbuj ponownie.",
         "paymentTakingLong": "Płatność trwa dłużej niż oczekiwano. Spróbuj ponownie.",
-        "failedCheckStatus": "Nie udało się sprawdzić statusu płatności. Spróbuj ponownie."
+        "failedCheckStatus": "Nie udało się sprawdzić statusu płatności. Spróbuj ponownie.",
+        "paymentInAnotherTab": "Płatność jest przetwarzana w innej karcie."
       }
     },
     "turnsOfYou": {

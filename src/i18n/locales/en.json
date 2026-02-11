@@ -725,7 +725,8 @@
         "unexpectedError": "An unexpected error occurred. Please try again later.",
         "paymentWentWrong": "Something went wrong during payment. Please try again.",
         "paymentTakingLong": "Payment is taking longer than expected. Please try again.",
-        "failedCheckStatus": "Failed to check payment status. Please try again."
+        "failedCheckStatus": "Failed to check payment status. Please try again.",
+        "paymentInAnotherTab": "Payment is being processed in another tab."
       }
     },
     "turnsOfYou": {

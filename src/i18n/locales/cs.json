@@ -725,7 +725,8 @@
         "unexpectedError": "Došlo k neočekávané chybě. Zkuste to prosím znovu později.",
         "paymentWentWrong": "Během platby se něco pokazilo. Zkuste to prosím znovu.",
         "paymentTakingLong": "Platba trvá déle, než se očekávalo. Zkuste to prosím znovu.",
-        "failedCheckStatus": "Nepodařilo se zkontrolovat stav platby. Zkuste to prosím znovu."
+        "failedCheckStatus": "Nepodařilo se zkontrolovat stav platby. Zkuste to prosím znovu.",
+        "paymentInAnotherTab": "Platba se zpracovává v jiné záložce."
       }
     },
     "turnsOfYou": {

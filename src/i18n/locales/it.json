@@ -725,7 +725,8 @@
         "unexpectedError": "Si è verificato un errore imprevisto. Si prega di riprovare più tardi.",
         "paymentWentWrong": "Qualcosa è andato storto durante il pagamento. Si prega di riprovare.",
         "paymentTakingLong": "Il pagamento sta impiegando più tempo del previsto. Si prega di riprovare.",
-        "failedCheckStatus": "Impossibile verificare lo stato del pagamento. Si prega di riprovare."
+        "failedCheckStatus": "Impossibile verificare lo stato del pagamento. Si prega di riprovare.",
+        "paymentInAnotherTab": "Il pagamento è in fase di elaborazione in un'altra scheda."
       }
     },
     "turnsOfYou": {

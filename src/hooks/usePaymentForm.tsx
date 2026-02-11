@@ -100,13 +100,15 @@ export function usePaymentForm(posthog?: any) {
         const handleStorageChange = (e: StorageEvent) => {
             if (e.key === 'auth-storage') {
                 try {
-                    const currentAuthToken = useAuthStore.getState().authToken;
-                    
-                    if (currentAuthToken === null) {
+                    const parsed = e.newValue ? JSON.parse(e.newValue) : null;
+                    const authCleared = !parsed || parsed.state?.authToken === null;
+
+                    if (authCleared) {
                         window.location.reload();
                     }
-                } catch (err) {
-                    console.error('Error checking auth storage:', err);
+                } catch {
+                    // Corrupted storage value — treat as auth cleared
+                    window.location.reload();
                 }
             }
         };

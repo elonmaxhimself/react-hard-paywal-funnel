@@ -6,9 +6,7 @@ import { FunnelSchema, useFunnelForm } from "@/hooks/funnel/useFunnelForm";
 import { UseFormReturn } from "react-hook-form";
 
 type OAuthProviderType = "google" | "twitter" | "discord";
-
 type FunnelStepper = ReturnType<typeof useFunnelForm>['stepper'];
-
 
 interface ProcessOAuthCallbackParams {
     code: string;
@@ -39,17 +37,24 @@ export const processOAuthCallback = async ({
 }: ProcessOAuthCallbackParams): Promise<void> => {
     try {
         const { formValues: restoredFormValues, step: restoredStep } = restoreOAuthState();
-
+        
         if (restoredFormValues) {
             form.reset(restoredFormValues);
         }
-
+        
         const data = await authService.verifyOAuthToken(state, { code });
-        const payload = decodeJWT(data.authToken);
-
-        const funnelFormValues = restoredFormValues || form.getValues();
+        
+        const decoded = decodeJWT(data.authToken);
+        if (!decoded.success) {
+            throw new Error("Failed to decode JWT token");
+        }
+        const { payload } = decoded;
+        
+        const rawFormValues = restoredFormValues || form.getValues();
+        const { productId, ...funnelFormValues } = rawFormValues as any;
+        
         const targetStep = restoredStep + 1;
-
+        
         handleAuthSuccess({
             userId: payload.userId,
             email: payload.email ?? '',
@@ -63,9 +68,8 @@ export const processOAuthCallback = async ({
             funnelFormValues,
             activeStep: restoredStep,
         });
-
+        
         clearOAuthState();
-
     } catch (error: any) {
         triggerToast({
             title: error.response?.data?.messages?.[0] || "OAuth verification failed",

@@ -11,40 +11,41 @@ import ShowVideoModal from "@/components/modals/ShowVideoModal";
 import SpecialOfferModal from "@/components/modals/SpecialOfferModal";
 import { useAuthStore } from "@/store/states/auth";
 import { useFunnelStore } from "@/store/states/funnel";
-import { processOAuthCallback } from "@/hooks/auth/processOAuthCallback"
+import { processOAuthCallback } from "@/hooks/auth/processOAuthCallback";
 
 type OAuthProviderType = "google" | "twitter" | "discord";
-
 const OAUTH_PROVIDERS: OAuthProviderType[] = ["google", "twitter", "discord"];
 
 export default function FunnelView() {
     const { form, stepper, isReady } = useFunnelForm();
     const posthog = usePostHog();
-
     const setUserId = useAuthStore((state) => state.setUserId);
     const setToken = useAuthStore((state) => state.setToken);
     const restoreOAuthState = useAuthStore((state) => state.restoreOAuthState);
     const clearOAuthState = useAuthStore((state) => state.clearOAuthState);
-
     const setStep = useFunnelStore((state) => state.setStep);
     const setFormState = useFunnelStore((state) => state.setFormState);
-
     const hasProcessedOAuth = useRef(false);
-
+    
     const [isProcessingOAuth, setIsProcessingOAuth] = useState(() => {
         const params = new URLSearchParams(window.location.search);
-        return params.has("code") && params.has("state");
+        const code = params.get("code");
+        const state = params.get("state") as OAuthProviderType | null;
+        return !!(code && state && OAUTH_PROVIDERS.includes(state));
     });
 
     useEffect(() => {
         if (!isReady) return;
-
+        
         const params = new URLSearchParams(window.location.search);
         const code = params.get("code");
         const state = params.get("state") as OAuthProviderType | null;
-
-        if (!code || !state || !OAUTH_PROVIDERS.includes(state)) return;
-
+        
+        if (!code || !state || !OAUTH_PROVIDERS.includes(state)) {
+            setIsProcessingOAuth(false);
+            return;
+        }
+        
         if (hasProcessedOAuth.current) return;
         hasProcessedOAuth.current = true;
 
@@ -62,11 +63,10 @@ export default function FunnelView() {
                 setFormState,
                 setStep,
             });
-
             setIsProcessingOAuth(false);
             window.history.replaceState({}, document.title, window.location.pathname);
         };
-
+        
         handleOAuth();
     }, [isReady, form, stepper, posthog, setUserId, setToken, setFormState, setStep, restoreOAuthState, clearOAuthState]);
 

@@ -1,17 +1,15 @@
 import { Controller, useFormContext } from "react-hook-form";
-
+import { useTranslation } from "react-i18next";
 import Stepper from "@/components/stepper";
 import StepWrapper from "@/components/StepWrapper";
 import { useStepperContext } from "@/components/stepper/Stepper.context";
 import ButtonField from "@/components/funnel/fields/ButtonField";
-
 import { FunnelSchema } from "@/hooks/funnel/useFunnelForm";
-
 import { ageRange } from "@/constants/age-range";
 
 export function UserAgeStep() {
+    const { t } = useTranslation();
     const { nextStep } = useStepperContext();
-
     const form = useFormContext<FunnelSchema>();
 
     return (
@@ -30,11 +28,10 @@ export function UserAgeStep() {
                         <Stepper.Progress />
                     </div>
                     <h2 className={"text-white text-lg font-bold mb-5 md:mb-[15px] capitalize"}>
-                        How old are you?
+                        {t('funnel.userAgeStep.title')}
                     </h2>
                     <p className={"text-white/70 text-sm font-medium text-center mb-[35px]"}>
-                        By clicking the button below, you approve that you are at least 18 or adult
-                        age in your country
+                        {t('funnel.userAgeStep.subtitle')}
                     </p>
                     <div className={"w-full flex flex-col gap-[10px]"}>
                         {ageRange.map((age) => (

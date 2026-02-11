@@ -1,17 +1,16 @@
 import { Controller, useFormContext } from "react-hook-form";
-
+import { useTranslation } from "react-i18next";
 import Stepper from "@/components/stepper";
 import StepWrapper from "@/components/StepWrapper";
 import { useStepperContext } from "@/components/stepper/Stepper.context";
 import ButtonField from "@/components/funnel/fields/ButtonField";
-
 import { FunnelSchema } from "@/hooks/funnel/useFunnelForm";
-
-import { booleanOptions } from "@/constants/boolean-options";
+import { useBooleanOptions  } from "@/constants/boolean-options";
 
 export function SpicyCustomContentStep() {
+    const { t } = useTranslation();
+    const booleanOptions = useBooleanOptions();
     const { nextStep } = useStepperContext();
-
     const form = useFormContext<FunnelSchema>();
 
     return (
@@ -34,7 +33,7 @@ export function SpicyCustomContentStep() {
                             "text-white text-lg font-bold mb-5 md:mb-[30px] text-center capitalize"
                         }
                     >
-                        Do you want to receive spicy custom photos and videos?
+                        {t('funnel.spicyCustomContentStep.title')}
                     </h2>
                     <div className={"w-full flex flex-col gap-[10px] mb-2"}>
                         {booleanOptions.map((option) => (

@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useFormContext } from "react-hook-form";
+import { useTranslation } from "react-i18next";
 
 import { toastType, triggerToast } from "@/components/AlertToast";
 
@@ -29,6 +30,7 @@ let Shift4Options = {
 };
 
 export function usePaymentForm(posthog?: any) {
+    const { t } = useTranslation();
     const [shift4Instance, setShift4Instance] = useState<any>(null);
     const [componentsGroup, setComponentsGroup] = useState<any>(null);
     const [isPolling, setIsPolling] = useState(false);
@@ -75,7 +77,7 @@ export function usePaymentForm(posthog?: any) {
                 } else if (statusResponse.paid_status === "failed") {
                     const errorMessage =
                         statusResponse.failureMessage ||
-                        "Something went wrong during payment. Please try again.";
+                        t('hooks.usePaymentForm.errors.paymentWentWrong');
                     setIsPolling(false);
                     onError(errorMessage);
                     return;
@@ -84,7 +86,7 @@ export function usePaymentForm(posthog?: any) {
                         setTimeout(poll, pollInterval);
                     } else {
                         setIsPolling(false);
-                        onError("Payment is taking longer than expected. Please try again.");
+                        onError(t('hooks.usePaymentForm.errors.paymentTakingLong'));
                     }
                 }
             } catch (error: any) {
@@ -95,11 +97,11 @@ export function usePaymentForm(posthog?: any) {
                         setTimeout(poll, pollInterval);
                     } else {
                         setIsPolling(false);
-                        onError("Payment is taking longer than expected. Please try again.");
+                        onError(t('hooks.usePaymentForm.errors.paymentTakingLong'));
                     }
                 } else {
                     setIsPolling(false);
-                    onError("Failed to check payment status. Please try again.");
+                    onError(t('hooks.usePaymentForm.errors.failedCheckStatus'));
                 }
             }
         };
@@ -115,7 +117,7 @@ export function usePaymentForm(posthog?: any) {
                 const publicKey = import.meta.env.VITE_PUBLIC_SHIFT4_PUBLISHABLE_KEY;
                 if (!publicKey) {
                     triggerToast({
-                        title: "Payment system configuration error.",
+                        title: t('hooks.usePaymentForm.errors.paymentConfigError'),
                         type: toastType.error,
                     });
                     return;
@@ -172,7 +174,7 @@ export function usePaymentForm(posthog?: any) {
             } catch (e) {
                 console.error("Error during Shift4 initialization:", e);
                 triggerToast({
-                    title: "Failed to initialize payment form. Please refresh the page.",
+                    title: t('hooks.usePaymentForm.errors.initializationFailed'),
                     type: toastType.error,
                 });
             }
@@ -186,16 +188,16 @@ export function usePaymentForm(posthog?: any) {
                 s4ComponentsRef.current = null;
             }
         };
-    }, [product, isShift4Ready]);
+    }, [product, isShift4Ready, t]);
 
     useEffect(() => {
         if (shift4Error) {
             triggerToast({
-                title: "Payment system is not available. Please refresh the page.",
+                title: t('hooks.usePaymentForm.errors.paymentSystemUnavailable'),
                 type: toastType.error,
             });
         }
-    }, [shift4Error]);
+    }, [shift4Error, t]);
 
     const onSubmit = async () => {
         if (isSubmitting || paymentCompleted) {
@@ -207,7 +209,7 @@ export function usePaymentForm(posthog?: any) {
         try {
             if (!shift4Instance || !componentsGroup || !product) {
                 triggerToast({
-                    title: "An unexpected error occurred. Please try again later.",
+                    title: t('hooks.usePaymentForm.errors.unexpectedError'),
                     type: toastType.error,
                 });
                 setIsSubmitting(false);
@@ -330,7 +332,7 @@ export function usePaymentForm(posthog?: any) {
                             );
 
                             triggerToast({
-                                title: "An unexpected error occurred. Please try again later.",
+                                title: t('hooks.usePaymentForm.errors.unexpectedError'),
                                 type: toastType.error,
                             });
                         }
@@ -348,7 +350,7 @@ export function usePaymentForm(posthog?: any) {
 
                         triggerToast({
                             title:
-                                error.message || "An unexpected error occurred. Please try again.",
+                                error.message || t('hooks.usePaymentForm.errors.unexpectedError'),
                             type: toastType.error,
                         });
                     },
@@ -371,7 +373,7 @@ export function usePaymentForm(posthog?: any) {
             analyticsService.trackPaymentEvent(AnalyticsEventTypeEnum.PAYMENT_FAILED, mpPayload);
 
             triggerToast({
-                title: error.message || "An unexpected error occurred. Please try again.",
+                title: error.message || t('hooks.usePaymentForm.errors.unexpectedError'),
                 type: toastType.error,
             });
         }

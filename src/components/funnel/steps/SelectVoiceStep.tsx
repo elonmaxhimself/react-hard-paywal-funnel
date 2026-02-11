@@ -1,20 +1,18 @@
 import { useFormContext } from "react-hook-form";
-
+import { useTranslation } from "react-i18next";
 import Stepper from "@/components/stepper";
 import StepWrapper from "@/components/StepWrapper";
 import { useStepperContext } from "@/components/stepper/Stepper.context";
 import VoiceField from "@/components/funnel/fields/VoiceField";
 import { Button } from "@/components/ui/button";
-
 import { FunnelSchema } from "@/hooks/funnel/useFunnelForm";
-
-import { characterVoices } from "@/constants/character-voices";
+import { useCharacterVoices } from "@/constants/character-voices";
 
 export function SelectVoiceStep() {
+    const { t } = useTranslation();
+    const characterVoices = useCharacterVoices()
     const { nextStep } = useStepperContext();
-
     const form = useFormContext<FunnelSchema>();
-
     const character_voice = form.watch("voice");
 
     return (
@@ -37,13 +35,10 @@ export function SelectVoiceStep() {
                             "text-white text-lg font-bold mb-5 md:mb-[30px] text-center capitalize"
                         }
                     >
-                        How do you want you partner to sound like?
+                        {t('funnel.selectVoiceStep.title')}
                     </h2>
                     <h2 className={"text-white/70 text-base font-medium mb-[28px] text-center"}>
-                        Dream Companion’s cutting-edge voice AI delivers the most lifelike, engaging
-                        conversations, letting you dive deep into spicy, immersive chats with your
-                        perfect AI partner. Experience every whisper and word crafted to your
-                        desires—connection so real, it feels electric.
+                        {t('funnel.selectVoiceStep.subtitle')}
                     </h2>
                     <div className={"w-full grid grid-cols-2 gap-[10px]"}>
                         {characterVoices.map((voice) => (
@@ -68,7 +63,7 @@ export function SelectVoiceStep() {
                 <div className="w-full flex items-center justify-center px-[15px] sm:px-0 p-5 bg-black-2 sm:static fixed bottom-0 left-0 z-100">
                     <div className="max-w-[450px] w-full">
                         <Button onClick={nextStep} className="w-full h-[45px] bg-primary-gradient">
-                            <span className="text-base font-bold">Continue</span>
+                            <span className="text-base font-bold">{t('funnel.selectVoiceStep.continue')}</span>
                         </Button>
                     </div>
                 </div>

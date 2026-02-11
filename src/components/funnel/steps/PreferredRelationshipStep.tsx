@@ -1,17 +1,16 @@
 import { Controller, useFormContext } from "react-hook-form";
-
+import { useTranslation } from "react-i18next";
 import Stepper from "@/components/stepper";
 import StepWrapper from "@/components/StepWrapper";
 import { useStepperContext } from "@/components/stepper/Stepper.context";
 import ButtonField from "@/components/funnel/fields/ButtonField";
-
 import { FunnelSchema } from "@/hooks/funnel/useFunnelForm";
-
-import { preferredRelationship } from "@/constants/preferred-relationship";
+import { usePreferredRelationship  } from "@/constants/preferred-relationship";
 
 export function PreferredRelationshipStep() {
+    const { t } = useTranslation();
+    const preferredRelationship = usePreferredRelationship ();
     const { nextStep } = useStepperContext();
-
     const form = useFormContext<FunnelSchema>();
 
     return (
@@ -30,7 +29,7 @@ export function PreferredRelationshipStep() {
                         <Stepper.Progress />
                     </div>
                     <h2 className={"text-white text-lg font-bold mb-5 md:mb-[30px] capitalize"}>
-                        What do you prefer?
+                        {t('funnel.preferredRelationshipStep.title')}
                     </h2>
                     <div className={"w-full flex flex-col gap-[10px]"}>
                         {preferredRelationship.map((relationship) => (

@@ -1,17 +1,18 @@
 import { useFormContext } from "react-hook-form";
+import { useTranslation } from "react-i18next";
 import ImageCard from "@/components/ImageCard";
 import Stepper from "@/components/stepper";
 import StepWrapper from "@/components/StepWrapper";
 import { useStepperContext } from "@/components/stepper/Stepper.context";
 import { Button } from "@/components/ui/button";
 import { FunnelSchema } from "@/hooks/funnel/useFunnelForm";
-import { characterRelationship } from "@/constants/preferred-relationship";
+import { useCharacterRelationship } from "@/constants/preferred-relationship";
 
 export function RelationshipStep() {
+    const { t } = useTranslation();
+    const characterRelationship = useCharacterRelationship();
     const { nextStep } = useStepperContext();
-
     const form = useFormContext<FunnelSchema>();
-
     const character_relationship = form.watch("character_relationship");
 
     return (
@@ -30,7 +31,7 @@ export function RelationshipStep() {
                         <Stepper.Progress />
                     </div>
                     <h2 className={"text-white text-lg font-bold mb-5 capitalize"}>
-                        Choose Your Relationship
+                        {t('funnel.relationshipStep.title')}
                     </h2>
                     <div className={"w-full flex flex-col items-center gap-2"}>
                         <div className={"w-full grid grid-cols-3 gap-[10px]"}>
@@ -71,7 +72,7 @@ export function RelationshipStep() {
                 <div className="w-full flex items-center justify-center px-[15px] sm:px-0 p-5 bg-black-2 sm:static fixed bottom-0 left-0 z-100">
                     <div className="max-w-[450px] w-full">
                         <Button onClick={nextStep} className="w-full h-[45px] bg-primary-gradient">
-                            <span className="text-base font-bold">Continue</span>
+                            <span className="text-base font-bold">{t('funnel.relationshipStep.continue')}</span>
                         </Button>
                     </div>
                 </div>

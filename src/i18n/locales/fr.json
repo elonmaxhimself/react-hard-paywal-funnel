@@ -1,11 +1,5 @@
 {
   "funnel": {
-    "startStep": {
-      "title": "créez votre petite amie IA <highlight>gratuitement maintenant</highlight>",
-      "buttonText": "Créer gratuitement maintenant",
-      "videoNotSupported": "Votre navigateur ne supporte pas la balise vidéo.",
-      "altMagicWand": "Baguette Magique"
-    },
     "socialProofStep": {
       "millionPeople": "Plus de 3 millions de personnes",
       "quote": "\"En matière d'application de petite amie IA en 2025, Dream Companion arrive facilement en tête de liste.\"",

@@ -39,11 +39,13 @@ export function useOAuth(posthog?: any) {
         },
     });
 
+    const isOAuthLoading = oauthSignIn.isPending;
+
     return {
         signIn: oauthSignIn.mutate,
-        isLoading: oauthSignIn.isPending,
-        isGoogleLoading: oauthSignIn.isPending && provider === OAuthProviders.GOOGLE,
-        isTwitterLoading: oauthSignIn.isPending && provider === OAuthProviders.TWITTER,
-        isDiscordLoading: oauthSignIn.isPending && provider === OAuthProviders.DISCORD,
+        isLoading: isOAuthLoading,
+        isGoogleLoading: isOAuthLoading && provider === OAuthProviders.GOOGLE,
+        isTwitterLoading: isOAuthLoading && provider === OAuthProviders.TWITTER,
+        isDiscordLoading: isOAuthLoading && provider === OAuthProviders.DISCORD,
     };
 }

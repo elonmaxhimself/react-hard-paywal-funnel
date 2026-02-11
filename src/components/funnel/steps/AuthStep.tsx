@@ -20,6 +20,7 @@ export function AuthStep() {
     
     const { 
         signIn: oauthSignIn,
+        isLoading: isOAuthLoading,
         isGoogleLoading,
         isTwitterLoading,
         isDiscordLoading,
@@ -160,7 +161,7 @@ export function AuthStep() {
 
                         <Button
                             type={"submit"}
-                            disabled={isPending}
+                            disabled={isPending || isOAuthLoading}
                             className={"w-full h-[45px] bg-primary-gradient mb-5"}
                         >
                             {isPending && <Loader2Icon className="animate-spin" />}
@@ -182,7 +183,7 @@ export function AuthStep() {
                                 variant="outline"
                                 className="flex-1 h-[45px] bg-transparent border-white/10 hover:bg-white/5"
                                 onClick={() => oauthSignIn("google")}
-                                disabled={isGoogleLoading}
+                                disabled={isOAuthLoading || isPending}
                             >
                                 {isGoogleLoading ? (
                                     <Loader2Icon className="animate-spin" size={20} />
@@ -195,7 +196,7 @@ export function AuthStep() {
                                 variant="outline"
                                 className="flex-1 h-[45px] bg-transparent border-white/10 hover:bg-white/5"
                                 onClick={() => oauthSignIn("twitter")}
-                                disabled={isTwitterLoading}
+                                disabled={isOAuthLoading || isPending}
                             >
                                 {isTwitterLoading ? (
                                     <Loader2Icon className="animate-spin" size={20} />
@@ -208,7 +209,7 @@ export function AuthStep() {
                                 variant="outline"
                                 className="flex-1 h-[45px] bg-transparent border-white/10 hover:bg-white/5"
                                 onClick={() => oauthSignIn("discord")}
-                                disabled={isDiscordLoading}
+                                disabled={isOAuthLoading || isPending}
                             >
                                 {isDiscordLoading ? (
                                     <Loader2Icon className="animate-spin" size={20} />
@@ -254,7 +255,6 @@ export function AuthStep() {
                                         className="size-[31px] relative -left-[24px]"
                                         imageClassName="rounded-full border-[3px] border-[#2B2A2B] origin-[50%_20%]"
                                     />
-
                                     <div className="size-[31px] relative -left-[36px] rounded-full border-[3px] border-[#2B2A2B] bg-primary-gradient">
                                         <div className="w-full h-full flex items-center justify-center">
                                             <span className="text-white text-[11px] font-bold">
@@ -263,13 +263,9 @@ export function AuthStep() {
                                         </div>
                                     </div>
                                 </div>
-
-                                <div
-                                    className={"flex-1 text-white text-[10px] font-bold uppercase"}
-                                >
+                                <div className={"flex-1 text-white text-[10px] font-bold uppercase"}>
                                     3M+ happy users
                                 </div>
-
                                 <div className={"relative flex-1"}>
                                     <SpriteIcon
                                         src={"/images/award-ranking.svg"}

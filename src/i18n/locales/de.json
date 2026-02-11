@@ -725,7 +725,8 @@
         "unexpectedError": "Ein unerwarteter Fehler ist aufgetreten. Bitte versuche es später erneut.",
         "paymentWentWrong": "Bei der Zahlung ist etwas schief gelaufen. Bitte versuche es erneut.",
         "paymentTakingLong": "Die Zahlung dauert länger als erwartet. Bitte versuche es erneut.",
-        "failedCheckStatus": "Überprüfung des Zahlungsstatus fehlgeschlagen. Bitte versuche es erneut."
+        "failedCheckStatus": "Überprüfung des Zahlungsstatus fehlgeschlagen. Bitte versuche es erneut.",
+        "paymentInAnotherTab": "Die Zahlung wird in einem anderen Tab verarbeitet."
       }
     },
     "turnsOfYou": {

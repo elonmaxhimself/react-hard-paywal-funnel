@@ -725,7 +725,8 @@
         "unexpectedError": "Ocurrió un error inesperado. Por favor, inténtalo de nuevo más tarde.",
         "paymentWentWrong": "Algo salió mal durante el pago. Por favor, inténtalo de nuevo.",
         "paymentTakingLong": "El pago está tomando más tiempo de lo esperado. Por favor, inténtalo de nuevo.",
-        "failedCheckStatus": "No se pudo verificar el estado del pago. Por favor, inténtalo de nuevo."
+        "failedCheckStatus": "No se pudo verificar el estado del pago. Por favor, inténtalo de nuevo.",
+        "paymentInAnotherTab": "El pago se está procesando en otra pestaña."
       }
     },
     "turnsOfYou": {

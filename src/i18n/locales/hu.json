@@ -725,7 +725,8 @@
         "unexpectedError": "Váratlan hiba történt. Kérlek, próbáld újra később.",
         "paymentWentWrong": "Valami hiba történt fizetés közben. Kérlek, próbáld újra.",
         "paymentTakingLong": "A fizetés a vártnál tovább tart. Kérlek, próbáld újra.",
-        "failedCheckStatus": "Fizetési állapot ellenőrzése sikertelen. Kérlek, próbáld újra."
+        "failedCheckStatus": "Fizetési állapot ellenőrzése sikertelen. Kérlek, próbáld újra.",
+        "paymentInAnotherTab": "A fizetés feldolgozás alatt áll egy másik lapon."
       }
     },
     "turnsOfYou": {

@@ -76,7 +76,7 @@ export function usePaymentForm(posthog?: any) {
                 if (event.data.type === 'PAYMENT_STARTED') {
                     setIsSubmitting(true);
                     triggerToast({
-                        title: "Payment is being processed in another tab",
+                        title: t('hooks.usePaymentForm.errors.paymentInAnotherTab'),
                         type: toastType.warning,
                     });
                 }

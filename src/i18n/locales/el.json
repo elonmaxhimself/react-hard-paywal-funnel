@@ -1,11 +1,5 @@
 {
   "funnel": {
-    "startStep": {
-      "title": "δημιούργησε μια AI κοπέλα <highlight>δωρεάν τώρα</highlight>",
-      "buttonText": "Δημιούργησε δωρεάν τώρα",
-      "videoNotSupported": "Ο περιηγητής σου δεν υποστηρίζει την ετικέτα video.",
-      "altMagicWand": "Μαγικό ραβδί"
-    },
     "socialProofStep": {
       "millionPeople": "3+ εκατομμύρια άνθρωποι",
       "quote": "\"Όταν μιλάμε για την καλύτερη εφαρμογή AI κοπέλας το 2025, το Dream Companion είναι ξεκάθαρα στην κορυφή.\"",

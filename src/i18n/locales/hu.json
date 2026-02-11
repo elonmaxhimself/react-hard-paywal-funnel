@@ -1,11 +1,5 @@
 {
   "funnel": {
-    "startStep": {
-      "title": "hozd létre mesterséges intelligencia barátnődet <highlight>most ingyen</highlight>",
-      "buttonText": "Hozd létre most ingyen",
-      "videoNotSupported": "A böngésződ nem támogatja a videó címkét.",
-      "altMagicWand": "Varázspálca"
-    },
     "socialProofStep": {
       "millionPeople": "3+ millió ember",
       "quote": "\"Amikor a tökéletes AI barátnő alkalmazásról van szó 2025-ben, a Dream Companion könnyen vezeti a listát.\"",

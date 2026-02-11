@@ -1,11 +1,5 @@
 {
   "funnel": {
-    "startStep": {
-      "title": "vytvořte si ai přítelkyni <highlight>zdarma nyní</highlight>",
-      "buttonText": "Vytvořit zdarma nyní",
-      "videoNotSupported": "Váš prohlížeč nepodporuje video tag.",
-      "altMagicWand": "Kouzelná hůlka"
-    },
     "socialProofStep": {
       "millionPeople": "3+ miliony lidí",
       "quote": "\"Pokud jde o nalezení dokonalé aplikace AI přítelkyně v roce 2025, Dream Companion snadno vede seznam.\"",

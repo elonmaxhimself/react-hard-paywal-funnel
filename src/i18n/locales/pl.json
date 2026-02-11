@@ -1,11 +1,5 @@
 {
   "funnel": {
-    "startStep": {
-      "title": "stwórz swoją dziewczynę AI <highlight>za darmo teraz</highlight>",
-      "buttonText": "Stwórz za darmo teraz",
-      "videoNotSupported": "Twoja przeglądarka nie obsługuje tagu wideo.",
-      "altMagicWand": "Magiczna Różdżka"
-    },
     "socialProofStep": {
       "millionPeople": "Ponad 3 miliony osób",
       "quote": "\"Jeśli chodzi o znalezienie idealnej aplikacji z dziewczyną AI w 2025 roku, Dream Companion łatwo zajmuje czołowe miejsce na liście.\"",

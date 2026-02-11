@@ -4,7 +4,6 @@ export type StepperProps = {
     value: number;
     onChange: (stepIndex: number) => void;
     max: number;
-    startingStep?: number;
     nextStep: () => void;
     prevStep: () => void;
     classNames?: {

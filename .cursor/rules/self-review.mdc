@@ -1,0 +1,144 @@
+---
+description: Pre-commit self-review of your own changes. Invoke manually with @self-review in chat before committing or pushing. Deep analysis of all working changes against project standards.
+alwaysApply: false
+---
+
+# Self-Review — Pre-commit Tech Lead Check
+
+You are acting as a **Tech Lead** reviewing your own code before commit.
+Apply the same depth and rigor as a PR review. Catch issues before they
+reach the team. Follow the project standards in @.cursor/rules/general.mdc.
+
+---
+
+## Phase 1: Gather Changes
+
+Run these commands to understand all working changes (staged + unstaged + untracked):
+
+```bash
+git status
+git diff --stat
+git diff
+git diff --cached --stat
+git diff --cached
+```
+
+Review **everything** — staged, unstaged, and untracked files. No need to
+`git add` first. This is a pre-commit check of all work in progress.
+
+## Phase 2: Deep Analysis
+
+After reading the diff, **go deeper**:
+
+1. **Read the full source files** that were changed (not just the diff hunks).
+   You need surrounding context to understand the step flow, hook chain,
+   form data flow, and stepper behavior.
+
+2. **Trace the affected flows.** If a hook was changed, find which steps use it.
+   If a service method changed, find which mutation calls it. If a constant was
+   changed, find which steps reference it. If form validation changed, verify which
+   step triggers are affected. Use search tools to map the dependency chain.
+
+3. **Read related files** that were NOT changed but are part of the same flow.
+   Example: if `useFunnelForm.ts` was modified, also read `validation.ts`,
+   `funnelSteps.tsx`, and any step components that use the changed fields.
+
+4. **Trace the analytics chain.** If the change touches any conversion milestone
+   (sign-up, payment, subscription selection), verify that all four analytics
+   platforms (PostHog, Mixpanel, Facebook Pixel, Google Ads/GTM) still fire correctly.
+
+This phase is critical. Do not skip it.
+
+## Phase 3: Review Report
+
+### 1. Change Intent Summary
+
+Explain in plain language:
+- **What do these changes achieve?** Describe the goal.
+- **What is the approach?** Technical strategy (new step, refactored hook, new
+  constant, pricing change, etc.)
+- **What user-facing behavior changed?** What would the end user see differently
+  in the funnel flow.
+
+### 2. Architecture & Flow
+
+- How do the changed files fit into the funnel system?
+- What is the data flow (constant → form field → validation → step → API)?
+- Are the stepper step indices still correct after the change?
+- Any side effects on other funnel steps or the payment flow?
+
+### 3. File-by-File Analysis
+
+For each changed file (grouped by feature area):
+- **What changed** (concise)
+- **Why it matters** (impact on the funnel flow)
+- **Correctness** (logic errors, missing edge cases, broken step navigation)
+- **Issues found** (blocking or non-blocking)
+
+### 4. Issues to Fix Before Committing
+
+For each issue:
+1. **Category** (from checklist below)
+2. **File:line** reference
+3. **What is wrong** and **why**
+4. **How to fix** (concrete suggestion or minimal diff)
+
+### 5. Non-blocking Improvements
+
+Suggestions that would improve the code but are not required before committing.
+
+### 6. What Looks Good
+
+Explicitly note good decisions and clean patterns. Reinforce what is working well.
+
+### 7. Pre-commit Cleanup Checklist
+
+Flag any of these if found:
+- [ ] `console.log` / `console.error` left in production code
+- [ ] TODO/FIXME/HACK comments that should be resolved
+- [ ] Commented-out code that should be removed
+- [ ] Debugging artifacts (hardcoded values, test data)
+- [ ] Unused imports or variables
+- [ ] Dead analytics events or broken tracking calls
+
+### 8. Suggested Commit Message
+
+Based on the changes, suggest a message following the project convention:
+
+```
+<type>(<scope>): <short description>
+
+<optional body>
+```
+
+Types: `feat`, `fix`, `refactor`, `chore`, `docs`, `test`, `perf`, `style`
+Scopes: `funnel`, `payment`, `auth`, `analytics`, `ui`, `config`, `stepper`
+
+---
+
+## Review Checklist
+
+Check every changed file against these rules:
+
+| # | Category | What to check |
+|---|----------|---------------|
+| 1 | **Funnel Flow** | Step indices in `funnelSteps.tsx` still correct. Validation triggers match step positions. Navigation (next/prev) works. No orphaned or unreachable steps. |
+| 2 | **Form & Validation** | Zod schema updated for new fields. `triggers` map in `useFunnelForm` matches step indices. Form persistence still works (Zustand funnel store syncs). |
+| 3 | **Analytics** | All conversion events fire on all required platforms (PostHog, Mixpanel, FB Pixel, GTM). Event properties include correct values (product ID, price, currency). |
+| 4 | **Payment** | Shift4 token flow intact. Payment status polling works. Redirect URL correct. Local storage cleared on success. Error handling covers token errors, API errors, polling timeout. |
+| 5 | **A/B Testing** | Experiment config updated if needed. Feature flag keys unchanged (or migrated). Control fallback always works. Variant assignment tracked. |
+| 6 | **TypeScript** | Strict types. No `any`. No unused vars/imports. No `I`-prefix on new interfaces. |
+| 7 | **State** | Zustand stores correct. Persisted stores serialize properly. No stale closures in hooks. Loading/error states handled. |
+| 8 | **UI/UX** | Mobile-first responsive. Consistent with design tokens. CTA buttons visible and accessible. Step transitions smooth. |
+| 9 | **Accessibility** | Form inputs have labels. Buttons are keyboard-focusable. `aria-label` on icon-only elements. |
+| 10 | **Performance** | No unnecessary re-renders. Large arrays/objects in constants (not inline). Images have explicit dimensions. New deps justified. |
+| 11 | **Security** | No secrets in code. Form inputs validated. Auth tokens not leaked. |
+| 12 | **Naming** | PascalCase components with proper suffix (Step, Field, Modal). camelCase hooks with `use` prefix. SCREAMING_SNAKE constants. |
+
+---
+
+## Tone
+
+- Same rigor as reviewing someone else's PR. Do not go easy on yourself.
+- Direct and specific. Every issue: what, where, why, how to fix.
+- Acknowledge what is clean — but focus on catching problems before the team sees them.

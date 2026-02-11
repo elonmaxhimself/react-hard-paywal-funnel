@@ -1,17 +1,18 @@
-// src/features/funnel/components/Steps/UniqueCompanionStep.tsx
 import { clsx } from "clsx";
+import { useTranslation } from "react-i18next";
 
 import Stepper from "@/components/stepper";
 import StepWrapper from "@/components/StepWrapper";
 import { useStepperContext } from "@/components/stepper/Stepper.context";
 import { Button } from "@/components/ui/button";
 
-import { reviews } from "@/constants/reviews";
+import { useReviews } from "@/constants/reviews";
 import SpriteIcon from "@/components/SpriteIcon";
 
 export function UniqueCompanionStep() {
+    const { t } = useTranslation();
     const { nextStep } = useStepperContext();
-
+    const reviews = useReviews();
     const review = reviews[0];
 
     return (
@@ -66,7 +67,7 @@ export function UniqueCompanionStep() {
                                                     <img
                                                         key={i}
                                                         src="/icons/rating-star.svg"
-                                                        alt="ratingStar"
+                                                        alt={t('funnel.uniqueCompanionStep.altRatingStar')}
                                                         width={16}
                                                         height={16}
                                                         className="inline-block"
@@ -97,7 +98,7 @@ export function UniqueCompanionStep() {
                 <div className="w-full flex items-center justify-center px-[15px] sm:px-0 p-5 bg-black-2 sm:static fixed bottom-0 left-0 z-100">
                     <div className="max-w-[450px] w-full">
                         <Button onClick={nextStep} className="w-full h-[45px] bg-primary-gradient">
-                            <span className="text-base font-bold">Continue</span>
+                            <span className="text-base font-bold">{t('funnel.uniqueCompanionStep.continue')}</span>
                         </Button>
                     </div>
                 </div>

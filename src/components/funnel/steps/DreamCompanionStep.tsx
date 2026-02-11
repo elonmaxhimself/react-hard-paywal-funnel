@@ -1,6 +1,7 @@
 import { clsx } from "clsx";
 import { useEffect, useRef, useState } from "react";
 import { Controller, useFormContext } from "react-hook-form";
+import { useTranslation } from "react-i18next";
 
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
@@ -22,15 +23,10 @@ const badgeClassNames = clsx(
     "text-white text-sm font-semibold rounded-[10px]",
 );
 
-const PREFERENCES = [
-    { name: "receiveCustomPhotos", id: "spicy-photos", label: "Spicy photos" },
-    { name: "receiveVoiceMessages", id: "voice-messages", label: "Voice messages" },
-    { name: "receiveVideoCalls", id: "video-call", label: "Video Call" },
-] as const satisfies ReadonlyArray<{ name: keyof FunnelSchema; id: string; label: string }>;
-
 const formatLabel = (s?: string) => (s ?? "").split("-").join(" ");
 
 export function DreamCompanionStep() {
+    const { t } = useTranslation();
     const { nextStep } = useStepperContext();
     const form = useFormContext<FunnelSchema>();
     const posthog = usePostHog();
@@ -43,10 +39,16 @@ export function DreamCompanionStep() {
     const turns_of_you = form.watch("turns_of_you");
     const scenario = form.watch("character_relationship");
 
+    const PREFERENCES = [
+        { name: "receiveCustomPhotos" as keyof FunnelSchema, id: "spicy-photos", label: t('funnel.dreamCompanionStep.spicyPhotos') },
+        { name: "receiveVoiceMessages" as keyof FunnelSchema, id: "voice-messages", label: t('funnel.dreamCompanionStep.voiceMessages') },
+        { name: "receiveVideoCalls" as keyof FunnelSchema, id: "video-call", label: t('funnel.dreamCompanionStep.videoCall') },
+    ];
+
     const sections = [
-        { title: "You're looking for", icon: "/icons/search-square-icon.svg", items: connections ?? [] },
-        { title: "Specific preferences", icon: "/icons/heart-check-icon.svg", items: turns_of_you ?? [] },
-        { title: "Scenarios", icon: "/icons/book-edit-icon.svg", items: scenario ? [scenario] : [] },
+        { title: t('funnel.dreamCompanionStep.youLookingFor'), icon: "/icons/search-square-icon.svg", items: connections ?? [] },
+        { title: t('funnel.dreamCompanionStep.specificPreferences'), icon: "/icons/heart-check-icon.svg", items: turns_of_you ?? [] },
+        { title: t('funnel.dreamCompanionStep.scenarios'), icon: "/icons/book-edit-icon.svg", items: scenario ? [scenario] : [] },
     ];
 
     const characterPreviewImage =
@@ -94,7 +96,7 @@ export function DreamCompanionStep() {
                             className={"w-full sm:max-w-[360px] flex-1 flex flex-col items-center"}
                         >
                             <h2 className={"text-white text-2xl font-bold mb-[25px]"}>
-                                Your Dream Companion
+                                {t('funnel.dreamCompanionStep.title')}
                             </h2>
 
                             <div className="w-full aspect-[360/485] rounded-[10px] overflow-hidden relative mb-0">
@@ -102,7 +104,7 @@ export function DreamCompanionStep() {
                                     {previewSize.w > 0 && previewSize.h > 0 && (
                                         <SpriteIcon
                                             src={characterPreviewImage}
-                                            fallbackAlt={"character-placeholder"}
+                                            fallbackAlt={t('funnel.dreamCompanionStep.altCharacterPlaceholder')}
                                             targetW={previewSize.w}
                                             targetH={previewSize.h}
                                             fit="cover"
@@ -116,7 +118,7 @@ export function DreamCompanionStep() {
                             </div>
 
                             <div className={"text-white text-lg font-medium my-[10px]"}>
-                                Character Name:
+                                {t('funnel.dreamCompanionStep.characterName')}
                             </div>
 
                             <div
@@ -129,7 +131,7 @@ export function DreamCompanionStep() {
                                     type={"text"}
                                     value={characterName}
                                     onChange={(e) => setCharacterName(e.target.value)}
-                                    placeholder={"Your Dream Companion Name"}
+                                    placeholder={t('funnel.dreamCompanionStep.characterNamePlaceholder')}
                                     className={
                                         "flex-1 text-white border-none outline-none bg-transparent"
                                     }
@@ -142,10 +144,10 @@ export function DreamCompanionStep() {
                                         "bg-white/5 hover:bg-white/10 border border-white/6",
                                     )}
                                 >
-                                    <span>Swap</span>
+                                    <span>{t('funnel.dreamCompanionStep.swap')}</span>
                                     <img
                                         src="/icons/exchange-icon.svg"
-                                        alt="Exchange Icon"
+                                        alt={t('funnel.dreamCompanionStep.altExchangeIcon')}
                                         width={18}
                                         height={18}
                                         className="w-[18px] h-[18px] invert brightness-0"
@@ -164,12 +166,12 @@ export function DreamCompanionStep() {
                             >
                                 <img
                                     src="/icons/bubble-chat-icon.svg"
-                                    alt="BubbleChat Icon"
+                                    alt={t('funnel.dreamCompanionStep.altBubbleChatIcon')}
                                     width={22}
                                     height={22}
                                     className="w-[22px] h-[22px] invert brightness-0"
                                 />
-                                <span className={"text-base font-bold"}>Start Chatting Now</span>
+                                <span className={"text-base font-bold"}>{t('funnel.dreamCompanionStep.startChatting')}</span>
                             </Button>
                         </div>
 
@@ -179,7 +181,7 @@ export function DreamCompanionStep() {
                             }
                         >
                             <div className={"text-white text-lg font-semibold mb-[5px]"}>
-                                Personality Attributes
+                                {t('funnel.dreamCompanionStep.personalityAttributes')}
                             </div>
 
                             {sections.map(({ title, icon, items }) => (
@@ -190,7 +192,7 @@ export function DreamCompanionStep() {
                                     <div className="flex gap-[5px] items-center text-white">
                                         <img
                                             src={icon}
-                                            alt="Icon"
+                                            alt={t('funnel.dreamCompanionStep.altIcon')}
                                             width={20}
                                             height={20}
                                             className="w-[20px] h-[20px] invert brightness-0"

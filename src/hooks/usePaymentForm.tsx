@@ -21,7 +21,7 @@ import { shift4Service } from "@/services/shift4-service";
 import { AnalyticsEventTypeEnum } from "@/utils/enums/analytics-event-types";
 import { reportPurchase } from "@/lib/gtag";
 
-let Shift4Options = {
+const Shift4Options = {
     style: {
         base: {
             color: "#fff",
@@ -119,7 +119,7 @@ export function usePaymentForm(posthog?: any) {
             }
             window.removeEventListener('storage', handleStorageChange);
         };
-    }, []);
+    }, [t]);
 
     useEffect(() => {
         return () => {

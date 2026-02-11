@@ -1,4 +1,5 @@
 import { useFormContext } from "react-hook-form";
+import { useTranslation } from "react-i18next";
 
 import ImageCard from "@/components/ImageCard";
 import Stepper from "@/components/stepper";
@@ -8,9 +9,12 @@ import { Button } from "@/components/ui/button";
 
 import { FunnelSchema } from "@/hooks/funnel/useFunnelForm";
 
-import { CHARACTER_HAIRCUT_COLOR, CHARACTER_HAIRCUT_STYLE } from "@/constants/character-haircut";
+import { useCharacterHaircutStyle, useCharacterHaircutColor } from "@/constants/character-haircut";
 
 export function HaircutStyleStep() {
+    const { t } = useTranslation();
+  const CHARACTER_HAIRCUT_STYLE = useCharacterHaircutStyle();
+  const CHARACTER_HAIRCUT_COLOR = useCharacterHaircutColor();
     const { nextStep } = useStepperContext();
 
     const form = useFormContext<FunnelSchema>();
@@ -34,7 +38,7 @@ export function HaircutStyleStep() {
                         <Stepper.Progress />
                     </div>
                     <h2 className={"text-white text-lg font-bold mb-[20px] capitalize"}>
-                        Choose Hair Style
+                        {t('funnel.haircutStyleStep.titleStyle')}
                     </h2>
                     <div className={"w-full flex flex-col items-center gap-2 mb-5 md:mb-10"}>
                         <div className={"w-full grid grid-cols-3 gap-[10px]"}>
@@ -63,7 +67,7 @@ export function HaircutStyleStep() {
                         )}
                     </div>
                     <h2 className={"text-white text-lg font-bold mb-5 capitalize"}>
-                        Choose Hair Color
+                        {t('funnel.haircutStyleStep.titleColor')}
                     </h2>
                     <div className={"w-full flex flex-col items-center gap-2"}>
                         <div className={"w-full grid grid-cols-4 gap-[10px]"}>
@@ -95,7 +99,7 @@ export function HaircutStyleStep() {
                 <div className="w-full flex items-center justify-center px-[15px] sm:px-0 p-5 bg-black-2 sm:static fixed bottom-0 left-0 z-100">
                     <div className="max-w-[450px] w-full">
                         <Button onClick={nextStep} className="w-full h-[45px] bg-primary-gradient">
-                            <span className="text-base font-bold">Continue</span>
+                            <span className="text-base font-bold">{t('funnel.haircutStyleStep.continue')}</span>
                         </Button>
                     </div>
                 </div>

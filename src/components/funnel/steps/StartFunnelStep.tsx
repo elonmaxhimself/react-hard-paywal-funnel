@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useRef } from "react";
+import { useTranslation, Trans } from "react-i18next";
 import { Button } from "@/components/ui/button";
 import { useStepperContext } from "@/components/stepper/Stepper.context";
 import SpriteIcon from "@/components/SpriteIcon";
@@ -8,23 +9,21 @@ import { usePostHog } from "posthog-js/react";
 import { EXPERIMENTS } from '@/configs/experiment.config';
 
 export function StartFunnelStep() {
+    const { t } = useTranslation();
     const { nextStep } = useStepperContext();
     const form = useFormContext<FunnelSchema>();
     const posthog = usePostHog();
     const variant = (posthog?.getFeatureFlag(EXPERIMENTS.STARTING_STEP.flagKey) as string) || 'control';
-
     const videoUrl = useMemo(() => {
         const config = EXPERIMENTS.STARTING_STEP.variants[
             variant as keyof typeof EXPERIMENTS.STARTING_STEP.variants
         ];
         return config?.videoUrl || '/video/0.mp4';
     }, [variant]);
-
     const hasReset = useRef(false);
 
     useEffect(() => {
         if (hasReset.current) return;
-
         hasReset.current = true;
         localStorage.removeItem("auth-storage");
         localStorage.removeItem("funnel-storage");
@@ -66,11 +65,14 @@ export function StartFunnelStep() {
                         controls={false}
                     >
                         <source src={videoUrl} type="video/mp4" />
-                        Your browser does not support the video tag.
+                        {t('funnel.startStep.videoNotSupported')}
                     </video>
                     <div className="absolute bottom-[30%] z-20 w-full px-5 flex flex-col items-center">
                         <p className="text-white font-bold mb-3 text-center capitalize text-lg">
-                            create ai girlfriend for <span className="uppercase">free now</span>
+                            <Trans 
+                                i18nKey="funnel.startStep.title"
+                                components={{ highlight: <span className="uppercase" /> }}
+                            />
                         </p>
                         <Button
                             onClick={handleButtonClick}
@@ -78,12 +80,12 @@ export function StartFunnelStep() {
                         >
                             <img
                                 src="/icons/magic-wand-icon.svg"
-                                alt="Magic Wand"
+                                alt={t('funnel.startStep.altMagicWand')}
                                 width={22}
                                 height={22}
                                 className="w-[22px] h-[22px] invert brightness-0"
                             />
-                            <span className="text-sm font-bold uppercase">Create for free now</span>
+                            <span className="text-sm font-bold uppercase">{t('funnel.startStep.buttonText')}</span>
                         </Button>
                     </div>
                 </div>

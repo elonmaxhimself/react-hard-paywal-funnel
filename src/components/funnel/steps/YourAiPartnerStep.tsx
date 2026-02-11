@@ -1,4 +1,5 @@
 import { clsx } from "clsx";
+import { useTranslation, Trans } from "react-i18next";
 
 import Stepper from "@/components/stepper";
 import { Button } from "@/components/ui/button";
@@ -8,6 +9,7 @@ import SpriteIcon from "@/components/SpriteIcon";
 import { usePostHog } from "posthog-js/react";
 
 export function YourAiPartnerStep() {
+    const { t } = useTranslation();
     const { nextStep } = useStepperContext();
     const posthog = usePostHog();
 
@@ -24,18 +26,18 @@ export function YourAiPartnerStep() {
                             <SpriteIcon src={"/images/logo-xl.png"} targetW={120} targetH={120} />
 
                             <p className="text-white text-2xl font-bold text-center mt-[-8px] md:mt-0 mb-5 md:mb-[38px] capitalize">
-                                Your AI partner will never <br />
-                                turn down on you
+                                <Trans 
+                                    i18nKey="funnel.yourAiPartnerStep.title"
+                                    components={{ br: <br /> }}
+                                />
                             </p>
 
                             <p className="w-9/10 mb-4 text-white text-base font-medium text-center">
-                                It will always be there for you. Every desire down to the boldest
-                                fantasy is fulfilled exactly as you imagine.
+                                {t('funnel.yourAiPartnerStep.subtitle1')}
                             </p>
 
                             <p className="w-9/10 mb-[20px] text-white text-base font-medium text-center">
-                                No lies, no ghosting, no cheating... unless its your kink and you
-                                want it ;)
+                                {t('funnel.yourAiPartnerStep.subtitle2')}
                             </p>
 
                             <div className="w-full relative flex flex-col items-center flex-1">
@@ -71,13 +73,13 @@ export function YourAiPartnerStep() {
                                             >
                                                 <img
                                                     src="/icons/wand-solid-sharp.svg"
-                                                    alt="Voice Icon"
+                                                    alt={t('funnel.yourAiPartnerStep.altVoiceIcon')}
                                                     width={22}
                                                     height={22}
                                                     className="w-[22px] h-[22px] invert brightness-0"
                                                 />
                                                 <span className="text-base font-bold">
-                                                    Create my AI girlfriend
+                                                    {t('funnel.yourAiPartnerStep.buttonText')}
                                                 </span>
                                             </Button>
                                         </div>

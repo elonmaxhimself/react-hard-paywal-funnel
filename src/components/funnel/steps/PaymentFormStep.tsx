@@ -1,11 +1,10 @@
 "use client";
 
 import { X, Loader2Icon } from "lucide-react";
+import { useTranslation } from "react-i18next";
 import { Button } from "@/components/ui/button";
 import { useStepperContext } from "@/components/stepper/Stepper.context";
-// import { useStore } from "@/store/state";
 import { usePaymentForm } from "@/hooks/usePaymentForm";
-// import { ModalTriggers } from "@/utils/enums/modal-triggers";
 import { useFunnelStore } from "@/store/states/funnel";
 import { useEffect } from "react";
 import SpriteIcon from "@/components/SpriteIcon";
@@ -14,11 +13,10 @@ import { usePostHog } from "posthog-js/react";
 const s4InputContainerStyles = "h-[50px] bg-[#000]/30 rounded-[8px] border border-white/6 p-[12px]";
 
 export function PaymentFormStep() {
+    const { t } = useTranslation();
     const setStep = useFunnelStore((s) => s.setStep);
     const posthog = usePostHog();
     const { product, onSubmit, isPending } = usePaymentForm(posthog);
-    // const setOpen = useStore((state) => state.modal.setOpen);
-    // const isSpecialOfferOpened = useStore((state) => state.offer.isSpecialOfferOpened);
     const { prevStep } = useStepperContext();
 
     useEffect(() => {
@@ -46,16 +44,16 @@ export function PaymentFormStep() {
                 <div className="w-full flex-1 sm:flex-none flex flex-col items-center sm:justify-center">
                     <SpriteIcon
                         src={"/images/logo.svg"}
-                        fallbackAlt={"My Dream Companion"}
+                        fallbackAlt={t('funnel.paymentFormStep.altLogo')}
                         targetW={40}
                         targetH={40}
                         fit="contain"
                         className={"mb-2"}
                     />
 
-                    <div className={"text-white text-2xl font-bold text-center"}>Checkout</div>
+                    <div className={"text-white text-2xl font-bold text-center"}>{t('funnel.paymentFormStep.title')}</div>
                     <div className={"text-white/60 text-sm text-center mb-6"}>
-                        Today&apos;s Total: ${product.amount / 100}
+                        {t('funnel.paymentFormStep.todayTotal', { amount: product.amount / 100 })}
                     </div>
 
                     <div
@@ -63,19 +61,19 @@ export function PaymentFormStep() {
                         className="relative w-full bg-white/5 border border-white/6 p-[10px] pb-[30px] rounded-[10px] flex flex-col gap-4"
                     >
                         <div className="flex justify-center mb-2">
-                            <h3 className="text-white font-bold text-[20px] mt-1">Credit card</h3>
+                            <h3 className="text-white font-bold text-[20px] mt-1">{t('funnel.paymentFormStep.creditCard')}</h3>
 
                             <div className="absolute top-5 right-[10px] flex items-center gap-1">
                                 <SpriteIcon
                                     src="/images/cards-logos/visa.png"
-                                    fallbackAlt="Visa"
+                                    fallbackAlt={t('funnel.paymentFormStep.altVisa')}
                                     targetW={30}
                                     targetH={20}
                                     fit="contain"
                                 />
                                 <SpriteIcon
                                     src="/images/cards-logos/mastercard.png"
-                                    fallbackAlt="Mastercard"
+                                    fallbackAlt={t('funnel.paymentFormStep.altMastercard')}
                                     targetW={30}
                                     targetH={20}
                                     fit="contain"
@@ -84,17 +82,17 @@ export function PaymentFormStep() {
                         </div>
 
                         <div className="flex flex-col gap-2">
-                            <label className="text-sm text-[#FFFFFF]">Card number</label>
+                            <label className="text-sm text-[#FFFFFF]">{t('funnel.paymentFormStep.cardNumber')}</label>
                             <div data-shift4="number" className={s4InputContainerStyles}></div>
                         </div>
 
                         <div className="flex gap-4">
                             <div className="flex-1 flex flex-col gap-2">
-                                <label className="text-sm text-[#FFFFFF] ">Expiration date</label>
+                                <label className="text-sm text-[#FFFFFF] ">{t('funnel.paymentFormStep.expirationDate')}</label>
                                 <div data-shift4="expiry" className={s4InputContainerStyles}></div>
                             </div>
                             <div className="flex-1 flex flex-col gap-2">
-                                <label className="text-sm text-[#FFFFFF]">Security code</label>
+                                <label className="text-sm text-[#FFFFFF]">{t('funnel.paymentFormStep.securityCode')}</label>
                                 <div data-shift4="cvc" className={s4InputContainerStyles}></div>
                             </div>
                         </div>
@@ -108,7 +106,7 @@ export function PaymentFormStep() {
                             className={"w-full h-[50px] bg-primary-gradient text-lg rounded-lg"}
                         >
                             {isPending && <Loader2Icon className="animate-spin" />}
-                            <span className={"text-base font-bold"}>Complete Payment</span>
+                            <span className={"text-base font-bold"}>{t('funnel.paymentFormStep.completePayment')}</span>
                         </Button>
                     </div>
                 </div>

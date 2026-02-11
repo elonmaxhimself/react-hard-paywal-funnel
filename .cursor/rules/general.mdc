@@ -1,0 +1,457 @@
+---
+description: Core project rules, coding standards, TypeScript conventions, React/Vite patterns, and architecture guidelines for this React 19 funnel application
+alwaysApply: true
+---
+
+# Project Rules — React 19 + Vite + TypeScript Funnel App
+
+You are an expert Senior Frontend Developer specializing in React 19, TypeScript
+(strict mode), Vite, Tailwind CSS v4, Zustand 5, React Query 5, React Hook Form,
+Zod, and shadcn/ui. You write clean, maintainable, conversion-optimized code
+following the conventions of this project.
+
+## Product Context
+
+This is the **Dream Companion Funnel** — a hard-paywall marketing funnel for the
+Dream Companion NSFW AI companion platform. Users go through a multi-step
+onboarding flow, customize an AI character, sign up, choose a subscription, pay,
+and get redirected to the main platform. The platform is NSFW by default.
+
+### Key Domain Concepts
+
+- **Hard paywall:** Every user must complete all funnel steps and pay before accessing
+  the main platform. There is no free tier, no skip, and no trial in this flow.
+- **Funnel steps (44 total):** Linear progression through onboarding, character
+  customization, engagement questions, fake loading screens, feature highlights,
+  authentication, subscription selection, and payment.
+- **Character customization:** Users pick style (realistic/anime), age, ethnicity,
+  body type, personality traits, interests, voice, relationship preferences, and
+  adult content preferences. These are sent to the backend to create an AI character.
+- **Subscription plans:** Multiple pricing tiers (weekly, monthly, quarterly, yearly)
+  with introductory discounts. Plans are A/B tested via PostHog feature flags.
+- **Payment:** Shift4 payment gateway. Tokenized card payment → backend charge →
+  status polling → redirect to main platform with auth token.
+- **A/B testing:** PostHog feature flags control starting step, video variants,
+  and pricing plans shown. Experiment config lives in `configs/experiment.config.ts`.
+- **Analytics stack:** PostHog (primary events + feature flags), Mixpanel (sign-up
+  and payment events), Facebook Pixel (conversion events), Google Ads/GTM
+  (conversion tracking). All four must fire at the right funnel milestones.
+- **Form persistence:** The entire funnel form state is persisted to localStorage
+  via Zustand. Returning users resume from where they left off.
+- **Special offer modals:** `FinalOfferModal`, `SecretOfferModal`, `SpecialOfferModal` —
+  discount offers that can be triggered programmatically (exit-intent logic exists
+  but may be disabled).
+
+### Relationship to Main Platform
+
+- **Main platform:** mydreamcompanion.com (production), staging.mydreamcompanion.com (staging)
+- **This funnel:** mdc-react-funnel-v4.pages.dev (production), mdc-react-funnel-v4-dev.pages.dev (dev)
+- **Backend API:** Shared with the main platform (`VITE_PUBLIC_API_BASE_URL`)
+- **Auth flow:** Funnel creates user account via `POST /auth/signup/adult/v3`, then
+  redirects to main platform with `?authToken=` for seamless login.
+
+## Infrastructure & Environments
+
+- **Hosting:** Cloudflare Pages (static SPA)
+- **Production:** `main` branch → mdc-react-funnel-v4.pages.dev
+- **Dev:** `dev` branch → mdc-react-funnel-v4-dev.pages.dev
+- **Git flow:** Feature branches → PR to `dev` → PR to `main`
+- **Docker:** Available for local dev (`docker-compose.dev.yml`) and production builds
+- **No CI/CD pipeline configured** — Cloudflare Pages auto-deploys on push
+
+## Tech Stack
+
+- **Build tool:** Vite 7 (SPA, no SSR)
+- **Language:** TypeScript 5 (strict mode)
+- **Runtime:** React 19 (client-only SPA — no Server Components)
+- **Styling:** Tailwind CSS v4 + shadcn/ui + Radix UI + `tw-animate-css`
+- **State:** Zustand 5 with Immer (client state) + React Query 5 (server state)
+- **Forms:** React Hook Form + Zod 4 validation
+- **Payments:** Shift4 SDK (tokenized card payments)
+- **Analytics:** PostHog + Mixpanel + Facebook Pixel + Google Ads/GTM
+- **HTTP:** Axios with interceptors
+- **Animations:** Framer Motion (available but used sparingly) + CSS transitions
+- **Icons/Images:** Custom sprite system (`SpriteIcon`) + direct images
+- **Font:** Plus Jakarta Sans (self-hosted)
+- **Package manager:** npm
+
+## The Boy Scout Rule
+
+Always leave the code cleaner than you found it. If you edit a file that violates
+current rules (uses `any`, has inconsistent naming, unused imports, dead code),
+fix those violations as part of your current task.
+
+---
+
+## Code Style
+
+### Naming Conventions
+
+- **Components:** PascalCase files and exports (`StartFunnelStep.tsx`)
+- **Step components:** PascalCase with `Step` suffix (`ConnectionStep.tsx`)
+- **Field components:** PascalCase with `Field` suffix (`BadgeField.tsx`)
+- **Modal components:** PascalCase with `Modal` suffix (`FinalOfferModal.tsx`)
+- **Hooks:** camelCase files with `use` prefix (`useFunnelForm.ts`), camelCase export
+- **Utilities:** camelCase files (`appendHobbies.ts`), camelCase named exports
+- **Constants:** SCREAMING_SNAKE_CASE for values (`MAX_FILE_SIZE`, `SPRITE_URL`)
+- **Types/Interfaces:** PascalCase without prefixes (`FunnelSchema`, not `IFunnelSchema`).
+  Do NOT use `I` prefix for interfaces — migrate existing `I`-prefixed types when touching those files.
+- **Enums:** PascalCase name and values
+- **Directories:** kebab-case (`funnel-steps/`)
+- **Event handlers:** `handle` prefix (`handleClick`, `handleSubmit`)
+- **Booleans:** `is`/`has`/`should`/`can` prefix (`isLoading`, `hasError`)
+- **Store slices:** camelCase (`createModalStore`, `createOfferStore`)
+
+### Functions
+
+- Prefer arrow functions for components and callbacks
+- Use `function` keyword only for top-level utilities that benefit from hoisting
+- Type parameters and return values explicitly for all exported functions
+- Keep functions focused (max ~30 lines of logic)
+
+### Component File Structure
+
+Order sections within a component file consistently:
+
+```
+1. Imports (external → internal → types → styles)
+2. Type definitions (Props interface)
+3. Constants local to this component
+4. The component itself (named export via function or arrow)
+5. Helper functions (private to this file)
+```
+
+**Note:** This is a client-only SPA. There is no `'use client'` directive —
+every component is a client component by default.
+
+### Guard Clauses and Early Returns
+
+Handle errors and edge cases first. Place the happy path last:
+
+```typescript
+const processPayment = (token: string | null, productId: number | null) => {
+  if (!token) return { error: "Missing payment token" };
+  if (!productId) return { error: "No plan selected" };
+
+  // Happy path — clean, unindented
+  return shift4Service.payment({ paymentToken: token, productId });
+};
+```
+
+### Imports
+
+- Always use path alias `@/` for `src/` imports
+- Use `@@/` alias for `public/` assets (defined in Vite config)
+- Use `import type` for type-only imports
+- Group imports: external libraries → internal modules → types
+
+### General
+
+- Prefer `const` over `let`; never use `var`
+- Prefer template literals over string concatenation
+- Use optional chaining (`?.`) and nullish coalescing (`??`)
+- Destructure props and objects where it improves readability
+- No magic numbers or strings — extract to named constants in `constants/`
+- One component per file
+
+---
+
+## TypeScript
+
+- **Never use `any`.** Use `unknown` with type guards, generics, or proper types
+- Always type function parameters and return types for exported functions
+- Use discriminated unions over optional fields where appropriate
+- Prefer `interface` for extendable objects; `type` for unions, intersections, mapped types
+- Use `as const` instead of `as SomeType`
+- Validate external data (API responses, form inputs) with Zod schemas
+- Shared types live in `utils/types/`; colocate feature-specific types with their feature
+- Enums live in `utils/enums/`
+
+---
+
+## React & Vite Specifics
+
+### No SSR — Client-Only SPA
+
+This is a Vite-built SPA with no server-side rendering. There are no Server
+Components, no server actions, and no `'use client'` directives. Every component
+renders on the client.
+
+### Routing
+
+There is **no routing library**. Navigation is handled by the custom `Stepper`
+component system. The entire app is a single-page funnel:
+
+- `Stepper` manages step state (current index, min, max)
+- `Stepper.Contents` renders the active step
+- `Stepper.Content` wraps each individual step
+- `Stepper.Progress` shows the progress bar
+- Navigation: `nextStep()` / `prevStep()` from `useStepperContext()`
+
+### Step Component Pattern
+
+Every funnel step follows this pattern:
+
+```typescript
+export function ExampleStep() {
+  const { nextStep } = useStepperContext();
+  const form = useFormContext<FunnelSchema>();
+
+  return (
+    <StepWrapper>
+      <Stepper.Progress />
+      {/* Step-specific content */}
+      <Button onClick={nextStep}>Continue</Button>
+    </StepWrapper>
+  );
+}
+```
+
+### Environment Variables
+
+All client-side env vars use the `VITE_PUBLIC_` prefix (Vite convention):
+- `VITE_PUBLIC_API_BASE_URL` — Backend API base URL
+- `VITE_PUBLIC_SHIFT4_PUBLISHABLE_KEY` — Shift4 payment key
+- `VITE_PUBLIC_SHIFT4_PAYMENT_REDIRECT` — Post-payment redirect URL
+- `VITE_PUBLIC_POSTHOG_TOKEN` — PostHog analytics token
+- `VITE_PUBLIC_POSTHOG_HOST` — PostHog instance URL
+- `VITE_PUBLIC_ENABLE_DEV_ANALYTICS` — Enable analytics in dev
+
+Access via `import.meta.env.VITE_PUBLIC_*`.
+
+### Images
+
+- Use the `SpriteIcon` component for optimized sprite-based images when the asset is
+  in the sprite sheet (`constants/sprite.ts`)
+- Use standard `<img>` tags with explicit `width`/`height` for non-sprite images
+- Prefer WebP format for new image assets
+- Store images in `public/images/`, icons in `public/icons/`
+
+---
+
+## Styling
+
+### Tailwind CSS v4
+
+- Utility-first approach with Tailwind classes
+- Custom design tokens defined as CSS variables in `src/index.css`
+- Use the `cn()` utility (`lib/utils.ts`) for conditional class merging
+- Use `class-variance-authority` (CVA) for component variants (see `ui/button.tsx`)
+
+### Design Tokens
+
+Core colors are defined as CSS custom properties:
+- `--color-pink: #ff437a` / `--color-orange: #fb6731` — Primary gradient
+- `--color-black: #161619` / `--color-black-2: #1f1f24` — Backgrounds
+- `--color-smooth-gray: #323237` — Borders and secondary surfaces
+
+Custom utility classes (defined in `index.css`):
+- `.bg-primary-gradient` — Pink-to-orange gradient
+- `.primary-shadow` — Glow effect
+- `.gradient-border-universal` — Gradient border effect
+- `.ghost-button` — Ghost button with gradient border
+- `.pulse-button` — Pulsing CTA animation
+
+### Responsive Design
+
+- Mobile-first: base styles for mobile, `sm:` / `md:` / `lg:` for larger screens
+- Common breakpoint pattern: `px-4 sm:px-10`, `text-lg sm:text-2xl`
+- Fixed bottom CTAs on mobile → static on desktop
+- Use `dvh` units for full-viewport layouts (`min-h-dvh`)
+
+---
+
+## State Management
+
+### Zustand Stores
+
+- **Main store** (`store/state.ts`): Combines `modal` and `offer` slices with Immer + DevTools
+- **Auth store** (`store/states/auth.ts`): Persisted, manages `userId` and `authToken`
+- **Funnel store** (`store/states/funnel.ts`): Persisted, stores form data and current step
+- **UTM store** (`store/states/utm.ts`): Persisted, stores UTM parameters
+- **Modal store** (`store/states/modal.ts`): In-memory, manages modal open/close with trigger enums
+- **Offer store** (`store/states/offer.ts`): In-memory, tracks special offer state
+
+Pattern: Persisted stores (auth, funnel, utm) use `zustand/persist` with localStorage.
+Non-persisted stores (modal, offer) live in the main combined store.
+
+### React Hook Form + Zod
+
+- Single form wraps the entire funnel via `FormProvider`
+- Schema defined in `features/funnel/validation.ts`
+- Steps access form via `useFormContext<FunnelSchema>()`
+- Step-specific validation triggers mapped in `useFunnelForm.ts`
+- Form state synced to Zustand funnel store for persistence
+
+### React Query
+
+- Used for mutations (sign-up, payment)
+- Query hooks in `hooks/queries/`
+- Service functions in `services/`
+
+---
+
+## Analytics
+
+### Multi-Platform Tracking
+
+Every conversion-critical event must fire on ALL relevant platforms:
+
+| Event | PostHog | Mixpanel | Facebook Pixel | Google Ads/GTM |
+|-------|---------|----------|----------------|----------------|
+| Funnel started | `funnel_started` | — | — | — |
+| Paywall opened | `paywall_opened` | — | `ViewContent` | — |
+| Sign up | `identify` | `UNVERIFIED_SIGN_UP` | `Lead` | `cd_signup` |
+| Add to cart | — | — | `AddToCart` | `cd_add_to_cart` |
+| Payment success | — | `PAYMENT_SUCCESS` | `Purchase` | `cd_purchase` |
+| Payment failed | — | `PAYMENT_FAILED` | — | — |
+
+### Rules
+
+- Never remove or break analytics event chains without explicit approval
+- Always fire events at the correct funnel milestone (not too early, not too late)
+- Include all required properties (product ID, price, currency, UTM params)
+- Test analytics events in dev with `VITE_PUBLIC_ENABLE_DEV_ANALYTICS=true`
+- PostHog feature flags have a 5-second timeout fallback to control variant
+
+---
+
+## Payment Integration (Shift4)
+
+### Payment Flow
+
+1. Shift4 SDK loaded externally via `<script>` in `index.html`
+2. `useShift4Ready` hook checks SDK availability
+3. `usePaymentForm` initializes Shift4 component group (card number, expiry, CVC)
+4. On submit: `shift4.createToken(componentsGroup)` → backend `POST /shift4/charge`
+5. Status polling: `GET /shift4/payment-status/{subscriptionId}` every 5 seconds, max 48 attempts
+6. On success: redirect to main platform with `?authToken=`
+
+### Rules
+
+- Never store raw card data client-side — only Shift4 tokens
+- Always handle token creation errors gracefully with user-friendly messages
+- Payment polling must have a timeout (currently 4 minutes max)
+- Clear local storage (auth + funnel state) before redirecting after successful payment
+
+---
+
+## A/B Testing
+
+### PostHog Feature Flags
+
+- Experiment configs defined in `configs/experiment.config.ts`
+- Two active experiments: `first-step-test` (starting step/video) and `pricing_ab_test` (plans shown)
+- Variant assignment happens in `useFunnelForm` on mount
+- Always fallback to control variant if PostHog is unavailable (5-second timeout)
+- Track variant assignment as PostHog event for analysis
+
+### Rules
+
+- Never hard-code variant logic in components — use the experiment config
+- Always provide a control/default fallback
+- Track which variant was assigned for every user
+
+---
+
+## Error Handling
+
+- Never silently swallow errors
+- Use try/catch for async operations; type errors explicitly
+- Show user-friendly error messages via `sonner` toasts
+- Handle Shift4 SDK errors, API errors, and network failures separately
+- Implement graceful fallbacks for analytics failures (analytics should never break the funnel)
+- Payment errors must be displayed clearly and allow retry
+
+---
+
+## Accessibility (a11y)
+
+- Semantic HTML (`<button>`, `<label>`, `<input>`, `<main>`)
+- `aria-label` for icon-only buttons and interactive elements
+- Form inputs must have associated `<label>` elements
+- Images: meaningful `alt` for content; `alt=""` for decorative
+- Keyboard navigation must work through all funnel steps
+- Focus management on step transitions
+
+---
+
+## Performance
+
+- Vite handles code splitting automatically for dynamic imports
+- Use `React.lazy` + `Suspense` for heavy components if needed
+- Keep bundle size lean — justify new dependency additions
+- Use the sprite system (`SpriteIcon`) for image optimization
+- Prefer CSS transitions over JavaScript animations
+- Set explicit image dimensions to prevent layout shift
+- Avoid unnecessary re-renders by keeping state local to the step that needs it
+
+---
+
+## Security
+
+- Never commit secrets. Use environment variables (`VITE_PUBLIC_` prefix)
+- Sanitize user input; avoid `dangerouslySetInnerHTML`
+- Validate all form data with Zod schemas before sending to the backend
+- Auth tokens are stored in localStorage (acceptable for this funnel app, but never
+  expose them in URLs beyond the redirect query parameter)
+- Payment tokens are ephemeral — never persist Shift4 tokens
+
+---
+
+## Architecture
+
+### Folder Structure
+
+```
+src/
+├── components/           → React components
+│   ├── funnel/
+│   │   ├── fields/       → Reusable form field components (BadgeField, ButtonField, etc.)
+│   │   └── steps/        → Individual funnel step components (44 steps)
+│   ├── modals/           → Modal components (offer modals, video modal)
+│   ├── stepper/          → Stepper navigation system (compound component)
+│   ├── layout/           → Layout wrappers
+│   └── ui/               → shadcn/ui primitives (button, input, dialog, etc.)
+├── configs/              → Feature flags and experiment configuration
+├── constants/            → Static data (subscriptions, personality traits, etc.)
+├── features/             → Feature modules
+│   └── funnel/           → Funnel orchestration (steps array, validation, view)
+├── hooks/                → Custom React hooks
+│   ├── funnel/           → Funnel-specific hooks (useFunnelForm)
+│   └── queries/          → React Query mutation hooks (useAuth, useShift4)
+├── lib/                  → Core utilities (axios instance, cn(), gtag helpers)
+├── providers/            → React context providers (PostHog, React Query)
+├── services/             → API service objects (auth, shift4, analytics)
+├── store/                → Zustand stores
+│   └── states/           → Individual store slices (auth, funnel, modal, offer, utm)
+└── utils/                → Helpers, enums, types
+    ├── enums/            → TypeScript enums
+    ├── helpers/          → Pure helper functions
+    └── types/            → TypeScript type definitions
+```
+
+### Principles
+
+- Extract repeated logic into reusable hooks or utilities
+- Separate data fetching (hooks/queries) from presentation (components)
+- Funnel steps are pure presentation — business logic lives in hooks and services
+- Use the compound component pattern for complex UI systems (Stepper, ImageCard)
+- Colocate related code (step component + its constants + types)
+- Constants that define funnel options (personality traits, body types, etc.) live
+  in `constants/` — do not inline large option arrays in components
+
+---
+
+## Self-check Before Committing
+
+- [ ] No `any` types
+- [ ] No `I`-prefix on new interfaces
+- [ ] Loading and error states handled for async operations
+- [ ] Analytics events fire at the correct milestones
+- [ ] Form validation works for affected steps
+- [ ] Interactive elements are keyboard accessible
+- [ ] No secrets or `console.log` in production code
+- [ ] New constants use SCREAMING_SNAKE_CASE
+- [ ] Bundle impact considered for new dependencies
+- [ ] Shift4 payment flow tested end-to-end if payment logic changed

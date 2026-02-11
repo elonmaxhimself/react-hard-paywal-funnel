@@ -32,7 +32,7 @@ const Shift4Options = {
 let paymentChannel: BroadcastChannel | null = null;
 
 const initPaymentChannel = () => {
-    if (typeof window !== 'undefined' && typeof BroadcastChannel !== 'undefined') {
+    if (typeof BroadcastChannel !== 'undefined') {
         if (!paymentChannel) {
             paymentChannel = new BroadcastChannel('payment_channel');
         }

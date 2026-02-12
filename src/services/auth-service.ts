@@ -18,9 +18,9 @@ export const authService = {
     },
 
     verifyOAuthToken: async (provider: OAuthProvider, payload: { code: string }) => {
-        const redirectUri = window.location.origin + window.location.pathname;
+        const redirectUrl = window.location.origin + window.location.pathname;
         const response = await axios.post(`/auth/${provider}/token`, payload, {
-            params: { redirectUri }
+            params: { redirectUrl }
         });
         return response.data;
     },

@@ -1,16 +1,17 @@
 import { useFormContext } from "react-hook-form";
+import { useTranslation } from "react-i18next";
 import ImageCard from "@/components/ImageCard";
 import Stepper from "@/components/stepper";
 import StepWrapper from "@/components/StepWrapper";
 import { useStepperContext } from "@/components/stepper/Stepper.context";
 import { FunnelSchema } from "@/hooks/funnel/useFunnelForm";
-import { BUTT_TYPES } from "@/constants/butt-types";
+import { useButtTypes } from "@/constants/butt-types";
 
 export function ButtTypeStep() {
+    const { t } = useTranslation();
     const { nextStep } = useStepperContext();
-
+    const BUTT_TYPES = useButtTypes()
     const form = useFormContext<FunnelSchema>();
-
     const butt_type = form.watch("butt");
 
     return (
@@ -33,7 +34,7 @@ export function ButtTypeStep() {
                             "text-white text-lg font-bold mb-5 md:mb-[30px] capitalize text-center"
                         }
                     >
-                        What kind of butt catches your eye the most?
+                        {t('funnel.buttTypeStep.title')}
                     </h2>
                     <div className="grid grid-cols-2 gap-[10px] w-full">
                         {BUTT_TYPES.map((type) => (

@@ -1,4 +1,5 @@
 import { useFormContext } from "react-hook-form";
+import { useTranslation } from "react-i18next";
 import ImageCard from "@/components/ImageCard";
 import Stepper from "@/components/stepper";
 import StepWrapper from "@/components/StepWrapper";
@@ -7,10 +8,9 @@ import { FunnelSchema } from "@/hooks/funnel/useFunnelForm";
 import { characterAge } from "@/constants/character-age";
 
 export function CharacterAgeStep() {
+    const { t } = useTranslation();
     const { nextStep } = useStepperContext();
-
     const form = useFormContext<FunnelSchema>();
-
     const character_age = form.watch("age");
 
     const onSelectCharacterAge = (age: string) => {
@@ -36,12 +36,11 @@ export function CharacterAgeStep() {
                     <h2
                         className={"text-white text-lg font-bold mb-[10px] md:mb-[15px] capitalize"}
                     >
-                        Personalized to fulfill your every wish
+                        {t('funnel.characterAgeStep.title')}
                     </h2>
                     <p className="text-white/70 text-sm font-medium text-center mb-[35px] first-letter:uppercase">
-                        select the age that feels right for your AI match
+                        {t('funnel.characterAgeStep.subtitle')}
                     </p>
-
                     <div className={"w-full grid grid-cols-2 gap-[10px]"}>
                         {characterAge.map((age) => (
                             <ImageCard

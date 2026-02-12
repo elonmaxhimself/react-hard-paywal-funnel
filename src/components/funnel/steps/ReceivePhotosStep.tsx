@@ -1,5 +1,6 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
+import { useTranslation, Trans } from "react-i18next";
 import { useStepperContext } from "@/components/stepper/Stepper.context";
 import { Button } from "@/components/ui/button";
 import { useFormContext } from "react-hook-form";
@@ -20,6 +21,7 @@ interface Props {
 }
 
 export function ReceivePhotosStep() {
+    const { t } = useTranslation();
     const { nextStep } = useStepperContext();
     const form = useFormContext<FunnelSchema>();
 
@@ -51,7 +53,7 @@ export function ReceivePhotosStep() {
                             {bannerSize.w > 0 && bannerSize.h > 0 && (
                                 <SpriteIcon
                                     src="/images/banners/adult-content-banner.webp"
-                                    fallbackAlt="Would you like to receive Spicy Custom Photos?"
+                                    fallbackAlt={t('funnel.receivePhotosStep.altBanner')}
                                     targetW={bannerSize.w}
                                     targetH={bannerSize.h}
                                     fit="cover"
@@ -64,7 +66,7 @@ export function ReceivePhotosStep() {
 
                         <SpriteIcon
                             src="/images/cursor.png"
-                            fallbackAlt="Cursor"
+                            fallbackAlt={t('funnel.receivePhotosStep.altCursor')}
                             targetW={30}
                             targetH={30}
                             fit="contain"
@@ -78,7 +80,7 @@ export function ReceivePhotosStep() {
                                 <div className="absolute -top-[36px] left-[50%] -translate-x-[50%] size-[72px] flex items-center justify-center rounded-full bg-white/17 backdrop-blur-[20px] translucent-image-shadow z-2">
                                     <SpriteIcon
                                         src="/images/emojis/demon-emoji.webp"
-                                        fallbackAlt="Demon Emoji"
+                                        fallbackAlt={t('funnel.receivePhotosStep.altDemonEmoji')}
                                         targetW={47}
                                         targetH={47}
                                         fit="contain"
@@ -104,7 +106,7 @@ export function ReceivePhotosStep() {
                                 <div className="absolute -top-[36px] left-[50%] -translate-x-[50%] size-[72px] flex items-center justify-center rounded-full bg-white/17 backdrop-blur-[20px] translucent-image-shadow z-2">
                                     <SpriteIcon
                                         src="/images/emojis/fire-emoji.webp"
-                                        fallbackAlt="Fire Emoji"
+                                        fallbackAlt={t('funnel.receivePhotosStep.altFireEmoji')}
                                         targetW={47}
                                         targetH={47}
                                         fit="contain"
@@ -129,21 +131,23 @@ export function ReceivePhotosStep() {
                     <div className="fixed bottom-0 left-0 w-full px-[15px] sm:px-0 p-5 pt-0 bg-black-2 sm:bg-transparent  sm:relative z-100">
                         <div className="max-w-[450px] w-full mx-auto">
                             <h2 className="text-white text-lg font-bold text-center mb-[30px] sm:mb-[20px] capitalize ">
-                                Would you like to receive <br />
-                                🌶️ Spicy Custom Photos
+                                <Trans 
+                                    i18nKey="funnel.receivePhotosStep.title"
+                                    components={{ br: <br /> }}
+                                />
                             </h2>
                             <div className="w-full flex items-center justify-center gap-[12px] ">
                                 <Button
                                     onClick={() => onSelectValue(false)}
                                     className="h-[45px] flex-1 bg-white/10 hover:bg-white/20 transition-colors"
                                 >
-                                    <span className="text-base font-bold">No</span>
+                                    <span className="text-base font-bold">{t('funnel.receivePhotosStep.no')}</span>
                                 </Button>
                                 <Button
                                     onClick={() => onSelectValue(true)}
                                     className="h-[45px] flex-1 bg-primary-gradient"
                                 >
-                                    <span className="text-base font-bold">Yes</span>
+                                    <span className="text-base font-bold">{t('funnel.receivePhotosStep.yes')}</span>
                                 </Button>
                             </div>
                         </div>

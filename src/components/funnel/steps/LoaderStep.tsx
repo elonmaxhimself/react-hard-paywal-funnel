@@ -1,5 +1,6 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
+import { useTranslation, Trans } from "react-i18next";
 
 import { Progress } from "@/components/ui/progress";
 import { useLoader } from "@/hooks/useLoader";
@@ -20,22 +21,7 @@ interface Props {
     finalLoaderProps: LoaderProps;
 }
 
-const LOADERS = [
-    {
-        label: "Understanding your preferences",
-        key: "preferencesLoader",
-    },
-    {
-        label: "Creating an uncensored version of AI girl",
-        key: "uncensoredLoader",
-    },
-    {
-        label: "Crafting AI girl to your preferences",
-        key: "finalLoader",
-    },
-] as const;
-
-type LoaderKey = (typeof LOADERS)[number]["key"];
+type LoaderKey = "preferencesLoader" | "uncensoredLoader" | "finalLoader";
 
 const OVERLAYS = ["bg-[#000]/20", "bg-[#000]/20", "bg-[#000]/20", "backdrop-blur-sm"] as const;
 
@@ -45,6 +31,7 @@ export function LoaderStep({
     uncensoredLoaderProps,
     finalLoaderProps,
 }: Props) {
+    const { t } = useTranslation();
     const { nextStep } = useStepperContext();
 
     const mainLoader = useLoader(
@@ -73,6 +60,21 @@ export function LoaderStep({
         uncensoredLoader,
         finalLoader,
     };
+
+    const LOADERS: Array<{ label: string; key: LoaderKey }> = [
+        {
+            label: t('funnel.loaderStep.preferencesLoader'),
+            key: "preferencesLoader",
+        },
+        {
+            label: t('funnel.loaderStep.uncensoredLoader'),
+            key: "uncensoredLoader",
+        },
+        {
+            label: t('funnel.loaderStep.finalLoader'),
+            key: "finalLoader",
+        },
+    ];
 
     useEffect(() => {
         Promise.all([
@@ -105,7 +107,7 @@ export function LoaderStep({
                 <div className="w-full flex-1 sm:flex-none flex flex-col items-center sm:justify-center mb-[30px] sm:mb-[70px]">
                     <div className={"w-full mb-[25px]"}>
                         <h1 className={"text-white text-2xl font-bold text-center capitalize"}>
-                            Your Dream Companion
+                            {t('funnel.loaderStep.title')}
                         </h1>
                     </div>
 
@@ -118,7 +120,7 @@ export function LoaderStep({
                             {bannerSize.w > 0 && bannerSize.h > 0 && (
                                 <SpriteIcon
                                     src={"/images/banners/first-loader-placeholder.webp"}
-                                    fallbackAlt={"First Loader Placeholder"}
+                                    fallbackAlt={t('funnel.loaderStep.altPlaceholder')}
                                     targetW={bannerSize.w}
                                     targetH={bannerSize.h}
                                     fit="cover"
@@ -149,7 +151,7 @@ export function LoaderStep({
                                         "text-white text-[27px] font-semibold leading-none text-center mb-[28px]"
                                     }
                                 >
-                                    Please Wait!
+                                    {t('funnel.loaderStep.pleaseWait')}
                                 </p>
                                 <Progress
                                     value={mainLoader.progress}
@@ -157,8 +159,10 @@ export function LoaderStep({
                                     indicatorProps={{ className: "bg-[#FD525A]" }}
                                 />
                                 <p className={"text-white text-base font-medium text-center"}>
-                                    Your companion is being created. <br /> This might take a few
-                                    seconds
+                                    <Trans 
+                                        i18nKey="funnel.loaderStep.subtitle"
+                                        components={{ br: <br /> }}
+                                    />
                                 </p>
                             </div>
                         </div>

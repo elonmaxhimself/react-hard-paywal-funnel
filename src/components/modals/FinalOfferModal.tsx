@@ -29,7 +29,6 @@ export default function FinalOfferModal() {
     const setClose = useStore((state) => state.modal.setClose);
     const setOpen = useStore((state) => state.modal.setOpen);
     const posthog = usePostHog();
-;
     const finalOffer = useFinalOffer();
 
     const isFinalOfferModalOpen = trigger === ModalTriggers.FINAL_OFFER_MODAL;

@@ -646,16 +646,6 @@
       "younger": "Jünger als ich",
       "older": "Älter als ich"
     },
-    "products": {
-      "annualDeluxe": "Jährliches Deluxe-Abonnement",
-      "quarterlyDeluxe": "Vierteljährliches Deluxe-Abonnement",
-      "monthlyDeluxe": "Monatliches Deluxe-Abonnement",
-      "yearlyDeluxe": "Jährliches Deluxe-Abonnement",
-      "oneWeekIntro": "1-Wochen-Einführungsangebot",
-      "oneMonthIntro": "1-Monats-Einführungsangebot",
-      "threeMonthsIntro": "3-Monats-Einführungsangebot",
-      "sevenDaysIntro": "7-Tage-Einführungsangebot"
-    },
     "reviews": {
       "review1": {
         "description": "Mit Dream Companion \n kannst du aus Tausenden einzigartigen KI-Begleitern wählen oder deine ideale KI-Partnerin entwerfen und jedes Detail ihres Aussehens, ihrer Persönlichkeitsmerkmale und spezifischen Vorlieben anpassen.",

@@ -646,16 +646,6 @@
       "younger": "Mladší než já",
       "older": "Starší než já"
     },
-    "products": {
-      "annualDeluxe": "Roční Deluxe předplatné",
-      "quarterlyDeluxe": "Čtvrtletní Deluxe předplatné",
-      "monthlyDeluxe": "Měsíční Deluxe předplatné",
-      "yearlyDeluxe": "Roční Deluxe předplatné",
-      "oneWeekIntro": "1týdenní úvodní nabídka",
-      "oneMonthIntro": "1měsíční úvodní nabídka",
-      "threeMonthsIntro": "3měsíční úvodní nabídka",
-      "sevenDaysIntro": "7denní úvodní nabídka"
-    },
     "reviews": {
       "review1": {
         "description": "S Dream Companion \n si můžete vybrat z tisíců jedinečných AI společníků nebo navrhnout svého ideálního AI partnera, přizpůsobit každý detail jeho vzhledu, osobnostních rysů a specifických preferencí.",

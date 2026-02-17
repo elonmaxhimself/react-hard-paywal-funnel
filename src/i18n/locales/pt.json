@@ -646,16 +646,6 @@
       "younger": "Mais nova do que eu",
       "older": "Mais velha do que eu"
     },
-    "products": {
-      "annualDeluxe": "Assinatura Deluxe Anual",
-      "quarterlyDeluxe": "Assinatura Deluxe Trimestral",
-      "monthlyDeluxe": "Assinatura Deluxe Mensal",
-      "yearlyDeluxe": "Assinatura Deluxe Anual",
-      "oneWeekIntro": "Oferta introdutória de 1 semana",
-      "oneMonthIntro": "Oferta introdutória de 1 mês",
-      "threeMonthsIntro": "Oferta introdutória de 3 meses",
-      "sevenDaysIntro": "Oferta introdutória de 7 dias"
-    },
     "reviews": {
       "review1": {
         "description": "Com o Dream Companion, \n você pode escolher entre milhares de companheiras de IA únicas ou criar sua parceira ideal do zero, personalizando cada detalhe da aparência, manias de personalidade e preferências específicas dela.",

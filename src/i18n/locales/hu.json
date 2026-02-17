@@ -646,16 +646,6 @@
       "younger": "Fiatalabb nálam",
       "older": "Idősebb nálam"
     },
-    "products": {
-      "annualDeluxe": "Éves Deluxe Előfizetés",
-      "quarterlyDeluxe": "Negyedéves Deluxe Előfizetés",
-      "monthlyDeluxe": "Havi Deluxe Előfizetés",
-      "yearlyDeluxe": "Éves Deluxe Előfizetés",
-      "oneWeekIntro": "1 Hetes Bevezető Ajánlat",
-      "oneMonthIntro": "1 Havi Bevezető Ajánlat",
-      "threeMonthsIntro": "3 Havi Bevezető Ajánlat",
-      "sevenDaysIntro": "7 Napos Bevezető Ajánlat"
-    },
     "reviews": {
       "review1": {
         "description": "Dream Companion-nal, \n választhatsz ezernyi egyedi AI társ közül, vagy megtervezheted saját ideális AI párodat, személyre szabva megjelenésük minden részletét, személyiségjegyeiket és specifikus preferenciáikat.",

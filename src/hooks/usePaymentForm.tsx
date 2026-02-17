@@ -14,7 +14,7 @@ import { FunnelSchema } from "@/hooks/funnel/useFunnelForm";
 
 import { Shift4Statuses } from "@/utils/enums/shift4-statuses";
 
-import { useProducts } from "@/constants/products";
+import { products } from "@/constants/products";
 
 import { analyticsService } from "@/services/analytics-service";
 import { shift4Service } from "@/services/shift4-service";
@@ -46,9 +46,8 @@ export function usePaymentForm(posthog?: any) {
     const authReset = useAuthStore((state) => state.reset);
     const funnelReset = useFunnelStore((state) => state.reset);
 
-    const products = useProducts();
     const productId = form.watch("productId");
-    const product = useMemo(() => products.find((p) => p.id === productId), [productId, products]);
+    const product = useMemo(() => products.find((p) => p.id === productId), [productId]);
 
     const addToCartTrackedRef = useRef(false);
 
@@ -155,22 +154,22 @@ export function usePaymentForm(posthog?: any) {
                     addToCartTrackedRef.current = true;
 
                     // PostHog paywall opened tracking
-                    // try {
-                    //     if (typeof window !== 'undefined' && posthog && product) {
-                    //         posthog.capture('paywall_opened', {
-                    //             value: product.amount / 100,
-                    //             currency: "USD",
-                    //             product_id: product.id,
-                    //             product_name: product.name,
-                    //             user_id: userId,
-                    //             payment_type: "subscription_initial_payment",
-                    //             monthly_billing_cycle: product.durationMonths,
-                    //             payment_provider: "shift4"
-                    //         });
-                    //     }
-                    // } catch (e) {
-                    //     console.warn("PostHog paywall tracking failed", e);
-                    // }
+                    try {
+                        if (typeof window !== 'undefined' && posthog && product) {
+                            posthog.capture('paywall_opened', {
+                                value: product.amount / 100,
+                                currency: "USD",
+                                product_id: product.id,
+                                product_name: product.name,
+                                user_id: userId,
+                                payment_type: "subscription_initial_payment",
+                                monthly_billing_cycle: product.durationMonths,
+                                payment_provider: "shift4"
+                            });
+                        }
+                    } catch (e) {
+                        console.warn("PostHog paywall tracking failed", e);
+                    }
                 }
             } catch (e) {
                 console.error("Error during Shift4 initialization:", e);

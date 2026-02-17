@@ -8,6 +8,7 @@ import FinalOfferUnlockedModal from "@/components/modals/FinalOfferUnlockedModal
 import SecretOfferModal from "@/components/modals/SecretOfferModal";
 import ShowVideoModal from "@/components/modals/ShowVideoModal";
 import SpecialOfferModal from "@/components/modals/SpecialOfferModal";
+import LanguageSelector from "@/components/LanguageSelector";
 
 export default function FunnelView() {
     const { form, stepper, isReady } = useFunnelForm();
@@ -17,6 +18,10 @@ export default function FunnelView() {
     return (
         <FormProvider {...form}>
             <div className="w-full">
+                <div className="absolute top-4 right-4 z-50">
+                    <LanguageSelector />
+                </div>
+
                 <Stepper {...stepper}>
                     <Stepper.Contents>
                         {funnelSteps.map((StepContent, index) => (

@@ -1,11 +1,5 @@
 {
   "funnel": {
-    "startStep": {
-      "title": "crea la tua ragazza AI <highlight>gratis ora</highlight>",
-      "buttonText": "Crea gratis ora",
-      "videoNotSupported": "Il tuo browser non supporta il tag video.",
-      "altMagicWand": "Bacchetta Magica"
-    },
     "socialProofStep": {
       "millionPeople": "Più di 3 milioni di persone",
       "quote": "\"Quando si tratta di trovare l'app perfetta per la ragazza AI nel 2025, Dream Companion è facilmente in cima alla lista.\"",
@@ -209,6 +203,7 @@
       "emailPlaceholder": "Email",
       "passwordPlaceholder": "Password",
       "saveAndContinue": "Salva e Continua",
+      "orContinueWith": "O continua con",
       "happyUsers": "Più di 3M utenti felici",
       "altLogo": "My Dream Companion",
       "altMailIcon": "Icona Mail",
@@ -725,7 +720,8 @@
         "unexpectedError": "Si è verificato un errore imprevisto. Si prega di riprovare più tardi.",
         "paymentWentWrong": "Qualcosa è andato storto durante il pagamento. Si prega di riprovare.",
         "paymentTakingLong": "Il pagamento sta impiegando più tempo del previsto. Si prega di riprovare.",
-        "failedCheckStatus": "Impossibile verificare lo stato del pagamento. Si prega di riprovare."
+        "failedCheckStatus": "Impossibile verificare lo stato del pagamento. Si prega di riprovare.",
+        "paymentInAnotherTab": "Il pagamento è in fase di elaborazione in un'altra scheda."
       }
     },
     "turnsOfYou": {

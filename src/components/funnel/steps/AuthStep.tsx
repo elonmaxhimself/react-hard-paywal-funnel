@@ -9,7 +9,8 @@ import { Checkbox } from "@/components/ui/checkbox";
 import CustomInput from "@/components/CustomInput";
 import SpriteIcon from "@/components/SpriteIcon";
 
-import { useSignUpForm } from "@/hooks/useSignUpForm";
+import { useSignUpForm } from "@/hooks/auth/useSignUpForm";
+import { useOAuth } from "@/hooks/auth/useOAuth";
 import { usePostHog } from "posthog-js/react";
 
 import { useCheckboxes } from "@/constants/auth-checkboxes";
@@ -19,6 +20,14 @@ export function AuthStep() {
     const CHECKBOXES = useCheckboxes();
     const posthog = usePostHog();
     const { form, onSubmit, onValueReset, isPending, apiError } = useSignUpForm(posthog);
+    
+    const { 
+        signIn: oauthSignIn,
+        isLoading: isOAuthLoading,
+        isGoogleLoading,
+        isTwitterLoading,
+        isDiscordLoading,
+    } = useOAuth(posthog);
 
     const errors = form.formState.errors;
 
@@ -158,12 +167,63 @@ export function AuthStep() {
 
                         <Button
                             type={"submit"}
-                            disabled={isPending}
-                            className={"w-full h-[45px] bg-primary-gradient mb-[30px]"}
+                            disabled={isPending || isOAuthLoading}
+                            className={"w-full h-[45px] bg-primary-gradient mb-5"}
                         >
                             {isPending && <Loader2Icon className="animate-spin" />}
                             <span className={"text-base font-bold"}>{t('funnel.authStep.saveAndContinue')}</span>
                         </Button>
+
+                        <div className="relative mb-5">
+                            <div className="absolute inset-0 flex items-center">
+                                <div className="w-full border-t border-white/10"></div>
+                            </div>
+                            <div className="relative flex justify-center text-xs uppercase">
+                                <span className="bg-[#1a1a1a] px-2 text-white/50">{t('funnel.authStep.orContinueWith')}</span>
+                            </div>
+                        </div>
+
+                        <div className="flex gap-3 mb-[30px]">
+                            <Button
+                                type="button"
+                                variant="outline"
+                                className="flex-1 h-[45px] bg-transparent border-white/10 hover:bg-white/5"
+                                onClick={() => oauthSignIn("google")}
+                                disabled={isOAuthLoading || isPending}
+                            >
+                                {isGoogleLoading ? (
+                                    <Loader2Icon className="animate-spin" size={20} />
+                                ) : (
+                                    <img src="/icons/google.png" alt="Google" className="w-5 h-5" />
+                                )}
+                            </Button>
+                            <Button
+                                type="button"
+                                variant="outline"
+                                className="flex-1 h-[45px] bg-transparent border-white/10 hover:bg-white/5"
+                                onClick={() => oauthSignIn("twitter")}
+                                disabled={isOAuthLoading || isPending}
+                            >
+                                {isTwitterLoading ? (
+                                    <Loader2Icon className="animate-spin" size={20} />
+                                ) : (
+                                    <img src="/icons/X.png" alt="Twitter" className="w-5 h-5" />
+                                )}
+                            </Button>
+                            <Button
+                                type="button"
+                                variant="outline"
+                                className="flex-1 h-[45px] bg-transparent border-white/10 hover:bg-white/5"
+                                onClick={() => oauthSignIn("discord")}
+                                disabled={isOAuthLoading || isPending}
+                            >
+                                {isDiscordLoading ? (
+                                    <Loader2Icon className="animate-spin" size={20} />
+                                ) : (
+                                    <img src="/icons/discord.png" alt="Discord" className="w-5 h-5" />
+                                )}
+                            </Button>
+                        </div>
 
                         <div className="w-full p-2.5 bg-[#222327]/90 border border-white/6 rounded-[10px]">
                             <div className="flex gap-2 items-center justify-between">
@@ -201,7 +261,6 @@ export function AuthStep() {
                                         className="size-[31px] relative -left-[24px]"
                                         imageClassName="rounded-full border-[3px] border-[#2B2A2B] origin-[50%_20%]"
                                     />
-
                                     <div className="size-[31px] relative -left-[36px] rounded-full border-[3px] border-[#2B2A2B] bg-primary-gradient">
                                         <div className="w-full h-full flex items-center justify-center">
                                             <span className="text-white text-[11px] font-bold">
@@ -216,7 +275,6 @@ export function AuthStep() {
                                 >
                                     {t('funnel.authStep.happyUsers')}
                                 </div>
-
                                 <div className={"relative flex-1"}>
                                     <SpriteIcon
                                         src={"/images/award-ranking.svg"}

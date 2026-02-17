@@ -1,11 +1,5 @@
 {
   "funnel": {
-    "startStep": {
-      "title": "crie uma namorada de IA <highlight>de graça agora</highlight>",
-      "buttonText": "Criar grátis agora",
-      "videoNotSupported": "Seu navegador não suporta a tag de vídeo.",
-      "altMagicWand": "Varinha mágica"
-    },
     "socialProofStep": {
       "millionPeople": "3+ milhões de pessoas",
       "quote": "\"Quando se trata de encontrar o melhor app de namorada de IA em 2025, o Dream Companion facilmente fica no topo da lista.\"",
@@ -209,6 +203,7 @@
       "emailPlaceholder": "E-mail",
       "passwordPlaceholder": "Senha",
       "saveAndContinue": "Salvar e continuar",
+      "orContinueWith": "Ou continuar com",
       "happyUsers": "3M+ usuários satisfeitos",
       "altLogo": "My Dream Companion",
       "altMailIcon": "Ícone de e-mail",
@@ -725,7 +720,8 @@
         "unexpectedError": "Ocorreu um erro inesperado. Tente novamente mais tarde.",
         "paymentWentWrong": "Algo deu errado durante o pagamento. Tente novamente.",
         "paymentTakingLong": "O pagamento está levando mais tempo do que o esperado. Tente novamente.",
-        "failedCheckStatus": "Falha ao verificar o status do pagamento. Tente novamente."
+        "failedCheckStatus": "Falha ao verificar o status do pagamento. Tente novamente.",
+        "paymentInAnotherTab": "O pagamento está sendo processado em outra aba."
       }
     },
     "turnsOfYou": {

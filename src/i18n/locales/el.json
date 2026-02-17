@@ -1,11 +1,5 @@
 {
   "funnel": {
-    "startStep": {
-      "title": "δημιούργησε μια AI κοπέλα <highlight>δωρεάν τώρα</highlight>",
-      "buttonText": "Δημιούργησε δωρεάν τώρα",
-      "videoNotSupported": "Ο περιηγητής σου δεν υποστηρίζει την ετικέτα video.",
-      "altMagicWand": "Μαγικό ραβδί"
-    },
     "socialProofStep": {
       "millionPeople": "3+ εκατομμύρια άνθρωποι",
       "quote": "\"Όταν μιλάμε για την καλύτερη εφαρμογή AI κοπέλας το 2025, το Dream Companion είναι ξεκάθαρα στην κορυφή.\"",
@@ -209,6 +203,7 @@
       "emailPlaceholder": "Email",
       "passwordPlaceholder": "Κωδικός",
       "saveAndContinue": "Αποθήκευση και συνέχεια",
+      "orContinueWith": "Ή συνεχίστε με",
       "happyUsers": "3M+ ευχαριστημένοι χρήστες",
       "altLogo": "My Dream Companion",
       "altMailIcon": "Εικονίδιο mail",
@@ -725,7 +720,8 @@
         "unexpectedError": "Προέκυψε ένα απρόσμενο σφάλμα. Παρακαλώ δοκίμασε ξανά αργότερα.",
         "paymentWentWrong": "Κάτι πήγε στραβά κατά την πληρωμή. Παρακαλώ δοκίμασε ξανά.",
         "paymentTakingLong": "Η πληρωμή διαρκεί περισσότερο από το αναμενόμενο. Παρακαλώ δοκίμασε ξανά.",
-        "failedCheckStatus": "Αποτυχία ελέγχου κατάστασης πληρωμής. Παρακαλώ δοκίμασε ξανά."
+        "failedCheckStatus": "Αποτυχία ελέγχου κατάστασης πληρωμής. Παρακαλώ δοκίμασε ξανά.",
+        "paymentInAnotherTab": "Η πληρωμή επεξεργάζεται σε άλλη καρτέλα."
       }
     },
     "turnsOfYou": {

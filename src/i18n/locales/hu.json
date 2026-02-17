@@ -1,11 +1,5 @@
 {
   "funnel": {
-    "startStep": {
-      "title": "hozd létre mesterséges intelligencia barátnődet <highlight>most ingyen</highlight>",
-      "buttonText": "Hozd létre most ingyen",
-      "videoNotSupported": "A böngésződ nem támogatja a videó címkét.",
-      "altMagicWand": "Varázspálca"
-    },
     "socialProofStep": {
       "millionPeople": "3+ millió ember",
       "quote": "\"Amikor a tökéletes AI barátnő alkalmazásról van szó 2025-ben, a Dream Companion könnyen vezeti a listát.\"",
@@ -209,6 +203,7 @@
       "emailPlaceholder": "Email",
       "passwordPlaceholder": "Jelszó",
       "saveAndContinue": "Mentés És Folytatás",
+      "orContinueWith": "Vagy folytasd ezzel",
       "happyUsers": "3M+ boldog felhasználó",
       "altLogo": "My Dream Companion",
       "altMailIcon": "Levél Ikon",
@@ -725,7 +720,8 @@
         "unexpectedError": "Váratlan hiba történt. Kérlek, próbáld újra később.",
         "paymentWentWrong": "Valami hiba történt fizetés közben. Kérlek, próbáld újra.",
         "paymentTakingLong": "A fizetés a vártnál tovább tart. Kérlek, próbáld újra.",
-        "failedCheckStatus": "Fizetési állapot ellenőrzése sikertelen. Kérlek, próbáld újra."
+        "failedCheckStatus": "Fizetési állapot ellenőrzése sikertelen. Kérlek, próbáld újra.",
+        "paymentInAnotherTab": "A fizetés feldolgozás alatt áll egy másik lapon."
       }
     },
     "turnsOfYou": {

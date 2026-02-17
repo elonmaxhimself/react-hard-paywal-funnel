@@ -1,11 +1,5 @@
 {
   "funnel": {
-    "startStep": {
-      "title": "vytvořte si ai přítelkyni <highlight>zdarma nyní</highlight>",
-      "buttonText": "Vytvořit zdarma nyní",
-      "videoNotSupported": "Váš prohlížeč nepodporuje video tag.",
-      "altMagicWand": "Kouzelná hůlka"
-    },
     "socialProofStep": {
       "millionPeople": "3+ miliony lidí",
       "quote": "\"Pokud jde o nalezení dokonalé aplikace AI přítelkyně v roce 2025, Dream Companion snadno vede seznam.\"",
@@ -209,6 +203,7 @@
       "emailPlaceholder": "Email",
       "passwordPlaceholder": "Heslo",
       "saveAndContinue": "Uložit a pokračovat",
+      "orContinueWith": "Nebo pokračovat s",
       "happyUsers": "3M+ spokojených uživatelů",
       "altLogo": "My Dream Companion",
       "altMailIcon": "Ikona pošty",
@@ -725,7 +720,8 @@
         "unexpectedError": "Došlo k neočekávané chybě. Zkuste to prosím znovu později.",
         "paymentWentWrong": "Během platby se něco pokazilo. Zkuste to prosím znovu.",
         "paymentTakingLong": "Platba trvá déle, než se očekávalo. Zkuste to prosím znovu.",
-        "failedCheckStatus": "Nepodařilo se zkontrolovat stav platby. Zkuste to prosím znovu."
+        "failedCheckStatus": "Nepodařilo se zkontrolovat stav platby. Zkuste to prosím znovu.",
+        "paymentInAnotherTab": "Platba se zpracovává v jiné záložce."
       }
     },
     "turnsOfYou": {

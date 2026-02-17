@@ -1,11 +1,5 @@
 {
   "funnel": {
-    "startStep": {
-      "title": "crea tu novia IA <highlight>gratis ahora</highlight>",
-      "buttonText": "Crear gratis ahora",
-      "videoNotSupported": "Tu navegador no soporta la etiqueta de video.",
-      "altMagicWand": "Varita Mágica"
-    },
     "socialProofStep": {
       "millionPeople": "3+ millones de personas",
       "quote": "\"Cuando se trata de encontrar la aplicación perfecta de novia IA en 2025, Dream Companion fácilmente encabeza la lista.\"",
@@ -209,6 +203,7 @@
       "emailPlaceholder": "Correo electrónico",
       "passwordPlaceholder": "Contraseña",
       "saveAndContinue": "Guardar y continuar",
+      "orContinueWith": "O continuar con",
       "happyUsers": "3M+ usuarios felices",
       "altLogo": "My Dream Companion",
       "altMailIcon": "Icono de correo",
@@ -725,7 +720,8 @@
         "unexpectedError": "Ocurrió un error inesperado. Por favor, inténtalo de nuevo más tarde.",
         "paymentWentWrong": "Algo salió mal durante el pago. Por favor, inténtalo de nuevo.",
         "paymentTakingLong": "El pago está tomando más tiempo de lo esperado. Por favor, inténtalo de nuevo.",
-        "failedCheckStatus": "No se pudo verificar el estado del pago. Por favor, inténtalo de nuevo."
+        "failedCheckStatus": "No se pudo verificar el estado del pago. Por favor, inténtalo de nuevo.",
+        "paymentInAnotherTab": "El pago se está procesando en otra pestaña."
       }
     },
     "turnsOfYou": {

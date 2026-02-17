@@ -9,6 +9,7 @@ import FinalOfferUnlockedModal from "@/components/modals/FinalOfferUnlockedModal
 import SecretOfferModal from "@/components/modals/SecretOfferModal";
 import ShowVideoModal from "@/components/modals/ShowVideoModal";
 import SpecialOfferModal from "@/components/modals/SpecialOfferModal";
+import LanguageSelector from "@/components/LanguageSelector";
 import { useAuthStore } from "@/store/states/auth";
 import { useFunnelStore } from "@/store/states/funnel";
 import { processOAuthCallback } from "@/hooks/auth/processOAuthCallback";
@@ -84,6 +85,10 @@ export default function FunnelView() {
     return (
         <FormProvider {...form}>
             <div className="w-full">
+                <div className="absolute top-4 right-4 z-50">
+                    <LanguageSelector />
+                </div>
+
                 <Stepper {...stepper}>
                     <Stepper.Contents>
                         {funnelSteps.map((StepContent, index) => (

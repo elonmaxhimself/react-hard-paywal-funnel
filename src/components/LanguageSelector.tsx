@@ -21,7 +21,8 @@ export default function LanguageSelector() {
     const [isOpen, setIsOpen] = useState(false);
     const dropdownRef = useRef<HTMLDivElement>(null);
 
-    const currentLanguage = languages.find(lang => lang.code === i18n.language) || languages[0];
+    const currentLangCode = i18n.language.split('-')[0];
+    const currentLanguage = languages.find(lang => lang.code === currentLangCode) || languages[0];
     const CurrentFlag = flagMap[currentLanguage.code];
 
     useEffect(() => {
@@ -43,7 +44,7 @@ export default function LanguageSelector() {
         <div className="relative" ref={dropdownRef}>
             <button
                 onClick={() => setIsOpen(!isOpen)}
-                className="flex items-center gap-1.5 px-2 py-1.5 bg-white/10 backdrop-blur-sm rounded-lg hover:bg-white/15 transition-all border border-white/20"
+                className="flex items-center gap-1.5 px-2 py-1.5 bg-white/10 backdrop-blur-sm rounded-lg hover:bg-white/15 transition-all border border-white/20 cursor-pointer"
                 aria-label="Select language"
             >
                 {CurrentFlag && <CurrentFlag className="w-5 h-4 rounded shadow-sm" />}
@@ -65,8 +66,8 @@ export default function LanguageSelector() {
                             <button
                                 key={lang.code}
                                 onClick={() => handleLanguageChange(lang.code)}
-                                className={`w-full p-1.5 hover:bg-white/10 transition-colors ${
-                                    i18n.language === lang.code ? 'bg-white/5' : ''
+                                className={`w-full p-1.5 hover:bg-white/10 transition-colors cursor-pointer ${
+                                    currentLangCode === lang.code ? 'bg-white/5' : ''
                                 }`}
                             >
                                 {Flag && <Flag className="w-full h-6 rounded shadow-sm" />}

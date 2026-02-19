@@ -12,7 +12,7 @@ export function YourTypeStep() {
     const { t } = useTranslation();
     const { nextStep } = useStepperContext();
     const form = useFormContext<FunnelSchema>();
-    const YOUR_TYPE = useYourType()
+    const YOUR_TYPE = useYourType();
     const your_type = form.watch("your_type");
 
     return (
@@ -31,10 +31,10 @@ export function YourTypeStep() {
                         <Stepper.Progress />
                     </div>
                     <h2 className={"text-white text-2xl font-bold mb-[10px] text-center"}>
-                        {t('funnel.yourTypeStep.title')}
+                        {t("funnel.yourTypeStep.title")}
                     </h2>
                     <p className="text-white/70 text-base font-medium text-center mb-5 md:mb-[35px] lowercase first-letter:uppercase">
-                        {t('funnel.yourTypeStep.subtitle')}
+                        {t("funnel.yourTypeStep.subtitle")}
                     </p>
                     <div className={"w-full grid grid-cols-3 gap-[10px]"}>
                         {YOUR_TYPE.map((type) => (
@@ -56,11 +56,11 @@ export function YourTypeStep() {
                                         });
                                     }
                                 }}
-                                className={"w-full h-auto aspect-square capitalize"}
+                                className={"w-full aspect-[3/4] capitalize"}
                             >
                                 <ImageCard.Image />
-                                <ImageCard.Name />
                                 <ImageCard.Overlay />
+                                <ImageCard.Name />
                             </ImageCard>
                         ))}
                     </div>
@@ -73,7 +73,7 @@ export function YourTypeStep() {
                 <div className="w-full flex items-center justify-center px-[15px] sm:px-0 p-5 bg-black-2 sm:static fixed bottom-0 left-0 z-100">
                     <div className="max-w-[450px] w-full">
                         <Button onClick={nextStep} className="w-full h-[45px] bg-primary-gradient">
-                            <span className="text-base font-bold">{t('funnel.yourTypeStep.continue')}</span>
+                            <span className="text-base font-bold">{t("funnel.yourTypeStep.continue")}</span>
                         </Button>
                     </div>
                 </div>

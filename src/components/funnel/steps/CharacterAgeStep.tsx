@@ -34,7 +34,7 @@ export function CharacterAgeStep() {
                         <Stepper.Progress />
                     </div>
                     <h2
-                        className={"text-white text-lg font-bold mb-[10px] md:mb-[15px] capitalize"}
+                        className={"text-white text-lg font-bold mb-[10px] md:mb-[15px] capitalize text-center w-full"}
                     >
                         {t('funnel.characterAgeStep.title')}
                     </h2>

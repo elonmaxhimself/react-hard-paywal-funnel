@@ -1,5 +1,8 @@
 {
   "funnel": {
+    "stepperProgress": {
+      "title": "Criar namorada IA"
+    },
     "socialProofStep": {
       "millionPeople": "3+ milhões de pessoas",
       "quote": "\"Quando se trata de encontrar o melhor app de namorada de IA em 2026, o Dream Companion facilmente fica no topo da lista.\"",
@@ -212,6 +215,7 @@
       "altAwardRanking": "APP DE IA NSFW #1 DO RANKING"
     },
     "subscriptionStep": {
+      "termsAndConditions": "Termos e condições",
       "title": "Sua namorada de IA está pronta",
       "subtitle": "Tenha acesso a tudo o que ela pode fazer <br />por você agora",
       "bestChoice": "MELHOR ESCOLHA",
@@ -712,6 +716,14 @@
     }
   },
   "hooks": {
+    "useSignUpForm": {
+      "emailInvalid": "Por favor, insira um endereço de e-mail válido",
+      "passwordMin": "A senha deve ter pelo menos 8 caracteres",
+      "passwordRegex": "A senha deve incluir pelo menos uma letra e um número",
+      "isAdultRequired": "Você deve confirmar que tem 18 anos ou mais.",
+      "acceptedTermsRequired": "Você deve aceitar os Termos de Serviço e a Política de Privacidade.",
+      "signUpFailed": "Falha no cadastro"
+    },
     "usePaymentForm": {
       "errors": {
         "paymentConfigError": "Erro na configuração do sistema de pagamento.",

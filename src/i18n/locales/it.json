@@ -1,5 +1,8 @@
 {
   "funnel": {
+    "stepperProgress": {
+      "title": "Crea fidanzata AI"
+    },
     "socialProofStep": {
       "millionPeople": "Più di 3 milioni di persone",
       "quote": "\"Quando si tratta di trovare l'app perfetta per la ragazza AI nel 2026, Dream Companion è facilmente in cima alla lista.\"",
@@ -212,6 +215,7 @@
       "altAwardRanking": "#1 APP AI NSFW CLASSIFICATA"
     },
     "subscriptionStep": {
+      "termsAndConditions": "Termini e condizioni",
       "title": "La Tua Ragazza AI è Pronta",
       "subtitle": "Ottieni l'accesso a tutto ciò che può fare <br />per te proprio ora",
       "bestChoice": "SCELTA MIGLIORE",
@@ -712,6 +716,14 @@
     }
   },
   "hooks": {
+    "useSignUpForm": {
+      "emailInvalid": "Inserisci un indirizzo email valido",
+      "passwordMin": "La password deve essere di almeno 8 caratteri",
+      "passwordRegex": "La password deve contenere almeno una lettera e un numero",
+      "isAdultRequired": "Devi confermare di avere 18 anni o più.",
+      "acceptedTermsRequired": "Devi accettare i Termini di servizio e l'Informativa sulla privacy.",
+      "signUpFailed": "Registrazione fallita"
+    },
     "usePaymentForm": {
       "errors": {
         "paymentConfigError": "Errore di configurazione del sistema di pagamento.",

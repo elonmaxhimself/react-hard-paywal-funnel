@@ -1,5 +1,8 @@
 {
   "funnel": {
+    "stepperProgress": {
+      "title": "Create AI Girlfriend"
+    },
     "socialProofStep": {
       "millionPeople": "3+ million people",
       "quote": "\"When it comes to finding the perfect AI girlfriend app in 2026, Dream Companion easily tops the list.\"",
@@ -212,6 +215,7 @@
       "altAwardRanking": "#1 RANKED NSFW AI APP"
     },
     "subscriptionStep": {
+      "termsAndConditions": "Terms and Conditions",
       "title": "Your Ai Girlfriend is Ready",
       "subtitle": "Get access to everything she can do <br />for you right now",
       "bestChoice": "BEST CHOICE",
@@ -712,6 +716,14 @@
     }
   },
   "hooks": {
+    "useSignUpForm": {
+      "emailInvalid": "Please enter a valid email address",
+      "passwordMin": "Password must be at least 8 characters long",
+      "passwordRegex": "Password must include at least one letter and one number",
+      "isAdultRequired": "You must confirm that you are 18 years or older.",
+      "acceptedTermsRequired": "You must accept the Terms of Service and Privacy Policy.",
+      "signUpFailed": "Sign up failed"
+  },
     "usePaymentForm": {
       "errors": {
         "paymentConfigError": "Payment system configuration error.",

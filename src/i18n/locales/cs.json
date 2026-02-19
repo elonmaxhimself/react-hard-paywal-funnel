@@ -1,5 +1,8 @@
 {
   "funnel": {
+    "stepperProgress": {
+      "title": "Vytvořit AI přítelkyni"
+    },
     "socialProofStep": {
       "millionPeople": "3+ miliony lidí",
       "quote": "\"Pokud jde o nalezení dokonalé aplikace AI přítelkyně v roce 2026, Dream Companion snadno vede seznam.\"",
@@ -212,6 +215,7 @@
       "altAwardRanking": "#1 HODNOCENÁ NSFW AI APLIKACE"
     },
     "subscriptionStep": {
+      "termsAndConditions": "Podmínky a ustanovení",
       "title": "Vaše AI přítelkyně je připravena",
       "subtitle": "Získejte přístup ke všemu, co pro vás <br />může udělat právě teď",
       "bestChoice": "NEJLEPŠÍ VOLBA",
@@ -712,6 +716,14 @@
     }
   },
   "hooks": {
+    "useSignUpForm": {
+      "emailInvalid": "Zadejte prosím platnou e-mailovou adresu",
+      "passwordMin": "Heslo musí mít alespoň 8 znaků",
+      "passwordRegex": "Heslo musí obsahovat alespoň jedno písmeno a jednu číslici",
+      "isAdultRequired": "Musíte potvrdit, že vám je 18 let nebo více.",
+      "acceptedTermsRequired": "Musíte přijmout Podmínky služby a Zásady ochrany osobních údajů.",
+      "signUpFailed": "Registrace se nezdařila"
+    },
     "usePaymentForm": {
       "errors": {
         "paymentConfigError": "Chyba konfigurace platebního systému.",

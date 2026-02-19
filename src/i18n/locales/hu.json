@@ -1,5 +1,8 @@
 {
   "funnel": {
+    "stepperProgress": {
+      "title": "AI barátnő létrehozása"
+    },
     "socialProofStep": {
       "millionPeople": "3+ millió ember",
       "quote": "\"Amikor a tökéletes AI barátnő alkalmazásról van szó 2026-ben, a Dream Companion könnyen vezeti a listát.\"",
@@ -212,6 +215,7 @@
       "altAwardRanking": "#1 RANGSOROLT NSFW AI ALKALMAZÁS"
     },
     "subscriptionStep": {
+      "termsAndConditions": "Felhasználási feltételek",
       "title": "AI Barátnőd Kész",
       "subtitle": "Szerezz hozzáférést mindenhez, amit <br />most tehet érted",
       "bestChoice": "LEGJOBB VÁLASZTÁS",
@@ -712,6 +716,14 @@
     }
   },
   "hooks": {
+    "useSignUpForm": {
+      "emailInvalid": "Kérjük, adjon meg egy érvényes e-mail címet",
+      "passwordMin": "A jelszónak legalább 8 karakterből kell állnia",
+      "passwordRegex": "A jelszónak legalább egy betűt és egy számot kell tartalmaznia",
+      "isAdultRequired": "Meg kell erősítened, hogy 18 éves vagy idősebb vagy.",
+      "acceptedTermsRequired": "El kell fogadnod a Szolgáltatási feltételeket és az Adatvédelmi szabályzatot.",
+      "signUpFailed": "A regisztráció sikertelen"
+    },
     "usePaymentForm": {
       "errors": {
         "paymentConfigError": "Fizetési rendszer konfigurációs hiba.",

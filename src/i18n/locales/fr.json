@@ -1,5 +1,8 @@
 {
   "funnel": {
+    "stepperProgress": {
+      "title": "Créer une petite amie IA"
+    },
     "socialProofStep": {
       "millionPeople": "Plus de 3 millions de personnes",
       "quote": "\"En matière d'application de petite amie IA en 2026, Dream Companion arrive facilement en tête de liste.\"",
@@ -212,6 +215,7 @@
       "altAwardRanking": "#1 APPLICATION IA NSFW CLASSÉE"
     },
     "subscriptionStep": {
+      "termsAndConditions": "Conditions générales",
       "title": "Votre Petite Amie IA est Prête",
       "subtitle": "Accédez à tout ce qu'elle peut faire <br />pour vous dès maintenant",
       "bestChoice": "MEILLEUR CHOIX",
@@ -712,6 +716,14 @@
     }
   },
   "hooks": {
+    "useSignUpForm": {
+      "emailInvalid": "Veuillez entrer une adresse e-mail valide",
+      "passwordMin": "Le mot de passe doit comporter au moins 8 caractères",
+      "passwordRegex": "Le mot de passe doit contenir au moins une lettre et un chiffre",
+      "isAdultRequired": "Vous devez confirmer que vous avez 18 ans ou plus.",
+      "acceptedTermsRequired": "Vous devez accepter les Conditions d'utilisation et la Politique de confidentialité.",
+      "signUpFailed": "Échec de l'inscription"
+    },
     "usePaymentForm": {
       "errors": {
         "paymentConfigError": "Erreur de configuration du système de paiement.",

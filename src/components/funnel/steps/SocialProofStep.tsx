@@ -27,7 +27,7 @@ export function SocialProofStep() {
             <div className="max-w-[450px] flex-1 h-full w-full mx-auto flex flex-col items-center justify-center">
                 <div className="w-full flex-1 sm:flex-none flex flex-col items-center sm:justify-center">
                     <SpriteIcon src="/images/logo.svg" targetW={45} targetH={45} />
-                    <h1 className="text-transparent bg-clip-text bg-primary-gradient text-[28px] font-extrabold uppercase mb-[18px] mt-3 whitespace-nowrap">
+                    <h1 className="text-transparent bg-clip-text bg-primary-gradient text-[28px] font-extrabold uppercase mb-[18px] mt-3 text-center">
                         {t('funnel.socialProofStep.millionPeople')}
                     </h1>
                     <div className="text-white bg-[#000]/30 px-[28px] py-[20px] rounded-[10px] flex flex-col items-center justify-center mb-[30px]">

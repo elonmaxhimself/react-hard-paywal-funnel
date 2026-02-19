@@ -134,7 +134,7 @@ export function AuthStep() {
 
                             {CHECKBOXES.map(({ name, id, label }) => (
                                 <div key={name}>
-                                    <div className="flex gap-[10px]">
+                                    <div className="flex gap-[10px] items-start">
                                         <Controller
                                             name={name}
                                             control={form.control}
@@ -145,16 +145,16 @@ export function AuthStep() {
                                                     checked={!!field.value}
                                                     onCheckedChange={field.onChange}
                                                     onBlur={field.onBlur}
-                                                    className="cursor-pointer"
+                                                    className="cursor-pointer mt-0.5 shrink-0"
                                                 />
                                             )}
                                         />
-                                        <Label
+                                        <label
                                             htmlFor={id}
-                                            className="text-white/50 text-xs cursor-pointer"
+                                            className="text-white/50 text-xs cursor-pointer leading-[1.4]"
                                         >
                                             {label}
-                                        </Label>
+                                        </label>
                                     </div>
                                     {errors[name] && (
                                         <p className="text-red-500 text-xs mt-1">
@@ -227,7 +227,7 @@ export function AuthStep() {
 
                         <div className="w-full p-2.5 bg-[#222327]/90 border border-white/6 rounded-[10px]">
                             <div className="flex gap-2 items-center justify-between">
-                                <div className="flex-1 flex items-center relative">
+                                <div className="flex shrink-0 items-center relative">
                                     <SpriteIcon
                                         src={"/images/avatars/avatar_2.webp"}
                                         fallbackAlt={t('funnel.authStep.altAvatar') + " 1"}
@@ -261,7 +261,7 @@ export function AuthStep() {
                                         className="size-[31px] relative -left-[24px]"
                                         imageClassName="rounded-full border-[3px] border-[#2B2A2B] origin-[50%_20%]"
                                     />
-                                    <div className="size-[31px] relative -left-[36px] rounded-full border-[3px] border-[#2B2A2B] bg-primary-gradient">
+                                    <div className="size-[31px] relative -left-[36px] rounded-full border-[3px] border-[#2B2A2B] bg-primary-gradient shrink-0">
                                         <div className="w-full h-full flex items-center justify-center">
                                             <span className="text-white text-[11px] font-bold">
                                                 3M+
@@ -270,12 +270,11 @@ export function AuthStep() {
                                     </div>
                                 </div>
 
-                                <div
-                                    className={"flex-1 text-white text-[10px] font-bold uppercase"}
-                                >
+                                <div className="flex-1 text-white text-[10px] font-bold uppercase text-center">
                                     {t('funnel.authStep.happyUsers')}
                                 </div>
-                                <div className={"relative flex-1"}>
+
+                                <div className="shrink-0">
                                     <SpriteIcon
                                         src={"/images/award-ranking.svg"}
                                         fallbackAlt={t('funnel.authStep.altAwardRanking')}

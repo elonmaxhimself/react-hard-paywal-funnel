@@ -1,5 +1,5 @@
 import { clsx } from "clsx";
-import { useEffect, useRef, useState, useMemo } from "react";
+import { useEffect, useRef, useState, useMemo, Fragment } from "react";
 import { useFormContext } from "react-hook-form";
 import { useTranslation, Trans } from "react-i18next";
 
@@ -535,8 +535,6 @@ export function SubscriptionStep() {
                                 {t("funnel.subscriptionStep.happyUsers")}
                             </div>
 
-                            {/* FIX 3: Use <img> instead of SpriteIcon for the award-ranking SVG
-                                SpriteIcon was failing to render this SVG, showing only alt text */}
                             <div className={"relative flex-1 flex items-center justify-end"}>
                                 <img
                                     src="/images/award-ranking.svg"
@@ -552,11 +550,6 @@ export function SubscriptionStep() {
                     {/* ====== PREMIUM BENEFITS ====== */}
                     <div className="relative w-full bg-transparent py-[15px] mb-[35px]">
 
-                        {/* FIX 1: Crown icon is now rendered directly inside Trans via the `icon` component prop,
-                            so it sits inline with the title text in the flex row.
-                            Previously the SVG was a sibling element to Trans — both were in the flex div —
-                            but because Trans rendered as a wide inline node, justify-center pushed the
-                            standalone SVG far to the left. Now the icon lives inside the Trans output. */}
                         <div className="flex items-center justify-center gap-2 text-[20px] font-bold text-white mb-5">
                             <Trans
                                 i18nKey="funnel.subscriptionStep.premiumBenefits"
@@ -578,21 +571,27 @@ export function SubscriptionStep() {
                                 </p>
                             </div>
 
+                            {/* FIX 1: Use Fragment with key instead of shorthand <> to properly key map items */}
+                            {/* FIX 2: Replace last:border-b-0 with explicit index check since grid interleaves
+                                left/right columns as siblings — :last-child always matches the right column */}
                             {PERKS.map(({ text }, i) => (
-                                <>
+                                <Fragment key={i}>
                                     <div
-                                        key={`left-${i}`}
-                                        className="flex items-center gap-[10px] border-b border-white/5 py-3 last:border-b-0"
+                                        className={clsx(
+                                            "flex items-center gap-[10px] border-white/5 py-3",
+                                            i !== PERKS.length - 1 && "border-b",
+                                        )}
                                     >
                                         <p className="text-white text-[14px] font-medium">{text}</p>
                                     </div>
 
                                     <div
-                                        key={`right-${i}`}
                                         className={clsx(
-                                            "bg-gray-2 flex items-center justify-center border-b border-white/5 py-3",
+                                            "bg-gray-2 flex items-center justify-center border-white/5 py-3",
                                             i === 0 && "rounded-tl-[10px]",
-                                            i === PERKS.length - 1 && "rounded-b-[10px] border-b-0",
+                                            i === PERKS.length - 1
+                                                ? "rounded-b-[10px]"
+                                                : "border-b",
                                         )}
                                     >
                                         <img
@@ -603,13 +602,13 @@ export function SubscriptionStep() {
                                             className="block"
                                         />
                                     </div>
-                                </>
+                                </Fragment>
                             ))}
                         </div>
                     </div>
                     {/* ====== /PREMIUM BENEFITS ====== */}
 
-                    {/* FIX 2: Brands grid — changed gap-6 to gap-3 and added overflow-hidden
+                    {/* FIX 3: Brands grid — changed gap-6 to gap-3 and added overflow-hidden
                         to prevent brand logos from overflowing the container on small screens */}
                     <div
                         className={

@@ -59,7 +59,7 @@ export const products: Product[] = [
   {
     id: 103,
     name: "3-Months Intro Offer",
-    amount: 2999,
+    amount: 3999,
     currency: "USD",
     durationMonths: 3,
   },

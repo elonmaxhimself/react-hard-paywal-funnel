@@ -1,6 +1,7 @@
 import { useForm, useFormContext } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
+import { useTranslation } from "react-i18next";
 
 import { useSignUp } from "@/hooks/queries/useAuth";
 import { toastType, triggerToast } from "@/components/AlertToast";
@@ -24,28 +25,30 @@ import { reportEmailVerified, reportSignUp } from "@/lib/gtag";
 import { useUtmStore } from "@/store/states/utm";
 import { handleAuthSuccess } from "@/utils/auth/handleAuthSuccess";
 
-const signUpSchema = z.object({
-    email: z.string().email("Please enter a valid email address"),
-    password: z
-        .string()
-        .min(8, "Password must be at least 8 characters long")
-        .regex(passwordRegex, "Password must include at least one letter and one number"),
-    isAdult: z.boolean().refine((val) => val === true, {
-        message: "You must confirm that you are 18 years or older.",
-    }),
-    acceptedTerms: z.boolean().refine((val) => val === true, {
-        message: "You must accept the Terms of Service and Privacy Policy.",
-    }),
-});
-
-type SignUpFormValues = z.infer<typeof signUpSchema>;
-
 interface SignUpResponse {
     userId: number;
     authToken: string;
 }
 
 export function useSignUpForm(posthog?: any) {
+    const { t } = useTranslation();
+
+    const signUpSchema = z.object({
+        email: z.string().email(t('hooks.useSignUpForm.emailInvalid')),
+        password: z
+            .string()
+            .min(8, t('hooks.useSignUpForm.passwordMin'))
+            .regex(passwordRegex, t('hooks.useSignUpForm.passwordRegex')),
+        isAdult: z.boolean().refine((val) => val === true, {
+            message: t('hooks.useSignUpForm.isAdultRequired'),
+        }),
+        acceptedTerms: z.boolean().refine((val) => val === true, {
+            message: t('hooks.useSignUpForm.acceptedTermsRequired'),
+        }),
+    });
+
+    type SignUpFormValues = z.infer<typeof signUpSchema>;
+
     const { mutate: signUp, isPending, error: apiError } = useSignUp();
 
     const utm = useUtmStore((state) => state.utm);
@@ -149,7 +152,7 @@ export function useSignUpForm(posthog?: any) {
             },
             onError: (error: any) => {
                 triggerToast({
-                    title: error.response?.data?.messages?.[0] || "Sign up failed",
+                    title: error.response?.data?.messages?.[0] || t('hooks.useSignUpForm.signUpFailed'),
                     type: toastType.error,
                 });
             },

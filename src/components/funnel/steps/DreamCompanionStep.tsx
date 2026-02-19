@@ -30,7 +30,7 @@ const RELATIONSHIP_KEYS: Record<string, string> = {
     "step-mom": "constants.characterRelationship.stepMom.name",
     "step-sister": "constants.characterRelationship.stepSister.name",
     "college-roommate": "constants.characterRelationship.collegeRoommate.name",
-    "your-friends-girlfriend": "constants.characterRelationship.yourFriendsGirlfriend.name",
+    "your-girlfriend": "constants.characterRelationship.yourFriendsGirlfriend.name",
     "first-date": "constants.characterRelationship.firstDate.name",
     "neighbor": "constants.characterRelationship.neighbor.name",
     "your-teacher": "constants.characterRelationship.yourTeacher.name",

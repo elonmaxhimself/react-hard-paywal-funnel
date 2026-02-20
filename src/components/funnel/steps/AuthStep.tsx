@@ -127,6 +127,7 @@ export function AuthStep() {
                                     render={({ field }) => (
                                         <CustomInput
                                             id="email"
+                                            aria-label={t('funnel.authStep.emailLabel')}
                                             icon={
                                                 <img
                                                     src="/icons/mail-icon.svg"

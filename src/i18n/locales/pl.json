@@ -198,12 +198,14 @@
       "altCharacterPlaceholder": "placeholder-postaci"
     },
     "authStep": {
-      "title": "Osiągnij swoje cele z <br /><highlight>Dream Companion</highlight>",
+      "createFreeAccount": "Utwórz bezpłatne konto, aby rozmawiać ze swoim towarzyszem AI",
+      "continueWithGoogle": "Kontynuuj z Google",
+      "joinFree": "Dołącz za darmo",
+      "orContinueWithEmail": "lub kontynuuj z e-mailem i hasłem",
+      "title": "Rozpocznij swoją historię z <br/><highlight>Dream Companion</highlight>",
       "emailLabel": "Wprowadź swój email, aby utworzyć konto osobiste",
       "emailPlaceholder": "Email",
       "passwordPlaceholder": "Hasło",
-      "saveAndContinue": "Zapisz I Kontynuuj",
-      "orContinueWith": "Lub kontynuuj z",
       "happyUsers": "Ponad 3M szczęśliwych użytkowników",
       "altLogo": "My Dream Companion",
       "altMailIcon": "Ikona Maila",

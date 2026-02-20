@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 
-import AuthStep from "@/components/funnel/steps/AuthStep";
+import {AuthStep} from "@/components/funnel/steps/AuthStep";
 import { AssistantStep } from "@/components/funnel/steps/AssistantStep";
 import AlmostThereStep from "@/components/funnel/steps/AlmostThereStep";
 import { BodyTypeStep } from "@/components/funnel/steps/BodyTypeStep";
@@ -43,139 +43,139 @@ import { YourTypeStep } from "@/components/funnel/steps/YourTypeStep";
 import YourAiPartnerStep from "@/components/funnel/steps/YourAiPartnerStep";
 
 export const funnelSteps: ReactNode[] = [
-    <SocialProofStep />,
-    <ConnectionStep />,
-    <AssistantStep />,
-    <CharacterStyleStep />,
-    <PreferredAgeStep />,
-    <UserAgeStep />,
-    <HappyUsersStep />,
-    <CharacterAgeStep />,
-    <PreferredRelationshipStep />,
-    <UniqueCompanionStep />,
-    <PersonalityTraitsStep />,
-    <InterestsStep />,
-    <ForeignLanguageStep />,
-    <LanguageSupportStep />,
-    <EthnicityStep />,
-    <YourTypeStep />,
-    <SpicyCustomContentStep />,
-    <CompanyContentCommentStep />,
-    <BodyTypeStep />,
-    <BreastTypeStep />,
-    <ButtTypeStep />,
-    <EyesColorStep />,
-    <HaircutStyleStep />,
-    <AlmostThereStep />,
-    <RelationshipStep />,
-    <TurnsOfYouStep />,
-    <WantToTryStep />,
-    <DirtyTalksStep />,
-    <SelectVoiceStep />,
-    <WhatTurnsOffInDatingStep />,
-    <LonelinessStep />,
-    <YourAiPartnerStep />,
-    (
-        <LoaderStep
-            mainLoaderProps={{
-                initialCountdown: 0,
-                maxCountdown: 23,
-                speed: 85,
-            }}
-            preferencesLoaderProps={{
-                initialCountdown: 0,
-                maxCountdown: 50,
-                speed: 39,
-            }}
-            uncensoredLoaderProps={{
-                initialCountdown: 0,
-                maxCountdown: 33,
-                speed: 60,
-            }}
-            finalLoaderProps={{
-                initialCountdown: 0,
-                maxCountdown: 25,
-                speed: 90,
-            }}
-        />
-    ),
-    <ReceivePhotosStep />,
-    (
-        <LoaderStep
-            mainLoaderProps={{
-                initialCountdown: 24,
-                maxCountdown: 51,
-                speed: 85,
-            }}
-            preferencesLoaderProps={{
-                initialCountdown: 50,
-                maxCountdown: 100,
-                speed: 39,
-            }}
-            uncensoredLoaderProps={{
-                initialCountdown: 34,
-                maxCountdown: 67,
-                speed: 60,
-            }}
-            finalLoaderProps={{
-                initialCountdown: 25,
-                maxCountdown: 51,
-                speed: 90,
-            }}
-        />
-    ),
-    <ReceiveVoiceMessagesStep />,
-    (
-        <LoaderStep
-            mainLoaderProps={{
-                initialCountdown: 52,
-                maxCountdown: 78,
-                speed: 80,
-            }}
-            preferencesLoaderProps={{
-                initialCountdown: 100,
-                maxCountdown: 100,
-                speed: 39,
-            }}
-            uncensoredLoaderProps={{
-                initialCountdown: 68,
-                maxCountdown: 100,
-                speed: 60,
-            }}
-            finalLoaderProps={{
-                initialCountdown: 52,
-                maxCountdown: 78,
-                speed: 90,
-            }}
-        />
-    ),
-    <ReceiveVideoStep />,
-    (
-        <LoaderStep
-            mainLoaderProps={{
-                initialCountdown: 79,
-                maxCountdown: 99,
-                speed: 85,
-            }}
-            preferencesLoaderProps={{
-                initialCountdown: 100,
-                maxCountdown: 100,
-                speed: 39,
-            }}
-            uncensoredLoaderProps={{
-                initialCountdown: 100,
-                maxCountdown: 100,
-                speed: 60,
-            }}
-            finalLoaderProps={{
-                initialCountdown: 78,
-                maxCountdown: 100,
-                speed: 90,
-            }}
-        />
-    ),
-    <ReceiveVideoCallsStep />,
-    <DreamCompanionStep />,
+    // <SocialProofStep />,
+    // <ConnectionStep />,
+    // <AssistantStep />,
+    // <CharacterStyleStep />,
+    // <PreferredAgeStep />,
+    // <UserAgeStep />,
+    // <HappyUsersStep />,
+    // <CharacterAgeStep />,
+    // <PreferredRelationshipStep />,
+    // <UniqueCompanionStep />,
+    // <PersonalityTraitsStep />,
+    // <InterestsStep />,
+    // <ForeignLanguageStep />,
+    // <LanguageSupportStep />,
+    // <EthnicityStep />,
+    // <YourTypeStep />,
+    // <SpicyCustomContentStep />,
+    // <CompanyContentCommentStep />,
+    // <BodyTypeStep />,
+    // <BreastTypeStep />,
+    // <ButtTypeStep />,
+    // <EyesColorStep />,
+    // <HaircutStyleStep />,
+    // <AlmostThereStep />,
+    // <RelationshipStep />,
+    // <TurnsOfYouStep />,
+    // <WantToTryStep />,
+    // <DirtyTalksStep />,
+    // <SelectVoiceStep />,
+    // <WhatTurnsOffInDatingStep />,
+    // <LonelinessStep />,
+    // <YourAiPartnerStep />,
+    // (
+    //     <LoaderStep
+    //         mainLoaderProps={{
+    //             initialCountdown: 0,
+    //             maxCountdown: 23,
+    //             speed: 85,
+    //         }}
+    //         preferencesLoaderProps={{
+    //             initialCountdown: 0,
+    //             maxCountdown: 50,
+    //             speed: 39,
+    //         }}
+    //         uncensoredLoaderProps={{
+    //             initialCountdown: 0,
+    //             maxCountdown: 33,
+    //             speed: 60,
+    //         }}
+    //         finalLoaderProps={{
+    //             initialCountdown: 0,
+    //             maxCountdown: 25,
+    //             speed: 90,
+    //         }}
+    //     />
+    // ),
+    // <ReceivePhotosStep />,
+    // (
+    //     <LoaderStep
+    //         mainLoaderProps={{
+    //             initialCountdown: 24,
+    //             maxCountdown: 51,
+    //             speed: 85,
+    //         }}
+    //         preferencesLoaderProps={{
+    //             initialCountdown: 50,
+    //             maxCountdown: 100,
+    //             speed: 39,
+    //         }}
+    //         uncensoredLoaderProps={{
+    //             initialCountdown: 34,
+    //             maxCountdown: 67,
+    //             speed: 60,
+    //         }}
+    //         finalLoaderProps={{
+    //             initialCountdown: 25,
+    //             maxCountdown: 51,
+    //             speed: 90,
+    //         }}
+    //     />
+    // ),
+    // <ReceiveVoiceMessagesStep />,
+    // (
+    //     <LoaderStep
+    //         mainLoaderProps={{
+    //             initialCountdown: 52,
+    //             maxCountdown: 78,
+    //             speed: 80,
+    //         }}
+    //         preferencesLoaderProps={{
+    //             initialCountdown: 100,
+    //             maxCountdown: 100,
+    //             speed: 39,
+    //         }}
+    //         uncensoredLoaderProps={{
+    //             initialCountdown: 68,
+    //             maxCountdown: 100,
+    //             speed: 60,
+    //         }}
+    //         finalLoaderProps={{
+    //             initialCountdown: 52,
+    //             maxCountdown: 78,
+    //             speed: 90,
+    //         }}
+    //     />
+    // ),
+    // <ReceiveVideoStep />,
+    // (
+    //     <LoaderStep
+    //         mainLoaderProps={{
+    //             initialCountdown: 79,
+    //             maxCountdown: 99,
+    //             speed: 85,
+    //         }}
+    //         preferencesLoaderProps={{
+    //             initialCountdown: 100,
+    //             maxCountdown: 100,
+    //             speed: 39,
+    //         }}
+    //         uncensoredLoaderProps={{
+    //             initialCountdown: 100,
+    //             maxCountdown: 100,
+    //             speed: 60,
+    //         }}
+    //         finalLoaderProps={{
+    //             initialCountdown: 78,
+    //             maxCountdown: 100,
+    //             speed: 90,
+    //         }}
+    //     />
+    // ),
+    // <ReceiveVideoCallsStep />,
+    // <DreamCompanionStep />,
     <AuthStep />,
     <SubscriptionStep />,
     <PaymentFormStep />,

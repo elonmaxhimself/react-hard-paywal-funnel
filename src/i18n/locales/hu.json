@@ -198,12 +198,14 @@
       "altCharacterPlaceholder": "karakter-placeholder"
     },
     "authStep": {
-      "title": "Érsd el céljaidat <br /><highlight>Dream Companion</highlight> segítségével",
+      "createFreeAccount": "Hozz létre ingyenes fiókot, hogy csevegj az AI társaddal",
+      "continueWithGoogle": "Folytatás Google-lal",
+      "joinFree": "Csatlakozz ingyen",
+      "orContinueWithEmail": "vagy folytasd e-maillel és jelszóval",
+      "title": "Kezdd el a történeted a <br/><highlight>Dream Companion</highlight> segítségével",
       "emailLabel": "Add meg email címedet személyes fiók létrehozásához",
       "emailPlaceholder": "Email",
       "passwordPlaceholder": "Jelszó",
-      "saveAndContinue": "Mentés És Folytatás",
-      "orContinueWith": "Vagy folytasd ezzel",
       "happyUsers": "3M+ boldog felhasználó",
       "altLogo": "My Dream Companion",
       "altMailIcon": "Levél Ikon",

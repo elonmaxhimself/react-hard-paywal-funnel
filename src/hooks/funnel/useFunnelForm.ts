@@ -2,16 +2,16 @@ import { useState, useEffect, useMemo } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
+import { useTranslation } from "react-i18next";
 import { usePostHog } from 'posthog-js/react';
 import { EXPERIMENTS } from '@/configs/experiment.config';
 
 import { getFunnelStore } from "@/store/states/funnel";
 
-import { funnelV3Schema } from "@/features/funnel/validation";
+import { createFunnelSchema } from "@/features/funnel/validation";
 import { useSubscriptions } from "@/constants/subscriptions";
 
-
-export type FunnelSchema = z.infer<typeof funnelV3Schema>;
+export type FunnelSchema = z.infer<ReturnType<typeof createFunnelSchema>>;
 
 const triggers: Record<number, keyof FunnelSchema | Array<keyof FunnelSchema>> = {
     1: "connections",
@@ -72,11 +72,14 @@ const STEPS_COUNT = 43;
 const STEPS_INDICATOR_COUNT = 31;
 
 export function useFunnelForm() {
+    const { t } = useTranslation();
     const posthog = usePostHog();
     const subscriptions = useSubscriptions();
     const [active, setActive] = useState(0);
     const [isExperimentReady, setIsExperimentReady] = useState(false);
     const [isFormReady, setIsFormReady] = useState(false);
+
+    const funnelSchema = useMemo(() => createFunnelSchema(t), [t]);
 
     // Дополняем defaultValues значением productId из локализованных subscriptions
     const formDefaultValues = useMemo(() => ({
@@ -85,7 +88,7 @@ export function useFunnelForm() {
     }), [subscriptions]);
 
     const form = useForm<FunnelSchema>({
-        resolver: zodResolver(funnelV3Schema),
+        resolver: zodResolver(funnelSchema),
         defaultValues: formDefaultValues,
     });
 

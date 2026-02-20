@@ -945,5 +945,37 @@
     "altGirl": "Mädchen",
     "altPlay": "Abspielen",
     "altSecretOffer": "Geheimes Angebots-Symbol"
+  },
+  "validation": {
+    "funnel": {
+      "style": "Bitte wähle einen Charakterstil",
+      "age": "Bitte wähle ein Alter",
+      "personalityTraits": "Bitte wähle mindestens eine Charaktereigenschaft",
+      "interests": "Bitte wähle mindestens ein Hobby",
+      "ethnicity": "Bitte wähle eine Herkunft für deine Begleiterin",
+      "yourType": "Bitte wähle mindestens einen Typ",
+      "body": "Bitte wähle einen Körpertyp",
+      "breastType": "Bitte wähle einen Brusttyp",
+      "breastSize": "Bitte wähle eine Brustgröße",
+      "butt": "Bitte wähle einen Po-Typ",
+      "eyes": "Bitte wähle eine Augenfarbe",
+      "hairStyle": "Bitte wähle eine Frisur",
+      "hairColor": "Bitte wähle eine Haarfarbe",
+      "characterRelationship": "Bitte wähle eine bevorzugte Beziehung",
+      "scenario": "Bitte wähle ein Szenario für deine Begleiterin",
+      "characterPrompt": "Bitte beschreibe die Persönlichkeit oder Rolle deiner Begleiterin",
+      "greeting": "Bitte gib eine Begrüßung ein, die deine Begleiterin sagen wird",
+      "clothes": "Bitte wähle ein Outfit für deine Begleiterin",
+      "turnsOfYou": "Bitte wähle, was dich anmacht",
+      "wantToTry": "Bitte wähle, was du ausprobieren möchtest",
+      "voice": "Bitte wähle eine Stimme",
+      "connections": "Bitte wähle, welche Art von Verbindung du suchst",
+      "preferredAge": "Bitte wähle eine bevorzugte Altersgruppe",
+      "userAge": "Bitte wähle dein Alter",
+      "preferredRelationship": "Bitte wähle eine bevorzugte Beziehung",
+      "makeYourChoice": "Bitte triff deine Wahl",
+      "turnsOffInDating": "Bitte wähle, was dich beim Dating abstößt",
+      "experienceLoneliness": "Bitte wähle deine Erfahrung"
+    }
   }
 }

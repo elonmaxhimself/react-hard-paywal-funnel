@@ -945,5 +945,37 @@
     "altGirl": "garota",
     "altPlay": "play",
     "altSecretOffer": "Ícone de Oferta Secreta"
+  },
+  "validation": {
+    "funnel": {
+      "style": "Por favor, escolha um estilo de personagem",
+      "age": "Por favor, selecione uma idade",
+      "personalityTraits": "Por favor, selecione pelo menos um traço de personalidade",
+      "interests": "Por favor, selecione pelo menos um hobby",
+      "ethnicity": "Por favor, selecione uma etnia para sua companheira",
+      "yourType": "Por favor, selecione pelo menos um tipo",
+      "body": "Por favor, escolha um tipo de corpo",
+      "breastType": "Por favor, escolha um tipo de seio",
+      "breastSize": "Por favor, escolha um tamanho de seio",
+      "butt": "Por favor, escolha um tipo de bumbum",
+      "eyes": "Por favor, escolha uma cor de olhos",
+      "hairStyle": "Por favor, selecione um penteado",
+      "hairColor": "Por favor, selecione uma cor de cabelo",
+      "characterRelationship": "Por favor, selecione um relacionamento preferido",
+      "scenario": "Por favor, selecione um cenário para sua companheira",
+      "characterPrompt": "Por favor, descreva a personalidade ou papel da sua companheira",
+      "greeting": "Por favor, insira uma saudação que sua companheira dirá",
+      "clothes": "Por favor, escolha uma roupa para sua companheira",
+      "turnsOfYou": "Por favor, selecione o que te excita",
+      "wantToTry": "Por favor, selecione o que você quer experimentar",
+      "voice": "Por favor, escolha uma voz",
+      "connections": "Por favor, selecione que tipo de conexão você procura",
+      "preferredAge": "Por favor, selecione uma faixa etária preferida",
+      "userAge": "Por favor, selecione sua idade",
+      "preferredRelationship": "Por favor, selecione um relacionamento preferido",
+      "makeYourChoice": "Por favor, faça sua escolha",
+      "turnsOffInDating": "Por favor, selecione o que te desanima nos encontros",
+      "experienceLoneliness": "Por favor, escolha sua experiência"
+    }
   }
 }

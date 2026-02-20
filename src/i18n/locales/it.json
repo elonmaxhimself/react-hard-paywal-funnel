@@ -945,5 +945,37 @@
     "altGirl": "ragazza",
     "altPlay": "riproduci",
     "altSecretOffer": "Icona Offerta Segreta"
+  },
+  "validation": {
+    "funnel": {
+      "style": "Scegli uno stile del personaggio",
+      "age": "Seleziona un'età",
+      "personalityTraits": "Seleziona almeno un tratto della personalità",
+      "interests": "Seleziona almeno un hobby",
+      "ethnicity": "Seleziona un'etnia per la tua compagna",
+      "yourType": "Seleziona almeno un tipo",
+      "body": "Scegli un tipo di corpo",
+      "breastType": "Scegli un tipo di seno",
+      "breastSize": "Scegli una taglia di seno",
+      "butt": "Scegli un tipo di fondoschiena",
+      "eyes": "Scegli un colore degli occhi",
+      "hairStyle": "Seleziona un'acconciatura",
+      "hairColor": "Seleziona un colore di capelli",
+      "characterRelationship": "Seleziona una relazione preferita",
+      "scenario": "Seleziona uno scenario per la tua compagna",
+      "characterPrompt": "Descrivi la personalità o il ruolo della tua compagna",
+      "greeting": "Inserisci un saluto che dirà la tua compagna",
+      "clothes": "Scegli un outfit per la tua compagna",
+      "turnsOfYou": "Seleziona cosa ti eccita",
+      "wantToTry": "Seleziona cosa vuoi provare",
+      "voice": "Scegli una voce",
+      "connections": "Seleziona che tipo di connessione cerchi",
+      "preferredAge": "Seleziona una fascia d'età preferita",
+      "userAge": "Seleziona la tua età",
+      "preferredRelationship": "Seleziona una relazione preferita",
+      "makeYourChoice": "Fai la tua scelta",
+      "turnsOffInDating": "Seleziona cosa ti infastidisce negli appuntamenti",
+      "experienceLoneliness": "Scegli la tua esperienza"
+    }
   }
 }

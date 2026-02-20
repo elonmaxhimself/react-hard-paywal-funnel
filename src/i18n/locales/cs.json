@@ -945,5 +945,37 @@
     "altGirl": "dívka",
     "altPlay": "přehrát",
     "altSecretOffer": "Ikona tajné nabídky"
+  },
+  "validation": {
+    "funnel": {
+      "style": "Vyber prosím styl postavy",
+      "age": "Vyber prosím věk",
+      "personalityTraits": "Vyber prosím alespoň jednu vlastnost",
+      "interests": "Vyber prosím alespoň jeden koníček",
+      "ethnicity": "Vyber prosím původ pro svou společnici",
+      "yourType": "Vyber prosím alespoň jeden typ",
+      "body": "Vyber prosím typ postavy",
+      "breastType": "Vyber prosím typ prsou",
+      "breastSize": "Vyber prosím velikost prsou",
+      "butt": "Vyber prosím typ zadečku",
+      "eyes": "Vyber prosím barvu očí",
+      "hairStyle": "Vyber prosím účes",
+      "hairColor": "Vyber prosím barvu vlasů",
+      "characterRelationship": "Vyber prosím preferovaný vztah",
+      "scenario": "Vyber prosím scénář pro svou společnici",
+      "characterPrompt": "Popiš prosím osobnost nebo roli své společnice",
+      "greeting": "Zadej prosím pozdrav, který řekne tvá společnice",
+      "clothes": "Vyber prosím oblečení pro svou společnici",
+      "turnsOfYou": "Vyber prosím, co tě vzrušuje",
+      "wantToTry": "Vyber prosím, co chceš vyzkoušet",
+      "voice": "Vyber prosím hlas",
+      "connections": "Vyber prosím, jaký druh spojení hledáš",
+      "preferredAge": "Vyber prosím preferovanou věkovou skupinu",
+      "userAge": "Vyber prosím svůj věk",
+      "preferredRelationship": "Vyber prosím preferovaný vztah",
+      "makeYourChoice": "Učiň prosím svou volbu",
+      "turnsOffInDating": "Vyber prosím, co tě při randění odrazuje",
+      "experienceLoneliness": "Vyber prosím svou zkušenost"
+    }
   }
 }

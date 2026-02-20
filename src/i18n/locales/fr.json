@@ -945,5 +945,37 @@
     "altGirl": "fille",
     "altPlay": "jouer",
     "altSecretOffer": "Icône Offre Secrète"
+  },
+  "validation": {
+    "funnel": {
+      "style": "Veuillez choisir un style de personnage",
+      "age": "Veuillez sélectionner un âge",
+      "personalityTraits": "Veuillez sélectionner au moins un trait de personnalité",
+      "interests": "Veuillez sélectionner au moins un hobby",
+      "ethnicity": "Veuillez sélectionner une origine pour votre compagne",
+      "yourType": "Veuillez sélectionner au moins un type",
+      "body": "Veuillez choisir un type de corps",
+      "breastType": "Veuillez choisir un type de poitrine",
+      "breastSize": "Veuillez choisir une taille de poitrine",
+      "butt": "Veuillez choisir un type de fessier",
+      "eyes": "Veuillez choisir une couleur d'yeux",
+      "hairStyle": "Veuillez sélectionner une coiffure",
+      "hairColor": "Veuillez sélectionner une couleur de cheveux",
+      "characterRelationship": "Veuillez sélectionner une relation préférée",
+      "scenario": "Veuillez sélectionner un scénario pour votre compagne",
+      "characterPrompt": "Veuillez décrire la personnalité ou le rôle de votre compagne",
+      "greeting": "Veuillez entrer un message d'accueil que votre compagne dira",
+      "clothes": "Veuillez choisir une tenue pour votre compagne",
+      "turnsOfYou": "Veuillez sélectionner ce qui vous plaît",
+      "wantToTry": "Veuillez sélectionner ce que vous voulez essayer",
+      "voice": "Veuillez choisir une voix",
+      "connections": "Veuillez sélectionner le type de connexion que vous recherchez",
+      "preferredAge": "Veuillez sélectionner une tranche d'âge préférée",
+      "userAge": "Veuillez sélectionner votre âge",
+      "preferredRelationship": "Veuillez sélectionner une relation préférée",
+      "makeYourChoice": "Veuillez faire votre choix",
+      "turnsOffInDating": "Veuillez sélectionner ce qui vous rebute dans les rencontres",
+      "experienceLoneliness": "Veuillez choisir votre expérience"
+    }
   }
 }

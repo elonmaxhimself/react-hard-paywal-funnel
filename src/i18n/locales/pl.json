@@ -945,5 +945,37 @@
     "altGirl": "dziewczyna",
     "altPlay": "odtwórz",
     "altSecretOffer": "Ikona Sekretnej Oferty"
+  },
+  "validation": {
+    "funnel": {
+      "style": "Wybierz styl postaci",
+      "age": "Wybierz wiek",
+      "personalityTraits": "Wybierz co najmniej jedną cechę osobowości",
+      "interests": "Wybierz co najmniej jedno hobby",
+      "ethnicity": "Wybierz pochodzenie dla swojej towarzyszki",
+      "yourType": "Wybierz co najmniej jeden typ",
+      "body": "Wybierz typ sylwetki",
+      "breastType": "Wybierz typ biustu",
+      "breastSize": "Wybierz rozmiar biustu",
+      "butt": "Wybierz typ pośladków",
+      "eyes": "Wybierz kolor oczu",
+      "hairStyle": "Wybierz fryzurę",
+      "hairColor": "Wybierz kolor włosów",
+      "characterRelationship": "Wybierz preferowany związek",
+      "scenario": "Wybierz scenariusz dla swojej towarzyszki",
+      "characterPrompt": "Opisz osobowość lub rolę swojej towarzyszki",
+      "greeting": "Wpisz powitanie, które powie twoja towarzyszka",
+      "clothes": "Wybierz strój dla swojej towarzyszki",
+      "turnsOfYou": "Wybierz, co cię podnieca",
+      "wantToTry": "Wybierz, co chcesz spróbować",
+      "voice": "Wybierz głos",
+      "connections": "Wybierz, jakiego rodzaju połączenia szukasz",
+      "preferredAge": "Wybierz preferowany przedział wiekowy",
+      "userAge": "Wybierz swój wiek",
+      "preferredRelationship": "Wybierz preferowany związek",
+      "makeYourChoice": "Dokonaj swojego wyboru",
+      "turnsOffInDating": "Wybierz, co cię zniechęca na randkach",
+      "experienceLoneliness": "Wybierz swoje doświadczenie"
+    }
   }
 }

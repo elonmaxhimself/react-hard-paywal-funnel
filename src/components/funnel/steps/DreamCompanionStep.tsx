@@ -46,7 +46,7 @@ export function DreamCompanionStep() {
 
     const translateLabel = (value: string) => {
         const connection = CONNECTIONS.find(c => c.value === value);
-        if (connection) return connection.label;
+        if (connection) return connection.label.replace(/^\p{Emoji_Presentation}\s*/u, '');
 
         const turn = TURNS_OF_YOU.find(c => c.value === value);
         if (turn) return turn.image.name;

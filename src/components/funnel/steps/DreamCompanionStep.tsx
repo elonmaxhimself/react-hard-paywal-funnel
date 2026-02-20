@@ -19,26 +19,12 @@ import SpriteIcon from "@/components/SpriteIcon";
 import { usePostHog } from "posthog-js/react";
 import { useConnections } from "@/constants/connections";
 import { useTurnsOfYou } from "@/constants/turns-of-you";
+import { useCharacterRelationship } from "@/constants/preferred-relationship";
 
 const badgeClassNames = clsx(
     "w-fit py-2 px-1.5 bg-white/10 border-white/30 capitalize",
     "text-white text-sm font-semibold rounded-[10px]",
 );
-
-const RELATIONSHIP_KEYS: Record<string, string> = {
-    "wife": "constants.characterRelationship.wife.name",
-    "step-mom": "constants.characterRelationship.stepMom.name",
-    "step-sister": "constants.characterRelationship.stepSister.name",
-    "college-roommate": "constants.characterRelationship.collegeRoommate.name",
-    "your-girlfriend": "constants.characterRelationship.yourFriendsGirlfriend.name",
-    "first-date": "constants.characterRelationship.firstDate.name",
-    "neighbor": "constants.characterRelationship.neighbor.name",
-    "your-teacher": "constants.characterRelationship.yourTeacher.name",
-    "your-boss": "constants.characterRelationship.yourBoss.name",
-    "crush": "constants.characterRelationship.crush.name",
-    "ex": "constants.characterRelationship.ex.name",
-    "babysitter": "constants.characterRelationship.babysitter.name",
-};
 
 export function DreamCompanionStep() {
     const { t } = useTranslation();
@@ -48,6 +34,7 @@ export function DreamCompanionStep() {
 
     const CONNECTIONS = useConnections();
     const TURNS_OF_YOU = useTurnsOfYou();
+    const CHARACTER_RELATIONSHIPS = useCharacterRelationship();
 
     const [characterName, setCharacterName] = useState(getRandomFemaleName());
 
@@ -64,8 +51,8 @@ export function DreamCompanionStep() {
         const turn = TURNS_OF_YOU.find(c => c.value === value);
         if (turn) return turn.image.name;
 
-        const relKey = RELATIONSHIP_KEYS[value];
-        if (relKey) return t(relKey);
+        const relationship = CHARACTER_RELATIONSHIPS.find(c => c.value === value);
+        if (relationship) return relationship.image.name;
 
         return value.split("-").join(" ");
     };

@@ -723,7 +723,7 @@
       "isAdultRequired": "You must confirm that you are 18 years or older.",
       "acceptedTermsRequired": "You must accept the Terms of Service and Privacy Policy.",
       "signUpFailed": "Sign up failed"
-  },
+    },
     "usePaymentForm": {
       "errors": {
         "paymentConfigError": "Payment system configuration error.",

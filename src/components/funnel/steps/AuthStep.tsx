@@ -2,7 +2,6 @@ import { Controller } from "react-hook-form";
 import { Loader2Icon } from "lucide-react";
 import { useTranslation, Trans } from "react-i18next";
 
-import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 

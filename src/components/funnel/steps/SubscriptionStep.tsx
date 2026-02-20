@@ -300,6 +300,7 @@ export function SubscriptionStep() {
 
     useEffect(() => {
         if (typeof window === "undefined") return;
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any -- Facebook Pixel global injected via script tag
         const fbq = (window as any).fbq;
         fbq?.("track", "ViewContent", {});
     }, []);
@@ -325,7 +326,6 @@ export function SubscriptionStep() {
         "/images/blurred-characters/white-brunette.webp";
 
     const hero = useMeasure();
-    const featured = useMeasure();
 
     useEffect(() => {
         if (!defaultProduct) return;

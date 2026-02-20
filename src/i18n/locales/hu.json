@@ -1,5 +1,8 @@
 {
   "funnel": {
+    "stepperProgress": {
+      "title": "AI barátnő létrehozása"
+    },
     "socialProofStep": {
       "millionPeople": "3+ millió ember",
       "quote": "\"Amikor a tökéletes AI barátnő alkalmazásról van szó 2026-ben, a Dream Companion könnyen vezeti a listát.\"",
@@ -212,6 +215,7 @@
       "altAwardRanking": "#1 RANGSOROLT NSFW AI ALKALMAZÁS"
     },
     "subscriptionStep": {
+      "termsAndConditions": "Felhasználási feltételek",
       "title": "AI Barátnőd Kész",
       "subtitle": "Szerezz hozzáférést mindenhez, amit <br />most tehet érted",
       "bestChoice": "LEGJOBB VÁLASZTÁS",
@@ -712,6 +716,14 @@
     }
   },
   "hooks": {
+    "useSignUpForm": {
+      "emailInvalid": "Kérjük, adjon meg egy érvényes e-mail címet",
+      "passwordMin": "A jelszónak legalább 8 karakterből kell állnia",
+      "passwordRegex": "A jelszónak legalább egy betűt és egy számot kell tartalmaznia",
+      "isAdultRequired": "Meg kell erősítened, hogy 18 éves vagy idősebb vagy.",
+      "acceptedTermsRequired": "El kell fogadnod a Szolgáltatási feltételeket és az Adatvédelmi szabályzatot.",
+      "signUpFailed": "A regisztráció sikertelen"
+    },
     "usePaymentForm": {
       "errors": {
         "paymentConfigError": "Fizetési rendszer konfigurációs hiba.",
@@ -933,5 +945,37 @@
     "altGirl": "lány",
     "altPlay": "lejátszás",
     "altSecretOffer": "Titkos Ajánlat Ikon"
+  },
+  "validation": {
+    "funnel": {
+      "style": "Kérlek, válassz karakterstílust",
+      "age": "Kérlek, válassz életkort",
+      "personalityTraits": "Kérlek, válassz legalább egy személyiségjegyet",
+      "interests": "Kérlek, válassz legalább egy hobbit",
+      "ethnicity": "Kérlek, válassz származást a társadnak",
+      "yourType": "Kérlek, válassz legalább egy típust",
+      "body": "Kérlek, válassz testalkatot",
+      "breastType": "Kérlek, válassz melltípust",
+      "breastSize": "Kérlek, válassz mellméretet",
+      "butt": "Kérlek, válassz fenéktípust",
+      "eyes": "Kérlek, válassz szemszínt",
+      "hairStyle": "Kérlek, válassz frizurát",
+      "hairColor": "Kérlek, válassz hajszínt",
+      "characterRelationship": "Kérlek, válassz preferált kapcsolatot",
+      "scenario": "Kérlek, válassz forgatókönyvet a társadnak",
+      "characterPrompt": "Kérlek, írd le a társad személyiségét vagy szerepét",
+      "greeting": "Kérlek, adj meg egy üdvözlést, amit a társad fog mondani",
+      "clothes": "Kérlek, válassz öltözéket a társadnak",
+      "turnsOfYou": "Kérlek, válaszd ki, mi izgatja fel",
+      "wantToTry": "Kérlek, válaszd ki, mit szeretnél kipróbálni",
+      "voice": "Kérlek, válassz hangot",
+      "connections": "Kérlek, válaszd ki, milyen kapcsolatot keresel",
+      "preferredAge": "Kérlek, válassz preferált korosztályt",
+      "userAge": "Kérlek, válaszd ki az életkorodat",
+      "preferredRelationship": "Kérlek, válassz preferált kapcsolatot",
+      "makeYourChoice": "Kérlek, hozd meg a döntésedet",
+      "turnsOffInDating": "Kérlek, válaszd ki, mi taszít a randizásban",
+      "experienceLoneliness": "Kérlek, válaszd ki a tapasztalatodat"
+    }
   }
 }

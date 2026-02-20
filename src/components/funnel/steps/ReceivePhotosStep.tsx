@@ -7,19 +7,6 @@ import { useFormContext } from "react-hook-form";
 import { FunnelSchema } from "@/hooks/funnel/useFunnelForm";
 import SpriteIcon from "@/components/SpriteIcon";
 
-interface LoaderProps {
-    initialCountdown: number;
-    maxCountdown: number;
-    speed: number;
-}
-
-interface Props {
-    mainLoaderProps: LoaderProps;
-    preferencesLoaderProps: LoaderProps;
-    uncensoredLoaderProps: LoaderProps;
-    finalLoaderProps: LoaderProps;
-}
-
 export function ReceivePhotosStep() {
     const { t } = useTranslation();
     const { nextStep } = useStepperContext();

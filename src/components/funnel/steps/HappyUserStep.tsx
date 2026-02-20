@@ -63,7 +63,7 @@ export function HappyUsersStep() {
                             </div>
                         ))}
 
-                        <p className="text-white text-[24px] uppercase font-bold relative mb-[10px] z-[2]">
+                        <p className="text-white text-[18px] md:text-[24px] uppercase font-bold relative mb-[10px] z-[2] whitespace-nowrap tracking-wide">
                             <span className="text-transparent bg-clip-text bg-primary-gradient">
                                 3M+
                             </span>{" "}

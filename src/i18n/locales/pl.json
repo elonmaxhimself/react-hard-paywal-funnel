@@ -1,5 +1,8 @@
 {
   "funnel": {
+    "stepperProgress": {
+      "title": "Stwórz dziewczynę AI"
+    },
     "socialProofStep": {
       "millionPeople": "Ponad 3 miliony osób",
       "quote": "\"Jeśli chodzi o znalezienie idealnej aplikacji z dziewczyną AI w 2026 roku, Dream Companion łatwo zajmuje czołowe miejsce na liście.\"",
@@ -212,6 +215,7 @@
       "altAwardRanking": "#1 APLIKACJA AI NSFW W RANKINGU"
     },
     "subscriptionStep": {
+      "termsAndConditions": "Warunki i postanowienia",
       "title": "Twoja Dziewczyna AI Jest Gotowa",
       "subtitle": "Uzyskaj dostęp do wszystkiego, co może dla ciebie <br />zrobić już teraz",
       "bestChoice": "NAJLEPSZY WYBÓR",
@@ -712,6 +716,14 @@
     }
   },
   "hooks": {
+    "useSignUpForm": {
+      "emailInvalid": "Podaj prawidłowy adres e-mail",
+      "passwordMin": "Hasło musi mieć co najmniej 8 znaków",
+      "passwordRegex": "Hasło musi zawierać co najmniej jedną literę i jedną cyfrę",
+      "isAdultRequired": "Musisz potwierdzić, że masz 18 lat lub więcej.",
+      "acceptedTermsRequired": "Musisz zaakceptować Warunki korzystania z usługi i Politykę prywatności.",
+      "signUpFailed": "Rejestracja nie powiodła się"
+    },
     "usePaymentForm": {
       "errors": {
         "paymentConfigError": "Błąd konfiguracji systemu płatności.",
@@ -933,5 +945,37 @@
     "altGirl": "dziewczyna",
     "altPlay": "odtwórz",
     "altSecretOffer": "Ikona Sekretnej Oferty"
+  },
+  "validation": {
+    "funnel": {
+      "style": "Wybierz styl postaci",
+      "age": "Wybierz wiek",
+      "personalityTraits": "Wybierz co najmniej jedną cechę osobowości",
+      "interests": "Wybierz co najmniej jedno hobby",
+      "ethnicity": "Wybierz pochodzenie dla swojej towarzyszki",
+      "yourType": "Wybierz co najmniej jeden typ",
+      "body": "Wybierz typ sylwetki",
+      "breastType": "Wybierz typ biustu",
+      "breastSize": "Wybierz rozmiar biustu",
+      "butt": "Wybierz typ pośladków",
+      "eyes": "Wybierz kolor oczu",
+      "hairStyle": "Wybierz fryzurę",
+      "hairColor": "Wybierz kolor włosów",
+      "characterRelationship": "Wybierz preferowany związek",
+      "scenario": "Wybierz scenariusz dla swojej towarzyszki",
+      "characterPrompt": "Opisz osobowość lub rolę swojej towarzyszki",
+      "greeting": "Wpisz powitanie, które powie twoja towarzyszka",
+      "clothes": "Wybierz strój dla swojej towarzyszki",
+      "turnsOfYou": "Wybierz, co cię podnieca",
+      "wantToTry": "Wybierz, co chcesz spróbować",
+      "voice": "Wybierz głos",
+      "connections": "Wybierz, jakiego rodzaju połączenia szukasz",
+      "preferredAge": "Wybierz preferowany przedział wiekowy",
+      "userAge": "Wybierz swój wiek",
+      "preferredRelationship": "Wybierz preferowany związek",
+      "makeYourChoice": "Dokonaj swojego wyboru",
+      "turnsOffInDating": "Wybierz, co cię zniechęca na randkach",
+      "experienceLoneliness": "Wybierz swoje doświadczenie"
+    }
   }
 }

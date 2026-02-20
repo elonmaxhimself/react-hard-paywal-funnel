@@ -1,6 +1,10 @@
+import { useMemo } from "react";
 import { useForm, useFormContext } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
+import { useTranslation } from "react-i18next";
+import type { PostHog } from "posthog-js";
+import { AxiosError } from "axios";
 
 import { useSignUp } from "@/hooks/queries/useAuth";
 import { toastType, triggerToast } from "@/components/AlertToast";
@@ -15,38 +19,38 @@ import { appendPersonalityTraits } from "@/utils/helpers/appendPersonalityTraits
 import { appendHobbies } from "@/utils/helpers/appendHobbies";
 import { getRandomSexPosition } from "@/utils/helpers/getRandomSexPosition";
 import { passwordRegex } from "@/utils/helpers/password-regex";
-import { SignUpPayload } from "@/utils/types/auth";
+import { AuthResponse, SignUpPayload } from "@/utils/types/auth";
 
 import { voicesMap } from "@/constants/voices-map";
 import { useSexPositions } from "@/constants/sex-positions";
 
-import { reportEmailVerified, reportSignUp } from "@/lib/gtag";
 import { useUtmStore } from "@/store/states/utm";
 import { handleAuthSuccess } from "@/utils/auth/handleAuthSuccess";
 
-const signUpSchema = z.object({
-    email: z.string().email("Please enter a valid email address"),
-    password: z
-        .string()
-        .min(8, "Password must be at least 8 characters long")
-        .regex(passwordRegex, "Password must include at least one letter and one number"),
-    isAdult: z.boolean().refine((val) => val === true, {
-        message: "You must confirm that you are 18 years or older.",
-    }),
-    acceptedTerms: z.boolean().refine((val) => val === true, {
-        message: "You must accept the Terms of Service and Privacy Policy.",
-    }),
-});
+export function useSignUpForm(posthog?: PostHog) {
+    const { t } = useTranslation();
 
-type SignUpFormValues = z.infer<typeof signUpSchema>;
+    const signUpSchema = useMemo(
+        () =>
+            z.object({
+                email: z.string().email(t("hooks.useSignUpForm.emailInvalid")),
+                password: z
+                    .string()
+                    .min(8, t("hooks.useSignUpForm.passwordMin"))
+                    .regex(passwordRegex, t("hooks.useSignUpForm.passwordRegex")),
+                isAdult: z.boolean().refine((val) => val === true, {
+                    message: t("hooks.useSignUpForm.isAdultRequired"),
+                }),
+                acceptedTerms: z.boolean().refine((val) => val === true, {
+                    message: t("hooks.useSignUpForm.acceptedTermsRequired"),
+                }),
+            }),
+        [t],
+    );
 
-interface SignUpResponse {
-    userId: number;
-    authToken: string;
-}
+    type SignUpFormValues = z.infer<typeof signUpSchema>;
 
-export function useSignUpForm(posthog?: any) {
-    const { mutate: signUp, isPending, error: apiError } = useSignUp();
+    const { mutate: signUp, isPending, error: apiError, reset: resetMutation } = useSignUp();
 
     const utm = useUtmStore((state) => state.utm);
     const sexPositions = useSexPositions();
@@ -71,11 +75,11 @@ export function useSignUpForm(posthog?: any) {
 
     const onValueReset = (field: "email" | "password") => {
         form.resetField(field);
-        if (apiError) (apiError as any).message = "";
+        resetMutation();
     };
 
     const onSubmit = form.handleSubmit((values) => {
-        const { productId, ...funnelFormValues } = funnelForm.getValues();
+        const { productId: _productId, ...funnelFormValues } = funnelForm.getValues();
 
         let customCharacterPrompt = funnelFormValues.characterPrompt;
         const customAge = getRandomFromRange(funnelFormValues.age);
@@ -130,13 +134,11 @@ export function useSignUpForm(posthog?: any) {
         };
 
         signUp(payload, {
-            onSuccess: (data) => {
-                const response = data as SignUpResponse;
-                
+            onSuccess: (data: AuthResponse) => {
                 handleAuthSuccess({
-                    userId: response.userId,
+                    userId: data.userId,
                     email: values.email,
-                    authToken: response.authToken,
+                    authToken: data.authToken,
                     posthog,
                     setUserId,
                     setToken,
@@ -147,9 +149,10 @@ export function useSignUpForm(posthog?: any) {
                     activeStep,
                 });
             },
-            onError: (error: any) => {
+            onError: (error: Error) => {
+                const axiosError = error as AxiosError<{ messages?: string[] }>;
                 triggerToast({
-                    title: error.response?.data?.messages?.[0] || "Sign up failed",
+                    title: axiosError.response?.data?.messages?.[0] || t("hooks.useSignUpForm.signUpFailed"),
                     type: toastType.error,
                 });
             },

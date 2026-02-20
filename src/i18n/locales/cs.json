@@ -1,5 +1,8 @@
 {
   "funnel": {
+    "stepperProgress": {
+      "title": "Vytvořit AI přítelkyni"
+    },
     "socialProofStep": {
       "millionPeople": "3+ miliony lidí",
       "quote": "\"Pokud jde o nalezení dokonalé aplikace AI přítelkyně v roce 2026, Dream Companion snadno vede seznam.\"",
@@ -212,6 +215,7 @@
       "altAwardRanking": "#1 HODNOCENÁ NSFW AI APLIKACE"
     },
     "subscriptionStep": {
+      "termsAndConditions": "Podmínky a ustanovení",
       "title": "Vaše AI přítelkyně je připravena",
       "subtitle": "Získejte přístup ke všemu, co pro vás <br />může udělat právě teď",
       "bestChoice": "NEJLEPŠÍ VOLBA",
@@ -712,6 +716,14 @@
     }
   },
   "hooks": {
+    "useSignUpForm": {
+      "emailInvalid": "Zadejte prosím platnou e-mailovou adresu",
+      "passwordMin": "Heslo musí mít alespoň 8 znaků",
+      "passwordRegex": "Heslo musí obsahovat alespoň jedno písmeno a jednu číslici",
+      "isAdultRequired": "Musíte potvrdit, že vám je 18 let nebo více.",
+      "acceptedTermsRequired": "Musíte přijmout Podmínky služby a Zásady ochrany osobních údajů.",
+      "signUpFailed": "Registrace se nezdařila"
+    },
     "usePaymentForm": {
       "errors": {
         "paymentConfigError": "Chyba konfigurace platebního systému.",
@@ -933,5 +945,37 @@
     "altGirl": "dívka",
     "altPlay": "přehrát",
     "altSecretOffer": "Ikona tajné nabídky"
+  },
+  "validation": {
+    "funnel": {
+      "style": "Vyber prosím styl postavy",
+      "age": "Vyber prosím věk",
+      "personalityTraits": "Vyber prosím alespoň jednu vlastnost",
+      "interests": "Vyber prosím alespoň jeden koníček",
+      "ethnicity": "Vyber prosím původ pro svou společnici",
+      "yourType": "Vyber prosím alespoň jeden typ",
+      "body": "Vyber prosím typ postavy",
+      "breastType": "Vyber prosím typ prsou",
+      "breastSize": "Vyber prosím velikost prsou",
+      "butt": "Vyber prosím typ zadečku",
+      "eyes": "Vyber prosím barvu očí",
+      "hairStyle": "Vyber prosím účes",
+      "hairColor": "Vyber prosím barvu vlasů",
+      "characterRelationship": "Vyber prosím preferovaný vztah",
+      "scenario": "Vyber prosím scénář pro svou společnici",
+      "characterPrompt": "Popiš prosím osobnost nebo roli své společnice",
+      "greeting": "Zadej prosím pozdrav, který řekne tvá společnice",
+      "clothes": "Vyber prosím oblečení pro svou společnici",
+      "turnsOfYou": "Vyber prosím, co tě vzrušuje",
+      "wantToTry": "Vyber prosím, co chceš vyzkoušet",
+      "voice": "Vyber prosím hlas",
+      "connections": "Vyber prosím, jaký druh spojení hledáš",
+      "preferredAge": "Vyber prosím preferovanou věkovou skupinu",
+      "userAge": "Vyber prosím svůj věk",
+      "preferredRelationship": "Vyber prosím preferovaný vztah",
+      "makeYourChoice": "Učiň prosím svou volbu",
+      "turnsOffInDating": "Vyber prosím, co tě při randění odrazuje",
+      "experienceLoneliness": "Vyber prosím svou zkušenost"
+    }
   }
 }

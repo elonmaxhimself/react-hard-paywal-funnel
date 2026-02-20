@@ -486,7 +486,6 @@ export function SubscriptionStep() {
                         </div>
                     </div>
 
-                    {/* FIX 3: Award Ranking — replaced SpriteIcon with plain <img> to avoid sprite render failure */}
                     <div className="w-full p-2.5 bg-[#222327]/90 border border-white/6 rounded-[10px] mb-[35px]">
                         <div className="flex gap-2 items-center justify-between">
                             <div className="flex-1 flex items-center relative">
@@ -571,9 +570,6 @@ export function SubscriptionStep() {
                                 </p>
                             </div>
 
-                            {/* FIX 1: Use Fragment with key instead of shorthand <> to properly key map items */}
-                            {/* FIX 2: Replace last:border-b-0 with explicit index check since grid interleaves
-                                left/right columns as siblings — :last-child always matches the right column */}
                             {PERKS.map(({ text }, i) => (
                                 <Fragment key={i}>
                                     <div
@@ -608,8 +604,6 @@ export function SubscriptionStep() {
                     </div>
                     {/* ====== /PREMIUM BENEFITS ====== */}
 
-                    {/* FIX 3: Brands grid — changed gap-6 to gap-3 and added overflow-hidden
-                        to prevent brand logos from overflowing the container on small screens */}
                     <div
                         className={
                             "w-full bg-white/5 border border-white/6 rounded-[10px] px-[10px] pt-[15px] pb-[35px] mb-[35px] overflow-hidden"

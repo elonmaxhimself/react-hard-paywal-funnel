@@ -54,7 +54,7 @@ export function DreamCompanionStep() {
         const relationship = CHARACTER_RELATIONSHIPS.find(c => c.value === value);
         if (relationship) return relationship.image.name;
 
-        return value.split("-").join(" ");
+        return (value ?? "").split("-").join(" ");
     };
 
     const PREFERENCES = [

@@ -1,5 +1,8 @@
 {
   "funnel": {
+    "stepperProgress": {
+      "title": "Crear novia IA"
+    },
     "socialProofStep": {
       "millionPeople": "3+ millones de personas",
       "quote": "\"Cuando se trata de encontrar la aplicación perfecta de novia IA en 2026, Dream Companion fácilmente encabeza la lista.\"",
@@ -214,6 +217,7 @@
       "altAwardRanking": "#1 APP IA NSFW CLASIFICADA"
     },
     "subscriptionStep": {
+      "termsAndConditions": "Términos y condiciones",
       "title": "Tu novia IA está lista",
       "subtitle": "Obtén acceso a todo lo que puede hacer <br />por ti ahora mismo",
       "bestChoice": "MEJOR OPCIÓN",
@@ -714,6 +718,14 @@
     }
   },
   "hooks": {
+    "useSignUpForm": {
+      "emailInvalid": "Por favor, introduce una dirección de correo electrónico válida",
+      "passwordMin": "La contraseña debe tener al menos 8 caracteres",
+      "passwordRegex": "La contraseña debe incluir al menos una letra y un número",
+      "isAdultRequired": "Debes confirmar que tienes 18 años o más.",
+      "acceptedTermsRequired": "Debes aceptar los Términos de Servicio y la Política de Privacidad.",
+      "signUpFailed": "Error al registrarse"
+    },
     "usePaymentForm": {
       "errors": {
         "paymentConfigError": "Error de configuración del sistema de pago.",
@@ -935,5 +947,37 @@
     "altGirl": "chica",
     "altPlay": "reproducir",
     "altSecretOffer": "Icono de oferta secreta"
+  },
+  "validation": {
+    "funnel": {
+      "style": "Por favor, elige un estilo de personaje",
+      "age": "Por favor, selecciona una edad",
+      "personalityTraits": "Por favor, selecciona al menos un rasgo de personalidad",
+      "interests": "Por favor, selecciona al menos un hobby",
+      "ethnicity": "Por favor, selecciona una etnia para tu compañera",
+      "yourType": "Por favor, selecciona al menos un tipo",
+      "body": "Por favor, elige un tipo de cuerpo",
+      "breastType": "Por favor, elige un tipo de pecho",
+      "breastSize": "Por favor, elige un tamaño de pecho",
+      "butt": "Por favor, elige un tipo de trasero",
+      "eyes": "Por favor, elige un color de ojos",
+      "hairStyle": "Por favor, selecciona un peinado",
+      "hairColor": "Por favor, selecciona un color de cabello",
+      "characterRelationship": "Por favor, selecciona una relación preferida",
+      "scenario": "Por favor, selecciona un escenario para tu compañera",
+      "characterPrompt": "Por favor, describe la personalidad o rol de tu compañera",
+      "greeting": "Por favor, ingresa un saludo que dirá tu compañera",
+      "clothes": "Por favor, elige un atuendo para tu compañera",
+      "turnsOfYou": "Por favor, selecciona qué te excita",
+      "wantToTry": "Por favor, selecciona qué quieres probar",
+      "voice": "Por favor, elige una voz",
+      "connections": "Por favor, selecciona qué tipo de conexión buscas",
+      "preferredAge": "Por favor, selecciona un rango de edad preferido",
+      "userAge": "Por favor, selecciona tu edad",
+      "preferredRelationship": "Por favor, selecciona una relación preferida",
+      "makeYourChoice": "Por favor, haz tu elección",
+      "turnsOffInDating": "Por favor, selecciona qué te desanima en las citas",
+      "experienceLoneliness": "Por favor, elige tu experiencia"
+    }
   }
 }

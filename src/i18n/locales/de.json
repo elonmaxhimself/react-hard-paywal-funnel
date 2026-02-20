@@ -1,5 +1,8 @@
 {
   "funnel": {
+    "stepperProgress": {
+      "title": "KI-Freundin erstellen"
+    },
     "socialProofStep": {
       "millionPeople": "3+ Millionen Menschen",
       "quote": "\"Wenn es darum geht, die perfekte KI-Freundin-App im Jahr 2026 zu finden, steht Dream Companion ganz oben auf der Liste.\"",
@@ -214,6 +217,7 @@
       "altAwardRanking": "#1 NSFW KI-APP"
     },
     "subscriptionStep": {
+      "termsAndConditions": "Geschäftsbedingungen",
       "title": "Deine KI-Freundin ist bereit",
       "subtitle": "Erhalte sofort Zugang zu allem, was sie <br />für dich tun kann",
       "bestChoice": "BESTE WAHL",
@@ -714,6 +718,14 @@
     }
   },
   "hooks": {
+    "useSignUpForm": {
+      "emailInvalid": "Bitte gib eine gültige E-Mail-Adresse ein",
+      "passwordMin": "Das Passwort muss mindestens 8 Zeichen lang sein",
+      "passwordRegex": "Das Passwort muss mindestens einen Buchstaben und eine Zahl enthalten",
+      "isAdultRequired": "Du musst bestätigen, dass du 18 Jahre oder älter bist.",
+      "acceptedTermsRequired": "Du musst die Nutzungsbedingungen und Datenschutzrichtlinien akzeptieren.",
+      "signUpFailed": "Registrierung fehlgeschlagen"
+    },
     "usePaymentForm": {
       "errors": {
         "paymentConfigError": "Konfigurationsfehler des Zahlungssystems.",
@@ -935,5 +947,37 @@
     "altGirl": "Mädchen",
     "altPlay": "Abspielen",
     "altSecretOffer": "Geheimes Angebots-Symbol"
+  },
+  "validation": {
+    "funnel": {
+      "style": "Bitte wähle einen Charakterstil",
+      "age": "Bitte wähle ein Alter",
+      "personalityTraits": "Bitte wähle mindestens eine Charaktereigenschaft",
+      "interests": "Bitte wähle mindestens ein Hobby",
+      "ethnicity": "Bitte wähle eine Herkunft für deine Begleiterin",
+      "yourType": "Bitte wähle mindestens einen Typ",
+      "body": "Bitte wähle einen Körpertyp",
+      "breastType": "Bitte wähle einen Brusttyp",
+      "breastSize": "Bitte wähle eine Brustgröße",
+      "butt": "Bitte wähle einen Po-Typ",
+      "eyes": "Bitte wähle eine Augenfarbe",
+      "hairStyle": "Bitte wähle eine Frisur",
+      "hairColor": "Bitte wähle eine Haarfarbe",
+      "characterRelationship": "Bitte wähle eine bevorzugte Beziehung",
+      "scenario": "Bitte wähle ein Szenario für deine Begleiterin",
+      "characterPrompt": "Bitte beschreibe die Persönlichkeit oder Rolle deiner Begleiterin",
+      "greeting": "Bitte gib eine Begrüßung ein, die deine Begleiterin sagen wird",
+      "clothes": "Bitte wähle ein Outfit für deine Begleiterin",
+      "turnsOfYou": "Bitte wähle, was dich anmacht",
+      "wantToTry": "Bitte wähle, was du ausprobieren möchtest",
+      "voice": "Bitte wähle eine Stimme",
+      "connections": "Bitte wähle, welche Art von Verbindung du suchst",
+      "preferredAge": "Bitte wähle eine bevorzugte Altersgruppe",
+      "userAge": "Bitte wähle dein Alter",
+      "preferredRelationship": "Bitte wähle eine bevorzugte Beziehung",
+      "makeYourChoice": "Bitte triff deine Wahl",
+      "turnsOffInDating": "Bitte wähle, was dich beim Dating abstößt",
+      "experienceLoneliness": "Bitte wähle deine Erfahrung"
+    }
   }
 }

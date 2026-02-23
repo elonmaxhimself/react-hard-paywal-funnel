@@ -349,8 +349,15 @@ export function usePaymentForm(posthog?: any) {
             const result = await shift4Instance.createToken(componentsGroup);
             if (result.error) throw new Error(result.error.message);
 
+            const token = await shift4Instance.verifyThreeDSecure({
+                amount: product.amount,
+                currency: mpPayload.currency,
+                card: result?.id,
+            });
+            if (token?.error) throw new Error(token?.error?.message);
+
             payment(
-                { paymentToken: result.id, productId: product.id },
+                { paymentToken: token?.id, productId: product.id },
                 {
                     onSuccess: (response) => {
                         if (response.status === Shift4Statuses.SUBSCRIPTION_INITIATED) {

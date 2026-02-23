@@ -1,5 +1,8 @@
 {
   "funnel": {
+    "stepperProgress": {
+      "title": "Crea fidanzata AI"
+    },
     "socialProofStep": {
       "millionPeople": "Più di 3 milioni di persone",
       "quote": "\"Quando si tratta di trovare l'app perfetta per la ragazza AI nel 2026, Dream Companion è facilmente in cima alla lista.\"",
@@ -198,12 +201,14 @@
       "altCharacterPlaceholder": "segnaposto-personaggio"
     },
     "authStep": {
-      "title": "Raggiungi i tuoi obiettivi con <br /><highlight>Dream Companion</highlight>",
+      "createFreeAccount": "Crea un account gratuito per chattare con il tuo compagno IA",
+      "continueWithGoogle": "Continua con Google",
+      "joinFree": "Iscriviti gratis",
+      "orContinueWithEmail": "o continua con email e password",
+      "title": "Inizia la tua storia con <br/><highlight>Dream Companion</highlight>",
       "emailLabel": "Inserisci la tua email per creare un account personale",
       "emailPlaceholder": "Email",
       "passwordPlaceholder": "Password",
-      "saveAndContinue": "Salva e Continua",
-      "orContinueWith": "O continua con",
       "happyUsers": "Più di 3M utenti felici",
       "altLogo": "My Dream Companion",
       "altMailIcon": "Icona Mail",
@@ -212,6 +217,7 @@
       "altAwardRanking": "#1 APP AI NSFW CLASSIFICATA"
     },
     "subscriptionStep": {
+      "termsAndConditions": "Termini e condizioni",
       "title": "La Tua Ragazza AI è Pronta",
       "subtitle": "Ottieni l'accesso a tutto ciò che può fare <br />per te proprio ora",
       "bestChoice": "SCELTA MIGLIORE",
@@ -712,6 +718,14 @@
     }
   },
   "hooks": {
+    "useSignUpForm": {
+      "emailInvalid": "Inserisci un indirizzo email valido",
+      "passwordMin": "La password deve essere di almeno 8 caratteri",
+      "passwordRegex": "La password deve contenere almeno una lettera e un numero",
+      "isAdultRequired": "Devi confermare di avere 18 anni o più.",
+      "acceptedTermsRequired": "Devi accettare i Termini di servizio e l'Informativa sulla privacy.",
+      "signUpFailed": "Registrazione fallita"
+    },
     "usePaymentForm": {
       "errors": {
         "paymentConfigError": "Errore di configurazione del sistema di pagamento.",
@@ -933,5 +947,37 @@
     "altGirl": "ragazza",
     "altPlay": "riproduci",
     "altSecretOffer": "Icona Offerta Segreta"
+  },
+  "validation": {
+    "funnel": {
+      "style": "Scegli uno stile del personaggio",
+      "age": "Seleziona un'età",
+      "personalityTraits": "Seleziona almeno un tratto della personalità",
+      "interests": "Seleziona almeno un hobby",
+      "ethnicity": "Seleziona un'etnia per la tua compagna",
+      "yourType": "Seleziona almeno un tipo",
+      "body": "Scegli un tipo di corpo",
+      "breastType": "Scegli un tipo di seno",
+      "breastSize": "Scegli una taglia di seno",
+      "butt": "Scegli un tipo di fondoschiena",
+      "eyes": "Scegli un colore degli occhi",
+      "hairStyle": "Seleziona un'acconciatura",
+      "hairColor": "Seleziona un colore di capelli",
+      "characterRelationship": "Seleziona una relazione preferita",
+      "scenario": "Seleziona uno scenario per la tua compagna",
+      "characterPrompt": "Descrivi la personalità o il ruolo della tua compagna",
+      "greeting": "Inserisci un saluto che dirà la tua compagna",
+      "clothes": "Scegli un outfit per la tua compagna",
+      "turnsOfYou": "Seleziona cosa ti eccita",
+      "wantToTry": "Seleziona cosa vuoi provare",
+      "voice": "Scegli una voce",
+      "connections": "Seleziona che tipo di connessione cerchi",
+      "preferredAge": "Seleziona una fascia d'età preferita",
+      "userAge": "Seleziona la tua età",
+      "preferredRelationship": "Seleziona una relazione preferita",
+      "makeYourChoice": "Fai la tua scelta",
+      "turnsOffInDating": "Seleziona cosa ti infastidisce negli appuntamenti",
+      "experienceLoneliness": "Scegli la tua esperienza"
+    }
   }
 }

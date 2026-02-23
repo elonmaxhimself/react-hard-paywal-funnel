@@ -2,7 +2,6 @@ import { Controller } from "react-hook-form";
 import { Loader2Icon } from "lucide-react";
 import { useTranslation, Trans } from "react-i18next";
 
-import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 
@@ -58,17 +57,76 @@ export function AuthStep() {
                     </div>
 
                     <div className="w-full">
+                        <p className="text-white/50 text-sm mb-3">
+                            {t('funnel.authStep.createFreeAccount')}
+                        </p>
+
+                        <Button
+                            type="button"
+                            variant="outline"
+                            className="w-full h-[45px] bg-transparent border-white/10 hover:bg-white/5 mb-3 rounded-none"
+                            onClick={() => oauthSignIn("google")}
+                            disabled={isOAuthLoading || isPending}
+                        >
+                            {isGoogleLoading ? (
+                                <Loader2Icon className="animate-spin" size={20} />
+                            ) : (
+                                <img src="/icons/google.png" alt="Google" className="w-5 h-5 mr-2" />
+                            )}
+                            <span className="text-white text-sm font-medium">
+                                {t('funnel.authStep.continueWithGoogle')}
+                            </span>
+                        </Button>
+
+                        <div className="flex gap-3 mb-[30px]">
+                            <Button
+                                type="button"
+                                variant="outline"
+                                className="flex-1 h-[45px] bg-transparent border-white/10 hover:bg-white/5 rounded-none"
+                                onClick={() => oauthSignIn("twitter")}
+                                disabled={isOAuthLoading || isPending}
+                            >
+                                {isTwitterLoading ? (
+                                    <Loader2Icon className="animate-spin" size={20} />
+                                ) : (
+                                    <img src="/icons/X.png" alt="Twitter" className="w-5 h-5" />
+                                )}
+                            </Button>
+                            <Button
+                                type="button"
+                                variant="outline"
+                                className="flex-1 h-[45px] bg-transparent border-white/10 hover:bg-white/5 rounded-none"
+                                onClick={() => oauthSignIn("discord")}
+                                disabled={isOAuthLoading || isPending}
+                            >
+                                {isDiscordLoading ? (
+                                    <Loader2Icon className="animate-spin" size={20} />
+                                ) : (
+                                    <img src="/icons/discord.png" alt="Discord" className="w-5 h-5" />
+                                )}
+                            </Button>
+                        </div>
+
+                        <div className="relative mb-5">
+                            <div className="absolute inset-0 flex items-center">
+                                <div className="w-full border-t border-white/10"></div>
+                            </div>
+                            <div className="relative flex justify-center text-xs uppercase">
+                                <span className="bg-[#1a1a1a] px-2 text-white/50">
+                                    {t('funnel.authStep.orContinueWithEmail')}
+                                </span>
+                            </div>
+                        </div>
+
                         <div className="w-full flex flex-col gap-[10px] mb-10">
                             <div>
-                                <Label className="text-white/70 mb-2.5" htmlFor="email">
-                                    {t('funnel.authStep.emailLabel')}
-                                </Label>
                                 <Controller
                                     name="email"
                                     control={form.control}
                                     render={({ field }) => (
                                         <CustomInput
                                             id="email"
+                                            aria-label={t('funnel.authStep.emailLabel')}
                                             icon={
                                                 <img
                                                     src="/icons/mail-icon.svg"
@@ -134,7 +192,7 @@ export function AuthStep() {
 
                             {CHECKBOXES.map(({ name, id, label }) => (
                                 <div key={name}>
-                                    <div className="flex gap-[10px]">
+                                    <div className="flex gap-[10px] items-start">
                                         <Controller
                                             name={name}
                                             control={form.control}
@@ -145,16 +203,16 @@ export function AuthStep() {
                                                     checked={!!field.value}
                                                     onCheckedChange={field.onChange}
                                                     onBlur={field.onBlur}
-                                                    className="cursor-pointer"
+                                                    className="cursor-pointer mt-0.5 shrink-0"
                                                 />
                                             )}
                                         />
-                                        <Label
+                                        <label
                                             htmlFor={id}
-                                            className="text-white/50 text-xs cursor-pointer"
+                                            className="text-white/50 text-xs cursor-pointer leading-[1.4]"
                                         >
                                             {label}
-                                        </Label>
+                                        </label>
                                     </div>
                                     {errors[name] && (
                                         <p className="text-red-500 text-xs mt-1">
@@ -166,68 +224,19 @@ export function AuthStep() {
                         </div>
 
                         <Button
-                            type={"submit"}
+                            type="submit"
                             disabled={isPending || isOAuthLoading}
-                            className={"w-full h-[45px] bg-primary-gradient mb-5"}
+                            className="w-full h-[45px] bg-primary-gradient mb-[30px]"
                         >
                             {isPending && <Loader2Icon className="animate-spin" />}
-                            <span className={"text-base font-bold"}>{t('funnel.authStep.saveAndContinue')}</span>
+                            <span className="text-base font-bold">
+                                {t('funnel.authStep.joinFree')}
+                            </span>
                         </Button>
-
-                        <div className="relative mb-5">
-                            <div className="absolute inset-0 flex items-center">
-                                <div className="w-full border-t border-white/10"></div>
-                            </div>
-                            <div className="relative flex justify-center text-xs uppercase">
-                                <span className="bg-[#1a1a1a] px-2 text-white/50">{t('funnel.authStep.orContinueWith')}</span>
-                            </div>
-                        </div>
-
-                        <div className="flex gap-3 mb-[30px]">
-                            <Button
-                                type="button"
-                                variant="outline"
-                                className="flex-1 h-[45px] bg-transparent border-white/10 hover:bg-white/5"
-                                onClick={() => oauthSignIn("google")}
-                                disabled={isOAuthLoading || isPending}
-                            >
-                                {isGoogleLoading ? (
-                                    <Loader2Icon className="animate-spin" size={20} />
-                                ) : (
-                                    <img src="/icons/google.png" alt="Google" className="w-5 h-5" />
-                                )}
-                            </Button>
-                            <Button
-                                type="button"
-                                variant="outline"
-                                className="flex-1 h-[45px] bg-transparent border-white/10 hover:bg-white/5"
-                                onClick={() => oauthSignIn("twitter")}
-                                disabled={isOAuthLoading || isPending}
-                            >
-                                {isTwitterLoading ? (
-                                    <Loader2Icon className="animate-spin" size={20} />
-                                ) : (
-                                    <img src="/icons/X.png" alt="Twitter" className="w-5 h-5" />
-                                )}
-                            </Button>
-                            <Button
-                                type="button"
-                                variant="outline"
-                                className="flex-1 h-[45px] bg-transparent border-white/10 hover:bg-white/5"
-                                onClick={() => oauthSignIn("discord")}
-                                disabled={isOAuthLoading || isPending}
-                            >
-                                {isDiscordLoading ? (
-                                    <Loader2Icon className="animate-spin" size={20} />
-                                ) : (
-                                    <img src="/icons/discord.png" alt="Discord" className="w-5 h-5" />
-                                )}
-                            </Button>
-                        </div>
 
                         <div className="w-full p-2.5 bg-[#222327]/90 border border-white/6 rounded-[10px]">
                             <div className="flex gap-2 items-center justify-between">
-                                <div className="flex-1 flex items-center relative">
+                                <div className="flex shrink-0 items-center relative">
                                     <SpriteIcon
                                         src={"/images/avatars/avatar_2.webp"}
                                         fallbackAlt={t('funnel.authStep.altAvatar') + " 1"}
@@ -261,21 +270,18 @@ export function AuthStep() {
                                         className="size-[31px] relative -left-[24px]"
                                         imageClassName="rounded-full border-[3px] border-[#2B2A2B] origin-[50%_20%]"
                                     />
-                                    <div className="size-[31px] relative -left-[36px] rounded-full border-[3px] border-[#2B2A2B] bg-primary-gradient">
+                                    <div className="size-[31px] relative -left-[36px] rounded-full border-[3px] border-[#2B2A2B] bg-primary-gradient shrink-0">
                                         <div className="w-full h-full flex items-center justify-center">
-                                            <span className="text-white text-[11px] font-bold">
-                                                3M+
-                                            </span>
+                                            <span className="text-white text-[11px] font-bold">3M+</span>
                                         </div>
                                     </div>
                                 </div>
 
-                                <div
-                                    className={"flex-1 text-white text-[10px] font-bold uppercase"}
-                                >
+                                <div className="flex-1 text-white text-[10px] font-bold uppercase text-center">
                                     {t('funnel.authStep.happyUsers')}
                                 </div>
-                                <div className={"relative flex-1"}>
+
+                                <div className="shrink-0">
                                     <SpriteIcon
                                         src={"/images/award-ranking.svg"}
                                         fallbackAlt={t('funnel.authStep.altAwardRanking')}

@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 
-import AuthStep from "@/components/funnel/steps/AuthStep";
+import {AuthStep} from "@/components/funnel/steps/AuthStep";
 import { AssistantStep } from "@/components/funnel/steps/AssistantStep";
 import AlmostThereStep from "@/components/funnel/steps/AlmostThereStep";
 import { BodyTypeStep } from "@/components/funnel/steps/BodyTypeStep";

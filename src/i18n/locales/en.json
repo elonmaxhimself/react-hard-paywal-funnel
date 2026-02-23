@@ -1,5 +1,8 @@
 {
   "funnel": {
+    "stepperProgress": {
+      "title": "Create AI Girlfriend"
+    },
     "socialProofStep": {
       "millionPeople": "3+ million people",
       "quote": "\"When it comes to finding the perfect AI girlfriend app in 2026, Dream Companion easily tops the list.\"",
@@ -198,12 +201,14 @@
       "altCharacterPlaceholder": "character-placeholder"
     },
     "authStep": {
-      "title": "Achieve your goals with <br /><highlight>Dream Companion</highlight>",
+      "title": "Start your story with <br/><highlight>Dream Companion</highlight>",
+      "createFreeAccount": "Create free account to chat with your AI companion",
+      "continueWithGoogle": "Continue with Google",
+      "joinFree": "Join Free",
       "emailLabel": "Enter your email to create a personal account",
       "emailPlaceholder": "Email",
       "passwordPlaceholder": "Password",
-      "saveAndContinue": "Save And Continue",
-      "orContinueWith": "Or continue with",
+      "orContinueWithEmail": "Or continue with email and password",
       "happyUsers": "3M+ happy users",
       "altLogo": "My Dream Companion",
       "altMailIcon": "Mail Icon",
@@ -212,6 +217,7 @@
       "altAwardRanking": "#1 RANKED NSFW AI APP"
     },
     "subscriptionStep": {
+      "termsAndConditions": "Terms and Conditions",
       "title": "Your Ai Girlfriend is Ready",
       "subtitle": "Get access to everything she can do <br />for you right now",
       "bestChoice": "BEST CHOICE",
@@ -712,6 +718,14 @@
     }
   },
   "hooks": {
+    "useSignUpForm": {
+      "emailInvalid": "Please enter a valid email address",
+      "passwordMin": "Password must be at least 8 characters long",
+      "passwordRegex": "Password must include at least one letter and one number",
+      "isAdultRequired": "You must confirm that you are 18 years or older.",
+      "acceptedTermsRequired": "You must accept the Terms of Service and Privacy Policy.",
+      "signUpFailed": "Sign up failed"
+    },
     "usePaymentForm": {
       "errors": {
         "paymentConfigError": "Payment system configuration error.",
@@ -933,5 +947,37 @@
     "altGirl": "girl",
     "altPlay": "play",
     "altSecretOffer": "Secret Offer Icon"
+  },
+  "validation": {
+    "funnel": {
+      "style": "Please choose a character style",
+      "age": "Please select a character age",
+      "personalityTraits": "Please select at least one personality trait",
+      "interests": "Please select at least one hobby",
+      "ethnicity": "Please select an ethnicity for your companion",
+      "yourType": "Please select at least one type",
+      "body": "Please choose a body type",
+      "breastType": "Please choose a breast type",
+      "breastSize": "Please choose a breast size",
+      "butt": "Please choose a butt type",
+      "eyes": "Please choose an eye color",
+      "hairStyle": "Please select a hairstyle",
+      "hairColor": "Please select a hair color",
+      "characterRelationship": "Please select a preferred relationship",
+      "scenario": "Please select a scenario for your companion",
+      "characterPrompt": "Please describe your companion's personality or role",
+      "greeting": "Please enter a greeting your companion will say",
+      "clothes": "Please choose an outfit for your companion",
+      "turnsOfYou": "Please select what turns you on",
+      "wantToTry": "Please select what you want to try",
+      "voice": "Please choose a voice",
+      "connections": "Please select what kind of connection you're looking for",
+      "preferredAge": "Please select a preferred age range",
+      "userAge": "Please select your age",
+      "preferredRelationship": "Please select a preferred relationship",
+      "makeYourChoice": "Please make your choice",
+      "turnsOffInDating": "Please select what turns you off in dating",
+      "experienceLoneliness": "Please choose your experience"
+    }
   }
 }

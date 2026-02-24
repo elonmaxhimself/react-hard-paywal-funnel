@@ -1,16 +1,15 @@
 import { ChevronLeft } from "lucide-react";
+import { useTranslation } from "react-i18next";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { useStepperContext } from "@/components/stepper/Stepper.context";
 
 export default function StepperProgress() {
-    const { prevStep, value, max, startingStep = 0 } = useStepperContext();
+    const { t } = useTranslation();
+    const { prevStep, value, max } = useStepperContext();
     
-    const actualSteps = max - startingStep;
-    const currentProgress = value - startingStep;
-    const percentValue = (currentProgress * 100) / actualSteps;
-    
-    const isAtStart = value <= startingStep;
+    const percentValue = (value * 100) / max;
+    const isAtStart = value === 0;
     
     return (
         <div className={"w-full"}>
@@ -24,7 +23,9 @@ export default function StepperProgress() {
                     </Button>
                 )}
                 <div className={"flex-1 flex flex-col items-center justify-center gap-3.5"}>
-                    <p className={"text-white/50 text-[13px] font-bold"}>Create AI Girlfriend</p>
+                    <p className={"text-white/50 text-[13px] font-bold"}>
+                        {t('funnel.stepperProgress.title')}
+                    </p>
                     <Progress value={percentValue} max={100} />
                 </div>
             </div>

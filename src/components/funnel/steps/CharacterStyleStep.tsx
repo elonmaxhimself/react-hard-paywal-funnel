@@ -1,19 +1,17 @@
 import { useFormContext } from "react-hook-form";
-
+import { useTranslation } from "react-i18next";
 import Stepper from "@/components/stepper";
 import StepWrapper from "@/components/StepWrapper";
 import { useStepperContext } from "@/components/stepper/Stepper.context";
 import ImageCard from "@/components/ImageCard";
-
 import { FunnelSchema } from "@/hooks/funnel/useFunnelForm";
-
-import { characterStyle } from "@/constants/character-style";
+import { useCharacterStyle } from "@/constants/character-style";
 
 export function CharacterStyleStep() {
+    const { t } = useTranslation();
+    const characterStyle = useCharacterStyle()
     const { nextStep } = useStepperContext();
-
     const form = useFormContext<FunnelSchema>();
-
     const character_style = form.watch("style");
 
     const onSelectStyle = (style: string) => {
@@ -37,7 +35,7 @@ export function CharacterStyleStep() {
                         <Stepper.Progress />
                     </div>
                     <h2 className={"text-white text-lg font-bold mb-5 md:mb-[30px]"}>
-                        Choose Style
+                        {t('funnel.characterStyleStep.title')}
                     </h2>
                     <div className={"w-full flex gap-[10px]"}>
                         {characterStyle.map((style) => (

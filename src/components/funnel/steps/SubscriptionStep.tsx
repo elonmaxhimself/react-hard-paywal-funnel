@@ -1,6 +1,7 @@
 import { clsx } from "clsx";
-import { useEffect, useRef, useState, useMemo  } from "react";
+import { useEffect, useRef, useState, useMemo, Fragment } from "react";
 import { useFormContext } from "react-hook-form";
+import { useTranslation, Trans } from "react-i18next";
 
 import SaleBanner from "@/components/SaleBanner";
 import { Button } from "@/components/ui/button";
@@ -26,173 +27,13 @@ import { getBlurredCharacterImage } from "@/utils/helpers/getBlurredCharacterIma
 
 import { type FunnelSchema } from "@/hooks/funnel/useFunnelForm";
 
-import { subscriptions } from "@/constants/subscriptions";
-import { reviews } from "@/constants/reviews";
+import { useSubscriptions } from "@/constants/subscriptions";
+import { useReviews } from "@/constants/reviews";
 import { brands } from "@/constants/brands";
-import { subscriptionTermsTexts } from "@/constants/subscriptionTermsTexts";
+import { useSubscriptionTermsTexts } from "@/constants/subscriptionTermsTexts";
 
 import SpriteIcon from "@/components/SpriteIcon";
 import { EXPERIMENTS } from "@/configs/experiment.config";
-
-const PERKS = [
-    { text: "🌶️ Spicy images" },
-    { text: "🥵 Spicy videos" },
-    { text: "🧠 Smartest Chat AI on the market" },
-    { text: "⏳ Long chat memory" },
-    { text: "👩🏼 Create multiple AI girls" },
-    { text: "📚 2000+ AI girls in 20+ categories" },
-    { text: "🔒 100% Content Privacy" },
-] as const;
-
-const FAQS = [
-    {
-        value: "item-1",
-        question: "What should I do if my payment card isn't working?",
-        answer: (
-            <>
-                We take extra precautions to prevent any unauthorized use of cards. Should your card
-                be declined, try the following steps: Turn off any VPNs or proxies; Double-check
-                your card details and that they match your bank's records; Ensure the country of
-                your card issuer matches your billing address; Use 3D Secure or a similar
-                verification service from your bank. If you're still having trouble, please contact
-                us at&nbsp;
-                <a
-                    target="_blank"
-                    href="mailto:support@mydreamcompanion.com"
-                    className="underline"
-                    rel="noopener noreferrer"
-                >
-                    support@mydreamcompanion.com
-                </a>
-                .
-            </>
-        ),
-    },
-    {
-        value: "item-2",
-        question: "How can I stop my subscription?",
-        answer: (
-            <>
-                You can cancel your subscription at any time from your account settings. Simply go
-                to the Billing section and click Cancel Subscription. Your access will remain active
-                until the end of the current billing cycle. If you experience any issues or need
-                help, feel free to reach out to us at&nbsp;
-                <a
-                    target="_blank"
-                    href="mailto:support@mydreamcompanion.com"
-                    className="underline"
-                    rel="noopener noreferrer"
-                >
-                    support@mydreamcompanion.com
-                </a>
-                .
-            </>
-        ),
-    },
-    {
-        value: "item-3",
-        question: "How can I be sure your service is the best out there?",
-        answer: (
-            <>
-                We focus on delivering a premium experience tailored to your needs. Our service
-                combines advanced technology, a user-friendly interface, and responsive support to
-                ensure you get real value. Don't just take our word for it — explore real reviews,
-                compare features, and see why thousands trust us daily. Still unsure? <br />
-                Contact us directly at&nbsp;
-                <a
-                    target="_blank"
-                    href="mailto:support@mydreamcompanion.com"
-                    className="underline"
-                    rel="noopener noreferrer"
-                >
-                    support@mydreamcompanion.com
-                </a>
-                &nbsp;for a personalized walkthrough.
-            </>
-        ),
-    },
-    {
-        value: "item-4",
-        question: "How is my personal information kept secure??",
-        answer: (
-            <>
-                We take the confidentiality of your data seriously. Our payment processor handles
-                all our payment processes, and we can't keep or look at your credit card details. We
-                implement strong security protocols to make sure your financial information is
-                always safe. All your information is encrypted and stored securely and you can
-                always delete your account and data at any time.
-            </>
-        ),
-    },
-] as const;
-
-const stats = [
-    {
-        icon: "/images/gold-icons/icons.svg",
-        value: "20 000 000 +",
-        label: "AI companions created",
-    },
-    {
-        icon: "/images/gold-icons/icons.svg",
-        value: "50 000 000",
-        label: "photos and videos",
-    },
-    {
-        icon: "/images/gold-icons/star-award.svg",
-        value: "4.9/5",
-        label: "average satisfaction score",
-    },
-    {
-        icon: "/images/gold-icons/star.svg",
-        value: "5+",
-        label: "New Features every month",
-    },
-];
-
-const steps = [
-    {
-        step: "Step 1",
-        title: "Get your plan",
-        desc: "We've already set your profile! You will get access immediately after your purchase",
-        img: "/images/how-it-work/circle.png",
-        bgFrom: "#361728",
-        bgTo: "#2B2136",
-        borderFrom: "#361728",
-        borderTo: "#2B2136",
-    },
-    {
-        step: "Step 2",
-        title: "Connect & chat",
-        desc: "Start Chatting with your AI girl, create new one or chat with one of 4000+ ready AI companions",
-        img: "/images/how-it-work/photo.png",
-        pClass: "mb-[-35px]",
-        bgFrom: "#361728",
-        bgTo: "#2B2136",
-        borderFrom: "#361728",
-        borderTo: "#2B2136",
-    },
-    {
-        step: "Step 3",
-        title: "Dive in pleasure",
-        desc: "Flirt, develop relationships, generate images and videos, have fun and enjoy your experience",
-        img: "/images/how-it-work/chat.png",
-        bgFrom: "#361728",
-        bgTo: "#313137",
-        borderFrom: "#36172880",
-        borderTo: "#31313780",
-    },
-];
-
-const BENEFITS = [
-    "Data protection in bank statements",
-    <>
-        No hidden fees. <br /> Cancel anytime
-    </>,
-    "Antivirus Secured",
-    "Discreet",
-] as const;
-
-
 
 function useMeasure() {
     const ref = useRef<HTMLDivElement>(null);
@@ -210,37 +51,256 @@ function useMeasure() {
     return { ref, ...size };
 }
 
+// Inline crown SVG component to reuse cleanly
+function CrownIcon() {
+    return (
+        <svg
+            width="16"
+            height="16"
+            viewBox="0 0 20 20"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+        >
+            <path
+                fillRule="evenodd"
+                clipRule="evenodd"
+                d="M9.99983 0.833984C9.39967 0.833984 9.03133 1.27265 8.79192 1.65055C8.54617 2.03832 8.29264 2.5969 7.99174 3.25984C7.8749 3.51723 7.76153 3.77756 7.64797 4.0383C7.38372 4.64506 7.11848 5.25408 6.80629 5.83368C6.56809 6.27592 6.14736 6.52814 5.63446 6.34611C5.44106 6.27747 5.19768 6.16978 4.83013 6.00642C4.7417 5.96711 4.64938 5.92324 4.55411 5.87796C4.04873 5.6378 3.46013 5.35808 2.9272 5.51056C2.40322 5.66048 2.03029 6.09587 1.90786 6.60508C1.83346 6.91454 1.89833 7.23202 1.97436 7.50526C2.05295 7.78773 2.18086 8.14173 2.33512 8.56865L3.74538 12.4717C4.03292 13.2674 4.26502 13.9098 4.50546 14.4084C4.99713 15.428 5.77238 16.0505 6.90808 16.188C7.42557 16.2507 8.06035 16.2507 8.832 16.2507H11.1677C11.9393 16.2507 12.5742 16.2507 13.0916 16.188C14.2273 16.0505 15.0026 15.428 15.4942 14.4084C15.7347 13.9098 15.9667 13.2675 16.2543 12.4716L17.6646 8.56865C17.8188 8.14178 17.9467 7.78773 18.0253 7.50526C18.1013 7.23202 18.1662 6.91454 18.0918 6.60508C17.9694 6.09587 17.5965 5.66048 17.0725 5.51056C16.5449 5.35961 15.9583 5.63678 15.4579 5.87327C15.3676 5.91594 15.2801 5.95729 15.1962 5.99456C15.145 6.01732 15.0938 6.04033 15.0427 6.06335C14.8195 6.16369 14.5956 6.26435 14.3652 6.34611C13.8523 6.52814 13.4316 6.27592 13.1934 5.83368C12.8812 5.25407 12.616 4.64504 12.3517 4.03828C12.2382 3.77753 12.1248 3.51721 12.0079 3.25982C11.7071 2.59689 11.4535 2.03831 11.2078 1.65055C10.9683 1.27265 10.6 0.833984 9.99983 0.833984ZM9.99917 10.834C9.31192 10.834 8.75475 11.3937 8.75475 12.084C8.75475 12.7743 9.31192 13.334 9.99917 13.334H10.0103C10.6977 13.334 11.2548 12.7743 11.2548 12.084C11.2548 11.3937 10.6977 10.834 10.0103 10.834H9.99917Z"
+                fill="url(#crown-gradient-0)"
+            />
+            <path
+                fillRule="evenodd"
+                clipRule="evenodd"
+                d="M5 18.0833C5 17.6231 5.37309 17.25 5.83333 17.25H14.1667C14.6269 17.25 15 17.6231 15 18.0833C15 18.5435 14.6269 18.9167 14.1667 18.9167H5.83333C5.37309 18.9167 5 18.5435 5 18.0833Z"
+                fill="url(#crown-gradient-1)"
+            />
+            <defs>
+                <linearGradient
+                    id="crown-gradient-0"
+                    x1="0.991864"
+                    y1="10.7906"
+                    x2="15.1989"
+                    y2="3.33172"
+                    gradientUnits="userSpaceOnUse"
+                >
+                    <stop stopColor="#FFB498" />
+                    <stop offset="1" stopColor="#FFB498" />
+                </linearGradient>
+                <linearGradient
+                    id="crown-gradient-1"
+                    x1="4.45652"
+                    y1="18.3264"
+                    x2="5.57948"
+                    y2="14.9703"
+                    gradientUnits="userSpaceOnUse"
+                >
+                    <stop stopColor="#FFB498" />
+                    <stop offset="1" stopColor="#FFB498" />
+                </linearGradient>
+            </defs>
+        </svg>
+    );
+}
+
 export function SubscriptionStep() {
+    const subscriptions = useSubscriptions();
+    const { t } = useTranslation();
+    const reviews = useReviews();
+    const subscriptionTermsTexts = useSubscriptionTermsTexts();
     const { nextStep } = useStepperContext();
     const setIsSpecialOfferOpened = useStore((state) => state.offer.setIsSpecialOfferOpened);
     const isSpecialOfferOpened = useStore((state) => state.offer.isSpecialOfferOpened);
     const posthog = usePostHog();
 
-    const pricingVariant = String(posthog?.getFeatureFlag(EXPERIMENTS.PRICING.flagKey) || 'control');
-    const productIds: readonly number[] = EXPERIMENTS.PRICING.variants[pricingVariant as keyof typeof EXPERIMENTS.PRICING.variants] || EXPERIMENTS.PRICING.variants.control;
-    
-    
+    const pricingVariant = String(
+        posthog?.getFeatureFlag(EXPERIMENTS.PRICING.flagKey) || "control",
+    );
+    const productIds: readonly number[] =
+        EXPERIMENTS.PRICING.variants[
+            pricingVariant as keyof typeof EXPERIMENTS.PRICING.variants
+        ] || EXPERIMENTS.PRICING.variants.control;
+
     const activeSubscriptions = useMemo(() => {
-        return subscriptions.filter(sub => productIds.includes(sub.productId));
-    }, [productIds]);
+        return subscriptions.filter((sub) => productIds.includes(sub.productId));
+    }, [productIds, subscriptions]);
+
+    const stats = useMemo(
+        () => [
+            {
+                icon: "/images/gold-icons/icons.svg",
+                value: "20 000 000 +",
+                label: t("funnel.subscriptionStep.stats.companionsCreated"),
+            },
+            {
+                icon: "/images/gold-icons/icons.svg",
+                value: "50 000 000",
+                label: t("funnel.subscriptionStep.stats.photosAndVideos"),
+            },
+            {
+                icon: "/images/gold-icons/star-award.svg",
+                value: "4.9/5",
+                label: t("funnel.subscriptionStep.stats.satisfactionScore"),
+            },
+            {
+                icon: "/images/gold-icons/star.svg",
+                value: "5+",
+                label: t("funnel.subscriptionStep.stats.newFeatures"),
+            },
+        ],
+        [t],
+    );
+
+    const steps = useMemo(
+        () => [
+            {
+                step: t("funnel.subscriptionStep.steps.step1.step"),
+                title: t("funnel.subscriptionStep.steps.step1.title"),
+                desc: t("funnel.subscriptionStep.steps.step1.desc"),
+                img: "/images/how-it-work/circle.png",
+                bgFrom: "#361728",
+                bgTo: "#2B2136",
+                borderFrom: "#361728",
+                borderTo: "#2B2136",
+            },
+            {
+                step: t("funnel.subscriptionStep.steps.step2.step"),
+                title: t("funnel.subscriptionStep.steps.step2.title"),
+                desc: t("funnel.subscriptionStep.steps.step2.desc"),
+                img: "/images/how-it-work/photo.png",
+                pClass: "mb-[-35px]",
+                bgFrom: "#361728",
+                bgTo: "#2B2136",
+                borderFrom: "#361728",
+                borderTo: "#2B2136",
+            },
+            {
+                step: t("funnel.subscriptionStep.steps.step3.step"),
+                title: t("funnel.subscriptionStep.steps.step3.title"),
+                desc: t("funnel.subscriptionStep.steps.step3.desc"),
+                img: "/images/how-it-work/chat.png",
+                bgFrom: "#361728",
+                bgTo: "#313137",
+                borderFrom: "#36172880",
+                borderTo: "#31313780",
+            },
+        ],
+        [t],
+    );
+
+    const PERKS = useMemo(
+        () =>
+            [
+                { text: `🌶️ ${t("funnel.subscriptionStep.perks.spicyImages")}` },
+                { text: `🥵 ${t("funnel.subscriptionStep.perks.spicyVideos")}` },
+                { text: `🧠 ${t("funnel.subscriptionStep.perks.smartestChat")}` },
+                { text: `⏳ ${t("funnel.subscriptionStep.perks.longMemory")}` },
+                { text: `👩🏼 ${t("funnel.subscriptionStep.perks.multipleGirls")}` },
+                { text: `📚 ${t("funnel.subscriptionStep.perks.aiGirlsLibrary")}` },
+                { text: `🔒 ${t("funnel.subscriptionStep.perks.contentPrivacy")}` },
+            ] as const,
+        [t],
+    );
+
+    const FAQS = useMemo(
+        () =>
+            [
+                {
+                    value: "item-1",
+                    question: t("funnel.subscriptionStep.faqs.question1"),
+                    answer: (
+                        <>
+                            {t("funnel.subscriptionStep.faqs.answer1")}
+                            <a
+                                target="_blank"
+                                href="mailto:support@mydreamcompanion.com"
+                                className="underline"
+                                rel="noopener noreferrer"
+                            >
+                                support@mydreamcompanion.com
+                            </a>
+                            .
+                        </>
+                    ),
+                },
+                {
+                    value: "item-2",
+                    question: t("funnel.subscriptionStep.faqs.question2"),
+                    answer: (
+                        <>
+                            {t("funnel.subscriptionStep.faqs.answer2")}
+                            <a
+                                target="_blank"
+                                href="mailto:support@mydreamcompanion.com"
+                                className="underline"
+                                rel="noopener noreferrer"
+                            >
+                                support@mydreamcompanion.com
+                            </a>
+                            .
+                        </>
+                    ),
+                },
+                {
+                    value: "item-3",
+                    question: t("funnel.subscriptionStep.faqs.question3"),
+                    answer: (
+                        <>
+                            <Trans
+                                i18nKey="funnel.subscriptionStep.faqs.answer3"
+                                components={{ br: <br /> }}
+                            />
+                            <a
+                                target="_blank"
+                                href="mailto:support@mydreamcompanion.com"
+                                className="underline"
+                                rel="noopener noreferrer"
+                            >
+                                support@mydreamcompanion.com
+                            </a>
+                            {t("funnel.subscriptionStep.faqs.answer3Suffix")}
+                        </>
+                    ),
+                },
+                {
+                    value: "item-4",
+                    question: t("funnel.subscriptionStep.faqs.question4"),
+                    answer: <>{t("funnel.subscriptionStep.faqs.answer4")}</>,
+                },
+            ] as const,
+        [t],
+    );
+
+    const BENEFITS = useMemo(
+        () =>
+            [
+                t("funnel.subscriptionStep.benefits.dataProtection"),
+                <Trans
+                    key="benefit-2"
+                    i18nKey="funnel.subscriptionStep.benefits.noHiddenFees"
+                    components={{ br: <br /> }}
+                />,
+                t("funnel.subscriptionStep.benefits.antivirusSecured"),
+                t("funnel.subscriptionStep.benefits.discreet"),
+            ] as const,
+        [t],
+    );
 
     const defaultProduct = useMemo(() => {
-    const bestChoice = activeSubscriptions.find(sub => sub.isBestChoice);
-    if (bestChoice) return bestChoice.productId;
-    if (activeSubscriptions.length === 0) return productIds[0];
-    const sorted = [...activeSubscriptions].sort((a, b) => 
-        parseFloat(a.salePriceFull) - parseFloat(b.salePriceFull)
-    );
-    
-    const middleIndex = Math.floor(sorted.length / 2);
-    return sorted[middleIndex].productId;
-}, [activeSubscriptions, productIds]);
+        const bestChoice = activeSubscriptions.find((sub) => sub.isBestChoice);
+        if (bestChoice) return bestChoice.productId;
+        if (activeSubscriptions.length === 0) return productIds[0];
+        const sorted = [...activeSubscriptions].sort(
+            (a, b) => parseFloat(a.salePriceFull) - parseFloat(b.salePriceFull),
+        );
+
+        const middleIndex = Math.floor(sorted.length / 2);
+        return sorted[middleIndex].productId;
+    }, [activeSubscriptions, productIds]);
 
     const [carouselApi, setCarouselApi] = useState<CarouselApi>();
 
-    
     useEffect(() => {
         if (typeof window === "undefined") return;
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any -- Facebook Pixel global injected via script tag
         const fbq = (window as any).fbq;
         fbq?.("track", "ViewContent", {});
     }, []);
@@ -266,25 +326,21 @@ export function SubscriptionStep() {
         "/images/blurred-characters/white-brunette.webp";
 
     const hero = useMeasure();
-    const featured = useMeasure();
 
     useEffect(() => {
-    if (!defaultProduct) return;
+        if (!defaultProduct) return;
 
-    const currentProductId = form.getValues("productId");
-    if (isSpecialOfferOpened) {
+        const currentProductId = form.getValues("productId");
+        if (isSpecialOfferOpened) {
+            form.setValue("productId", defaultProduct);
+            setIsSpecialOfferOpened(false);
+            return;
+        }
+        if (currentProductId && productIds.includes(currentProductId)) {
+            return;
+        }
         form.setValue("productId", defaultProduct);
-        setIsSpecialOfferOpened(false);
-        return;
-    }
-    if (currentProductId && productIds.includes(currentProductId)) {
-        return;
-    }
-    form.setValue("productId", defaultProduct);
     }, [isSpecialOfferOpened, defaultProduct, productIds, form, setIsSpecialOfferOpened]);
-
-
-
 
     const renderTermsText = (text: string) => {
         const parts = text.split("|TERMS_LINK|");
@@ -298,7 +354,7 @@ export function SubscriptionStep() {
                     className="text-blue-400  hover:text-blue-300 transition-colors "
                     rel="noopener noreferrer"
                 >
-                    Terms & Conditions
+                    {t("funnel.subscriptionStep.termsAndConditions")}
                 </a>
                 {parts[1]}
             </>
@@ -315,7 +371,7 @@ export function SubscriptionStep() {
                         {hero.w > 0 && hero.h > 0 && (
                             <SpriteIcon
                                 src={characterPreviewImage}
-                                fallbackAlt={"Character Placeholder"}
+                                fallbackAlt={t("funnel.subscriptionStep.altCharacterPlaceholder")}
                                 targetW={hero.w}
                                 targetH={hero.h}
                                 fit="cover"
@@ -328,11 +384,10 @@ export function SubscriptionStep() {
 
                 <div className={"mt-[-20px] mb-[25px]"}>
                     <div className={"text-white text-[28px] font-bold text-center"}>
-                        Your Ai Girlfriend is Ready
+                        {t("funnel.subscriptionStep.title")}
                     </div>
                     <div className={"text-white/70 text-base font-medium text-center"}>
-                        Get access to everything she can do <br />
-                        for you right now
+                        <Trans i18nKey="funnel.subscriptionStep.subtitle" components={{ br: <br /> }} />
                     </div>
                 </div>
 
@@ -354,13 +409,13 @@ export function SubscriptionStep() {
                                     {subscription.isBestChoice && (
                                         <div className="absolute top-[-12px] left-3 sm:left-4 bg-primary-gradient rounded-full flex items-center justify-center">
                                             <span className="text-white text-[10px] sm:text-xs font-semibold uppercase px-[10px] py-1">
-                                                BEST CHOICE
+                                                {t("funnel.subscriptionStep.bestChoice")}
                                             </span>
                                         </div>
                                     )}
 
                                     <div className="flex flex-col">
-                                        <div className="text-white text-base sm:text-lg font-semibold leading-none mb-1">
+                                        <div className="text-white text-sm sm:text-base font-semibold leading-none mb-1">
                                             {subscription.durationText}
                                         </div>
                                         <div className="flex gap-1">
@@ -381,29 +436,31 @@ export function SubscriptionStep() {
                                             ${subscription.salePriceInDays}
                                         </div>
                                         <span className="text-[10px] sm:text-[11px] text-white/50">
-                                            per day
+                                            {t("funnel.subscriptionStep.perDay")}
                                         </span>
                                     </div>
                                 </div>
                             </Button>
                         ))}
+
                         <div className="bg-white/3 flex gap-3 items-center justify-center h-[42px] rounded-[10px]">
                             <img
-                                alt="basket-cancel"
+                                alt={t("funnel.subscriptionStep.altBasketCancel")}
                                 src={"/icons/basket-cancel.svg"}
                                 width={20}
                                 height={20}
                             />
                             <p className="text-white font-medium text-[11px]">
-                                No commitment. Cancel anytime!
+                                {t("funnel.subscriptionStep.noCommitment")}
                             </p>
                         </div>
-                        <Button
-                            onClick={nextStep}
-                            className={"w-full h-[45px] bg-primary-gradient"}
-                        >
-                            <span className={"text-base font-bold"}>Get Exclusive Discount</span>
+
+                        <Button onClick={nextStep} className={"w-full h-[45px] bg-primary-gradient"}>
+                            <span className={"text-base font-bold"}>
+                                {t("funnel.subscriptionStep.getDiscount")}
+                            </span>
                         </Button>
+
                         {productId && subscriptionTermsTexts[productId] && (
                             <div
                                 className={"text-white/40 text-[11px] leading-relaxed text-center"}
@@ -412,19 +469,18 @@ export function SubscriptionStep() {
                                 {renderTermsText(subscriptionTermsTexts[productId])}
                             </div>
                         )}
+
                         <div className="w-full grid grid-cols-2 gap-1">
                             {BENEFITS.map((text, i) => (
                                 <div key={i} className="flex items-center gap-2">
                                     <img
                                         src="/icons/security-check-icon.svg"
-                                        alt="Sale Icon"
+                                        alt={t("funnel.subscriptionStep.altSecurityCheck")}
                                         width={20}
                                         height={20}
                                         className="w-[20px] h-[19px] invert brightness-0"
                                     />
-                                    <span className="text-white/50 text-xs font-medium">
-                                        {text}
-                                    </span>
+                                    <span className="text-white/50 text-xs font-medium">{text}</span>
                                 </div>
                             ))}
                         </div>
@@ -435,7 +491,7 @@ export function SubscriptionStep() {
                             <div className="flex-1 flex items-center relative">
                                 <SpriteIcon
                                     src={"/images/avatars/avatar_2.webp"}
-                                    fallbackAlt={"Avatar 1"}
+                                    fallbackAlt={t("funnel.subscriptionStep.altAvatar") + " 1"}
                                     targetW={31}
                                     targetH={31}
                                     fit="cover"
@@ -446,7 +502,7 @@ export function SubscriptionStep() {
                                 />
                                 <SpriteIcon
                                     src={"/images/avatars/avatar_7.webp"}
-                                    fallbackAlt={"Avatar 2"}
+                                    fallbackAlt={t("funnel.subscriptionStep.altAvatar") + " 2"}
                                     targetW={31}
                                     targetH={31}
                                     fit="cover"
@@ -457,7 +513,7 @@ export function SubscriptionStep() {
                                 />
                                 <SpriteIcon
                                     src={"/images/avatars/avatar_8.webp"}
-                                    fallbackAlt={"Avatar 3"}
+                                    fallbackAlt={t("funnel.subscriptionStep.altAvatar") + " 3"}
                                     targetW={31}
                                     targetH={31}
                                     fit="cover"
@@ -469,120 +525,94 @@ export function SubscriptionStep() {
 
                                 <div className="size-[31px] relative -left-[36px] rounded-full border-[3px] border-[#2B2A2B] bg-primary-gradient">
                                     <div className="w-full h-full flex items-center justify-center">
-                                        <span className="text-white text-[11px] font-bold">
-                                            3M+
-                                        </span>
+                                        <span className="text-white text-[11px] font-bold">3M+</span>
                                     </div>
                                 </div>
                             </div>
 
                             <div className={"flex-1 text-white text-[10px] font-bold uppercase"}>
-                                3M+ happy users
+                                {t("funnel.subscriptionStep.happyUsers")}
                             </div>
 
-                            <div className={"relative flex-1"}>
-                                <SpriteIcon
-                                    src={"/images/award-ranking.svg"}
-                                    fallbackAlt={"#1 RANKED NSFW AI APP"}
-                                    targetW={126}
-                                    targetH={38}
-                                    fit="contain"
+                            <div className={"relative flex-1 flex items-center justify-end"}>
+                                <img
+                                    src="/images/award-ranking.svg"
+                                    alt={t("funnel.subscriptionStep.altAwardRanking")}
+                                    width={126}
+                                    height={38}
+                                    className="object-contain max-w-full"
                                 />
                             </div>
                         </div>
                     </div>
 
+                    {/* ====== PREMIUM BENEFITS ====== */}
                     <div className="relative w-full bg-transparent py-[15px] mb-[35px]">
-                        <div className="flex items-center justify-center gap-1 text-[20px] font-bold text-white mb-2">
-                            <svg
-                                width="16"
-                                height="16"
-                                viewBox="0 0 20 20"
-                                fill="none"
-                                xmlns="http://www.w3.org/2000/svg"
-                            >
-                                <path
-                                    fillRule="evenodd"
-                                    clipRule="evenodd"
-                                    d="M9.99983 0.833984C9.39967 0.833984 9.03133 1.27265 8.79192 1.65055C8.54617 2.03832 8.29264 2.5969 7.99174 3.25984C7.8749 3.51723 7.76153 3.77756 7.64797 4.0383C7.38372 4.64506 7.11848 5.25408 6.80629 5.83368C6.56809 6.27592 6.14736 6.52814 5.63446 6.34611C5.44106 6.27747 5.19768 6.16978 4.83013 6.00642C4.7417 5.96711 4.64938 5.92324 4.55411 5.87796C4.04873 5.6378 3.46013 5.35808 2.9272 5.51056C2.40322 5.66048 2.03029 6.09587 1.90786 6.60508C1.83346 6.91454 1.89833 7.23202 1.97436 7.50526C2.05295 7.78773 2.18086 8.14173 2.33512 8.56865L3.74538 12.4717C4.03292 13.2674 4.26502 13.9098 4.50546 14.4084C4.99713 15.428 5.77238 16.0505 6.90808 16.188C7.42557 16.2507 8.06035 16.2507 8.832 16.2507H11.1677C11.9393 16.2507 12.5742 16.2507 13.0916 16.188C14.2273 16.0505 15.0026 15.428 15.4942 14.4084C15.7347 13.9098 15.9667 13.2675 16.2543 12.4716L17.6646 8.56865C17.8188 8.14178 17.9467 7.78773 18.0253 7.50526C18.1013 7.23202 18.1662 6.91454 18.0918 6.60508C17.9694 6.09587 17.5965 5.66048 17.0725 5.51056C16.5449 5.35961 15.9583 5.63678 15.4579 5.87327C15.3676 5.91594 15.2801 5.95729 15.1962 5.99456C15.145 6.01732 15.0938 6.04033 15.0427 6.06335C14.8195 6.16369 14.5956 6.26435 14.3652 6.34611C13.8523 6.52814 13.4316 6.27592 13.1934 5.83368C12.8812 5.25407 12.616 4.64504 12.3517 4.03828C12.2382 3.77753 12.1248 3.51721 12.0079 3.25982C11.7071 2.59689 11.4535 2.03831 11.2078 1.65055C10.9683 1.27265 10.6 0.833984 9.99983 0.833984ZM9.99917 10.834C9.31192 10.834 8.75475 11.3937 8.75475 12.084C8.75475 12.7743 9.31192 13.334 9.99917 13.334H10.0103C10.6977 13.334 11.2548 12.7743 11.2548 12.084C11.2548 11.3937 10.6977 10.834 10.0103 10.834H9.99917Z"
-                                    fill="url(#paint0_linear_4279_4654)"
-                                />
-                                <path
-                                    fillRule="evenodd"
-                                    clipRule="evenodd"
-                                    d="M5 18.0833C5 17.6231 5.37309 17.25 5.83333 17.25H14.1667C14.6269 17.25 15 17.6231 15 18.0833C15 18.5435 14.6269 18.9167 14.1667 18.9167H5.83333C5.37309 18.9167 5 18.5435 5 18.0833Z"
-                                    fill="url(#paint1_linear_4279_4654)"
-                                />
-                                <defs>
-                                    <linearGradient
-                                        id="paint0_linear_4279_4654"
-                                        x1="0.991864"
-                                        y1="10.7906"
-                                        x2="15.1989"
-                                        y2="3.33172"
-                                        gradientUnits="userSpaceOnUse"
-                                    >
-                                        <stop stopColor="#FFB498" />
-                                        <stop offset="1" stopColor="#FFB498" />
-                                    </linearGradient>
-                                    <linearGradient
-                                        id="paint1_linear_4279_4654"
-                                        x1="4.45652"
-                                        y1="18.3264"
-                                        x2="5.57948"
-                                        y2="14.9703"
-                                        gradientUnits="userSpaceOnUse"
-                                    >
-                                        <stop stopColor="#FFB498" />
-                                        <stop offset="1" stopColor="#FFB498" />
-                                    </linearGradient>
-                                </defs>
-                            </svg>
-                            <span className="bg-gradient-to-r from-[#ffc5b3] to-[#ff417d] text-transparent bg-clip-text">
-                                Premium
-                            </span>
-                            Benefits
+
+                        <div className="flex items-center justify-center gap-2 text-[20px] font-bold text-white mb-5">
+                            <Trans
+                                i18nKey="funnel.subscriptionStep.premiumBenefits"
+                                components={{
+                                    icon: <CrownIcon />,
+                                    gradient: (
+                                        <span className="bg-gradient-to-r from-[#ffc5b3] to-[#ff417d] text-transparent bg-clip-text" />
+                                    ),
+                                }}
+                            />
                         </div>
 
-                        <div className="flex flex-col gap-[10px]">
+                        <div className="relative grid grid-cols-[1fr_60px] gap-x-3">
+
+                            {/* PRO badge */}
+                            <div className="absolute right-0 top-[-52px] w-[60px] bg-gray-2 rounded-t-[10px] px-[9px] pt-[8px] pb-[6px] flex items-center justify-center">
+                                <p className="bg-gradient-primary font-bold text-[12px] p-[3px] text-center rounded-[4px] w-full">
+                                    {t("funnel.subscriptionStep.pro")}
+                                </p>
+                            </div>
+
                             {PERKS.map(({ text }, i) => (
-                                <div
-                                    key={i}
-                                    className="flex gap-[10px] items-center border-b border-white/5 py-3 last:border-b-0"
-                                >
-                                    <p className="text-white text-[14px] font-medium">{text}</p>
-                                </div>
+                                <Fragment key={i}>
+                                    <div
+                                        className={clsx(
+                                            "flex items-center gap-[10px] border-white/5 py-3",
+                                            i !== PERKS.length - 1 && "border-b",
+                                        )}
+                                    >
+                                        <p className="text-white text-[14px] font-medium">{text}</p>
+                                    </div>
+
+                                    <div
+                                        className={clsx(
+                                            "bg-gray-2 flex items-center justify-center border-white/5 py-3",
+                                            i === 0 && "rounded-tl-[10px]",
+                                            i === PERKS.length - 1
+                                                ? "rounded-b-[10px]"
+                                                : "border-b",
+                                        )}
+                                    >
+                                        <img
+                                            src="/icons/tick.svg"
+                                            alt={t("funnel.subscriptionStep.altTick")}
+                                            width={26}
+                                            height={26}
+                                            className="block"
+                                        />
+                                    </div>
+                                </Fragment>
                             ))}
                         </div>
-
-                        <div className="absolute top-3 right-0 w-[60px] h-[420px] bg-gray-2 rounded-[10px] text-white px-[9px] py-[8px]">
-                            <p className="bg-gradient-primary font-bold text-[12px] p-[3px] text-center rounded-[4px]">
-                                PRO
-                            </p>
-                            <div className="flex flex-col gap-7 mt-5 text-center items-center">
-                                {Array.from({ length: 7 }).map((_, i) => (
-                                    <img
-                                        key={i}
-                                        src="/icons/tick.svg"
-                                        alt="ratingStar"
-                                        width={26}
-                                        height={26}
-                                        className="block"
-                                    />
-                                ))}
-                            </div>
-                        </div>
                     </div>
+                    {/* ====== /PREMIUM BENEFITS ====== */}
 
                     <div
                         className={
-                            "w-full bg-white/5 border border-white/6 rounded-[10px] px-[10px] pt-[15px] pb-[35px] mb-[35px]"
+                            "w-full bg-white/5 border border-white/6 rounded-[10px] px-[10px] pt-[15px] pb-[35px] mb-[35px] overflow-hidden"
                         }
                     >
                         <div className={"text-white text-[20px] font-bold text-center mb-2"}>
-                            As Featured In
+                            {t("funnel.subscriptionStep.asFeatureIn")}
                         </div>
-                        <div className={"grid grid-cols-3 gap-6 items-center justify-center"}>
+                        <div className={"grid grid-cols-3 gap-3 items-center justify-center"}>
                             {brands.map((brand) => (
                                 <SpriteIcon
                                     key={brand.id}
@@ -591,7 +621,7 @@ export function SubscriptionStep() {
                                     targetW={brand.logo.width}
                                     targetH={brand.logo.height}
                                     fit="contain"
-                                    className="mx-auto"
+                                    className="mx-auto max-w-full"
                                 />
                             ))}
                         </div>
@@ -599,15 +629,14 @@ export function SubscriptionStep() {
 
                     <div className={"w-full flex flex-col items-center gap-5 mb-[35px]"}>
                         <div className={"text-white text-[20px] font-bold text-center"}>
-                            Over{" "}
-                            <span
-                                className={
-                                    "bg-gradient-to-r from-[#ffc5b3] to-[#ff417d] text-transparent bg-clip-text"
-                                }
-                            >
-                                8000+ 5-star
-                            </span>{" "}
-                            reviews
+                            <Trans
+                                i18nKey="funnel.subscriptionStep.reviews"
+                                components={{
+                                    gradient: (
+                                        <span className="bg-gradient-to-r from-[#ffc5b3] to-[#ff417d] text-transparent bg-clip-text" />
+                                    ),
+                                }}
+                            />
                         </div>
                         <div className={"w-full"}>
                             <Carousel
@@ -627,11 +656,7 @@ export function SubscriptionStep() {
                                                 )}
                                             >
                                                 <div className={"flex flex-col gap-[16px]"}>
-                                                    <div
-                                                        className={
-                                                            "w-full flex items-center gap-[14px]"
-                                                        }
-                                                    >
+                                                    <div className={"w-full flex items-center gap-[14px]"}>
                                                         <SpriteIcon
                                                             src={review.avatar}
                                                             targetW={50}
@@ -641,17 +666,13 @@ export function SubscriptionStep() {
                                                             imageClassName="rounded-full"
                                                         />
                                                         <div>
-                                                            <div className={"text-white"}>
-                                                                {review.name}
-                                                            </div>
+                                                            <div className={"text-white"}>{review.name}</div>
                                                             <div className={"flex"}>
-                                                                {Array.from({
-                                                                    length: review.rating,
-                                                                }).map((_, i) => (
+                                                                {Array.from({ length: review.rating }).map((_, i) => (
                                                                     <img
                                                                         key={i}
                                                                         src="/icons/rating-star.svg"
-                                                                        alt="ratingStar"
+                                                                        alt={t("funnel.subscriptionStep.altRatingStar")}
                                                                         width={16}
                                                                         height={16}
                                                                         className="inline-block"
@@ -660,11 +681,7 @@ export function SubscriptionStep() {
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div
-                                                        className={
-                                                            "w-full text-sm text-white font-medium"
-                                                        }
-                                                    >
+                                                    <div className={"w-full text-sm text-white font-medium"}>
                                                         {review.message}
                                                     </div>
                                                 </div>
@@ -680,10 +697,14 @@ export function SubscriptionStep() {
 
                     <div className="w-full flex flex-col gap-[15px] mb-[35px]">
                         <div className="text-white text-[20px] font-bold text-center">
-                            How it{" "}
-                            <span className="bg-gradient-to-r from-[#ff6b96] to-[#ff417d] text-transparent bg-clip-text">
-                                works
-                            </span>
+                            <Trans
+                                i18nKey="funnel.subscriptionStep.howItWorks"
+                                components={{
+                                    gradient: (
+                                        <span className="bg-gradient-to-r from-[#ff6b96] to-[#ff417d] text-transparent bg-clip-text" />
+                                    ),
+                                }}
+                            />
                         </div>
 
                         <div className="grid gap-[20px]">
@@ -722,12 +743,12 @@ export function SubscriptionStep() {
                                                 {step}
                                             </span>
 
-                                            <h4 className="text-white font-bold text-[18px] mb-2">
-                                                {title}
-                                            </h4>
+                                            <h4 className="text-white font-bold text-[18px] mb-2">{title}</h4>
 
                                             <p
-                                                className={`text-white/70 font-medium text-[14px] ${pClass || "mb-3"}`}
+                                                className={`text-white/70 font-medium text-[14px] ${
+                                                    pClass || "mb-3"
+                                                }`}
                                             >
                                                 {desc}
                                             </p>
@@ -740,11 +761,12 @@ export function SubscriptionStep() {
                             )}
                         </div>
                     </div>
+
                     <div className="relative top-[-50px]">
                         <div className="flex justify-center">
                             <img
                                 src="/images/3m-users.svg"
-                                alt="3m-users"
+                                alt={t("funnel.subscriptionStep.alt3mUsers")}
                                 width={400}
                                 height={400}
                                 className="block"
@@ -756,21 +778,11 @@ export function SubscriptionStep() {
                                 {stats.map(({ icon, value, label }, i) => (
                                     <div key={i} className="flex gap-3">
                                         <div className="flex justify-center">
-                                            <img
-                                                src={icon}
-                                                alt={label}
-                                                width={15}
-                                                height={15}
-                                                className="block"
-                                            />
+                                            <img src={icon} alt={label} width={15} height={15} className="block" />
                                         </div>
                                         <div className="flex flex-col gap-1">
-                                            <h5 className="text-white font-bold text-[14px]">
-                                                {value}
-                                            </h5>
-                                            <p className="text-white/50 font-medium text-[10px]">
-                                                {label}
-                                            </p>
+                                            <h5 className="text-white font-bold text-[14px]">{value}</h5>
+                                            <p className="text-white/50 font-medium text-[10px]">{label}</p>
                                         </div>
                                     </div>
                                 ))}
@@ -780,7 +792,7 @@ export function SubscriptionStep() {
 
                     <div className="w-full flex flex-col gap-[15px] mb-[35px]">
                         <div className="text-white text-[20px] font-bold text-center">
-                            Frequently Asked Questions
+                            {t("funnel.subscriptionStep.faq")}
                         </div>
                         <Accordion type="multiple" className="w-full" defaultValue={["item-1"]}>
                             {FAQS.map(({ value, question, answer }) => (

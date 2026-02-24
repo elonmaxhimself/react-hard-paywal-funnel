@@ -1,4 +1,5 @@
 import { clsx } from "clsx";
+import { useTranslation } from "react-i18next";
 
 import Stepper from "@/components/stepper";
 import StepWrapper from "@/components/StepWrapper";
@@ -8,6 +9,7 @@ import SpriteIcon from "@/components/SpriteIcon";
 import { AVATARS_HAPPY_USERS } from "@/constants/avatars-happy-users";
 
 export function HappyUsersStep() {
+    const { t } = useTranslation();
     const { nextStep } = useStepperContext();
 
     return (
@@ -19,18 +21,17 @@ export function HappyUsersStep() {
                     </div>
 
                     <h2 className="text-white text-[32px] font-bold mb-[10px] md:mb-[15px]">
-                        Great!
+                        {t('funnel.happyUsersStep.title')}
                     </h2>
 
                     <p className="text-white/70 text-sm font-medium text-center mb-[10px] md:mb-[15px]">
-                        That's how many happy users in your age use our platform to fulfill their
-                        desires
+                        {t('funnel.happyUsersStep.subtitle')}
                     </p>
 
                     <div className="w-full h-auto aspect-square flex flex-col items-center justify-end relative">
                         <img
                             src="/images/backgrounds/happy_users_bg.webp"
-                            alt="happy users"
+                            alt={t('funnel.happyUsersStep.altHappyUsers')}
                             width={400}
                             height={400}
                             className="absolute inset-0"
@@ -62,11 +63,11 @@ export function HappyUsersStep() {
                             </div>
                         ))}
 
-                        <p className="text-white text-[24px] uppercase font-bold relative mb-[10px] z-[2]">
+                        <p className="text-white text-[18px] md:text-[24px] uppercase font-bold relative mb-[10px] z-[2] whitespace-nowrap tracking-wide">
                             <span className="text-transparent bg-clip-text bg-primary-gradient">
                                 3M+
                             </span>{" "}
-                            happy users
+                            {t('funnel.happyUsersStep.happyUsers')}
                         </p>
 
                         <div
@@ -82,7 +83,7 @@ export function HappyUsersStep() {
                 <div className="w-full flex items-center justify-center px-[15px] sm:px-0 p-5 sm:static fixed bottom-0 left-0 z-100">
                     <div className="max-w-[450px] w-full">
                         <Button onClick={nextStep} className="w-full h-[45px] bg-primary-gradient">
-                            <span className="text-base font-bold">Continue</span>
+                            <span className="text-base font-bold">{t('funnel.happyUsersStep.continue')}</span>
                         </Button>
                     </div>
                 </div>

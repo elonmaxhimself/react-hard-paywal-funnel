@@ -102,6 +102,7 @@ export function useSignUpForm(posthog?: PostHog) {
             password: values.password,
             utmOnRegistration: utm,
             url: url,
+            referrer: document.referrer || undefined,
             createCharFunnelOptions: {
                 funnelOptions: funnelFormValues,
                 dtoAdultFannelV3: {

@@ -13,6 +13,7 @@ import LanguageSelector from "@/components/LanguageSelector";
 import { useAuthStore } from "@/store/states/auth";
 import { useFunnelStore } from "@/store/states/funnel";
 import { processOAuthCallback } from "@/hooks/auth/processOAuthCallback";
+import { useInitUtm } from "@/hooks/useUtm";
 
 type OAuthProviderType = "google" | "twitter" | "discord";
 const OAUTH_PROVIDERS: OAuthProviderType[] = ["google", "twitter", "discord"];
@@ -27,7 +28,7 @@ export default function FunnelView() {
     const setStep = useFunnelStore((state) => state.setStep);
     const setFormState = useFunnelStore((state) => state.setFormState);
     const hasProcessedOAuth = useRef(false);
-    
+    useInitUtm()
     const [isProcessingOAuth, setIsProcessingOAuth] = useState(() => {
         const params = new URLSearchParams(window.location.search);
         const code = params.get("code");

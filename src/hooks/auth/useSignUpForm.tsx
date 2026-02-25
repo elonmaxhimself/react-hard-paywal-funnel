@@ -94,7 +94,7 @@ export function useSignUpForm(posthog?: PostHog) {
 
         const url =
             import.meta.env.DEV
-                ? "https://funnel-adult-v3.fly.dev"
+                ? "https://mdc-react-funnel-v4-dev.pages.dev/"
                 : window.location.href;
 
         const payload: SignUpPayload = {

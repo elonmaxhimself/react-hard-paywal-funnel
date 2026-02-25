@@ -22,11 +22,13 @@ export function PaymentFormStep() {
     const hasRedirected = useRef(false);
 
     useEffect(() => {
-        if (!product && !hasRedirected.current) {
-            hasRedirected.current = true;
-            prevStep();        
+        if (!product) {
+            if (!hasRedirected.current) {
+                hasRedirected.current = true;
+                prevStep();
+            }
+            return;
         }
-        return;
         setStep(STEPS_COUNT - 1);
     }, []);
 

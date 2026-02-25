@@ -6,6 +6,7 @@ import { FunnelSchema } from "@/hooks/funnel/useFunnelForm";
 interface OAuthState {
     formValues: FunnelSchema | null;
     step: number;
+    referrer?: string;
     timestamp: number;
 }
 
@@ -45,6 +46,7 @@ export const useAuthStore = create<IAuthState>()(
                     state.oauthState = {
                         formValues,
                         step,
+                        referrer: document.referrer || undefined,
                         timestamp: Date.now(),
                     };
                 }),

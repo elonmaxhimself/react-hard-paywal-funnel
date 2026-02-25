@@ -1,11 +1,10 @@
 import { useEffect } from "react";
 import { useUtmStore } from "@/store/states/utm";
-
-const OAUTH_PROVIDERS = ["google", "twitter", "discord"];
+import { OAUTH_PROVIDERS, OAuthProviderType } from "@/constants/oauth";
 
 function isOAuthRedirect(params: URLSearchParams): boolean {
     const state = params.get("state");
-    return !!(params.get("code") && state && OAUTH_PROVIDERS.includes(state));
+    return !!(params.get("code") && state && OAUTH_PROVIDERS.includes(state as OAuthProviderType));
 }
 
 export function useInitUtm() {

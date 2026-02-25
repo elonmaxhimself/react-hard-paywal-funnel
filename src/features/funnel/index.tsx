@@ -14,9 +14,7 @@ import { useAuthStore } from "@/store/states/auth";
 import { useFunnelStore } from "@/store/states/funnel";
 import { processOAuthCallback } from "@/hooks/auth/processOAuthCallback";
 import { useInitUtm } from "@/hooks/useUtm";
-
-type OAuthProviderType = "google" | "twitter" | "discord";
-const OAUTH_PROVIDERS: OAuthProviderType[] = ["google", "twitter", "discord"];
+import { OAUTH_PROVIDERS, OAuthProviderType } from "@/constants/oauth";
 
 export default function FunnelView() {
     const { form, stepper, isReady } = useFunnelForm();

@@ -8,8 +8,7 @@ import { useStepperContext } from "../stepper/Stepper.context";
 
 import girlAvatar9Background from "@@/images/avatars/avatar_9.webp";
 import playButtonIcon from "@@/images/play-button.png";
-import { STEPS_COUNT } from "@/hooks/funnel/useFunnelForm";
-
+import { STEPS_COUNT } from "@/features/funnel/funnelSteps";
 
 export default function ShowVideoModal() {
     const { t } = useTranslation();

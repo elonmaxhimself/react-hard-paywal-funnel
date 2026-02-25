@@ -10,7 +10,7 @@ import { getFunnelStore } from "@/store/states/funnel";
 
 import { createFunnelSchema } from "@/features/funnel/validation";
 import { useSubscriptions } from "@/constants/subscriptions";
-import { funnelSteps } from "@/features/funnel/funnelSteps";
+import { funnelSteps, STEPS_COUNT } from "@/features/funnel/funnelSteps";
 
 export type FunnelSchema = z.infer<ReturnType<typeof createFunnelSchema>>;
 
@@ -69,7 +69,6 @@ export const defaultValues = {
     productId: undefined as number | undefined,
 };
 
-export const STEPS_COUNT = funnelSteps.length;
 const STEPS_INDICATOR_COUNT = 31;
 
 export function useFunnelForm() {

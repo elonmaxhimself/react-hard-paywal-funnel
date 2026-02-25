@@ -9,7 +9,7 @@ import { useFunnelStore } from "@/store/states/funnel";
 import { useEffect, useRef } from "react";
 import SpriteIcon from "@/components/SpriteIcon";
 import { usePostHog } from "posthog-js/react";
-import { STEPS_COUNT } from "@/hooks/funnel/useFunnelForm";
+import { STEPS_COUNT } from "@/features/funnel/funnelSteps";
 
 const s4InputContainerStyles = "h-[50px] bg-[#000]/30 rounded-[8px] border border-white/6 p-[12px]";
 

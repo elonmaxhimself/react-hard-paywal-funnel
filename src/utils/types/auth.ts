@@ -5,6 +5,7 @@ export interface SignUpPayload {
     password: string;
     utmOnRegistration: Record<string, string>;
     url: string;
+    referrer?: string;
     createCharFunnelOptions: {
         funnelOptions: Omit<FunnelSchema, "email" | "productId">;
         dtoAdultFannelV3: {

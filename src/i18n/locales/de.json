@@ -201,12 +201,14 @@
       "altCharacterPlaceholder": "Charakter-Platzhalter"
     },
     "authStep": {
-      "title": "Erreiche deine Ziele mit <br /><highlight>Dream Companion</highlight>",
+      "createFreeAccount": "Kostenloses Konto erstellen und mit deinem KI-Begleiter chatten",
+      "continueWithGoogle": "Mit Google fortfahren",
+      "joinFree": "Kostenlos beitreten",
+      "orContinueWithEmail": "oder mit E-Mail und Passwort fortfahren",
+      "title": "Beginne deine Geschichte mit <br/><highlight>Dream Companion</highlight>",
       "emailLabel": "Gib deine E-Mail-Adresse ein, um ein persönliches Konto zu erstellen",
       "emailPlaceholder": "E-Mail",
       "passwordPlaceholder": "Passwort",
-      "saveAndContinue": "Speichern und fortfahren",
-      "orContinueWith": "Oder fortfahren mit",
       "happyUsers": "3M+ zufriedene Nutzer",
       "altLogo": "My Dream Companion",
       "altMailIcon": "Mail-Symbol",

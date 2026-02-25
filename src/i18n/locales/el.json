@@ -201,12 +201,14 @@
       "altCharacterPlaceholder": "character-placeholder"
     },
     "authStep": {
-      "title": "Πέτυχε τους στόχους σου με το <br /><highlight>Dream Companion</highlight>",
+      "createFreeAccount": "Δημιουργήστε δωρεάν λογαριασμό για να συνομιλήσετε με τον AI σύντροφό σας",
+      "continueWithGoogle": "Συνέχεια με Google",
+      "joinFree": "Εγγραφή δωρεάν",
+      "orContinueWithEmail": "ή συνεχίστε με email και κωδικό",
+      "title": "Ξεκινήστε την ιστορία σας με <br/><highlight>Dream Companion</highlight>",
       "emailLabel": "Βάλε το email σου για να δημιουργήσεις προσωπικό λογαριασμό",
       "emailPlaceholder": "Email",
       "passwordPlaceholder": "Κωδικός",
-      "saveAndContinue": "Αποθήκευση και συνέχεια",
-      "orContinueWith": "Ή συνεχίστε με",
       "happyUsers": "3M+ ευχαριστημένοι χρήστες",
       "altLogo": "My Dream Companion",
       "altMailIcon": "Εικονίδιο mail",

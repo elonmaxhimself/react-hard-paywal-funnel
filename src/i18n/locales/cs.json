@@ -201,12 +201,14 @@
       "altCharacterPlaceholder": "zástupný-symbol-postavy"
     },
     "authStep": {
-      "title": "Dosáhněte svých cílů s <br /><highlight>Dream Companion</highlight>",
+      "createFreeAccount": "Vytvořte si bezplatný účet a chatujte se svým AI společníkem",
+      "continueWithGoogle": "Pokračovat s Googlem",
+      "joinFree": "Připojit se zdarma",
+      "orContinueWithEmail": "nebo pokračujte s e-mailem a heslem",
+      "title": "Začněte svůj příběh s <br/><highlight>Dream Companion</highlight>",
       "emailLabel": "Zadejte svůj email pro vytvoření osobního účtu",
       "emailPlaceholder": "Email",
       "passwordPlaceholder": "Heslo",
-      "saveAndContinue": "Uložit a pokračovat",
-      "orContinueWith": "Nebo pokračovat s",
       "happyUsers": "3M+ spokojených uživatelů",
       "altLogo": "My Dream Companion",
       "altMailIcon": "Ikona pošty",

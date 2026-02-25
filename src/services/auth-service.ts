@@ -2,8 +2,7 @@ import axios from "@/lib/axios";
 import { AuthResponse, SignUpPayload } from "@/utils/types/auth";
 import { getUtmStore } from "@/store/states/utm";
 import { getAuthStore } from "@/store/states/auth";
-
-type OAuthProvider = "google" | "discord" | "twitter";
+import { OAuthProviderType } from "@/constants/oauth";
 
 export const authService = {
     signUp: async (data: SignUpPayload): Promise<AuthResponse> => {
@@ -11,7 +10,7 @@ export const authService = {
         return response.data;
     },
 
-    signInWithOAuth: async (provider: OAuthProvider) => {
+    signInWithOAuth: async (provider: OAuthProviderType) => {
         const redirectUrl = window.location.origin + window.location.pathname;
         const response = await axios.get(`/auth/${provider}`, {
             params: { redirectUrl },
@@ -19,7 +18,7 @@ export const authService = {
         return response.data;
     },
 
-    verifyOAuthToken: async (provider: OAuthProvider, payload: { code: string; state?: string }) => {
+    verifyOAuthToken: async (provider: OAuthProviderType, payload: { code: string; state?: string }) => {
         const redirectUrl = window.location.origin + window.location.pathname;
         const { utm } = getUtmStore();
         const url = import.meta.env.DEV ? "https://mdc-react-funnel-v4-dev.pages.dev/" : window.location.href;

@@ -4,8 +4,8 @@ import { decodeJWT } from "@/utils/auth/jwtDecoder";
 import { toastType, triggerToast } from "@/components/AlertToast";
 import { FunnelSchema, useFunnelForm } from "@/hooks/funnel/useFunnelForm";
 import { UseFormReturn } from "react-hook-form";
+import { OAuthProviderType } from "@/constants/oauth";
 
-type OAuthProviderType = "google" | "twitter" | "discord";
 type FunnelStepper = ReturnType<typeof useFunnelForm>['stepper'];
 
 interface ProcessOAuthCallbackParams {

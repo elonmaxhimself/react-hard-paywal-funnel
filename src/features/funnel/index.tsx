@@ -13,9 +13,8 @@ import LanguageSelector from "@/components/LanguageSelector";
 import { useAuthStore } from "@/store/states/auth";
 import { useFunnelStore } from "@/store/states/funnel";
 import { processOAuthCallback } from "@/hooks/auth/processOAuthCallback";
-
-type OAuthProviderType = "google" | "twitter" | "discord";
-const OAUTH_PROVIDERS: OAuthProviderType[] = ["google", "twitter", "discord"];
+import { useInitUtm } from "@/hooks/useUtm";
+import { OAUTH_PROVIDERS, OAuthProviderType } from "@/constants/oauth";
 
 export default function FunnelView() {
     const { form, stepper, isReady } = useFunnelForm();
@@ -27,7 +26,7 @@ export default function FunnelView() {
     const setStep = useFunnelStore((state) => state.setStep);
     const setFormState = useFunnelStore((state) => state.setFormState);
     const hasProcessedOAuth = useRef(false);
-    
+useInitUtm()
     const [isProcessingOAuth, setIsProcessingOAuth] = useState(() => {
         const params = new URLSearchParams(window.location.search);
         const code = params.get("code");
@@ -37,16 +36,16 @@ export default function FunnelView() {
 
     useEffect(() => {
         if (!isReady) return;
-        
+
         const params = new URLSearchParams(window.location.search);
         const code = params.get("code");
         const state = params.get("state") as OAuthProviderType | null;
-        
+
         if (!code || !state || !OAUTH_PROVIDERS.includes(state)) {
             setIsProcessingOAuth(false);
             return;
         }
-        
+
         if (hasProcessedOAuth.current) return;
         hasProcessedOAuth.current = true;
 
@@ -67,7 +66,7 @@ export default function FunnelView() {
             setIsProcessingOAuth(false);
             window.history.replaceState({}, document.title, window.location.pathname);
         };
-        
+
         handleOAuth();
     }, [isReady, form, stepper, posthog, setUserId, setToken, setFormState, setStep, restoreOAuthState, clearOAuthState]);
 
@@ -84,9 +83,11 @@ export default function FunnelView() {
 
     return (
         <FormProvider {...form}>
-            <div className="w-full">
-                <div className="absolute top-4 right-4 z-50">
-                    <LanguageSelector />
+            <div className="w-full flex flex-col min-h-screen">
+                <div className="sticky top-0 z-50 flex justify-end px-4 py-3 pointer-events-none">
+                    <div className="pointer-events-auto">
+                        <LanguageSelector />
+                    </div>
                 </div>
 
                 <Stepper {...stepper}>

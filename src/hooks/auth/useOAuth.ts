@@ -6,14 +6,7 @@ import { toastType, triggerToast } from "@/components/AlertToast";
 import { useStepperContext } from "@/components/stepper/Stepper.context";
 import { useAuthStore } from "@/store/states/auth";
 import { FunnelSchema } from "@/hooks/funnel/useFunnelForm";
-
-type OAuthProviderType = "google" | "twitter" | "discord";
-
-const OAuthProviders = {
-    GOOGLE: "google" as const,
-    TWITTER: "twitter" as const,
-    DISCORD: "discord" as const,
-};
+import { OAUTH_PROVIDER, OAuthProviderType } from "@/constants/oauth";
 
 export function useOAuth(posthog?: any) {
     const [provider, setProvider] = useState<OAuthProviderType | null>(null);
@@ -44,8 +37,8 @@ export function useOAuth(posthog?: any) {
     return {
         signIn: oauthSignIn.mutate,
         isLoading: isOAuthLoading,
-        isGoogleLoading: isOAuthLoading && provider === OAuthProviders.GOOGLE,
-        isTwitterLoading: isOAuthLoading && provider === OAuthProviders.TWITTER,
-        isDiscordLoading: isOAuthLoading && provider === OAuthProviders.DISCORD,
+        isGoogleLoading: isOAuthLoading && provider === OAUTH_PROVIDER.GOOGLE,
+        isTwitterLoading: isOAuthLoading && provider === OAUTH_PROVIDER.TWITTER,
+        isDiscordLoading: isOAuthLoading && provider === OAUTH_PROVIDER.DISCORD,
     };
 }

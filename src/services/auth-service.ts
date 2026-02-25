@@ -1,6 +1,7 @@
 import axios from "@/lib/axios";
 import { AuthResponse, SignUpPayload } from "@/utils/types/auth";
 import { getUtmStore } from "@/store/states/utm";
+import { getAuthStore } from "@/store/states/auth";
 
 type OAuthProvider = "google" | "discord" | "twitter";
 
@@ -22,12 +23,13 @@ export const authService = {
         const redirectUrl = window.location.origin + window.location.pathname;
         const { utm } = getUtmStore();
         const url = import.meta.env.DEV ? "https://mdc-react-funnel-v4-dev.pages.dev/" : window.location.href;
+        const { oauthState } = getAuthStore();
         const response = await axios.post(
             `/auth/${provider}/token`,
             {
                 ...payload,
                 utmOnRegistration: utm,
-                referrer: document.referrer || undefined,
+                referrer: oauthState?.referrer,
                 url
             },
             {

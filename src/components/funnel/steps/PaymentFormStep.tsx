@@ -6,9 +6,10 @@ import { Button } from "@/components/ui/button";
 import { useStepperContext } from "@/components/stepper/Stepper.context";
 import { usePaymentForm } from "@/hooks/usePaymentForm";
 import { useFunnelStore } from "@/store/states/funnel";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import SpriteIcon from "@/components/SpriteIcon";
 import { usePostHog } from "posthog-js/react";
+import { STEPS_COUNT } from "@/hooks/funnel/useFunnelForm";
 
 const s4InputContainerStyles = "h-[50px] bg-[#000]/30 rounded-[8px] border border-white/6 p-[12px]";
 
@@ -18,10 +19,16 @@ export function PaymentFormStep() {
     const posthog = usePostHog();
     const { product, onSubmit, isPending } = usePaymentForm(posthog);
     const { prevStep } = useStepperContext();
+    const hasRedirected = useRef(false);
 
     useEffect(() => {
-        setStep(44);
-    }, [setStep]);
+        if (!product && !hasRedirected.current) {
+            hasRedirected.current = true;
+            prevStep();
+            return;
+        }
+        setStep(STEPS_COUNT - 1);
+    }, []);
 
     const onOpenSpecialOffer = () => {
         // COMMENTED OUT: Exit-intent offer logic - users can now leave paywall freely, special offer logic will be used in the future again
@@ -30,6 +37,7 @@ export function PaymentFormStep() {
         // else setOpen({ trigger: ModalTriggers.SPECIAL_OFFER_MODAL });
     };
 
+    if (!product) return null
     return (
         <div className="w-full flex flex-col min-h-screen px-[15px] pt-[25px] sm:px-10 sm:pt-[40px] pb-[70px] relative">
             <Button

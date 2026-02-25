@@ -21,7 +21,7 @@ export const authService = {
     verifyOAuthToken: async (provider: OAuthProviderType, payload: { code: string; state?: string }) => {
         const redirectUrl = window.location.origin + window.location.pathname;
         const { utm } = getUtmStore();
-        const url = import.meta.env.DEV ? "https://mdc-react-funnel-v4-dev.pages.dev/" : window.location.href;
+        const url = import.meta.env.DEV ? "https://mdc-react-funnel-v4-dev.pages.dev/" : redirectUrl;
         const { oauthState } = getAuthStore();
         const response = await axios.post(
             `/auth/${provider}/token`,

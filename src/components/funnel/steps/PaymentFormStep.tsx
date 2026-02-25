@@ -24,9 +24,9 @@ export function PaymentFormStep() {
     useEffect(() => {
         if (!product && !hasRedirected.current) {
             hasRedirected.current = true;
-            prevStep();
-            return;
+            prevStep();        
         }
+        return;
         setStep(STEPS_COUNT - 1);
     }, []);
 

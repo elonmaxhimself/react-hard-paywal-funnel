@@ -81,14 +81,6 @@ export function useFunnelForm() {
 
     const funnelSchema = useMemo(() => createFunnelSchema(t), [i18n.language]);
 
-    useEffect(() => {
-        const fields = Object.keys(form.formState.errors) as Array<keyof FunnelSchema>;
-        if (fields.length > 0) {
-            form.trigger(fields);
-        }
-    }, [i18n.language]);
-
-    // Дополняем defaultValues значением productId из локализованных subscriptions
     const formDefaultValues = useMemo(() => ({
         ...defaultValues,
         productId: subscriptions.find((subscription) => subscription.isBestChoice)?.productId,
@@ -98,6 +90,13 @@ export function useFunnelForm() {
         resolver: zodResolver(funnelSchema),
         defaultValues: formDefaultValues,
     });
+
+    useEffect(() => {
+        const fields = Object.keys(form.formState.errors) as Array<keyof FunnelSchema>;
+        if (fields.length > 0) {
+            form.trigger(fields);
+        }
+    }, [i18n.language]);
 
     useEffect(() => {
         const token = import.meta.env.VITE_PUBLIC_POSTHOG_TOKEN;

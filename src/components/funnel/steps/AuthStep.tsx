@@ -24,7 +24,9 @@ function useScaleToFit(contentWidth: number) {
         if (!el) return;
         const ro = new ResizeObserver(([entry]) => {
             const available = entry.contentRect.width;
-            setScale(Math.min(1, available / contentWidth));
+            if (available > 0) {
+                setScale(Math.min(1, available / contentWidth));
+            }
         });
         ro.observe(el);
         return () => ro.disconnect();
@@ -39,8 +41,8 @@ export function AuthStep() {
     const posthog = usePostHog();
     const { form, onSubmit, onValueReset, isPending, apiError } = useSignUpForm(posthog);
     const { containerRef, scale } = useScaleToFit(360);
-    
-    const { 
+
+    const {
         signIn: oauthSignIn,
         isLoading: isOAuthLoading,
         isGoogleLoading,
@@ -67,9 +69,9 @@ export function AuthStep() {
                     />
 
                     <div className="text-white text-2xl font-bold text-center mb-[30px]">
-                        <Trans 
+                        <Trans
                             i18nKey="funnel.authStep.title"
-                            components={{ 
+                            components={{
                                 br: <br />,
                                 highlight: <span className="text-transparent bg-clip-text bg-primary-gradient" />
                             }}
@@ -263,7 +265,7 @@ export function AuthStep() {
                                 style={{
                                     transform: `scale(${scale})`,
                                     transformOrigin: "left center",
-                                    width: `${100 / scale}%`,
+                                    width: scale > 0 ? `${100 / scale}%` : "100%",
                                 }}
                             >
                                 <div className="flex shrink-0 items-center relative">

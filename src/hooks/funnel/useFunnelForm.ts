@@ -10,6 +10,7 @@ import { getFunnelStore } from "@/store/states/funnel";
 
 import { createFunnelSchema } from "@/features/funnel/validation";
 import { useSubscriptions } from "@/constants/subscriptions";
+import { funnelSteps, STEPS_COUNT } from "@/features/funnel/funnelSteps";
 
 export type FunnelSchema = z.infer<ReturnType<typeof createFunnelSchema>>;
 
@@ -68,7 +69,6 @@ export const defaultValues = {
     productId: undefined as number | undefined,
 };
 
-const STEPS_COUNT = 43;
 const STEPS_INDICATOR_COUNT = 31;
 
 export function useFunnelForm() {
@@ -152,7 +152,7 @@ export function useFunnelForm() {
             
             if (savedData) form.reset(savedData);
             if (savedStep !== undefined && savedStep !== null) {
-                setActive(savedStep);
+                setActive(savedStep >= STEPS_COUNT ? 0 : savedStep);
             }
         } catch (error) {
             console.error('Form restoration error:', error);
@@ -169,12 +169,12 @@ export function useFunnelForm() {
             form.trigger(trigger).then((result) => {
                 if (result) {
                     form.clearErrors();
-                    setActive((current) => (current < STEPS_COUNT ? current + 1 : current));
+                    setActive((current) => (current < STEPS_COUNT - 1 ? current + 1 : current));
                 }
             });
         } else {
             form.clearErrors();
-            setActive((current) => (current < STEPS_COUNT ? current + 1 : current));
+            setActive((current) => (current < STEPS_COUNT - 1 ? current + 1 : current));
         }
     };
 

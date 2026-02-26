@@ -181,3 +181,5 @@ export const funnelSteps: ReactNode[] = [
     <PaymentFormStep />,
 ];
 
+
+export const STEPS_COUNT = funnelSteps.length;

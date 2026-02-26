@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { useEffect, useMemo } from "react";
 import { useForm, useFormContext } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -28,7 +28,7 @@ import { useUtmStore } from "@/store/states/utm";
 import { handleAuthSuccess } from "@/utils/auth/handleAuthSuccess";
 
 export function useSignUpForm(posthog?: PostHog) {
-    const { t } = useTranslation();
+    const { t, i18n } = useTranslation();
 
     const signUpSchema = useMemo(
         () =>
@@ -45,7 +45,7 @@ export function useSignUpForm(posthog?: PostHog) {
                     message: t("hooks.useSignUpForm.acceptedTermsRequired"),
                 }),
             }),
-        [t],
+        [i18n.language],
     );
 
     type SignUpFormValues = z.infer<typeof signUpSchema>;
@@ -72,6 +72,13 @@ export function useSignUpForm(posthog?: PostHog) {
             acceptedTerms: false,
         },
     });
+
+    useEffect(() => {
+        const fields = Object.keys(form.formState.errors) as any[];
+        if (fields.length > 0) {
+            form.trigger(fields);
+        }
+    }, [i18n.language]);
 
     const onValueReset = (field: "email" | "password") => {
         form.resetField(field);

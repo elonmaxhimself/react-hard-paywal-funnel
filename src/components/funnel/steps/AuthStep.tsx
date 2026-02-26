@@ -1,4 +1,5 @@
 import { Controller } from "react-hook-form";
+import { useRef, useState, useEffect } from "react";
 import { Loader2Icon } from "lucide-react";
 import { useTranslation, Trans } from "react-i18next";
 
@@ -14,13 +15,34 @@ import { usePostHog } from "posthog-js/react";
 
 import { useCheckboxes } from "@/constants/auth-checkboxes";
 
+function useScaleToFit(contentWidth: number) {
+    const containerRef = useRef<HTMLDivElement>(null);
+    const [scale, setScale] = useState(1);
+
+    useEffect(() => {
+        const el = containerRef.current;
+        if (!el) return;
+        const ro = new ResizeObserver(([entry]) => {
+            const available = entry.contentRect.width;
+            if (available > 0) {
+                setScale(Math.min(1, available / contentWidth));
+            }
+        });
+        ro.observe(el);
+        return () => ro.disconnect();
+    }, [contentWidth]);
+
+    return { containerRef, scale };
+}
+
 export function AuthStep() {
     const { t } = useTranslation();
     const CHECKBOXES = useCheckboxes();
     const posthog = usePostHog();
     const { form, onSubmit, onValueReset, isPending, apiError } = useSignUpForm(posthog);
-    
-    const { 
+    const { containerRef, scale } = useScaleToFit(360);
+
+    const {
         signIn: oauthSignIn,
         isLoading: isOAuthLoading,
         isGoogleLoading,
@@ -47,9 +69,9 @@ export function AuthStep() {
                     />
 
                     <div className="text-white text-2xl font-bold text-center mb-[30px]">
-                        <Trans 
+                        <Trans
                             i18nKey="funnel.authStep.title"
-                            components={{ 
+                            components={{
                                 br: <br />,
                                 highlight: <span className="text-transparent bg-clip-text bg-primary-gradient" />
                             }}
@@ -234,8 +256,18 @@ export function AuthStep() {
                             </span>
                         </Button>
 
-                        <div className="w-full p-2.5 bg-[#222327]/90 border border-white/6 rounded-[10px]">
-                            <div className="flex gap-2 items-center justify-between">
+                        <div
+                            ref={containerRef}
+                            className="w-full p-2.5 bg-[#222327]/90 border border-white/6 rounded-[10px] overflow-hidden"
+                        >
+                            <div
+                                className="flex gap-2 items-center justify-between"
+                                style={{
+                                    transform: `scale(${scale})`,
+                                    transformOrigin: "left center",
+                                    width: scale > 0 ? `${100 / scale}%` : "100%",
+                                }}
+                            >
                                 <div className="flex shrink-0 items-center relative">
                                     <SpriteIcon
                                         src={"/images/avatars/avatar_2.webp"}

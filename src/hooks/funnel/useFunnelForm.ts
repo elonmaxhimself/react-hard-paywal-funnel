@@ -72,14 +72,21 @@ const STEPS_COUNT = 43;
 const STEPS_INDICATOR_COUNT = 31;
 
 export function useFunnelForm() {
-    const { t } = useTranslation();
+    const { t, i18n } = useTranslation();
     const posthog = usePostHog();
     const subscriptions = useSubscriptions();
     const [active, setActive] = useState(0);
     const [isExperimentReady, setIsExperimentReady] = useState(false);
     const [isFormReady, setIsFormReady] = useState(false);
 
-    const funnelSchema = useMemo(() => createFunnelSchema(t), [t]);
+    const funnelSchema = useMemo(() => createFunnelSchema(t), [i18n.language]);
+
+    useEffect(() => {
+        const fields = Object.keys(form.formState.errors) as Array<keyof FunnelSchema>;
+        if (fields.length > 0) {
+            form.trigger(fields);
+        }
+    }, [i18n.language]);
 
     // Дополняем defaultValues значением productId из локализованных subscriptions
     const formDefaultValues = useMemo(() => ({

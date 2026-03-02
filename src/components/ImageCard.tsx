@@ -67,6 +67,7 @@ function ImageCardImage({ className }: { className?: string }) {
                 <SpriteIcon
                     src={image.src}
                     fallbackAlt={image.alt || "image-placeholder"}
+                    title={image.name}
                     targetW={w}
                     targetH={h}
                     fit="cover"

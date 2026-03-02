@@ -32,12 +32,12 @@ export function SelectVoiceStep() {
                     </div>
                     <h2
                         className={
-                            "text-white text-lg font-bold mb-5 md:mb-[30px] text-center capitalize"
+                            "text-white text-lg font-bold mb-5 md:mb-[30px] text-center capitalize text-pretty"
                         }
                     >
                         {t('funnel.selectVoiceStep.title')}
                     </h2>
-                    <h2 className={"text-white/70 text-base font-medium mb-[28px] text-center"}>
+                    <h2 className={"text-white/70 text-base font-medium mb-[28px] text-center text-pretty"}>
                         {t('funnel.selectVoiceStep.subtitle')}
                     </h2>
                     <div className={"w-full grid grid-cols-2 gap-[10px]"}>

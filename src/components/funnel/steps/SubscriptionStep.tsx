@@ -34,6 +34,7 @@ import { useSubscriptionTermsTexts } from "@/constants/subscriptionTermsTexts";
 
 import SpriteIcon from "@/components/SpriteIcon";
 import { EXPERIMENTS } from "@/configs/experiment.config";
+import { Loader2Icon } from "lucide-react";
 
 function useMeasure() {
     const ref = useRef<HTMLDivElement>(null);
@@ -112,6 +113,7 @@ export function SubscriptionStep() {
     const posthog = usePostHog();
 
     const [pricingVariant, setPricingVariant] = useState<string | null>(null);
+    const [pricingFallbackReady, setPricingFallbackReady] = useState(false);
     const lockedRef = useRef(false);
 
     useEffect(() => {
@@ -372,6 +374,18 @@ export function SubscriptionStep() {
         form.setValue("productId", defaultProduct);
     }, [isSpecialOfferOpened, defaultProduct, productIds, form, setIsSpecialOfferOpened]);
 
+    useEffect(() => {
+        if (pricingVariant !== null) return;
+
+        const id = window.setTimeout(() => {
+            setPricingFallbackReady(true);
+        }, 10000);
+
+        return () => window.clearTimeout(id);
+    }, [pricingVariant]);
+
+    const isPricingReady = pricingVariant !== null || pricingFallbackReady;
+    
     const renderTermsText = (text: string) => {
         const parts = text.split("|TERMS_LINK|");
         if (parts.length === 1) return text;
@@ -422,7 +436,8 @@ export function SubscriptionStep() {
                 </div>
 
                 <div className={"w-full px-[15px] sm:px-0"}>
-                    <div className={"w-full flex flex-col gap-[15px] mb-[30px]"}>
+                    {isPricingReady ? (
+                        <div className={"w-full flex flex-col gap-[15px] mb-[30px]"}>
                         {activeSubscriptions.map((subscription) => (
                             <Button
                                 key={subscription.id}
@@ -515,7 +530,11 @@ export function SubscriptionStep() {
                             ))}
                         </div>
                     </div>
-
+                    ) : (
+                    <div className="w-full h-[220px] bg-white/5 border border-white/6 rounded-[10px] flex items-center justify-center">
+                        <Loader2Icon className="animate-spin text-white/70" size={24} />
+                    </div>
+                    )}
                     <div className="w-full p-2.5 bg-[#222327]/90 border border-white/6 rounded-[10px] mb-[35px]">
                         <div className="flex gap-2 items-center justify-between">
                             <div className="flex-1 flex items-center relative">

@@ -291,12 +291,14 @@
     },
     "paymentFormStep": {
       "title": "Checkout",
+      "disclaimer": "Fornendo i dati della tua carta, autorizzi Miracle AI UG ad addebitare la tua carta per i pagamenti futuri in conformità con i loro termini.\n\nIl pagamento verrà mostrato come mydreamcompanion",
+      "perDays": "per {{count}} giorni",
       "todayTotal": "Totale di oggi: ${{amount}}",
       "creditCard": "Carta di credito",
       "cardNumber": "Numero della carta",
       "expirationDate": "Data di scadenza",
       "securityCode": "Codice di sicurezza",
-      "completePayment": "Completa il Pagamento",
+      "completePayment": "Iscriviti",
       "altLogo": "My Dream Companion",
       "altVisa": "Visa",
       "altMastercard": "Mastercard"
@@ -704,18 +706,12 @@
       "chairSex": "sesso su sedia"
     },
     "subscriptionTerms": {
-      "37": "Continuando, confermi di avere almeno 18 anni e accetti un pagamento introduttivo di $ 119,99 per un abbonamento annuale. Se non annulli almeno 24 ore prima della fine del periodo introduttivo, ti verrà automaticamente addebitato $ 119,99 per ogni periodo successivo fino all'annullamento. Cliccando su Continua, confermi anche di accettare i nostri |TERMS_LINK|\nIl pagamento verrà mostrato come mydreamcompanion",
-      "38": "Continuando, confermi di avere almeno 18 anni e accetti un pagamento introduttivo di $ 43,99 per un abbonamento trimestrale. Se non annulli almeno 24 ore prima della fine del periodo introduttivo, ti verrà automaticamente addebitato $ 43,99 per ogni periodo successivo fino all'annullamento. Cliccando su Continua, confermi anche di accettare i nostri |TERMS_LINK|\nIl pagamento verrà mostrato come mydreamcompanion",
-      "36": "Continuando, confermi di avere almeno 18 anni e accetti un pagamento introduttivo di $ 19,99 per un abbonamento mensile. Se non annulli almeno 24 ore prima della fine del periodo introduttivo, ti verrà automaticamente addebitato $ 19,99 per ogni periodo successivo fino all'annullamento. Cliccando su Continua, confermi anche di accettare i nostri |TERMS_LINK|\nIl pagamento verrà mostrato come mydreamcompanion",
-      "101": "Continuando, confermi di avere almeno 18 anni e accetti un pagamento introduttivo di $ 4,99 per un'offerta intro di 1 settimana. L'abbonamento verrà quindi rinnovato automaticamente mensilmente dopo l'offerta intro di 1 settimana al prezzo pieno di $ 39,99 al mese fino all'annullamento. Cliccando su Continua, confermi anche di accettare i nostri |TERMS_LINK|\nIl pagamento verrà mostrato come mydreamcompanion. Per ulteriori informazioni contatta support@mydreamcompanion.com",
-      "102": "Continuando, confermi di avere almeno 18 anni e accetti un pagamento introduttivo di $ 19,99 per un'offerta intro di 1 mese. L'abbonamento verrà quindi rinnovato automaticamente mensilmente dopo l'offerta intro di 1 mese al prezzo pieno di $ 39,99 al mese fino all'annullamento. Cliccando su Continua, confermi anche di accettare i nostri |TERMS_LINK|\nIl pagamento verrà mostrato come mydreamcompanion. Per ulteriori informazioni contatta support@mydreamcompanion.com",
-      "103": "Continuando, confermi di avere almeno 18 anni e accetti un pagamento introduttivo di $ 29,99 per un'offerta intro di 3 mesi. L'abbonamento verrà quindi rinnovato automaticamente mensilmente dopo l'offerta intro di 3 mesi al prezzo pieno di $ 59,99 ogni 3 mesi fino all'annullamento. Cliccando su Continua, confermi anche di accettare i nostri |TERMS_LINK|\nIl pagamento verrà mostrato come mydreamcompanion. Per ulteriori informazioni contatta support@mydreamcompanion.com",
-      "104": "Continuando, confermi di avere almeno 18 anni e accetti un pagamento introduttivo di $ 7,99 per un'offerta intro di 1 settimana. L'abbonamento verrà quindi rinnovato automaticamente mensilmente dopo l'offerta intro di 1 settimana al prezzo pieno di $ 19,99 al mese fino all'annullamento. Cliccando su Continua, confermi anche di accettare i nostri |TERMS_LINK|\nIl pagamento verrà mostrato come mydreamcompanion. Per ulteriori informazioni contatta support@mydreamcompanion.com",
-      "105": "Continuando, confermi di avere almeno 18 anni e accetti un pagamento introduttivo di $ 9,99 per un'offerta intro di 1 settimana. L'abbonamento verrà quindi rinnovato automaticamente mensilmente dopo l'offerta intro di 1 settimana al prezzo pieno di $ 19,99 al mese fino all'annullamento. Cliccando su Continua, confermi anche di accettare i nostri |TERMS_LINK|\nIl pagamento verrà mostrato come mydreamcompanion. Per ulteriori informazioni contatta support@mydreamcompanion.com",
-      "152": "Continuando, confermi di avere almeno 18 anni e accetti un pagamento di $ 19,99 per un abbonamento mensile. L'abbonamento verrà rinnovato automaticamente mensilmente a $ 19,99 al mese fino all'annullamento. Cliccando su Continua, confermi anche di accettare i nostri |TERMS_LINK|\nIl pagamento verrà mostrato come mydreamcompanion. Per ulteriori informazioni contatta support@mydreamcompanion.com",
-      "153": "Continuando, confermi di avere almeno 18 anni e accetti un pagamento di $ 29,99 per un abbonamento trimestrale. L'abbonamento verrà rinnovato automaticamente ogni 3 mesi a $ 29,99 fino all'annullamento. Cliccando su Continua, confermi anche di accettare i nostri |TERMS_LINK|\nIl pagamento verrà mostrato come mydreamcompanion. Per ulteriori informazioni contatta support@mydreamcompanion.com",
-      "154": "Continuando, confermi di avere almeno 18 anni e accetti un pagamento di $ 69,99 per un abbonamento annuale. L'abbonamento verrà rinnovato automaticamente annualmente a $ 69,99 all'anno fino all'annullamento. Cliccando su Continua, confermi anche di accettare i nostri |TERMS_LINK|\nIl pagamento verrà mostrato come mydreamcompanion. Per ulteriori informazioni contatta support@mydreamcompanion.com"
-    }
+      "105": "Continuando, confermi di avere almeno 18 anni e accetti il pagamento introduttivo di $9.99 per un'offerta introduttiva di 7 giorni. L'abbonamento si rinnoverà automaticamente ogni mese al prezzo intero di $19.99 al mese fino alla cancellazione. Cliccando su Continua confermi anche di accettare i nostri |TERMS_LINK|\nIl pagamento apparirà come mydreamcompanion. Per ulteriori informazioni contatta support@mydreamcompanion.com",
+      "36": "Continuando, confermi di avere almeno 18 anni e accetti il pagamento di $19.99 per un abbonamento mensile. L'abbonamento si rinnoverà automaticamente ogni mese per $19.99 fino alla cancellazione. Cliccando su Continua confermi anche di accettare i nostri |TERMS_LINK|\nIl pagamento apparirà come mydreamcompanion. Per ulteriori informazioni contatta support@mydreamcompanion.com",
+      "2": "Continuando, confermi di avere almeno 18 anni e accetti il pagamento di $69.99 per un abbonamento annuale. L'abbonamento si rinnoverà automaticamente ogni anno per $69.99 fino alla cancellazione. Cliccando su Continua confermi anche di accettare i nostri |TERMS_LINK|\nIl pagamento apparirà come mydreamcompanion. Per ulteriori informazioni contatta support@mydreamcompanion.com",
+      "155": "Continuando, confermi di avere almeno 18 anni e accetti il pagamento di $39.99 per un abbonamento trimestrale. L'abbonamento si rinnoverà automaticamente ogni 3 mesi per $39.99 fino alla cancellazione. Cliccando su Continua confermi anche di accettare i nostri |TERMS_LINK|\nIl pagamento apparirà come mydreamcompanion. Per ulteriori informazioni contatta support@mydreamcompanion.com",
+      "156": "Continuando, confermi di avere almeno 18 anni e accetti il pagamento di $49.99 per un abbonamento trimestrale. L'abbonamento si rinnoverà automaticamente ogni 3 mesi per $49.99 fino alla cancellazione. Cliccando su Continua confermi anche di accettare i nostri |TERMS_LINK|\nIl pagamento apparirà come mydreamcompanion. Per ulteriori informazioni contatta support@mydreamcompanion.com"
+      }
   },
   "hooks": {
     "useSignUpForm": {

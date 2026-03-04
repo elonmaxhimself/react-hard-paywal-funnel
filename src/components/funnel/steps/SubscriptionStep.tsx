@@ -111,9 +111,39 @@ export function SubscriptionStep() {
     const isSpecialOfferOpened = useStore((state) => state.offer.isSpecialOfferOpened);
     const posthog = usePostHog();
 
-    const pricingVariant = String(
-        posthog?.getFeatureFlag(EXPERIMENTS.PRICING.flagKey) || "control",
-    );
+    const [pricingVariant, setPricingVariant] = useState<string | null>(null);
+    const lockedRef = useRef(false);
+
+    useEffect(() => {
+    if (!posthog) return;
+
+    const flagKey = EXPERIMENTS.PRICING.flagKey;
+    const targetDistinctId = posthog.get_distinct_id();
+    const cached = posthog.getFeatureFlag(flagKey);
+    if (cached !== undefined) {
+        lockedRef.current = true;
+        setPricingVariant(String(cached));
+        return;
+    }
+
+    const unsubscribe = posthog.onFeatureFlags((_, variants, ctx) => {
+        if (ctx?.errorsLoading) return;
+        if (lockedRef.current) return;
+
+        if (posthog.get_distinct_id() !== targetDistinctId) return;
+
+        const v = variants?.[flagKey] ?? posthog.getFeatureFlag(flagKey);
+        if (v === undefined) return;
+
+        lockedRef.current = true;
+        setPricingVariant(String(v));
+    });
+
+    return () => {
+        try { unsubscribe?.(); } catch {}
+    };
+    }, [posthog]);
+
     const productIds: readonly number[] =
         EXPERIMENTS.PRICING.variants[
             pricingVariant as keyof typeof EXPERIMENTS.PRICING.variants
@@ -339,6 +369,7 @@ export function SubscriptionStep() {
         if (currentProductId && productIds.includes(currentProductId)) {
             return;
         }
+        console.log('RESETTING productId to', defaultProduct, 'current was', currentProductId, 'productIds:', productIds);
         form.setValue("productId", defaultProduct);
     }, [isSpecialOfferOpened, defaultProduct, productIds, form, setIsSpecialOfferOpened]);
 
@@ -548,7 +579,6 @@ export function SubscriptionStep() {
 
                     {/* ====== PREMIUM BENEFITS ====== */}
                     <div className="relative w-full bg-transparent py-[15px] mb-[35px]">
-
                         <div className="flex items-center justify-center gap-2 text-[20px] font-bold text-white mb-5">
                             <Trans
                                 i18nKey="funnel.subscriptionStep.premiumBenefits"
@@ -562,7 +592,6 @@ export function SubscriptionStep() {
                         </div>
 
                         <div className="relative grid grid-cols-[1fr_60px] gap-x-3">
-
                             {/* PRO badge */}
                             <div className="absolute right-0 top-[-52px] w-[60px] bg-gray-2 rounded-t-[10px] px-[9px] pt-[8px] pb-[6px] flex items-center justify-center">
                                 <p className="bg-gradient-primary font-bold text-[12px] p-[3px] text-center rounded-[4px] w-full">

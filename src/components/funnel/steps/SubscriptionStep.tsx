@@ -369,7 +369,6 @@ export function SubscriptionStep() {
         if (currentProductId && productIds.includes(currentProductId)) {
             return;
         }
-        console.log('RESETTING productId to', defaultProduct, 'current was', currentProductId, 'productIds:', productIds);
         form.setValue("productId", defaultProduct);
     }, [isSpecialOfferOpened, defaultProduct, productIds, form, setIsSpecialOfferOpened]);
 

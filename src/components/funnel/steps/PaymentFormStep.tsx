@@ -15,6 +15,9 @@ const s4InputContainerStyles = "h-[50px] bg-[#000]/30 rounded-[8px] border borde
 
 const getPeriodDays = (durationMonths: number): number => {
     if (durationMonths === 0) return 7;
+    if (durationMonths === 1) return 30;
+    if (durationMonths === 3) return 90;
+    if (durationMonths === 12) return 365;
     return durationMonths * 30;
 };
 

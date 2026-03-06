@@ -41,12 +41,24 @@ const initPaymentChannel = () => {
     return null;
 };
 
+const PAYMENT_IN_PROGRESS_KEY = 'shift4_payment_in_progress';
+const PAYMENT_STALENESS_TTL_MS = 5 * 60 * 1000; // 5 minutes
+
 export function usePaymentForm(posthog?: any) {
     const { t } = useTranslation();
     const [shift4Instance, setShift4Instance] = useState<any>(null);
     const [componentsGroup, setComponentsGroup] = useState<any>(null);
     const [isPolling, setIsPolling] = useState(false);
-    const [isSubmitting, setIsSubmitting] = useState(false);
+    const [isSubmitting, setIsSubmitting] = useState(() => {
+        try {
+            const stored = localStorage.getItem(PAYMENT_IN_PROGRESS_KEY);
+            if (!stored) return false;
+            const { timestamp } = JSON.parse(stored);
+            return Date.now() - timestamp <= PAYMENT_STALENESS_TTL_MS;
+        } catch {
+            return false;
+        }
+    });
     const [paymentCompleted, setPaymentCompleted] = useState(false);
     const s4ComponentsRef = useRef<any>(null);
     const tabId = useRef(`tab_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`);
@@ -132,24 +144,81 @@ export function usePaymentForm(posthog?: any) {
         };
     }, []);
 
+    // Resume polling if payment was in progress (e.g. after page refresh)
+    useEffect(() => {
+        let cancelPolling: (() => void) | undefined;
+
+        try {
+            const stored = localStorage.getItem(PAYMENT_IN_PROGRESS_KEY);
+            if (!stored) {
+                setIsSubmitting(false);
+                return;
+            }
+
+            const { subscriptionId, timestamp } = JSON.parse(stored);
+            if (Date.now() - timestamp > PAYMENT_STALENESS_TTL_MS) {
+                localStorage.removeItem(PAYMENT_IN_PROGRESS_KEY);
+                setIsSubmitting(false);
+                return;
+            }
+
+            setIsSubmitting(true);
+            cancelPolling = pollPaymentStatus(
+                subscriptionId,
+                { distinct_id: String(userId ?? ''), product_name: '', value: 0, currency: 'USD', product_id: '' },
+                () => {
+                    localStorage.removeItem(PAYMENT_IN_PROGRESS_KEY);
+                    const channel = initPaymentChannel();
+                    if (channel) {
+                        channel.postMessage({ type: 'PAYMENT_SUCCESS', senderId: tabId.current, subscriptionId, timestamp: Date.now() });
+                    }
+                    setTimeout(() => {
+                        const redirectUrl = import.meta.env.VITE_PUBLIC_SHIFT4_PAYMENT_REDIRECT || '/';
+                        authReset();
+                        funnelReset();
+                        window.location.href = redirectUrl + '?authToken=' + authToken;
+                    }, 300);
+                },
+                (errorMessage) => {
+                    localStorage.removeItem(PAYMENT_IN_PROGRESS_KEY);
+                    setIsSubmitting(false);
+                    triggerToast({ title: errorMessage, type: toastType.error });
+                },
+            );
+        } catch {
+            localStorage.removeItem(PAYMENT_IN_PROGRESS_KEY);
+            setIsSubmitting(false);
+        }
+
+        return () => {
+            cancelPolling?.();
+        };
+    }, []);
+
     // Polling function for payment status
-    const pollPaymentStatus = async (
+    // Returns a cancel function to stop the polling chain
+    const pollPaymentStatus = (
         subscriptionId: string,
         mpPayload: any,
         onSuccess: () => void,
         onError: (errorMessage: string) => void,
-    ) => {
+    ): (() => void) => {
         const pollInterval = 5000;
         const maxAttempts = 48;
         let attempts = 0;
+        let cancelled = false;
 
         setIsPolling(true);
 
         const poll = async () => {
+            if (cancelled) return;
+
             try {
                 attempts++;
-                
+
                 const statusResponse = await shift4Service.getPaymentStatus(subscriptionId);
+
+                if (cancelled) return;
 
                 if (statusResponse.paid_status === "paid") {
                     setIsPolling(false);
@@ -172,6 +241,8 @@ export function usePaymentForm(posthog?: any) {
                     }
                 }
             } catch (error: any) {
+                if (cancelled) return;
+
                 console.error("Error polling payment status:", error);
 
                 if (error.response?.status === 404) {
@@ -189,6 +260,8 @@ export function usePaymentForm(posthog?: any) {
         };
 
         poll();
+
+        return () => { cancelled = true; };
     };
 
     useEffect(() => {
@@ -361,10 +434,15 @@ export function usePaymentForm(posthog?: any) {
                 {
                     onSuccess: (response) => {
                         if (response.status === Shift4Statuses.SUBSCRIPTION_INITIATED) {
+                            localStorage.setItem(PAYMENT_IN_PROGRESS_KEY, JSON.stringify({
+                                subscriptionId: response.subscriptionId,
+                                timestamp: Date.now(),
+                            }));
                             pollPaymentStatus(
                                 response.subscriptionId,
                                 mpPayload,
                                 () => {
+                                    localStorage.removeItem(PAYMENT_IN_PROGRESS_KEY);
                                     // FACEBOOK PIXEL TRACKING — Purchase
                                     const fbq = (window as any).fbq;
                                     fbq?.("track", "Purchase", {
@@ -428,6 +506,7 @@ export function usePaymentForm(posthog?: any) {
                                     }, 300);
                                 },
                                 (errorMessage: string) => {
+                                    localStorage.removeItem(PAYMENT_IN_PROGRESS_KEY);
                                     setIsSubmitting(false);
                                     
                                     if (channel) {
@@ -471,7 +550,8 @@ export function usePaymentForm(posthog?: any) {
                     },
                     onError: (error) => {
                         console.error("Payment processing error:", error);
-                        
+
+                        localStorage.removeItem(PAYMENT_IN_PROGRESS_KEY);
                         setIsPolling(false);
                         setIsSubmitting(false);
 
@@ -497,7 +577,8 @@ export function usePaymentForm(posthog?: any) {
             );
         } catch (error: any) {
             console.error("Payment processing error:", error);
-            
+
+            localStorage.removeItem(PAYMENT_IN_PROGRESS_KEY);
             setIsPolling(false);
             setIsSubmitting(false);
 
@@ -529,6 +610,7 @@ export function usePaymentForm(posthog?: any) {
         product: product!,
         onSubmit,
         isPending: isPending || isPolling || isSubmitting || paymentCompleted || !componentsGroup || !isShift4Ready,
+        isPaymentInProgress: isPending || isPolling || isSubmitting || paymentCompleted,
         isShift4Ready,
         shift4Error,
     };

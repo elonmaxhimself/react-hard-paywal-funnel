@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { useTranslation } from "react-i18next";
+import { usePostHog } from "posthog-js/react";
 
 import { getFunnelStore } from "@/store/states/funnel";
 
@@ -72,6 +73,7 @@ const STEPS_INDICATOR_COUNT = 31;
 export function useFunnelForm() {
     const { t, i18n } = useTranslation();
     const subscriptions = useSubscriptions();
+    const posthog = usePostHog();
     const [active, setActive] = useState(0);
     const [isFormReady, setIsFormReady] = useState(false);
 
@@ -111,6 +113,11 @@ export function useFunnelForm() {
             setIsFormReady(true);
         }
     }, []);
+
+    useEffect(() => {
+        if (!posthog || !isFormReady) return;
+        posthog.capture('funnel_started');
+    }, [posthog, isFormReady]);
 
     const nextStep = () => {
         const trigger = triggers[active as keyof typeof triggers];

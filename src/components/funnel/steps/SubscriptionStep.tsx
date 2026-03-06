@@ -117,33 +117,33 @@ export function SubscriptionStep() {
     const lockedRef = useRef(false);
 
     useEffect(() => {
-    if (!posthog) return;
+        if (!posthog) return;
 
-    const flagKey = EXPERIMENTS.PRICING.flagKey;
-    const targetDistinctId = posthog.get_distinct_id();
-    const cached = posthog.getFeatureFlag(flagKey);
-    if (cached !== undefined) {
-        lockedRef.current = true;
-        setPricingVariant(String(cached));
-        return;
-    }
+        const flagKey = EXPERIMENTS.PRICING.flagKey;
+        const targetDistinctId = posthog.get_distinct_id();
+        const cached = posthog.getFeatureFlag(flagKey);
+        if (cached !== undefined) {
+            lockedRef.current = true;
+            setPricingVariant(String(cached));
+            return;
+        }
 
-    const unsubscribe = posthog.onFeatureFlags((_, variants, ctx) => {
-        if (ctx?.errorsLoading) return;
-        if (lockedRef.current) return;
+        const unsubscribe = posthog.onFeatureFlags((_, variants, ctx) => {
+            if (ctx?.errorsLoading) return;
+            if (lockedRef.current) return;
 
-        if (posthog.get_distinct_id() !== targetDistinctId) return;
+            if (posthog.get_distinct_id() !== targetDistinctId) return;
 
-        const v = variants?.[flagKey] ?? posthog.getFeatureFlag(flagKey);
-        if (v === undefined) return;
+            const v = variants?.[flagKey] ?? posthog.getFeatureFlag(flagKey);
+            if (v === undefined) return;
 
-        lockedRef.current = true;
-        setPricingVariant(String(v));
-    });
+            lockedRef.current = true;
+            setPricingVariant(String(v));
+        });
 
-    return () => {
-        try { unsubscribe?.(); } catch {}
-    };
+        return () => {
+            try { unsubscribe?.(); } catch {}
+        };
     }, [posthog]);
 
     const productIds: readonly number[] =

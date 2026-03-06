@@ -42,6 +42,7 @@ const initPaymentChannel = () => {
 };
 
 const PAYMENT_IN_PROGRESS_KEY = 'shift4_payment_in_progress';
+const PAYMENT_STALENESS_TTL_MS = 5 * 60 * 1000; // 5 minutes
 
 export function usePaymentForm(posthog?: any) {
     const { t } = useTranslation();
@@ -53,7 +54,7 @@ export function usePaymentForm(posthog?: any) {
             const stored = localStorage.getItem(PAYMENT_IN_PROGRESS_KEY);
             if (!stored) return false;
             const { timestamp } = JSON.parse(stored);
-            return Date.now() - timestamp <= 5 * 60 * 1000;
+            return Date.now() - timestamp <= PAYMENT_STALENESS_TTL_MS;
         } catch {
             return false;
         }
@@ -155,7 +156,7 @@ export function usePaymentForm(posthog?: any) {
             }
 
             const { subscriptionId, timestamp } = JSON.parse(stored);
-            if (Date.now() - timestamp > 5 * 60 * 1000) {
+            if (Date.now() - timestamp > PAYMENT_STALENESS_TTL_MS) {
                 localStorage.removeItem(PAYMENT_IN_PROGRESS_KEY);
                 setIsSubmitting(false);
                 return;

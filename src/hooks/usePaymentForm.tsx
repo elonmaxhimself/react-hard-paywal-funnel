@@ -184,6 +184,7 @@ export function usePaymentForm(posthog?: any) {
             );
         } catch {
             localStorage.removeItem(PAYMENT_IN_PROGRESS_KEY);
+            setIsSubmitting(false);
         }
     }, []);
 

@@ -33,10 +33,8 @@ export function PaymentFormStep() {
     }, []);
 
     const onOpenSpecialOffer = () => {
-        // COMMENTED OUT: Exit-intent offer logic - users can now leave paywall freely, special offer logic will be used in the future again
+        if (isPending) return;
         prevStep();
-        // if (isSpecialOfferOpened) prevStep();
-        // else setOpen({ trigger: ModalTriggers.SPECIAL_OFFER_MODAL });
     };
 
     if (!product) return null
@@ -45,7 +43,8 @@ export function PaymentFormStep() {
             <Button
                 onClick={onOpenSpecialOffer}
                 variant={"unstyled"}
-                className={"absolute top-5 right-5 p-0 w-auto h-auto"}
+                disabled={isPending}
+                className={`absolute top-5 right-5 p-0 w-auto h-auto ${isPending ? 'opacity-30 cursor-not-allowed' : ''}`}
             >
                 <X className={"text-white"} size={24} strokeWidth={3} />
             </Button>

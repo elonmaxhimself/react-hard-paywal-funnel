@@ -378,8 +378,9 @@ export function SubscriptionStep() {
         if (pricingVariant !== null) return;
 
         const id = window.setTimeout(() => {
+            lockedRef.current = true
             setPricingFallbackReady(true);
-        }, 10000);
+        }, 3000);
 
         return () => window.clearTimeout(id);
     }, [pricingVariant]);

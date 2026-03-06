@@ -44,7 +44,7 @@ export function PaymentFormStep() {
                 onClick={onOpenSpecialOffer}
                 variant={"unstyled"}
                 disabled={isPaymentInProgress}
-                className={`absolute top-5 right-5 p-0 w-auto h-auto ${isPaymentInProgress ? 'opacity-30 cursor-not-allowed' : ''}`}
+                className="absolute top-5 right-5 p-0 w-auto h-auto"
             >
                 <X className={"text-white"} size={24} strokeWidth={3} />
             </Button>

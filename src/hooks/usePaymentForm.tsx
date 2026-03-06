@@ -48,7 +48,16 @@ export function usePaymentForm(posthog?: any) {
     const [shift4Instance, setShift4Instance] = useState<any>(null);
     const [componentsGroup, setComponentsGroup] = useState<any>(null);
     const [isPolling, setIsPolling] = useState(false);
-    const [isSubmitting, setIsSubmitting] = useState(false);
+    const [isSubmitting, setIsSubmitting] = useState(() => {
+        try {
+            const stored = localStorage.getItem(PAYMENT_IN_PROGRESS_KEY);
+            if (!stored) return false;
+            const { timestamp } = JSON.parse(stored);
+            return Date.now() - timestamp <= 5 * 60 * 1000;
+        } catch {
+            return false;
+        }
+    });
     const [paymentCompleted, setPaymentCompleted] = useState(false);
     const s4ComponentsRef = useRef<any>(null);
     const tabId = useRef(`tab_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`);

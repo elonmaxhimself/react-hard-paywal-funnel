@@ -17,7 +17,7 @@ export function PaymentFormStep() {
     const { t } = useTranslation();
     const setStep = useFunnelStore((s) => s.setStep);
     const posthog = usePostHog();
-    const { product, onSubmit, isPending } = usePaymentForm(posthog);
+    const { product, onSubmit, isPending, isPaymentInProgress } = usePaymentForm(posthog);
     const { prevStep } = useStepperContext();
     const hasRedirected = useRef(false);
 
@@ -33,7 +33,7 @@ export function PaymentFormStep() {
     }, []);
 
     const onOpenSpecialOffer = () => {
-        if (isPending) return;
+        if (isPaymentInProgress) return;
         prevStep();
     };
 
@@ -43,8 +43,8 @@ export function PaymentFormStep() {
             <Button
                 onClick={onOpenSpecialOffer}
                 variant={"unstyled"}
-                disabled={isPending}
-                className={`absolute top-5 right-5 p-0 w-auto h-auto ${isPending ? 'opacity-30 cursor-not-allowed' : ''}`}
+                disabled={isPaymentInProgress}
+                className={`absolute top-5 right-5 p-0 w-auto h-auto ${isPaymentInProgress ? 'opacity-30 cursor-not-allowed' : ''}`}
             >
                 <X className={"text-white"} size={24} strokeWidth={3} />
             </Button>

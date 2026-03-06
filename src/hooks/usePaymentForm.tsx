@@ -579,6 +579,7 @@ export function usePaymentForm(posthog?: any) {
         product: product!,
         onSubmit,
         isPending: isPending || isPolling || isSubmitting || paymentCompleted || !componentsGroup || !isShift4Ready,
+        isPaymentInProgress: isPending || isPolling || isSubmitting || paymentCompleted,
         isShift4Ready,
         shift4Error,
     };

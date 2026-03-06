@@ -145,6 +145,8 @@ export function usePaymentForm(posthog?: any) {
 
     // Resume polling if payment was in progress (e.g. after page refresh)
     useEffect(() => {
+        let cancelPolling: (() => void) | undefined;
+
         try {
             const stored = localStorage.getItem(PAYMENT_IN_PROGRESS_KEY);
             if (!stored) {
@@ -160,7 +162,7 @@ export function usePaymentForm(posthog?: any) {
             }
 
             setIsSubmitting(true);
-            pollPaymentStatus(
+            cancelPolling = pollPaymentStatus(
                 subscriptionId,
                 { distinct_id: String(userId ?? ''), product_name: '', value: 0, currency: 'USD', product_id: '' },
                 () => {
@@ -186,26 +188,36 @@ export function usePaymentForm(posthog?: any) {
             localStorage.removeItem(PAYMENT_IN_PROGRESS_KEY);
             setIsSubmitting(false);
         }
+
+        return () => {
+            cancelPolling?.();
+        };
     }, []);
 
     // Polling function for payment status
-    const pollPaymentStatus = async (
+    // Returns a cancel function to stop the polling chain
+    const pollPaymentStatus = (
         subscriptionId: string,
         mpPayload: any,
         onSuccess: () => void,
         onError: (errorMessage: string) => void,
-    ) => {
+    ): (() => void) => {
         const pollInterval = 5000;
         const maxAttempts = 48;
         let attempts = 0;
+        let cancelled = false;
 
         setIsPolling(true);
 
         const poll = async () => {
+            if (cancelled) return;
+
             try {
                 attempts++;
-                
+
                 const statusResponse = await shift4Service.getPaymentStatus(subscriptionId);
+
+                if (cancelled) return;
 
                 if (statusResponse.paid_status === "paid") {
                     setIsPolling(false);
@@ -228,6 +240,8 @@ export function usePaymentForm(posthog?: any) {
                     }
                 }
             } catch (error: any) {
+                if (cancelled) return;
+
                 console.error("Error polling payment status:", error);
 
                 if (error.response?.status === 404) {
@@ -245,6 +259,8 @@ export function usePaymentForm(posthog?: any) {
         };
 
         poll();
+
+        return () => { cancelled = true; };
     };
 
     useEffect(() => {

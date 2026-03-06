@@ -147,11 +147,15 @@ export function usePaymentForm(posthog?: any) {
     useEffect(() => {
         try {
             const stored = localStorage.getItem(PAYMENT_IN_PROGRESS_KEY);
-            if (!stored) return;
+            if (!stored) {
+                setIsSubmitting(false);
+                return;
+            }
 
             const { subscriptionId, timestamp } = JSON.parse(stored);
             if (Date.now() - timestamp > 5 * 60 * 1000) {
                 localStorage.removeItem(PAYMENT_IN_PROGRESS_KEY);
+                setIsSubmitting(false);
                 return;
             }
 

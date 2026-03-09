@@ -34,6 +34,7 @@ import { useSubscriptionTermsTexts } from "@/constants/subscriptionTermsTexts";
 
 import SpriteIcon from "@/components/SpriteIcon";
 import { EXPERIMENTS } from "@/configs/experiment.config";
+import { Loader2Icon } from "lucide-react";
 
 function useMeasure() {
     const ref = useRef<HTMLDivElement>(null);
@@ -111,9 +112,40 @@ export function SubscriptionStep() {
     const isSpecialOfferOpened = useStore((state) => state.offer.isSpecialOfferOpened);
     const posthog = usePostHog();
 
-    const pricingVariant = String(
-        posthog?.getFeatureFlag(EXPERIMENTS.PRICING.flagKey) || "control",
-    );
+    const [pricingVariant, setPricingVariant] = useState<string | null>(null);
+    const [pricingFallbackReady, setPricingFallbackReady] = useState(false);
+    const lockedRef = useRef(false);
+
+    useEffect(() => {
+        if (!posthog) return;
+
+        const flagKey = EXPERIMENTS.PRICING.flagKey;
+        const targetDistinctId = posthog.get_distinct_id();
+        const cached = posthog.getFeatureFlag(flagKey);
+        if (cached !== undefined) {
+            lockedRef.current = true;
+            setPricingVariant(String(cached));
+            return;
+        }
+
+        const unsubscribe = posthog.onFeatureFlags((_, variants, ctx) => {
+            if (ctx?.errorsLoading) return;
+            if (lockedRef.current) return;
+
+            if (posthog.get_distinct_id() !== targetDistinctId) return;
+
+            const v = variants?.[flagKey] ?? posthog.getFeatureFlag(flagKey);
+            if (v === undefined) return;
+
+            lockedRef.current = true;
+            setPricingVariant(String(v));
+        });
+
+        return () => {
+            try { unsubscribe?.(); } catch {}
+        };
+    }, [posthog]);
+
     const productIds: readonly number[] =
         EXPERIMENTS.PRICING.variants[
             pricingVariant as keyof typeof EXPERIMENTS.PRICING.variants
@@ -342,6 +374,19 @@ export function SubscriptionStep() {
         form.setValue("productId", defaultProduct);
     }, [isSpecialOfferOpened, defaultProduct, productIds, form, setIsSpecialOfferOpened]);
 
+    useEffect(() => {
+        if (pricingVariant !== null) return;
+
+        const id = window.setTimeout(() => {
+            lockedRef.current = true;
+            setPricingFallbackReady(true);
+        }, 3000);
+
+        return () => window.clearTimeout(id);
+    }, [pricingVariant]);
+
+    const isPricingReady = pricingVariant !== null || pricingFallbackReady;
+
     const renderTermsText = (text: string) => {
         const parts = text.split("|TERMS_LINK|");
         if (parts.length === 1) return text;
@@ -392,99 +437,105 @@ export function SubscriptionStep() {
                 </div>
 
                 <div className={"w-full px-[15px] sm:px-0"}>
-                    <div className={"w-full flex flex-col gap-[15px] mb-[30px]"}>
-                        {activeSubscriptions.map((subscription) => (
-                            <Button
-                                key={subscription.id}
-                                variant={"unstyled"}
-                                onClick={() => form.setValue("productId", subscription.productId)}
-                                className={clsx(
-                                    "relative w-full h-auto p-0 bg-white/5 rounded-[10px] text-left",
-                                    productId === subscription.productId
-                                        ? "border-[2px] border-transparent bg-primary-gradient primary-shadow"
-                                        : "border-[2px] border-white/6",
-                                )}
-                            >
-                                <div className="w-full bg-[#2a2a2f] px-4 py-2 rounded-[10px] flex items-center justify-between flex-wrap sm:flex-nowrap gap-y-3 relative">
-                                    {subscription.isBestChoice && (
-                                        <div className="absolute top-[-12px] left-3 sm:left-4 bg-primary-gradient rounded-full flex items-center justify-center">
-                                            <span className="text-white text-[10px] sm:text-xs font-semibold uppercase px-[10px] py-1">
-                                                {t("funnel.subscriptionStep.bestChoice")}
+                    {isPricingReady ? (
+                        <div className={"w-full flex flex-col gap-[15px] mb-[30px]"}>
+                            {activeSubscriptions.map((subscription) => (
+                                <Button
+                                    key={subscription.id}
+                                    variant={"unstyled"}
+                                    onClick={() => form.setValue("productId", subscription.productId)}
+                                    className={clsx(
+                                        "relative w-full h-auto p-0 bg-white/5 rounded-[10px] text-left",
+                                        productId === subscription.productId
+                                            ? "border-[2px] border-transparent bg-primary-gradient primary-shadow"
+                                            : "border-[2px] border-white/6",
+                                    )}
+                                >
+                                    <div className="w-full bg-[#2a2a2f] px-4 py-2 rounded-[10px] flex items-center justify-between flex-wrap sm:flex-nowrap gap-y-3 relative">
+                                        {subscription.isBestChoice && (
+                                            <div className="absolute top-[-12px] left-3 sm:left-4 bg-primary-gradient rounded-full flex items-center justify-center">
+                                                <span className="text-white text-[10px] sm:text-xs font-semibold uppercase px-[10px] py-1">
+                                                    {t("funnel.subscriptionStep.bestChoice")}
+                                                </span>
+                                            </div>
+                                        )}
+
+                                        <div className="flex flex-col">
+                                            <div className="text-white text-sm sm:text-base font-semibold leading-none mb-1">
+                                                {subscription.durationText}
+                                            </div>
+                                            <div className="flex gap-1">
+                                                <div className="text-white/50 text-xs font-semibold line-through">
+                                                    ${subscription.regularPrice}
+                                                </div>
+                                                <div className="text-white/80 text-xs font-semibold">
+                                                    ${subscription.salePriceFull}
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div className="flex flex-col items-end gap-[2px] ml-auto">
+                                            <div className="text-white/50 text-xs font-semibold line-through">
+                                                ${subscription.regularPriceInDays}
+                                            </div>
+                                            <div className="text-white text-[18px] sm:text-[20px] font-semibold leading-none">
+                                                ${subscription.salePriceInDays}
+                                            </div>
+                                            <span className="text-[10px] sm:text-[11px] text-white/50">
+                                                {t("funnel.subscriptionStep.perDay")}
                                             </span>
                                         </div>
-                                    )}
-
-                                    <div className="flex flex-col">
-                                        <div className="text-white text-sm sm:text-base font-semibold leading-none mb-1">
-                                            {subscription.durationText}
-                                        </div>
-                                        <div className="flex gap-1">
-                                            <div className="text-white/50 text-xs font-semibold line-through">
-                                                ${subscription.regularPrice}
-                                            </div>
-                                            <div className="text-white/80 text-xs font-semibold">
-                                                ${subscription.salePriceFull}
-                                            </div>
-                                        </div>
                                     </div>
-
-                                    <div className="flex flex-col items-end gap-[2px] ml-auto">
-                                        <div className="text-white/50 text-xs font-semibold line-through">
-                                            ${subscription.regularPriceInDays}
-                                        </div>
-                                        <div className="text-white text-[18px] sm:text-[20px] font-semibold leading-none">
-                                            ${subscription.salePriceInDays}
-                                        </div>
-                                        <span className="text-[10px] sm:text-[11px] text-white/50">
-                                            {t("funnel.subscriptionStep.perDay")}
-                                        </span>
-                                    </div>
-                                </div>
-                            </Button>
-                        ))}
-
-                        <div className="bg-white/3 flex gap-3 items-center justify-center h-[42px] rounded-[10px]">
-                            <img
-                                alt={t("funnel.subscriptionStep.altBasketCancel")}
-                                src={"/icons/basket-cancel.svg"}
-                                width={20}
-                                height={20}
-                            />
-                            <p className="text-white font-medium text-[11px]">
-                                {t("funnel.subscriptionStep.noCommitment")}
-                            </p>
-                        </div>
-
-                        <Button onClick={nextStep} className={"w-full h-[45px] bg-primary-gradient"}>
-                            <span className={"text-base font-bold"}>
-                                {t("funnel.subscriptionStep.getDiscount")}
-                            </span>
-                        </Button>
-
-                        {productId && subscriptionTermsTexts[productId] && (
-                            <div
-                                className={"text-white/40 text-[11px] leading-relaxed text-center"}
-                                style={{ whiteSpace: "pre-line" }}
-                            >
-                                {renderTermsText(subscriptionTermsTexts[productId])}
-                            </div>
-                        )}
-
-                        <div className="w-full grid grid-cols-2 gap-1">
-                            {BENEFITS.map((text, i) => (
-                                <div key={i} className="flex items-center gap-2">
-                                    <img
-                                        src="/icons/security-check-icon.svg"
-                                        alt={t("funnel.subscriptionStep.altSecurityCheck")}
-                                        width={20}
-                                        height={20}
-                                        className="w-[20px] h-[19px] invert brightness-0"
-                                    />
-                                    <span className="text-white/50 text-xs font-medium">{text}</span>
-                                </div>
+                                </Button>
                             ))}
+
+                            <div className="bg-white/3 flex gap-3 items-center justify-center h-[42px] rounded-[10px]">
+                                <img
+                                    alt={t("funnel.subscriptionStep.altBasketCancel")}
+                                    src={"/icons/basket-cancel.svg"}
+                                    width={20}
+                                    height={20}
+                                />
+                                <p className="text-white font-medium text-[11px]">
+                                    {t("funnel.subscriptionStep.noCommitment")}
+                                </p>
+                            </div>
+
+                            <Button onClick={nextStep} className={"w-full h-[45px] bg-primary-gradient"}>
+                                <span className={"text-base font-bold"}>
+                                    {t("funnel.subscriptionStep.getDiscount")}
+                                </span>
+                            </Button>
+
+                            {productId && subscriptionTermsTexts[productId] && (
+                                <div
+                                    className={"text-white/40 text-[11px] leading-relaxed text-center"}
+                                    style={{ whiteSpace: "pre-line" }}
+                                >
+                                    {renderTermsText(subscriptionTermsTexts[productId])}
+                                </div>
+                            )}
+
+                            <div className="w-full grid grid-cols-2 gap-1">
+                                {BENEFITS.map((text, i) => (
+                                    <div key={i} className="flex items-center gap-2">
+                                        <img
+                                            src="/icons/security-check-icon.svg"
+                                            alt={t("funnel.subscriptionStep.altSecurityCheck")}
+                                            width={20}
+                                            height={20}
+                                            className="w-[20px] h-[19px] invert brightness-0"
+                                        />
+                                        <span className="text-white/50 text-xs font-medium">{text}</span>
+                                    </div>
+                                ))}
+                            </div>
                         </div>
-                    </div>
+                    ) : (
+                        <div className="w-full h-[220px] bg-white/5 border border-white/6 rounded-[10px] flex items-center justify-center">
+                            <Loader2Icon className="animate-spin text-white/70" size={24} />
+                        </div>
+                    )}
 
                     <div className="w-full p-2.5 bg-[#222327]/90 border border-white/6 rounded-[10px] mb-[35px]">
                         <div className="flex gap-2 items-center justify-between">
@@ -548,7 +599,6 @@ export function SubscriptionStep() {
 
                     {/* ====== PREMIUM BENEFITS ====== */}
                     <div className="relative w-full bg-transparent py-[15px] mb-[35px]">
-
                         <div className="flex items-center justify-center gap-2 text-[20px] font-bold text-white mb-5">
                             <Trans
                                 i18nKey="funnel.subscriptionStep.premiumBenefits"
@@ -562,7 +612,6 @@ export function SubscriptionStep() {
                         </div>
 
                         <div className="relative grid grid-cols-[1fr_60px] gap-x-3">
-
                             {/* PRO badge */}
                             <div className="absolute right-0 top-[-52px] w-[60px] bg-gray-2 rounded-t-[10px] px-[9px] pt-[8px] pb-[6px] flex items-center justify-center">
                                 <p className="bg-gradient-primary font-bold text-[12px] p-[3px] text-center rounded-[4px] w-full">

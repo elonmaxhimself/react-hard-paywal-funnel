@@ -13,6 +13,14 @@ import { STEPS_COUNT } from "@/features/funnel/funnelSteps";
 
 const s4InputContainerStyles = "h-[50px] bg-[#000]/30 rounded-[8px] border border-white/6 p-[12px]";
 
+const getPeriodDays = (durationMonths: number): number => {
+    if (durationMonths === 0) return 7;
+    if (durationMonths === 1) return 30;
+    if (durationMonths === 3) return 90;
+    if (durationMonths === 12) return 365;
+    return durationMonths * 30;
+};
+
 export function PaymentFormStep() {
     const { t } = useTranslation();
     const setStep = useFunnelStore((s) => s.setStep);
@@ -61,8 +69,13 @@ export function PaymentFormStep() {
                     />
 
                     <div className={"text-white text-2xl font-bold text-center"}>{t('funnel.paymentFormStep.title')}</div>
-                    <div className={"text-white/60 text-sm text-center mb-6"}>
-                        {t('funnel.paymentFormStep.todayTotal', { amount: product.amount / 100 })}
+                    <div className={"flex items-center justify-center gap-1 text-sm mb-6"}>
+                        <span className={"text-white/60"}>
+                            {t('funnel.paymentFormStep.todayTotal', { amount: product.amount / 100 })}
+                        </span>
+                        <span className={"text-white/40"}>
+                            {t('funnel.paymentFormStep.perDays', { count: getPeriodDays(product.durationMonths) })}
+                        </span>
                     </div>
 
                     <div
@@ -118,6 +131,10 @@ export function PaymentFormStep() {
                             <span className={"text-base font-bold"}>{t('funnel.paymentFormStep.completePayment')}</span>
                         </Button>
                     </div>
+
+                    <p className="w-full mt-4 text-center text-white/50 text-xs leading-relaxed whitespace-pre-line">
+                        {t('funnel.paymentFormStep.disclaimer')}
+                    </p>
                 </div>
             </div>
         </div>

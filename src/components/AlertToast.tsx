@@ -20,21 +20,21 @@ export enum toastType {
 }
 
 const SuccessIcon = () => (
-    <svg className="w-5 h-5 shrink-0" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <svg className="w-5 h-5 shrink-0" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Success">
         <circle cx="10" cy="10" r="10" fill="#16a34a" />
         <path d="M5.5 10.5L8.5 13.5L14.5 7" stroke="white" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
 );
 
 const ErrorIcon = () => (
-    <svg className="w-5 h-5 shrink-0" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <svg className="w-5 h-5 shrink-0" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Error">
         <circle cx="10" cy="10" r="10" fill="#e11d48" />
         <path d="M7 7L13 13M13 7L7 13" stroke="white" strokeWidth="1.8" strokeLinecap="round" />
     </svg>
 );
 
 const WarningIcon = () => (
-    <svg className="w-5 h-5 shrink-0" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <svg className="w-5 h-5 shrink-0" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Warning">
         <circle cx="10" cy="10" r="10" fill="#a16207" />
         <path d="M10 6V11" stroke="white" strokeWidth="1.8" strokeLinecap="round" />
         <circle cx="10" cy="13.5" r="1" fill="white" />
@@ -42,7 +42,7 @@ const WarningIcon = () => (
 );
 
 const CloseIcon = () => (
-    <svg className="w-4 h-4" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <svg className="w-4 h-4" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Close">
         <path d="M3 3L13 13M13 3L3 13" stroke="white" strokeWidth="1.6" strokeLinecap="round" />
     </svg>
 );

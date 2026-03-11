@@ -42,8 +42,16 @@ const initPaymentChannel = () => {
 };
 
 const isNetworkError = (error: any): boolean => {
+    // Shift4 SDK offline error codes
     if (typeof error?.message === 'string' && error.message.startsWith('ERR#')) return true;
+    // Chrome / Edge
     if (error instanceof TypeError && error.message === 'Failed to fetch') return true;
+    // Firefox
+    if (error instanceof TypeError && error.message === 'NetworkError when attempting to fetch resource.') return true;
+    // Safari
+    if (error instanceof TypeError && error.message === 'Load failed') return true;
+    // Axios with fetch adapter wraps network failures as AxiosError with code ERR_NETWORK
+    if (error?.code === 'ERR_NETWORK') return true;
     return false;
 };
 
@@ -553,8 +561,9 @@ export function usePaymentForm(posthog?: any) {
                         );
 
                         triggerToast({
-                            title:
-                                error.message || t('hooks.usePaymentForm.errors.unexpectedError'),
+                            title: isNetworkError(error)
+                                ? t('hooks.usePaymentForm.errors.noInternet')
+                                : error.message || t('hooks.usePaymentForm.errors.unexpectedError'),
                             type: toastType.error,
                         });
                     },
@@ -584,7 +593,6 @@ export function usePaymentForm(posthog?: any) {
 
             analyticsService.trackPaymentEvent(AnalyticsEventTypeEnum.PAYMENT_FAILED, mpPayload);
 
-            // FIX: Show user-friendly message for network errors instead of raw TypeError message
             const errorTitle = isNetworkError(error)
                 ? t('hooks.usePaymentForm.errors.noInternet')
                 : error.message || t('hooks.usePaymentForm.errors.unexpectedError');

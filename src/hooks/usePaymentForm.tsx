@@ -42,8 +42,9 @@ const initPaymentChannel = () => {
 };
 
 const isNetworkError = (error: any): boolean => {
-    // Shift4 SDK offline error codes
-    if (typeof error?.message === 'string' && error.message.startsWith('ERR#')) return true;
+    // Shift4 SDK ERR# codes are only treated as network errors when the device is actually offline.
+    // This avoids misclassifying card/validation errors (e.g. ERR#40100) as connectivity issues.
+    if (typeof error?.message === 'string' && error.message.startsWith('ERR#') && !navigator.onLine) return true;
     // Chrome / Edge
     if (error instanceof TypeError && error.message === 'Failed to fetch') return true;
     // Firefox

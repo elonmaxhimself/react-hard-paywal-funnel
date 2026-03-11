@@ -41,6 +41,21 @@ const initPaymentChannel = () => {
     return null;
 };
 
+const isNetworkError = (error: any): boolean => {
+    // Shift4 SDK ERR# codes are only treated as network errors when the device is actually offline.
+    // This avoids misclassifying card/validation errors (e.g. ERR#40100) as connectivity issues.
+    if (typeof error?.message === 'string' && error.message.startsWith('ERR#') && !navigator.onLine) return true;
+    // Chrome / Edge
+    if (error instanceof TypeError && error.message === 'Failed to fetch') return true;
+    // Firefox
+    if (error instanceof TypeError && error.message === 'NetworkError when attempting to fetch resource.') return true;
+    // Safari
+    if (error instanceof TypeError && error.message === 'Load failed') return true;
+    // Axios with fetch adapter wraps network failures as AxiosError with code ERR_NETWORK
+    if (error?.code === 'ERR_NETWORK') return true;
+    return false;
+};
+
 const PAYMENT_IN_PROGRESS_KEY = 'shift4_payment_in_progress';
 const PAYMENT_STALENESS_TTL_MS = 5 * 60 * 1000; // 5 minutes
 
@@ -245,6 +260,12 @@ export function usePaymentForm(posthog?: any) {
 
                 console.error("Error polling payment status:", error);
 
+                if (isNetworkError(error)) {
+                    setIsPolling(false);
+                    onError(t('hooks.usePaymentForm.errors.noInternet'));
+                    return;
+                }
+
                 if (error.response?.status === 404) {
                     if (attempts < maxAttempts) {
                         setTimeout(poll, pollInterval);
@@ -406,19 +427,6 @@ export function usePaymentForm(posthog?: any) {
 
             analyticsService.trackPaymentEvent(AnalyticsEventTypeEnum.PAYMENT_INITIATED, mpPayload);
 
-            // if (typeof window !== 'undefined' && posthog) {
-            //     posthog.capture('payment_initiated', {
-            //         value: product.amount / 100,
-            //         currency: "USD",
-            //         product_id: product.id,
-            //         product_name: product.name,
-            //         user_id: userId,
-            //         payment_type: "subscription_initial_payment",
-            //         monthly_billing_cycle: product.durationMonths,
-            //         payment_provider: "shift4"                    
-            //     });
-            // }
-
             const result = await shift4Instance.createToken(componentsGroup);
             if (result.error) throw new Error(result.error.message);
 
@@ -467,20 +475,6 @@ export function usePaymentForm(posthog?: any) {
                                         product_id: product.id,
                                         product_name: product.name,
                                     });
-
-                                    // PostHog — Payment Success
-                                    // if (typeof window !== 'undefined' && posthog) {
-                                    //     posthog.capture('payment_success', {
-                                    //         value: product.amount / 100,
-                                    //         currency: "USD",
-                                    //         product_id: product.id,
-                                    //         product_name: product.name,
-                                    //         user_id: userId,
-                                    //         payment_type: "subscription_initial_payment",
-                                    //         monthly_billing_cycle: product.durationMonths,
-                                    //         payment_provider: "shift4"
-                                    //     },  {send_instantly: true});
-                                    // }
 
                                     // Mixpanel
                                     analyticsService.trackPaymentEvent(
@@ -568,8 +562,9 @@ export function usePaymentForm(posthog?: any) {
                         );
 
                         triggerToast({
-                            title:
-                                error.message || t('hooks.usePaymentForm.errors.unexpectedError'),
+                            title: isNetworkError(error)
+                                ? t('hooks.usePaymentForm.errors.noInternet')
+                                : error.message || t('hooks.usePaymentForm.errors.unexpectedError'),
                             type: toastType.error,
                         });
                     },
@@ -599,8 +594,12 @@ export function usePaymentForm(posthog?: any) {
 
             analyticsService.trackPaymentEvent(AnalyticsEventTypeEnum.PAYMENT_FAILED, mpPayload);
 
+            const errorTitle = isNetworkError(error)
+                ? t('hooks.usePaymentForm.errors.noInternet')
+                : error.message || t('hooks.usePaymentForm.errors.unexpectedError');
+
             triggerToast({
-                title: error.message || t('hooks.usePaymentForm.errors.unexpectedError'),
+                title: errorTitle,
                 type: toastType.error,
             });
         }

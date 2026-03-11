@@ -724,6 +724,7 @@
     },
     "usePaymentForm": {
       "errors": {
+        "noInternet": "Žádné připojení k internetu. Zkontrolujte síť a zkuste to znovu.",
         "paymentConfigError": "Chyba konfigurace platebního systému.",
         "paymentSystemUnavailable": "Platební systém není k dispozici. Obnovte prosím stránku.",
         "initializationFailed": "Nepodařilo se inicializovat platební formulář. Obnovte prosím stránku.",

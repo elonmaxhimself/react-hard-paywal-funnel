@@ -724,6 +724,7 @@
     },
     "usePaymentForm": {
       "errors": {
+        "noInternet": "Nincs internetkapcsolat. Kérjük, ellenőrizze a hálózatát, és próbálja újra.",
         "paymentConfigError": "Fizetési rendszer konfigurációs hiba.",
         "paymentSystemUnavailable": "A fizetési rendszer nem elérhető. Kérlek, frissítsd az oldalt.",
         "initializationFailed": "Fizetési űrlap inicializálása sikertelen. Kérlek, frissítsd az oldalt.",

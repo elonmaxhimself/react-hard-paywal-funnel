@@ -115,6 +115,7 @@ export function SubscriptionStep() {
     const [pricingVariant, setPricingVariant] = useState<string | null>(null);
     const [pricingFallbackReady, setPricingFallbackReady] = useState(false);
     const lockedRef = useRef(false);
+    const variantTrackedRef = useRef(false);
 
     useEffect(() => {
         if (!posthog) return;
@@ -124,7 +125,16 @@ export function SubscriptionStep() {
         const cached = posthog.getFeatureFlag(flagKey);
         if (cached !== undefined) {
             lockedRef.current = true;
-            setPricingVariant(String(cached));
+            const variant = String(cached);
+            setPricingVariant(variant);
+            if (!variantTrackedRef.current) {
+                variantTrackedRef.current = true;
+                posthog.capture('pricing_variant_assigned', {
+                    $set_once: {
+                        pricing_ab_test_variant: variant
+                    }
+                });
+            }
             return;
         }
 
@@ -138,7 +148,16 @@ export function SubscriptionStep() {
             if (v === undefined) return;
 
             lockedRef.current = true;
-            setPricingVariant(String(v));
+            const variant = String(v);
+            setPricingVariant(variant);
+            if (!variantTrackedRef.current) {
+                variantTrackedRef.current = true;
+                posthog.capture('pricing_variant_assigned', {
+                    $set_once: {
+                        pricing_ab_test_variant: variant
+                    }
+                });
+            }
         });
 
         return () => {

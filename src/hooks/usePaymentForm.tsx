@@ -155,19 +155,61 @@ export function usePaymentForm(posthog?: any) {
                 return;
             }
 
-            const { subscriptionId, timestamp } = JSON.parse(stored);
+            const { subscriptionId, timestamp, productName, productAmount, productId: storedProductId } = JSON.parse(stored);
             if (Date.now() - timestamp > PAYMENT_STALENESS_TTL_MS) {
                 localStorage.removeItem(PAYMENT_IN_PROGRESS_KEY);
                 setIsSubmitting(false);
                 return;
             }
 
+            const resumeMpPayload = {
+                distinct_id: String(userId ?? ''),
+                product_name: productName || '',
+                value: productAmount ? productAmount / 100 : 0,
+                currency: 'USD',
+                product_id: storedProductId || '',
+            };
+
             setIsSubmitting(true);
             cancelPolling = pollPaymentStatus(
                 subscriptionId,
-                { distinct_id: String(userId ?? ''), product_name: '', value: 0, currency: 'USD', product_id: '' },
+                resumeMpPayload,
                 () => {
                     localStorage.removeItem(PAYMENT_IN_PROGRESS_KEY);
+
+                    // FACEBOOK PIXEL TRACKING — Purchase (resume case)
+                    if (productName && productAmount) {
+                        const fbq = (window as any).fbq;
+                        fbq?.("track", "Purchase", {
+                            product_name: productName,
+                            value: productAmount / 100,
+                            currency: "USD",
+                        });
+
+                        // GOOGLE ADS — Purchase
+                        reportPurchase(subscriptionId, {
+                            value: productAmount / 100,
+                            currency: "USD",
+                        });
+
+                        // GTM / dataLayer — Purchase
+                        window.dataLayer = window.dataLayer || [];
+                        window.dataLayer.push({
+                            event: "cd_purchase",
+                            transaction_id: subscriptionId,
+                            value: productAmount / 100,
+                            currency: "USD",
+                            product_id: storedProductId,
+                            product_name: productName,
+                        });
+
+                        // Mixpanel
+                        analyticsService.trackPaymentEvent(
+                            AnalyticsEventTypeEnum.PAYMENT_SUCCESS,
+                            resumeMpPayload,
+                        );
+                    }
+
                     const channel = initPaymentChannel();
                     if (channel) {
                         channel.postMessage({ type: 'PAYMENT_SUCCESS', senderId: tabId.current, subscriptionId, timestamp: Date.now() });
@@ -437,6 +479,9 @@ export function usePaymentForm(posthog?: any) {
                             localStorage.setItem(PAYMENT_IN_PROGRESS_KEY, JSON.stringify({
                                 subscriptionId: response.subscriptionId,
                                 timestamp: Date.now(),
+                                productName: product.name,
+                                productAmount: product.amount,
+                                productId: product.id,
                             }));
                             pollPaymentStatus(
                                 response.subscriptionId,

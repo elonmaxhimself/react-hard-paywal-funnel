@@ -292,11 +292,13 @@
     "paymentFormStep": {
       "title": "Fizetés",
       "todayTotal": "Mai Összeg: ${{amount}}",
+      "disclaimer": "A kártyaadatok megadásával engedélyezi a Miracle AI UG számára, hogy a feltételeiknek megfelelően jövőbeli fizetésekhez terhelje kártyáját.\n\nA fizetés mydreamcompanion néven jelenik meg",
+      "perDays": "{{count}} napra",
       "creditCard": "Hitelkártya",
       "cardNumber": "Kártyaszám",
       "expirationDate": "Lejárat dátuma",
       "securityCode": "Biztonsági kód",
-      "completePayment": "Fizetés Befejezése",
+      "completePayment": "Feliratkozás",
       "altLogo": "My Dream Companion",
       "altVisa": "Visa",
       "altMastercard": "Mastercard"
@@ -704,17 +706,11 @@
       "chairSex": "széken"
     },
     "subscriptionTerms": {
-      "37": "A folytatással megerősíted, hogy legalább 18 éves vagy, és elfogadod a 119,99 $ bevezető díjat éves előfizetésre. Ha nem mondod le legalább 24 órával a bevezető időszak vége előtt, automatikusan felszámolunk 119,99 $-t minden következő időszakra, amíg le nem mondod. A Folytatás gombra kattintva szintén megerősíted, hogy elfogadod |TERMS_LINK|\nA fizetés mydreamcompanion néven jelenik meg",
-      "38": "A folytatással megerősíted, hogy legalább 18 éves vagy, és elfogadod a 43,99 $ bevezető díjat negyedéves előfizetésre. Ha nem mondod le legalább 24 órával a bevezető időszak vége előtt, automatikusan felszámolunk 43,99 $-t minden következő időszakra, amíg le nem mondod. A Folytatás gombra kattintva szintén megerősíted, hogy elfogadod |TERMS_LINK|\nA fizetés mydreamcompanion néven jelenik meg",
-      "36": "A folytatással megerősíted, hogy legalább 18 éves vagy, és elfogadod a 19,99 $ bevezető díjat havi előfizetésre. Ha nem mondod le legalább 24 órával a bevezető időszak vége előtt, automatikusan felszámolunk 19,99 $-t minden következő időszakra, amíg le nem mondod. A Folytatás gombra kattintva szintén megerősíted, hogy elfogadod |TERMS_LINK|\nA fizetés mydreamcompanion néven jelenik meg",
-      "101": "A folytatással megerősíted, hogy legalább 18 éves vagy, és elfogadod a 4,99 $ bevezető díjat 1 hetes bevezető ajánlatra. Az előfizetés ezután automatikusan havonta megújul az 1 hetes bevezető ajánlat után a teljes 39,99 $ havi áron, amíg le nem mondod. A Folytatás gombra kattintva szintén megerősíted, hogy elfogadod |TERMS_LINK|\nA fizetés mydreamcompanion néven jelenik meg. További információért lépj kapcsolatba support@mydreamcompanion.com",
-      "102": "A folytatással megerősíted, hogy legalább 18 éves vagy, és elfogadod a 19,99 $ bevezető díjat 1 havi bevezető ajánlatra. Az előfizetés ezután automatikusan havonta megújul az 1 havi bevezető ajánlat után a teljes 39,99 $ havi áron, amíg le nem mondod. A Folytatás gombra kattintva szintén megerősíted, hogy elfogadod |TERMS_LINK|\nA fizetés mydreamcompanion néven jelenik meg. További információért lépj kapcsolatba support@mydreamcompanion.com",
-      "103": "A folytatással megerősíted, hogy legalább 18 éves vagy, és elfogadod a 29,99 $ bevezető díjat 3 havi bevezető ajánlatra. Az előfizetés ezután automatikusan havonta megújul a 3 havi bevezető ajánlat után a teljes 59,99 $ 3 havonta áron, amíg le nem mondod. A Folytatás gombra kattintva szintén megerősíted, hogy elfogadod |TERMS_LINK|\nA fizetés mydreamcompanion néven jelenik meg. További információért lépj kapcsolatba support@mydreamcompanion.com",
-      "104": "A folytatással megerősíted, hogy legalább 18 éves vagy, és elfogadod a 7,99 $ bevezető díjat 1 hetes bevezető ajánlatra. Az előfizetés ezután automatikusan havonta megújul az 1 hetes bevezető ajánlat után a teljes 19,99 $ havi áron, amíg le nem mondod. A Folytatás gombra kattintva szintén megerősíted, hogy elfogadod |TERMS_LINK|\nA fizetés mydreamcompanion néven jelenik meg. További információért lépj kapcsolatba support@mydreamcompanion.com",
-      "105": "A folytatással megerősíted, hogy legalább 18 éves vagy, és elfogadod a 9,99 $ bevezető díjat 1 hetes bevezető ajánlatra. Az előfizetés ezután automatikusan havonta megújul az 1 hetes bevezető ajánlat után a teljes 19,99 $ havi áron, amíg le nem mondod. A Folytatás gombra kattintva szintén megerősíted, hogy elfogadod |TERMS_LINK|\nA fizetés mydreamcompanion néven jelenik meg. További információért lépj kapcsolatba support@mydreamcompanion.com",
-      "152": "A folytatással megerősíted, hogy legalább 18 éves vagy, és elfogadod a 19,99 $ havi előfizetési díjat. Az előfizetés havonta automatikusan megújul 19,99 $ havonta, amíg le nem mondod. A Folytatás gombra kattintva szintén megerősíted, hogy elfogadod |TERMS_LINK|\nA fizetés mydreamcompanion néven jelenik meg. További információért lépj kapcsolatba support@mydreamcompanion.com",
-      "153": "A folytatással megerősíted, hogy legalább 18 éves vagy, és elfogadod a 29,99 $ negyedéves előfizetési díjat. Az előfizetés 3 havonta automatikusan megújul 29,99 $-ért, amíg le nem mondod. A Folytatás gombra kattintva szintén megerősíted, hogy elfogadod |TERMS_LINK|\nA fizetés mydreamcompanion néven jelenik meg. További információért lépj kapcsolatba support@mydreamcompanion.com",
-      "154": "A folytatással megerősíted, hogy legalább 18 éves vagy, és elfogadod a 69,99 $ éves előfizetési díjat. Az előfizetés évente automatikusan megújul 69,99 $ évente, amíg le nem mondod. A Folytatás gombra kattintva szintén megerősíted, hogy elfogadod |TERMS_LINK|\nA fizetés mydreamcompanion néven jelenik meg. További információért lépj kapcsolatba support@mydreamcompanion.com"
+      "105": "A folytatással megerősíti, hogy legalább 18 éves, és elfogadja a 7 napos bevezető ajánlat $9.99-es bevezető díját. Az előfizetés ezután automatikusan megújul havonta $19.99-es teljes áron, amíg le nem mondja. A Folytatás gombra kattintva megerősíti, hogy elfogadja |TERMS_LINK|\nA fizetés mydreamcompanion néven jelenik meg. További információért lépjen kapcsolatba: support@mydreamcompanion.com",
+      "36": "A folytatással megerősíti, hogy legalább 18 éves, és elfogadja a havi előfizetés $19.99-es díját. Az előfizetés automatikusan megújul havonta $19.99-ért, amíg le nem mondja. A Folytatás gombra kattintva megerősíti, hogy elfogadja |TERMS_LINK|\nA fizetés mydreamcompanion néven jelenik meg. További információért lépjen kapcsolatba: support@mydreamcompanion.com",
+      "2": "A folytatással megerősíti, hogy legalább 18 éves, és elfogadja az éves előfizetés $69.99-es díját. Az előfizetés automatikusan megújul évente $69.99-ért, amíg le nem mondja. A Folytatás gombra kattintva megerősíti, hogy elfogadja |TERMS_LINK|\nA fizetés mydreamcompanion néven jelenik meg. További információért lépjen kapcsolatba: support@mydreamcompanion.com",
+      "155": "A folytatással megerősíti, hogy legalább 18 éves, és elfogadja a negyedéves előfizetés $39.99-es díját. Az előfizetés automatikusan megújul 3 havonta $39.99-ért, amíg le nem mondja. A Folytatás gombra kattintva megerősíti, hogy elfogadja |TERMS_LINK|\nA fizetés mydreamcompanion néven jelenik meg. További információért lépjen kapcsolatba: support@mydreamcompanion.com",
+      "156": "A folytatással megerősíti, hogy legalább 18 éves, és elfogadja a negyedéves előfizetés $49.99-es díját. Az előfizetés automatikusan megújul 3 havonta $49.99-ért, amíg le nem mondja. A Folytatás gombra kattintva megerősíti, hogy elfogadja |TERMS_LINK|\nA fizetés mydreamcompanion néven jelenik meg. További információért lépjen kapcsolatba: support@mydreamcompanion.com"
     }
   },
   "hooks": {

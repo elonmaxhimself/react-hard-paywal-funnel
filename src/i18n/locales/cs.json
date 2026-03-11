@@ -292,11 +292,13 @@
     "paymentFormStep": {
       "title": "Pokladna",
       "todayTotal": "Dnešní celkem: ${{amount}}",
+      "disclaimer": "Poskytnutím údajů o kartě povolujete Miracle AI UG účtovat vaši kartu za budoucí platby v souladu s jejich podmínkami.\n\nPlatba se zobrazí jako mydreamcompanion",
+      "perDays": "na {{count}} dní",
       "creditCard": "Kreditní karta",
       "cardNumber": "Číslo karty",
       "expirationDate": "Datum expirace",
       "securityCode": "Bezpečnostní kód",
-      "completePayment": "Dokončit platbu",
+      "completePayment": "Upsat",
       "altLogo": "My Dream Companion",
       "altVisa": "Visa",
       "altMastercard": "Mastercard"
@@ -704,17 +706,11 @@
       "chairSex": "sex na židli"
     },
     "subscriptionTerms": {
-      "37": "Pokračováním potvrzujete, že vám je alespoň 18 let a souhlasíte s úvodní platbou $119.99 za roční předplatné. Pokud nezrušíte alespoň 24 hodin před koncem úvodního období, bude vám automaticky účtováno $119.99 za každé následující období, dokud nezrušíte. Kliknutím na Pokračovat také potvrzujete, že souhlasíte s našimi |TERMS_LINK|\nPlatba se zobrazí jako mydreamcompanion",
-      "38": "Pokračováním potvrzujete, že vám je alespoň 18 let a souhlasíte s úvodní platbou $43.99 za čtvrtletní předplatné. Pokud nezrušíte alespoň 24 hodin před koncem úvodního období, bude vám automaticky účtováno $43.99 za každé následující období, dokud nezrušíte. Kliknutím na Pokračovat také potvrzujete, že souhlasíte s našimi |TERMS_LINK|\nPlatba se zobrazí jako mydreamcompanion",
-      "36": "Pokračováním potvrzujete, že vám je alespoň 18 let a souhlasíte s úvodní platbou $19.99 za měsíční předplatné. Pokud nezrušíte alespoň 24 hodin před koncem úvodního období, bude vám automaticky účtováno $19.99 za každé následující období, dokud nezrušíte. Kliknutím na Pokračovat také potvrzujete, že souhlasíte s našimi |TERMS_LINK|\nPlatba se zobrazí jako mydreamcompanion",
-      "101": "Pokračováním potvrzujete, že vám je alespoň 18 let a souhlasíte s úvodní platbou $4.99 za 1týdenní úvodní nabídku. Předplatné bude poté automaticky obnovováno měsíčně po 1týdenní úvodní nabídce za plnou cenu $39.99 měsíčně, dokud nezrušíte. Kliknutím na Pokračovat také potvrzujete, že souhlasíte s našimi |TERMS_LINK|\nPlatba se zobrazí jako mydreamcompanion. Pro více informací kontaktujte support@mydreamcompanion.com",
-      "102": "Pokračováním potvrzujete, že vám je alespoň 18 let a souhlasíte s úvodní platbou $19.99 za 1měsíční úvodní nabídku. Předplatné bude poté automaticky obnovováno měsíčně po 1měsíční úvodní nabídce za plnou cenu $39.99 měsíčně, dokud nezrušíte. Kliknutím na Pokračovat také potvrzujete, že souhlasíte s našimi |TERMS_LINK|\nPlatba se zobrazí jako mydreamcompanion. Pro více informací kontaktujte support@mydreamcompanion.com",
-      "103": "Pokračováním potvrzujete, že vám je alespoň 18 let a souhlasíte s úvodní platbou $29.99 za 3měsíční úvodní nabídku. Předplatné bude poté automaticky obnovováno měsíčně po 3měsíční úvodní nabídce za plnou cenu $59.99 každé 3 měsíce, dokud nezrušíte. Kliknutím na Pokračovat také potvrzujete, že souhlasíte s našimi |TERMS_LINK|\nPlatba se zobrazí jako mydreamcompanion. Pro více informací kontaktujte support@mydreamcompanion.com",
-      "104": "Pokračováním potvrzujete, že vám je alespoň 18 let a souhlasíte s úvodní platbou $7.99 za 1týdenní úvodní nabídku. Předplatné bude poté automaticky obnovováno měsíčně po 1týdenní úvodní nabídce za plnou cenu $19.99 měsíčně, dokud nezrušíte. Kliknutím na Pokračovat také potvrzujete, že souhlasíte s našimi |TERMS_LINK|\nPlatba se zobrazí jako mydreamcompanion. Pro více informací kontaktujte support@mydreamcompanion.com",
       "105": "Pokračováním potvrzujete, že vám je alespoň 18 let a souhlasíte s úvodní platbou $9.99 za 1týdenní úvodní nabídku. Předplatné bude poté automaticky obnovováno měsíčně po 1týdenní úvodní nabídce za plnou cenu $19.99 měsíčně, dokud nezrušíte. Kliknutím na Pokračovat také potvrzujete, že souhlasíte s našimi |TERMS_LINK|\nPlatba se zobrazí jako mydreamcompanion. Pro více informací kontaktujte support@mydreamcompanion.com",
-      "152": "Pokračováním potvrzujete, že vám je alespoň 18 let a souhlasíte s platbou $19.99 za měsíční předplatné. Předplatné bude automaticky obnovováno měsíčně za $19.99 měsíčně, dokud nezrušíte. Kliknutím na Pokračovat také potvrzujete, že souhlasíte s našimi |TERMS_LINK|\nPlatba se zobrazí jako mydreamcompanion. Pro více informací kontaktujte support@mydreamcompanion.com",
-      "153": "Pokračováním potvrzujete, že vám je alespoň 18 let a souhlasíte s platbou $29.99 za čtvrtletní předplatné. Předplatné bude automaticky obnovováno každé 3 měsíce za $29.99, dokud nezrušíte. Kliknutím na Pokračovat také potvrzujete, že souhlasíte s našimi |TERMS_LINK|\nPlatba se zobrazí jako mydreamcompanion. Pro více informací kontaktujte support@mydreamcompanion.com",
-      "154": "Pokračováním potvrzujete, že vám je alespoň 18 let a souhlasíte s platbou $69.99 za roční předplatné. Předplatné bude automaticky obnovováno ročně za $69.99 ročně, dokud nezrušíte. Kliknutím na Pokračovat také potvrzujete, že souhlasíte s našimi |TERMS_LINK|\nPlatba se zobrazí jako mydreamcompanion. Pro více informací kontaktujte support@mydreamcompanion.com"
+      "36": "Pokračováním potvrzujete, že vám je alespoň 18 let a souhlasíte s úvodní platbou $19.99 za měsíční předplatné. Pokud nezrušíte alespoň 24 hodin před koncem úvodního období, bude vám automaticky účtováno $19.99 za každé následující období, dokud nezrušíte. Kliknutím na Pokračovat také potvrzujete, že souhlasíte s našimi |TERMS_LINK|\nPlatba se zobrazí jako mydreamcompanion",
+      "2": "Pokračováním potvrzujete, že vám je alespoň 18 let a souhlasíte s platbou $69.99 za roční předplatné. Předplatné bude automaticky obnovováno ročně za $69.99, dokud nezrušíte. Kliknutím na Pokračovat také potvrzujete, že souhlasíte s našimi |TERMS_LINK|\nPlatba se zobrazí jako mydreamcompanion. Pro více informací kontaktujte support@mydreamcompanion.com",
+      "155": "Pokračováním potvrzujete, že vám je alespoň 18 let a souhlasíte s platbou $39.99 za čtvrtletní předplatné. Předplatné bude automaticky obnovováno každé 3 měsíce za $39.99, dokud nezrušíte. Kliknutím na Pokračovat také potvrzujete, že souhlasíte s našimi |TERMS_LINK|\nPlatba se zobrazí jako mydreamcompanion. Pro více informací kontaktujte support@mydreamcompanion.com",
+      "156": "Pokračováním potvrzujete, že vám je alespoň 18 let a souhlasíte s platbou $49.99 za čtvrtletní předplatné. Předplatné bude automaticky obnovováno každé 3 měsíce za $49.99, dokud nezrušíte. Kliknutím na Pokračovat také potvrzujete, že souhlasíte s našimi |TERMS_LINK|\nPlatba se zobrazí jako mydreamcompanion. Pro více informací kontaktujte support@mydreamcompanion.com"
     }
   },
   "hooks": {

@@ -3,8 +3,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { useTranslation } from "react-i18next";
-import { usePostHog } from 'posthog-js/react';
-import { EXPERIMENTS } from '@/configs/experiment.config';
+import { usePostHog } from "posthog-js/react";
 
 import { getFunnelStore } from "@/store/states/funnel";
 
@@ -73,10 +72,9 @@ const STEPS_INDICATOR_COUNT = 31;
 
 export function useFunnelForm() {
     const { t, i18n } = useTranslation();
-    const posthog = usePostHog();
     const subscriptions = useSubscriptions();
+    const posthog = usePostHog();
     const [active, setActive] = useState(0);
-    const [isExperimentReady, setIsExperimentReady] = useState(false);
     const [isFormReady, setIsFormReady] = useState(false);
 
     const funnelSchema = useMemo(() => createFunnelSchema(t), [i18n.language]);
@@ -99,57 +97,10 @@ export function useFunnelForm() {
     }, [i18n.language]);
 
     useEffect(() => {
-        const token = import.meta.env.VITE_PUBLIC_POSTHOG_TOKEN;
-        
-        if (!token) {
-            setIsExperimentReady(true);
-            return;
-        }
-
-        const timeout = setTimeout(() => {
-            console.warn('PostHog initialization timeout - continuing without analytics');
-            setIsExperimentReady(true);
-        }, 5000);
-
-        if (!posthog) {
-            return () => clearTimeout(timeout);
-        }
-
-        const cleanup = posthog.onFeatureFlags(() => {
-            try {
-                clearTimeout(timeout);
-                
-                const pricingVariant = String(posthog.getFeatureFlag(EXPERIMENTS.PRICING.flagKey) || 'control');
-                
-                posthog.capture('pricing_variant_assigned', {
-                    $set_once: {
-                        pricing_ab_test_variant: pricingVariant
-                    }
-                });
-                
-                posthog.capture('funnel_started');
-                
-                setIsExperimentReady(true);
-            } catch (error) {
-                console.error('PostHog feature flag processing error:', error);
-                clearTimeout(timeout);
-                setIsExperimentReady(true);
-            }
-        });
-
-        return () => {
-            clearTimeout(timeout);
-            if (cleanup) cleanup();
-        };
-    }, [posthog]);
-
-    useEffect(() => {
-        if (!isExperimentReady) return;
-
         try {
             const savedData = getFunnelStore().form;
             const savedStep = getFunnelStore().step;
-            
+
             if (savedData) form.reset(savedData);
             if (savedStep !== undefined && savedStep !== null) {
                 setActive(savedStep >= STEPS_COUNT ? 0 : savedStep);
@@ -161,7 +112,12 @@ export function useFunnelForm() {
         } finally {
             setIsFormReady(true);
         }
-    }, [isExperimentReady]);
+    }, []);
+
+    useEffect(() => {
+        if (!posthog || !isFormReady) return;
+        posthog.capture('funnel_started');
+    }, [posthog, isFormReady]);
 
     const nextStep = () => {
         const trigger = triggers[active as keyof typeof triggers];
@@ -189,6 +145,6 @@ export function useFunnelForm() {
             nextStep,
             prevStep,
         },
-        isReady: isExperimentReady && isFormReady,
+        isReady: isFormReady,
     };
 }

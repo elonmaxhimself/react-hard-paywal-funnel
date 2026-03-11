@@ -1,11 +1,10 @@
 export const EXPERIMENTS = {
   PRICING: {
-    flagKey: 'pricing_ab_test',
+    flagKey: 'second-pricing-test',
     variants: {
-      'control': [101, 102, 103],
-      'variation_1': [104, 152, 153],
-      'variation_2': [104, 152, 154],
-      'variation_3': [105, 152, 154],
+      'control': [105, 36, 2],
+      'variant1': [105, 36, 155],
+      'variant2': [105, 36, 156],
     }
   },
 } as const;

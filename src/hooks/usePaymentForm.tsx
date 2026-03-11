@@ -41,6 +41,12 @@ const initPaymentChannel = () => {
     return null;
 };
 
+const isNetworkError = (error: any): boolean => {
+    if (typeof error?.message === 'string' && error.message.startsWith('ERR#')) return true;
+    if (error instanceof TypeError && error.message === 'Failed to fetch') return true;
+    return false;
+};
+
 export function usePaymentForm(posthog?: any) {
     const { t } = useTranslation();
     const [shift4Instance, setShift4Instance] = useState<any>(null);
@@ -173,6 +179,12 @@ export function usePaymentForm(posthog?: any) {
                 }
             } catch (error: any) {
                 console.error("Error polling payment status:", error);
+
+                if (isNetworkError(error)) {
+                    setIsPolling(false);
+                    onError(t('hooks.usePaymentForm.errors.noInternet'));
+                    return;
+                }
 
                 if (error.response?.status === 404) {
                     if (attempts < maxAttempts) {
@@ -333,19 +345,6 @@ export function usePaymentForm(posthog?: any) {
 
             analyticsService.trackPaymentEvent(AnalyticsEventTypeEnum.PAYMENT_INITIATED, mpPayload);
 
-            // if (typeof window !== 'undefined' && posthog) {
-            //     posthog.capture('payment_initiated', {
-            //         value: product.amount / 100,
-            //         currency: "USD",
-            //         product_id: product.id,
-            //         product_name: product.name,
-            //         user_id: userId,
-            //         payment_type: "subscription_initial_payment",
-            //         monthly_billing_cycle: product.durationMonths,
-            //         payment_provider: "shift4"                    
-            //     });
-            // }
-
             const result = await shift4Instance.createToken(componentsGroup);
             if (result.error) throw new Error(result.error.message);
 
@@ -389,20 +388,6 @@ export function usePaymentForm(posthog?: any) {
                                         product_id: product.id,
                                         product_name: product.name,
                                     });
-
-                                    // PostHog — Payment Success
-                                    // if (typeof window !== 'undefined' && posthog) {
-                                    //     posthog.capture('payment_success', {
-                                    //         value: product.amount / 100,
-                                    //         currency: "USD",
-                                    //         product_id: product.id,
-                                    //         product_name: product.name,
-                                    //         user_id: userId,
-                                    //         payment_type: "subscription_initial_payment",
-                                    //         monthly_billing_cycle: product.durationMonths,
-                                    //         payment_provider: "shift4"
-                                    //     },  {send_instantly: true});
-                                    // }
 
                                     // Mixpanel
                                     analyticsService.trackPaymentEvent(
@@ -518,8 +503,13 @@ export function usePaymentForm(posthog?: any) {
 
             analyticsService.trackPaymentEvent(AnalyticsEventTypeEnum.PAYMENT_FAILED, mpPayload);
 
+            // FIX: Show user-friendly message for network errors instead of raw TypeError message
+            const errorTitle = isNetworkError(error)
+                ? t('hooks.usePaymentForm.errors.noInternet')
+                : error.message || t('hooks.usePaymentForm.errors.unexpectedError');
+
             triggerToast({
-                title: error.message || t('hooks.usePaymentForm.errors.unexpectedError'),
+                title: errorTitle,
                 type: toastType.error,
             });
         }

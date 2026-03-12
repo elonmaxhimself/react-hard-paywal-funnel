@@ -149,7 +149,8 @@ export function usePaymentForm(posthog?: any) {
                     }
                 } else {
                     // Another tab cleared the payment flag (failed or completed)
-                    // Don't auto-reset isSubmitting here — let the polling/redirect handle final state
+                    // Without BroadcastChannel, this is the only signal we get — reset the blocked state
+                    setIsSubmitting(false);
                 }
             }
         };

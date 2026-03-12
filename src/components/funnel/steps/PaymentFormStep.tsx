@@ -4,7 +4,7 @@ import { X, Loader2Icon } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { Button } from "@/components/ui/button";
 import { useStepperContext } from "@/components/stepper/Stepper.context";
-import { usePaymentForm } from "@/hooks/usePaymentForm";
+import { usePaymentForm, PAYMENT_IN_PROGRESS_KEY, PAYMENT_STALENESS_TTL_MS } from "@/hooks/usePaymentForm";
 import { useFunnelStore } from "@/store/states/funnel";
 import { useEffect, useRef } from "react";
 import SpriteIcon from "@/components/SpriteIcon";
@@ -31,6 +31,21 @@ export function PaymentFormStep() {
 
     useEffect(() => {
         if (!product) {
+            // Don't redirect if there's an active payment in localStorage —
+            // the resume-polling effect in usePaymentForm will handle it
+            try {
+                const stored = localStorage.getItem(PAYMENT_IN_PROGRESS_KEY);
+                if (stored) {
+                    const { timestamp } = JSON.parse(stored);
+                    if (Date.now() - timestamp <= PAYMENT_STALENESS_TTL_MS) {
+                        // Payment is in progress — stay on this step, let polling resume
+                        return;
+                    }
+                }
+            } catch {
+                // Corrupted storage — fall through to redirect
+            }
+
             if (!hasRedirected.current) {
                 hasRedirected.current = true;
                 prevStep();

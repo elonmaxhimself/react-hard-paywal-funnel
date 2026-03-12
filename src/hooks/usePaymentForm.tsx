@@ -41,8 +41,8 @@ const initPaymentChannel = () => {
     return null;
 };
 
-const PAYMENT_IN_PROGRESS_KEY = 'shift4_payment_in_progress';
-const PAYMENT_STALENESS_TTL_MS = 5 * 60 * 1000; // 5 minutes
+export const PAYMENT_IN_PROGRESS_KEY = 'shift4_payment_in_progress';
+export const PAYMENT_STALENESS_TTL_MS = 5 * 60 * 1000; // 5 minutes
 
 export function usePaymentForm(posthog?: any) {
     const { t } = useTranslation();
@@ -121,6 +121,30 @@ export function usePaymentForm(posthog?: any) {
                 } catch {
                     // Corrupted storage value — treat as auth cleared
                     window.location.reload();
+                }
+            }
+
+            // Cross-tab payment sync fallback (works even when BroadcastChannel is unavailable, e.g. Safari private mode)
+            // Only use storage events for payment sync when BroadcastChannel is NOT available —
+            // otherwise both handlers fire and user sees duplicate toasts
+            if (e.key === PAYMENT_IN_PROGRESS_KEY && typeof BroadcastChannel === 'undefined') {
+                if (e.newValue) {
+                    // Another tab started a payment
+                    try {
+                        const { timestamp } = JSON.parse(e.newValue);
+                        if (Date.now() - timestamp <= PAYMENT_STALENESS_TTL_MS) {
+                            setIsSubmitting(true);
+                            triggerToast({
+                                title: t('hooks.usePaymentForm.errors.paymentInAnotherTab'),
+                                type: toastType.warning,
+                            });
+                        }
+                    } catch {
+                        // Corrupted — ignore
+                    }
+                } else {
+                    // Another tab cleared the payment flag (failed or completed)
+                    // Don't auto-reset isSubmitting here — let the polling/redirect handle final state
                 }
             }
         };
@@ -359,7 +383,27 @@ export function usePaymentForm(posthog?: any) {
             console.warn('Payment already in progress or completed');
             return;
         }
-        
+
+        // Pre-flight check: another tab may have started payment (catches race even without BroadcastChannel)
+        try {
+            const existingPayment = localStorage.getItem(PAYMENT_IN_PROGRESS_KEY);
+            if (existingPayment) {
+                const { timestamp } = JSON.parse(existingPayment);
+                if (Date.now() - timestamp <= PAYMENT_STALENESS_TTL_MS) {
+                    setIsSubmitting(true);
+                    triggerToast({
+                        title: t('hooks.usePaymentForm.errors.paymentInAnotherTab'),
+                        type: toastType.warning,
+                    });
+                    return;
+                }
+                // Stale entry — remove it and proceed
+                localStorage.removeItem(PAYMENT_IN_PROGRESS_KEY);
+            }
+        } catch {
+            // Corrupted localStorage — proceed with payment
+        }
+
         setIsSubmitting(true);
         
         const channel = initPaymentChannel();
@@ -569,7 +613,7 @@ export function usePaymentForm(posthog?: any) {
 
                         triggerToast({
                             title:
-                                error.message || t('hooks.usePaymentForm.errors.unexpectedError'),
+                                error.response?.data?.message || error.message || t('hooks.usePaymentForm.errors.unexpectedError'),
                             type: toastType.error,
                         });
                     },
@@ -583,7 +627,7 @@ export function usePaymentForm(posthog?: any) {
             setIsSubmitting(false);
 
             if (channel) {
-                channel.postMessage({ 
+                channel.postMessage({
                     type: 'PAYMENT_FAILED',
                     senderId: tabId.current
                 });
@@ -600,7 +644,7 @@ export function usePaymentForm(posthog?: any) {
             analyticsService.trackPaymentEvent(AnalyticsEventTypeEnum.PAYMENT_FAILED, mpPayload);
 
             triggerToast({
-                title: error.message || t('hooks.usePaymentForm.errors.unexpectedError'),
+                title: error.response?.data?.message || error.message || t('hooks.usePaymentForm.errors.unexpectedError'),
                 type: toastType.error,
             });
         }

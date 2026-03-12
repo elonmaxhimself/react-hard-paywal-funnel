@@ -586,10 +586,11 @@ export function usePaymentForm(posthog?: any) {
                                 },
                             );
                         } else {
+                            localStorage.removeItem(PAYMENT_IN_PROGRESS_KEY);
                             setIsSubmitting(false);
-                            
+
                             if (channel) {
-                                channel.postMessage({ 
+                                channel.postMessage({
                                     type: 'PAYMENT_FAILED',
                                     senderId: tabId.current
                                 });

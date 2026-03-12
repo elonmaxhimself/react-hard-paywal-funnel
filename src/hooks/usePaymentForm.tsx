@@ -413,10 +413,15 @@ export function usePaymentForm(posthog?: any) {
         }
 
         setIsSubmitting(true);
-        
+
+        // Write a preliminary localStorage entry immediately to close the race window
+        // in non-BroadcastChannel environments (entry is updated with subscriptionId on success,
+        // or removed on failure)
+        localStorage.setItem(PAYMENT_IN_PROGRESS_KEY, JSON.stringify({ timestamp: Date.now() }));
+
         const channel = initPaymentChannel();
         if (channel) {
-            channel.postMessage({ 
+            channel.postMessage({
                 type: 'PAYMENT_STARTED',
                 senderId: tabId.current,
                 userId,
@@ -430,10 +435,11 @@ export function usePaymentForm(posthog?: any) {
                     title: t('hooks.usePaymentForm.errors.unexpectedError'),
                     type: toastType.error,
                 });
+                localStorage.removeItem(PAYMENT_IN_PROGRESS_KEY);
                 setIsSubmitting(false);
-                
+
                 if (channel) {
-                    channel.postMessage({ 
+                    channel.postMessage({
                         type: 'PAYMENT_FAILED',
                         senderId: tabId.current
                     });

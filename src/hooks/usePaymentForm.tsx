@@ -130,9 +130,9 @@ export function usePaymentForm(posthog?: any) {
             }
 
             // Cross-tab payment sync fallback (works even when BroadcastChannel is unavailable, e.g. Safari private mode)
-            // Only use storage events for payment sync when BroadcastChannel is NOT available —
+            // Only use storage events for payment sync when BroadcastChannel channel is NOT active —
             // otherwise both handlers fire and user sees duplicate toasts
-            if (e.key === PAYMENT_IN_PROGRESS_KEY && typeof BroadcastChannel === 'undefined') {
+            if (e.key === PAYMENT_IN_PROGRESS_KEY && !channel) {
                 if (e.newValue) {
                     // Another tab started a payment
                     try {

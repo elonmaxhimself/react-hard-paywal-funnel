@@ -64,6 +64,7 @@ export function usePaymentForm(posthog?: any) {
         }
     });
     const [paymentCompleted, setPaymentCompleted] = useState(false);
+    const [resumePollingFailed, setResumePollingFailed] = useState(false);
     const s4ComponentsRef = useRef<any>(null);
     const tabId = useRef(`tab_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`);
 
@@ -210,12 +211,14 @@ export function usePaymentForm(posthog?: any) {
                 (errorMessage) => {
                     localStorage.removeItem(PAYMENT_IN_PROGRESS_KEY);
                     setIsSubmitting(false);
+                    setResumePollingFailed(true);
                     triggerToast({ title: errorMessage, type: toastType.error });
                 },
             );
         } catch {
             localStorage.removeItem(PAYMENT_IN_PROGRESS_KEY);
             setIsSubmitting(false);
+            setResumePollingFailed(true);
         }
 
         return () => {
@@ -661,5 +664,6 @@ export function usePaymentForm(posthog?: any) {
         isPaymentInProgress: isPending || isPolling || isSubmitting || paymentCompleted,
         isShift4Ready,
         shift4Error,
+        resumePollingFailed,
     };
 }

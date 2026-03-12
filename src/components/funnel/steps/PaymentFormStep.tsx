@@ -25,7 +25,7 @@ export function PaymentFormStep() {
     const { t } = useTranslation();
     const setStep = useFunnelStore((s) => s.setStep);
     const posthog = usePostHog();
-    const { product, onSubmit, isPending, isPaymentInProgress } = usePaymentForm(posthog);
+    const { product, onSubmit, isPending, isPaymentInProgress, resumePollingFailed } = usePaymentForm(posthog);
     const { prevStep } = useStepperContext();
     const hasRedirected = useRef(false);
 
@@ -54,6 +54,14 @@ export function PaymentFormStep() {
         }
         setStep(STEPS_COUNT - 1);
     }, []);
+
+    // Navigate back if resume-polling failed (prevents blank screen)
+    useEffect(() => {
+        if (resumePollingFailed && !hasRedirected.current) {
+            hasRedirected.current = true;
+            prevStep();
+        }
+    }, [resumePollingFailed]);
 
     const onOpenSpecialOffer = () => {
         if (isPaymentInProgress) return;

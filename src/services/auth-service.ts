@@ -1,6 +1,7 @@
 import axios from "@/lib/axios";
 import { AuthResponse, SignUpPayload } from "@/utils/types/auth";
 import { getUtmStore } from "@/store/states/utm";
+import { getTrackDeskCid } from "@/utils/helpers/getTrackDeskCid";
 import { getAuthStore } from "@/store/states/auth";
 import { OAuthProviderType } from "@/constants/oauth";
 
@@ -23,13 +24,15 @@ export const authService = {
         const { utm } = getUtmStore();
         const url = import.meta.env.DEV ? "https://mdc-react-funnel-v4-dev.pages.dev/" : redirectUrl;
         const { oauthState } = getAuthStore();
+        const trackDeskCid = getTrackDeskCid();
         const response = await axios.post(
             `/auth/${provider}/token`,
             {
                 ...payload,
                 utmOnRegistration: utm,
                 referrer: oauthState?.referrer,
-                url
+                url,
+                ...(trackDeskCid ? { trackDeskCid } : {}),
             },
             {
                 params: { redirectUrl },

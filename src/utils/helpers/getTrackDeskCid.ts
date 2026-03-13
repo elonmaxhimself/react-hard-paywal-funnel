@@ -9,7 +9,10 @@ export function getTrackDeskCid(): string | null {
     const cookies = document.cookie.split("; ");
 
     for (const cookie of cookies) {
-        const [name, value] = cookie.split("=");
+        const eqIndex = cookie.indexOf("=");
+        if (eqIndex === -1) continue;
+        const name = cookie.slice(0, eqIndex);
+        const value = cookie.slice(eqIndex + 1);
         // Note: cookie name is "trakdesk_cid" (with typo in "trakdesk")
         if (name === "trakdesk_cid") {
             try {

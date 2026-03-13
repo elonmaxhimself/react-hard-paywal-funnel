@@ -25,6 +25,7 @@ import { voicesMap } from "@/constants/voices-map";
 import { useSexPositions } from "@/constants/sex-positions";
 
 import { useUtmStore } from "@/store/states/utm";
+import { getTrackDeskCid } from "@/utils/helpers/getTrackDeskCid";
 import { handleAuthSuccess } from "@/utils/auth/handleAuthSuccess";
 
 export function useSignUpForm(posthog?: PostHog) {
@@ -104,12 +105,15 @@ export function useSignUpForm(posthog?: PostHog) {
                 ? "https://mdc-react-funnel-v4-dev.pages.dev/"
                 : window.location.href;
 
+        const trackDeskCid = getTrackDeskCid();
+
         const payload: SignUpPayload = {
             email: values.email,
             password: values.password,
             utmOnRegistration: utm,
             url: url,
             referrer: document.referrer || undefined,
+            ...(trackDeskCid ? { trackDeskCid } : {}),
             createCharFunnelOptions: {
                 funnelOptions: funnelFormValues,
                 dtoAdultFannelV3: {

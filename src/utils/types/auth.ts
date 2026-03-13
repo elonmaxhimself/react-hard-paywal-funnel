@@ -6,6 +6,7 @@ export interface SignUpPayload {
     utmOnRegistration: Record<string, string>;
     url: string;
     referrer?: string;
+    trackDeskCid?: string | null;
     createCharFunnelOptions: {
         funnelOptions: Omit<FunnelSchema, "email" | "productId">;
         dtoAdultFannelV3: {

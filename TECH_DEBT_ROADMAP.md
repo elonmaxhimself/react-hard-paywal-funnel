@@ -78,6 +78,11 @@ Items investigated and closed — no action needed.
     - Facebook Pixel ID, Google Ads ID, TrackDesk account, Cookie banner script ID.
     - Keep environment-specific values in one typed config layer instead of scattering them in `index.html`.
 
+- [ ] **Remove Mixpanel integration**
+    - Mixpanel is not used — remove `mixpanel-browser` dependency and all tracking calls.
+    - Affected files: `analytics-service.ts`, `handleAuthSuccess.ts`, `usePaymentForm.tsx`.
+    - This also removes 3 `eslint-disable` comments that exist solely due to bad mixpanel types.
+
 - [ ] **Create a typed frontend config layer**
     - Add a single `src/config/env.ts` module.
     - Validate required env variables with Zod at startup/build time.

@@ -71,17 +71,20 @@ Items investigated and closed — no action needed.
 
 ### Work items
 
-- [ ] **Fix invalid environment checks**
-    - Replace `import.meta.env.VITE_NODE_ENV` usage with `import.meta.env.DEV` or `import.meta.env.PROD`.
+- [x] **~~Fix invalid environment checks~~** — done in Phase 1
+    - Replaced `import.meta.env.VITE_NODE_ENV` with `import.meta.env.DEV` in SpriteIcon.tsx.
 
-- [ ] **Move hardcoded third-party identifiers into environment-driven config**
-    - Facebook Pixel ID, Google Ads ID, TrackDesk account, Cookie banner script ID.
-    - Keep environment-specific values in one typed config layer instead of scattering them in `index.html`.
+- [x] **~~Move hardcoded third-party identifiers into environment-driven config~~** — DEFERRED to Phase 8
+    - Facebook Pixel ID, Google Ads ID, TrackDesk account are hardcoded in `index.html`.
+    - However: IDs are the same for all environments (staging disables analytics entirely via missing `VITE_PUBLIC_ENABLE_DEV_ANALYTICS`).
+    - Moving them to env vars requires a Vite HTML plugin or moving init scripts to JS — architectural change with risk of breaking tracking order.
+    - Not a quick fix; moved to Phase 8 (Architecture).
 
-- [ ] **Remove Mixpanel integration**
-    - Mixpanel is not used — remove `mixpanel-browser` dependency and all tracking calls.
-    - Affected files: `analytics-service.ts`, `handleAuthSuccess.ts`, `usePaymentForm.tsx`.
-    - This also removes 3 `eslint-disable` comments that exist solely due to bad mixpanel types.
+- [x] **~~Remove Mixpanel integration~~** — done
+    - Removed `mixpanel-browser` dependency and all tracking calls.
+    - Deleted `analytics-service.ts` and `analytics-event-types.ts`.
+    - Cleaned `handleAuthSuccess.ts` and `usePaymentForm.tsx`.
+    - Removed 3 `eslint-disable` comments. Bundle reduced by ~330 KB.
 
 - [ ] **Create a typed frontend config layer**
     - Add a single `src/config/env.ts` module.

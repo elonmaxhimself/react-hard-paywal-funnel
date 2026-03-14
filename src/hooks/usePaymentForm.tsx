@@ -20,6 +20,7 @@ import { products } from '@/constants/products';
 
 import { shift4Service } from '@/services/shift4-service';
 import { reportPurchase } from '@/lib/gtag';
+import { env } from '@/config/env';
 
 const Shift4Options = {
     style: {
@@ -207,7 +208,7 @@ export function usePaymentForm(posthog?: PostHog) {
                     }
                     setTimeout(() => {
                         localStorage.removeItem(PAYMENT_IN_PROGRESS_KEY);
-                        const redirectUrl = import.meta.env.VITE_PUBLIC_SHIFT4_PAYMENT_REDIRECT || '/';
+                        const redirectUrl = env.shift4.paymentRedirect;
                         authReset();
                         funnelReset();
                         window.location.href = redirectUrl + '?authToken=' + authToken;
@@ -306,7 +307,7 @@ export function usePaymentForm(posthog?: PostHog) {
 
         const initializeShift4 = () => {
             try {
-                const publicKey = import.meta.env.VITE_PUBLIC_SHIFT4_PUBLISHABLE_KEY;
+                const publicKey = env.shift4.publishableKey;
                 if (!publicKey) {
                     triggerToast({
                         title: t('hooks.usePaymentForm.errors.paymentConfigError'),
@@ -521,7 +522,7 @@ export function usePaymentForm(posthog?: PostHog) {
 
                                     setTimeout(() => {
                                         localStorage.removeItem(PAYMENT_IN_PROGRESS_KEY);
-                                        const redirectUrl = import.meta.env.VITE_PUBLIC_SHIFT4_PAYMENT_REDIRECT || '/';
+                                        const redirectUrl = env.shift4.paymentRedirect;
                                         const redirectUrlWithToken = redirectUrl + '?authToken=' + authToken;
                                         authReset();
                                         funnelReset();

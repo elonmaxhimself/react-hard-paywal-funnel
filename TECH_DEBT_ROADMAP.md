@@ -86,10 +86,11 @@ Items investigated and closed — no action needed.
     - Cleaned `handleAuthSuccess.ts` and `usePaymentForm.tsx`.
     - Removed 3 `eslint-disable` comments. Bundle reduced by ~330 KB.
 
-- [ ] **Create a typed frontend config layer**
-    - Add a single `src/config/env.ts` module.
-    - Validate required env variables with Zod at startup/build time.
-    - Fail early if a required production variable is missing or malformed.
+- [x] **~~Create a typed frontend config layer~~** — done
+    - Added `src/config/env.ts` — single source of truth for all env vars.
+    - Required vars (`apiBaseUrl`, `shift4.publishableKey`) throw at startup if missing.
+    - Optional vars have typed defaults. Typos are now compile errors.
+    - All `import.meta.env.VITE_*` removed from application code (only in `config/env.ts` and `vite.config.ts`).
 
 ### Done when
 

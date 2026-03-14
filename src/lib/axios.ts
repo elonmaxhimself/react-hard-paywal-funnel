@@ -1,25 +1,26 @@
-import axios from "axios";
-import { getAuthStore } from "@/store/states/auth";
+import axios from 'axios';
+import { getAuthStore } from '@/store/states/auth';
+import { env } from '@/config/env';
 
 const axiosInstance = axios.create({
-    baseURL: import.meta.env.VITE_PUBLIC_API_BASE_URL,
+    baseURL: env.apiBaseUrl,
     timeout: 10000,
     adapter: 'fetch',
     headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
     },
 });
 
 axiosInstance.interceptors.request.use(
     (config) => {
-        if (typeof window !== "undefined") {
+        if (typeof window !== 'undefined') {
             const token = getAuthStore().authToken;
             if (token && token.trim()) {
                 try {
                     config.headers.Authorization = `Bearer ${token}`;
                 } catch (error) {
-                    console.warn("Invalid token format:", error);
-                    localStorage.removeItem("token");
+                    console.warn('Invalid token format:', error);
+                    localStorage.removeItem('token');
                 }
             }
         }
@@ -32,11 +33,11 @@ axiosInstance.interceptors.response.use(
     (response) => response,
     (error) => {
         if (error.response) {
-            console.error("API Error:", error.response.status, error.response.statusText);
+            console.error('API Error:', error.response.status, error.response.statusText);
 
             if (error.response.status === 401) {
-                if (typeof window !== "undefined") {
-                    localStorage.removeItem("token");
+                if (typeof window !== 'undefined') {
+                    localStorage.removeItem('token');
                 }
             }
         }

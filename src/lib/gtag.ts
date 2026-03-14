@@ -1,32 +1,23 @@
-declare global {
-    interface Window {
-        gtag?: (...args: any[]) => void;
-        dataLayer?: any[];
-    }
-}
-
-const ADS_ID = "AW-16515055993";
+const ADS_ID = 'AW-16515055993';
 const SEND_TO = {
     purchase: `${ADS_ID}/VknOCJqP-ZIbEPmC_8I9`,
     signup: `${ADS_ID}/ztJvCKrt-ZIbEPmC_8I9`,
     email: `${ADS_ID}/ZG5eCPiy-pIbEPmC_8I9`,
 };
 
-
 const queue: Array<() => void> = [];
 function flushQueue() {
     while (queue.length) queue.shift()?.();
 }
-function safeGtag(...args: any[]) {
-    if (typeof window === "undefined") return;
-    if (typeof window.gtag === "function") {
+function safeGtag(...args: unknown[]) {
+    if (typeof window === 'undefined') return;
+    if (typeof window.gtag === 'function') {
         window.gtag(...args);
         flushQueue();
     } else {
         queue.push(() => window.gtag?.(...args));
     }
 }
-
 
 const sentEventIds = new Set<string>();
 function withDedup(eventId?: string, fn?: () => void) {
@@ -44,11 +35,11 @@ export function reportPurchase(
     opts?: { value?: number; currency?: string; url?: CallbackUrl; eventId?: string },
 ) {
     const { value, currency, url, eventId } = opts ?? {};
-    const eventPayload: Record<string, any> = {
+    const eventPayload: Record<string, unknown> = {
         send_to: SEND_TO.purchase,
-        transaction_id: transactionId ?? "",
+        transaction_id: transactionId ?? '',
     };
-    if (typeof value === "number") eventPayload.value = value;
+    if (typeof value === 'number') eventPayload.value = value;
     if (currency) eventPayload.currency = currency;
 
     const callback = () => {
@@ -56,7 +47,7 @@ export function reportPurchase(
     };
 
     withDedup(eventId, () => {
-        safeGtag("event", "conversion", { ...eventPayload, event_callback: callback });
+        safeGtag('event', 'conversion', { ...eventPayload, event_callback: callback });
     });
 }
 
@@ -66,7 +57,7 @@ export function reportSignUp(url?: CallbackUrl, eventId?: string) {
         if (url) window.location.href = url;
     };
     withDedup(eventId, () => {
-        safeGtag("event", "conversion", { send_to: SEND_TO.signup, event_callback: callback });
+        safeGtag('event', 'conversion', { send_to: SEND_TO.signup, event_callback: callback });
     });
 }
 
@@ -76,6 +67,6 @@ export function reportEmailVerified(url?: CallbackUrl, eventId?: string) {
         if (url) window.location.href = url;
     };
     withDedup(eventId, () => {
-        safeGtag("event", "conversion", { send_to: SEND_TO.email, event_callback: callback });
+        safeGtag('event', 'conversion', { send_to: SEND_TO.email, event_callback: callback });
     });
 }

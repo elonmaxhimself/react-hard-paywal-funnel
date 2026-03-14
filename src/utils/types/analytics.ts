@@ -1,7 +1,7 @@
 export interface SignUpEventProps {
     distinct_id: number | string;
     tid?: string;
-    utmOnRegistration?: Record<string, any>;
+    utmOnRegistration?: Record<string, unknown>;
 }
 
 export interface PaymentEventProps {
@@ -20,5 +20,5 @@ export interface UTMProps {
     utm_term?: string;
     utm_content?: string;
     deal?: string;
-    [key: string]: any;
+    [key: string]: string | undefined;
 }

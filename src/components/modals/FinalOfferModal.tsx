@@ -1,24 +1,24 @@
-import clsx from "clsx";
-import { useFormContext } from "react-hook-form";
-import { usePostHog } from "posthog-js/react";
-import { useEffect } from "react";
-import { useTranslation, Trans } from "react-i18next";
+import clsx from 'clsx';
+import { useFormContext } from 'react-hook-form';
+import { usePostHog } from 'posthog-js/react';
+import { useEffect } from 'react';
+import { useTranslation, Trans } from 'react-i18next';
 
-import Modal from "@/components/modals/Modal";
-import { Button } from "@/components/ui/button";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import Modal from '@/components/modals/Modal';
+import { Button } from '@/components/ui/button';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 
-import { useStore } from "@/store/state";
-import { useTimer } from "@/hooks/useTimerCount";
+import { useStore } from '@/store/state';
+import { useTimer } from '@/hooks/useTimerCount';
 
-import { ModalTriggers } from "@/utils/enums/modal-triggers";
-import { FunnelSchema } from "@/hooks/funnel/useFunnelForm";
+import { ModalTriggers } from '@/utils/enums/modal-triggers';
+import { FunnelSchema } from '@/hooks/funnel/useFunnelForm';
 
-import { useFinalOffer } from "@/constants/subscriptions";
-import { avatars } from "@/constants/avatars";
-import { useOfferBenefits } from "@/constants/offerBenefits";
+import { useFinalOffer } from '@/constants/subscriptions';
+import { avatars } from '@/constants/avatars';
+import { useOfferBenefits } from '@/constants/offerBenefits';
 
-import girlTokioIcon from "@@/images/backgrounds/tokio-girl.avif";
+import girlTokioIcon from '@@/images/backgrounds/tokio-girl.avif';
 
 const TIMER = 30;
 
@@ -39,8 +39,9 @@ export default function FinalOfferModal() {
 
     useEffect(() => {
         if (isFinalOfferModalOpen) {
-            form.setValue("productId", finalOffer.productId);
+            form.setValue('productId', finalOffer.productId);
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps -- finalOffer is stable from useMemo
     }, [isFinalOfferModalOpen, form]);
 
     const onClaimNow = () => {
@@ -55,7 +56,7 @@ export default function FinalOfferModal() {
             posthog?.capture('exit_offer_3_declined');
         }
         setOpen({
-            title: "",
+            title: '',
             trigger: ModalTriggers.SHOW_VIDEO_MODAL,
         });
     };
@@ -67,7 +68,7 @@ export default function FinalOfferModal() {
             showCloseButton={false}
             disableOutsideClick
         >
-            <div className="relative w-full" style={{ aspectRatio: "16/7" }}>
+            <div className="relative w-full" style={{ aspectRatio: '16/7' }}>
                 <img
                     src={girlTokioIcon}
                     alt={t('common.altGirlTokio')}
@@ -76,10 +77,7 @@ export default function FinalOfferModal() {
             </div>
 
             <h2 className="capitalize text-xl sm:text-2xl font-bold text-white text-center my-3 sm:my-5">
-                <Trans 
-                    i18nKey="modals.finalOffer.title"
-                    components={{ highlight: <span className="text-orange" /> }}
-                />
+                <Trans i18nKey="modals.finalOffer.title" components={{ highlight: <span className="text-orange" /> }} />
             </h2>
 
             <div className="px-[15px] pb-[15px] flex flex-col gap-[30px]">
@@ -98,10 +96,10 @@ export default function FinalOfferModal() {
                     <div
                         key={finalOffer.id}
                         className={clsx(
-                            "relative w-full bg-white/5 rounded-[10px]",
+                            'relative w-full bg-white/5 rounded-[10px]',
                             finalOffer.isBestChoice
-                                ? "border-[2px] border-transparent bg-primary-gradient primary-shadow"
-                                : "border-[2px] border-white/6",
+                                ? 'border-[2px] border-transparent bg-primary-gradient primary-shadow'
+                                : 'border-[2px] border-white/6',
                         )}
                     >
                         <div className="bg-[#2a2a2f] p-4 rounded-[10px] flex items-center justify-between flex-wrap sm:flex-nowrap gap-y-3 relative">
@@ -138,11 +136,7 @@ export default function FinalOfferModal() {
                         <div className="flex -space-x-2">
                             {avatars.map(({ src, alt, fallback }) => (
                                 <Avatar size="xs" key={src}>
-                                    <AvatarImage
-                                        className="w-10 h-10 rounded-full object-cover"
-                                        src={src}
-                                        alt={alt}
-                                    />
+                                    <AvatarImage className="w-10 h-10 rounded-full object-cover" src={src} alt={alt} />
                                     <AvatarFallback>{fallback}</AvatarFallback>
                                 </Avatar>
                             ))}
@@ -159,14 +153,14 @@ export default function FinalOfferModal() {
                             variant="default"
                             size="bold"
                             className={clsx(
-                                "w-full relative overflow-hidden transition-all duration-300",
-                                shouldShowTimer && "pulse-button",
+                                'w-full relative overflow-hidden transition-all duration-300',
+                                shouldShowTimer && 'pulse-button',
                             )}
                         >
                             {shouldShowTimer && (
                                 <div
                                     className="absolute inset-0 bg-black/20 transition-all duration-1000 ease-linear"
-                                    style={{ width: `${progress}%`, transformOrigin: "left" }}
+                                    style={{ width: `${progress}%`, transformOrigin: 'left' }}
                                 />
                             )}
 
@@ -179,10 +173,7 @@ export default function FinalOfferModal() {
                         </Button>
                     </div>
 
-                    <Button
-                        variant="lose"
-                        onClick={onLoseChanceForever}
-                    >
+                    <Button variant="lose" onClick={onLoseChanceForever}>
                         {t('modals.finalOffer.loseChanceForever')}
                     </Button>
                 </div>

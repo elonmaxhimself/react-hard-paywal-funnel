@@ -1,14 +1,14 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo } from 'react';
 
-import { useCountdown } from "@/hooks/useCountdown";
+import { useCountdown } from '@/hooks/useCountdown';
 
 export function SaleBanner() {
     const [restartKey, setRestartKey] = useState(0);
 
     const initialTime = useMemo(() => {
-        if (typeof window === "undefined") return { hours: 0, minutes: 10, seconds: 0 };
+        if (typeof window === 'undefined') return { hours: 0, minutes: 10, seconds: 0 };
 
-        const savedStart = sessionStorage.getItem("countdownStart");
+        const savedStart = sessionStorage.getItem('countdownStart');
 
         if (savedStart) {
             const elapsed = Math.floor((Date.now() - parseInt(savedStart)) / 1000);
@@ -20,13 +20,14 @@ export function SaleBanner() {
                 seconds: remaining % 60,
             };
         } else {
-            sessionStorage.setItem("countdownStart", Date.now().toString());
+            sessionStorage.setItem('countdownStart', Date.now().toString());
             return { hours: 0, minutes: 10, seconds: 0 };
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps -- restartKey intentionally triggers recalculation
     }, [restartKey]);
 
     const restartTimer = () => {
-        sessionStorage.setItem("countdownStart", Date.now().toString());
+        sessionStorage.setItem('countdownStart', Date.now().toString());
         setRestartKey((prev) => prev + 1);
     };
 

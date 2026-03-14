@@ -16,87 +16,88 @@ debuggability, performance, testing, and frontend maintainability.
 
 ---
 
-## Phase 0: Production Correctness
+## Resolved Items
 
-**Goal:** fix issues that are already wrong in production or clearly unsafe.
+Items investigated and closed — no action needed.
+
+- [x] **~~Replace the Shift4 DEV SDK with environment-aware SDK loading~~** — NOT AN ISSUE
+  - `index.html` loads `https://js.dev.shift4.com/shift4.js` — this is correct.
+  - Shift4 uses a single SDK/API URL for all environments. `dev` in the domain means "developer portal", not "sandbox".
+  - The environment (test vs live) is determined by the API key prefix (`pk_test_*` vs `pk_live_*`), not the URL.
+  - Confirmed via [Shift4 docs](https://dev.shift4.com/docs/js/): no separate production SDK URL exists.
+
+- [x] **~~Remove raw console output from runtime code~~** — DEFERRED
+  - Console logs are the only diagnostic tool in the funnel until Sentry is integrated.
+  - QA tests on production and needs console output for debugging payment/auth issues.
+  - Revisit after Sentry is in place. For now, only audit for sensitive data leaks (tokens, passwords, card details).
+
+---
+
+## Phase 1: Linting, Typecheck, and Local Workflow
+
+**Goal:** catch bugs before they reach production. Make the codebase consistent across developers.
 
 ### Work items
 
-- [ ] **Replace the Shift4 DEV SDK with environment-aware SDK loading**
-  - `index.html` currently loads `https://js.dev.shift4.com/shift4.js`.
-  - Production must load `https://js.shift4.com/shift4.js`.
-  - Development can keep the DEV endpoint if still required.
+- [ ] **Audit current CI/CD checks**
+  - Document what Cloudflare Pages already runs for `dev` and `main`.
+  - Confirm whether lint, typecheck, and build are enforced before deployment.
 
-- [ ] **Remove raw console output from runtime code**
-  - Replace `console.log`, `console.warn`, and `console.error` with a small logger utility.
-  - Production logs should be silent by default, except for explicit error reporting.
-  - Existing console usage in analytics, axios, payment, auth, and UI helpers should be cleaned up.
+- [ ] **Add missing quality gates to the pipeline**
+  - Require `eslint`, `tsc -b`, and `vite build` to pass before deploy.
+  - Fail the pipeline on type errors and lint violations.
 
-- [ ] **Move hardcoded third-party identifiers into environment-driven config**
-  - Facebook Pixel ID
-  - Google Ads ID
-  - TrackDesk account
-  - Cookie banner script ID
-  - Keep environment-specific values in one typed config layer instead of scattering them in `index.html`.
+- [ ] **Standardize local developer workflow**
+  - Add Husky and lint-staged for changed files.
+  - Add Prettier and `eslint-config-prettier`.
+  - Make formatting and lint behavior deterministic across machines.
+
+- [ ] **Tighten static analysis**
+  - Upgrade `@typescript-eslint/no-explicit-any` to `error`.
+  - Turn on `noUnusedLocals` and `noUnusedParameters` after cleaning current violations.
+  - Remove linter suppressions by fixing root causes (hook deps, `payload?: any`, etc.).
+
+- [ ] **Remove unsafe TypeScript escape hatches**
+  - Eliminate `as any` usage by adding proper types for `window.Shift4`, `window.fbq`, `window.gtag`, TrackDesk globals.
+  - Replace weakly typed component props and helper return values with explicit interfaces.
+
+### Done when
+
+- Broken builds, type errors, and lint regressions fail automatically before deploy.
+- Local workflows match CI expectations.
+- `any` and linter suppressions are near zero.
+
+---
+
+## Phase 2: Quick Production Fixes
+
+**Goal:** fix small issues that are clearly wrong and quick to address.
+
+### Work items
 
 - [ ] **Fix invalid environment checks**
   - Replace `import.meta.env.VITE_NODE_ENV` usage with `import.meta.env.DEV` or `import.meta.env.PROD`.
 
-### Done when
-
-- Production loads the correct payment SDK.
-- Browser console no longer exposes internal payloads in production.
-- Third-party script configuration is environment-specific and centralized.
-- Runtime environment checks are valid and consistent.
-
----
-
-## Phase 1: Security and Runtime Safety
-
-**Goal:** remove obvious security gaps and reduce unsafe runtime behavior.
-
-### Work items
-
-- [ ] **Fix i18n escaping policy**
-  - Revisit `escapeValue: false` in the i18n config.
-  - Either restore escaping or explicitly document and constrain safe interpolation usage.
-
-- [ ] **Add Cloudflare headers for browser-side protection**
-  - Add a strict Content Security Policy through `public/_headers`.
-  - Add related headers where useful: `X-Content-Type-Options`, `Referrer-Policy`, and `Permissions-Policy`.
-  - Start with a policy that matches the current third-party integrations and then tighten it.
+- [ ] **Move hardcoded third-party identifiers into environment-driven config**
+  - Facebook Pixel ID, Google Ads ID, TrackDesk account, Cookie banner script ID.
+  - Keep environment-specific values in one typed config layer instead of scattering them in `index.html`.
 
 - [ ] **Create a typed frontend config layer**
   - Add a single `src/config/env.ts` module.
   - Validate required env variables with Zod at startup/build time.
   - Fail early if a required production variable is missing or malformed.
 
-- [ ] **Remove unsafe TypeScript escape hatches**
-  - Eliminate `as any` usage by adding proper types for:
-    - `window.Shift4`
-    - `window.fbq`
-    - `window.gtag`
-    - TrackDesk globals if used directly
-  - Replace weakly typed component props and helper return values with explicit interfaces.
-
-- [ ] **Remove linter suppressions by fixing root causes**
-  - Replace `payload?: any` with proper payload typing.
-  - Fix React hook dependency issues instead of suppressing them.
-  - Remove ad hoc exemptions around analytics globals once the globals are typed.
-
 ### Done when
 
-- Unsafe interpolation paths are understood and controlled.
-- The app ships with explicit browser security headers.
-- Missing env vars fail fast instead of failing at runtime.
-- `any`-based third-party integrations are replaced with typed declarations.
-- Linter suppressions are reduced to near zero and justified when they remain.
+- Environment checks use Vite built-ins and work reliably.
+- Third-party scripts use correct IDs per environment.
+- Missing env vars fail fast instead of silently breaking at runtime.
 
 ---
 
-## Phase 2: Error Handling and Debuggability
+## Phase 3: Observability (Sentry + Error Handling)
 
-**Goal:** make failures visible, actionable, and isolated.
+**Goal:** make failures visible and actionable instead of relying on console logs and QA reports.
 
 ### Work items
 
@@ -110,59 +111,46 @@ debuggability, performance, testing, and frontend maintainability.
   - Add a narrower boundary around payment-related UI.
   - Fallback UI should preserve progress and offer a safe retry path.
 
-- [ ] **Standardize runtime logging**
-  - Add `src/lib/logger.ts` with a small API such as `debug`, `info`, `warn`, `error`.
-  - Development may log locally; production should forward only meaningful failures.
-
 - [ ] **Normalize API error handling**
   - Centralize axios error parsing.
   - Distinguish between validation errors, auth errors, network failures, and third-party SDK failures.
-  - Ensure user-facing messages remain clean while technical details go to telemetry.
+  - Ensure user-facing messages remain clean while technical details go to Sentry.
+
+- [ ] **Replace console logs with structured logger** _(unblocked after Sentry)_
+  - Add `src/lib/logger.ts` with `debug`, `info`, `warn`, `error`.
+  - Development logs locally; production forwards errors to Sentry.
 
 ### Done when
 
 - Frontend crashes are visible in Sentry with readable stack traces.
 - A single broken step does not blank the entire funnel.
-- Error reporting is structured and consistent across services and hooks.
 - API failures are handled through one predictable pattern.
 
 ---
 
-## Phase 3: Delivery Pipeline Hardening
+## Phase 4: Security Hardening
 
-**Goal:** strengthen the existing delivery flow with better technical quality gates.
+**Goal:** remove obvious security gaps.
 
 ### Work items
 
-- [ ] **Audit the current CI/CD checks**
-  - Document what the current pipeline already runs for `dev` and `main`.
-  - Confirm whether lint, typecheck, and build are enforced before deployment.
-  - Identify gaps rather than rebuilding the deployment setup from scratch.
+- [ ] **Add Cloudflare headers for browser-side protection**
+  - Add a strict Content Security Policy through `public/_headers`.
+  - Add `X-Content-Type-Options`, `Referrer-Policy`, and `Permissions-Policy`.
+  - Start with a policy that matches current third-party integrations, then tighten.
 
-- [ ] **Add missing quality gates to the existing pipeline**
-  - Require `eslint`, `tsc -b`, and `vite build`.
-  - Add automated test steps once the testing foundation exists.
-  - Fail the pipeline on missing required env vars for the target environment.
-
-- [ ] **Standardize local developer workflow**
-  - Add Husky and lint-staged for changed files.
-  - Add Prettier and `eslint-config-prettier`.
-  - Make formatting and lint behavior deterministic across machines.
-
-- [ ] **Tighten static analysis**
-  - Add `eslint-plugin-jsx-a11y`.
-  - Upgrade `@typescript-eslint/no-explicit-any` to `error`.
-  - Turn on `noUnusedLocals` and `noUnusedParameters` after cleaning current violations.
+- [ ] **Fix i18n escaping policy**
+  - Revisit `escapeValue: false` in the i18n config.
+  - Either restore escaping or explicitly document and constrain safe interpolation usage.
 
 ### Done when
 
-- Deployments continue to use the existing platform flow, but the code entering that flow is cleaner and safer.
-- Broken builds, type errors, and lint regressions fail automatically.
-- Local workflows match CI expectations closely enough to reduce surprise failures.
+- The app ships with explicit browser security headers.
+- Unsafe interpolation paths are understood and controlled.
 
 ---
 
-## Phase 4: API Contracts and State Safety
+## Phase 5: API Contracts and State Safety
 
 **Goal:** protect the app from malformed backend data and fragile local persistence.
 
@@ -171,10 +159,6 @@ debuggability, performance, testing, and frontend maintainability.
 - [ ] **Validate critical API responses at runtime**
   - Add Zod schemas for auth, payment, and payment-status responses.
   - Parse server responses in the service layer before passing them to UI code.
-
-- [ ] **Introduce a small DTO-to-domain mapping layer**
-  - Keep backend response shapes isolated from form state and UI state.
-  - Make service contracts explicit and easier to evolve safely.
 
 - [ ] **Version persisted Zustand state**
   - Add store versioning and migration functions for auth and funnel storage.
@@ -194,7 +178,7 @@ debuggability, performance, testing, and frontend maintainability.
 
 ---
 
-## Phase 5: Performance and Bundle Control
+## Phase 6: Performance and Bundle Control
 
 **Goal:** reduce unnecessary work on first load and make performance visible.
 
@@ -210,29 +194,20 @@ debuggability, performance, testing, and frontend maintainability.
   - Keep the first steps as lightweight as possible.
 
 - [ ] **Review third-party script loading**
-  - Revisit everything injected in `index.html`.
   - Defer non-critical scripts where possible.
   - Keep payment-critical code available, but avoid blocking first paint with non-essential integrations.
 
-- [ ] **Self-host static assets that should not depend on third parties**
-  - Self-host fonts.
-  - Define an image policy for future raster assets: dimensions, format, and compression.
-
-- [ ] **Define simple frontend performance budgets**
-  - Initial JS budget
-  - Largest step chunk budget
-  - Third-party script budget
-  - Track regressions with a repeatable build report
+- [ ] **Self-host fonts**
+  - Remove external font dependencies.
 
 ### Done when
 
 - Users entering the first steps no longer download the full payment tail immediately.
 - Third-party script cost is intentional instead of accidental.
-- Performance discussions can rely on measurements, not guesswork.
 
 ---
 
-## Phase 6: Testing Foundation
+## Phase 7: Testing Foundation
 
 **Goal:** protect the main funnel flows with automated confidence.
 
@@ -240,35 +215,27 @@ debuggability, performance, testing, and frontend maintainability.
 
 - [ ] **Add a unit and integration testing stack**
   - Set up Vitest, React Testing Library, and coverage reporting.
-  - Add stable helpers for store reset, mocked env, and mocked browser APIs.
 
 - [ ] **Test critical logic first**
-  - Funnel step validation rules
-  - Form restore behavior
-  - Store persistence and reset
-  - Analytics service guardrails
-  - Payment helper logic
-  - Auth callback restoration logic
+  - Funnel step validation rules, form restore behavior, store persistence and reset.
+  - Payment helper logic, auth callback restoration logic.
 
 - [ ] **Add Playwright for end-to-end coverage**
-  - Happy path from early steps to payment completion using mocked payment tokenization
-  - Payment failure and retry path
-  - Refresh and persistence path
-  - OAuth callback restoration path
+  - Happy path from early steps to payment completion using mocked payment tokenization.
+  - Payment failure/retry, refresh/persistence, OAuth callback restoration.
 
-- [ ] **Wire tests into the existing pipeline**
-  - Start with unit tests in the main quality gate.
-  - Add a small but valuable browser smoke suite once Playwright is stable.
+- [ ] **Wire tests into CI**
+  - Unit tests in the main quality gate.
+  - Browser smoke suite once Playwright is stable.
 
 ### Done when
 
 - Core funnel logic is covered by fast local tests.
 - The highest-value user journeys have browser-level protection.
-- Refactors stop depending entirely on manual confidence.
 
 ---
 
-## Phase 7: Frontend Architecture and Maintainability
+## Phase 8: Architecture and Maintainability
 
 **Goal:** make the codebase easier to extend without hidden coupling.
 
@@ -281,35 +248,24 @@ debuggability, performance, testing, and frontend maintainability.
 - [ ] **Clarify code ownership boundaries**
   - Keep UI components presentational where possible.
   - Push orchestration into hooks, services, and adapters.
-  - Keep backend contracts out of step components.
 
 - [ ] **Normalize naming and file hygiene**
   - Remove remaining `I*` interface naming where touched.
   - Clean unused code and dead paths as part of nearby changes.
-  - Keep exported functions and components explicitly typed.
 
 - [ ] **Document critical technical flows**
-  - Auth flow
-  - Payment flow
-  - Funnel persistence
-  - Analytics/tracking integration points
-  - The goal is lightweight technical documentation, not product documentation.
-
-- [ ] **Consider Storybook after the testing foundation is stable**
-  - Useful for isolated UI work, field components, and regression-friendly review.
-  - Lower priority than runtime safety and test coverage.
+  - Auth flow, payment flow, funnel persistence, analytics integration points.
 
 ### Done when
 
 - Critical flows are easier to reason about.
 - Components are less coupled to SDK globals and transport details.
-- New contributors can navigate the codebase without reverse-engineering everything first.
 
 ---
 
-## Phase 8: Accessibility Hardening
+## Phase 9: Accessibility
 
-**Goal:** eliminate obvious accessibility issues and make step navigation safer.
+**Goal:** eliminate obvious accessibility issues.
 
 ### Work items
 
@@ -321,28 +277,26 @@ debuggability, performance, testing, and frontend maintainability.
   - Move focus intentionally on step transitions.
   - Ensure error states and validation messages are discoverable by keyboard and screen-reader users.
 
-- [ ] **Enforce accessibility in static analysis**
-  - Add `eslint-plugin-jsx-a11y`.
-  - Resolve the first wave of violations and keep the rule active in CI.
+- [ ] **Add `eslint-plugin-jsx-a11y`**
+  - Resolve initial violations and keep the rule active in CI.
 
 ### Done when
 
 - The funnel is navigable without relying on a mouse.
-- Step transitions and validation states are easier to use with assistive technology.
-- Accessibility regressions are caught by tooling, not just by manual review.
+- Accessibility regressions are caught by tooling.
 
 ---
 
-## Recommended Execution Order
+## Execution Order
 
-| Order | Phase | Why it comes here |
-|-------|-------|-------------------|
-| 1 | Phase 0 | Fixes issues that are already wrong in production |
-| 2 | Phase 1 | Removes obvious security and runtime safety risks |
-| 3 | Phase 2 | Makes new failures visible before wider refactors |
-| 4 | Phase 3 | Strengthens the existing delivery flow and local engineering workflow |
-| 5 | Phase 4 | Hardens API boundaries, persistence, and payment state |
-| 6 | Phase 5 | Improves load cost and creates measurable performance visibility |
-| 7 | Phase 6 | Adds automated confidence for future refactors |
-| 8 | Phase 7 | Improves maintainability after guardrails are in place |
-| 9 | Phase 8 | Final quality pass for accessibility and polish |
+| Order | Phase | Why |
+|-------|-------|-----|
+| 1 | Phase 1 — Linting & Typecheck | Foundation — catches bugs before deploy, makes all future work safer |
+| 2 | Phase 2 — Quick Production Fixes | Small, high-value fixes that are easy to ship |
+| 3 | Phase 3 — Observability | Makes failures visible before deeper refactors |
+| 4 | Phase 4 — Security | Adds browser-level protection |
+| 5 | Phase 5 — API & State Safety | Hardens data boundaries and payment state |
+| 6 | Phase 6 — Performance | Optimizes load cost with measurable data |
+| 7 | Phase 7 — Testing | Adds automated confidence for future refactors |
+| 8 | Phase 8 — Architecture | Improves maintainability after guardrails are in place |
+| 9 | Phase 9 — Accessibility | Final quality pass |

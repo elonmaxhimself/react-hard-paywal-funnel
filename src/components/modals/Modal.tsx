@@ -1,15 +1,14 @@
-import { useCallback, useEffect } from "react";
-import { useStore } from "@/store/state";
+import { useCallback, useEffect } from 'react';
+import { useStore } from '@/store/state';
 
-import { Dialog, DialogContent } from "@/components/ui/dialog";
-import { clsx } from "clsx";
-import { ModalTriggers } from "@/utils/enums/modal-triggers";
+import { Dialog, DialogContent } from '@/components/ui/dialog';
+import { clsx } from 'clsx';
+import { ModalTriggers } from '@/utils/enums/modal-triggers';
 
-interface ModalProps
-    extends Omit<
-        React.ComponentProps<typeof DialogContent>,
-        "onPointerDownOutside" | "onEscapeKeyDown"
-    > {
+interface ModalProps extends Omit<
+    React.ComponentProps<typeof DialogContent>,
+    'onPointerDownOutside' | 'onEscapeKeyDown'
+> {
     children: React.ReactNode[] | React.ReactNode;
     triggers: (string | number)[];
     onClose?: () => void;
@@ -46,8 +45,8 @@ export default function Modal({
         (opened: boolean) => {
             setOpenChange(opened);
             if (!opened && onClose) onClose();
-            // eslint-disable-next-line react-hooks/exhaustive-deps
         },
+        // eslint-disable-next-line react-hooks/exhaustive-deps -- setOpenChange is stable from Zustand
         [onClose],
     );
 
@@ -55,8 +54,8 @@ export default function Modal({
         <Dialog open={opened} onOpenChange={handleOpenChange}>
             <DialogContent
                 className={clsx(
-                    "max-w-full sm:max-w-[425px] bottom-0 top-auto sm:bottom-auto sm:top-[50%] translate-y-0 sm:translate-y-[-50%] rounded-b-none sm:rounded-lg",
-                    "p-0",
+                    'max-w-full sm:max-w-[425px] bottom-0 top-auto sm:bottom-auto sm:top-[50%] translate-y-0 sm:translate-y-[-50%] rounded-b-none sm:rounded-lg',
+                    'p-0',
                     className,
                 )}
                 onPointerDownOutside={disableOutsideClick ? (e) => e.preventDefault() : undefined}
@@ -65,10 +64,10 @@ export default function Modal({
             >
                 <div
                     className={clsx(
-                        "max-h-[95dvh]",
+                        'max-h-[95dvh]',
                         triggers.includes(ModalTriggers.FINAL_OFFER_UNLOCKED_MODAL)
-                            ? "overflow-hidden"
-                            : "overflow-y-auto",
+                            ? 'overflow-hidden'
+                            : 'overflow-y-auto',
                     )}
                 >
                     {children}

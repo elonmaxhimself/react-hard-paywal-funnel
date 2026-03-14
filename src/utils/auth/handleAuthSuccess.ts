@@ -1,18 +1,20 @@
-import { analyticsService } from "@/services/analytics-service";
-import { AnalyticsEventTypeEnum } from "@/utils/enums/analytics-event-types";
-import { reportEmailVerified, reportSignUp } from "@/lib/gtag";
+import type { PostHog } from 'posthog-js';
+import { analyticsService } from '@/services/analytics-service';
+import { AnalyticsEventTypeEnum } from '@/utils/enums/analytics-event-types';
+import { reportEmailVerified, reportSignUp } from '@/lib/gtag';
+import type { FunnelSchema } from '@/hooks/funnel/useFunnelForm';
 
 interface HandleAuthSuccessParams {
     userId: number;
     email: string;
     authToken: string;
-    posthog?: any;
+    posthog?: PostHog;
     setUserId: (id: number) => void;
     setToken: (token: string) => void;
-    setFormState: (state: any) => void;
+    setFormState: (state: FunnelSchema) => void;
     setStep: (step: number) => void;
     nextStep: () => void;
-    funnelFormValues: any;
+    funnelFormValues: Omit<FunnelSchema, 'productId'>;
     activeStep: number;
 }
 
@@ -29,8 +31,8 @@ export const handleAuthSuccess = ({
     funnelFormValues,
     activeStep,
 }: HandleAuthSuccessParams) => {
-    const fbq = (window as any).fbq;
-    fbq?.("track", "Lead", {
+    const fbq = window.fbq;
+    fbq?.('track', 'Lead', {
         user_id: userId,
         email: email,
     });
@@ -42,35 +44,37 @@ export const handleAuthSuccess = ({
     // GTM / dataLayer event
     window.dataLayer = window.dataLayer || [];
     window.dataLayer.push({
-        event: "cd_signup",
+        event: 'cd_signup',
         user_id: String(userId),
-        email_domain: email.split("@")[1] || "",
+        email_domain: email.split('@')[1] || '',
     });
 
     // Mixpanel identify + sign up tracking
     try {
         analyticsService.identify(String(userId));
 
-        let utmOnRegistration: Record<string, any> | undefined;
+        let utmOnRegistration: Record<string, unknown> | undefined;
         try {
-            const stored = localStorage.getItem("utm_params");
+            const stored = localStorage.getItem('utm_params');
             if (stored) utmOnRegistration = JSON.parse(stored);
-        } catch {}
+        } catch {
+            /* ignored */
+        }
 
         analyticsService.trackSignUpEvent(AnalyticsEventTypeEnum.UNVERIFIED_SIGN_UP, {
             distinct_id: String(userId),
-            tid: utmOnRegistration?.deal,
+            tid: utmOnRegistration?.deal as string | undefined,
             utmOnRegistration,
         });
     } catch (e) {
-        console.warn("Mixpanel sign up tracking failed", e);
+        console.warn('Mixpanel sign up tracking failed', e);
     }
 
     // PostHog identify + account created tracking
     try {
-        if (typeof window !== "undefined" && posthog) {
+        if (typeof window !== 'undefined' && posthog) {
             posthog.identify(String(userId), {
-                email_domain: email.split("@")[1] || "",
+                email_domain: email.split('@')[1] || '',
             });
 
             //  setTimeout(() => {
@@ -83,11 +87,11 @@ export const handleAuthSuccess = ({
             // }, 500);
         }
     } catch (e) {
-        console.warn("PostHog sign up tracking failed", e);
+        console.warn('PostHog sign up tracking failed', e);
     }
     setUserId(userId);
     setToken(authToken);
-    setFormState(funnelFormValues);
+    setFormState(funnelFormValues as FunnelSchema);
     setStep(activeStep + 1);
     nextStep();
 };

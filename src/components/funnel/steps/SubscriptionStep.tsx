@@ -1,40 +1,29 @@
-import { clsx } from "clsx";
-import { useEffect, useRef, useState, useMemo, Fragment } from "react";
-import { useFormContext } from "react-hook-form";
-import { useTranslation, Trans } from "react-i18next";
+import { clsx } from 'clsx';
+import { useEffect, useRef, useState, useMemo, Fragment } from 'react';
+import { useFormContext } from 'react-hook-form';
+import { useTranslation, Trans } from 'react-i18next';
 
-import SaleBanner from "@/components/SaleBanner";
-import { Button } from "@/components/ui/button";
-import { useStepperContext } from "@/components/stepper/Stepper.context";
-import {
-    Accordion,
-    AccordionContent,
-    AccordionItem,
-    AccordionTrigger,
-} from "@/components/ui/accordion";
-import {
-    Carousel,
-    CarouselContent,
-    CarouselItem,
-    CarouselDots,
-    type CarouselApi,
-} from "@/components/ui/carousel";
-import { usePostHog } from "posthog-js/react";
+import SaleBanner from '@/components/SaleBanner';
+import { Button } from '@/components/ui/button';
+import { useStepperContext } from '@/components/stepper/Stepper.context';
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
+import { Carousel, CarouselContent, CarouselItem, CarouselDots, type CarouselApi } from '@/components/ui/carousel';
+import { usePostHog } from 'posthog-js/react';
 
-import { useStore } from "@/store/state";
+import { useStore } from '@/store/state';
 
-import { getBlurredCharacterImage } from "@/utils/helpers/getBlurredCharacterImage";
+import { getBlurredCharacterImage } from '@/utils/helpers/getBlurredCharacterImage';
 
-import { type FunnelSchema } from "@/hooks/funnel/useFunnelForm";
+import { type FunnelSchema } from '@/hooks/funnel/useFunnelForm';
 
-import { useSubscriptions } from "@/constants/subscriptions";
-import { useReviews } from "@/constants/reviews";
-import { brands } from "@/constants/brands";
-import { useSubscriptionTermsTexts } from "@/constants/subscriptionTermsTexts";
+import { useSubscriptions } from '@/constants/subscriptions';
+import { useReviews } from '@/constants/reviews';
+import { brands } from '@/constants/brands';
+import { useSubscriptionTermsTexts } from '@/constants/subscriptionTermsTexts';
 
-import SpriteIcon from "@/components/SpriteIcon";
-import { EXPERIMENTS } from "@/configs/experiment.config";
-import { Loader2Icon } from "lucide-react";
+import SpriteIcon from '@/components/SpriteIcon';
+import { EXPERIMENTS } from '@/configs/experiment.config';
+import { Loader2Icon } from 'lucide-react';
 
 function useMeasure() {
     const ref = useRef<HTMLDivElement>(null);
@@ -55,13 +44,7 @@ function useMeasure() {
 // Inline crown SVG component to reuse cleanly
 function CrownIcon() {
     return (
-        <svg
-            width="16"
-            height="16"
-            viewBox="0 0 20 20"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-        >
+        <svg width="16" height="16" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path
                 fillRule="evenodd"
                 clipRule="evenodd"
@@ -142,14 +125,17 @@ export function SubscriptionStep() {
         });
 
         return () => {
-            try { unsubscribe?.(); } catch {}
+            try {
+                unsubscribe?.();
+            } catch {
+                /* ignored */
+            }
         };
     }, [posthog]);
 
     const productIds: readonly number[] =
-        EXPERIMENTS.PRICING.variants[
-            pricingVariant as keyof typeof EXPERIMENTS.PRICING.variants
-        ] || EXPERIMENTS.PRICING.variants.control;
+        EXPERIMENTS.PRICING.variants[pricingVariant as keyof typeof EXPERIMENTS.PRICING.variants] ||
+        EXPERIMENTS.PRICING.variants.control;
 
     const activeSubscriptions = useMemo(() => {
         return subscriptions.filter((sub) => productIds.includes(sub.productId));
@@ -158,24 +144,24 @@ export function SubscriptionStep() {
     const stats = useMemo(
         () => [
             {
-                icon: "/images/gold-icons/icons.svg",
-                value: "20 000 000 +",
-                label: t("funnel.subscriptionStep.stats.companionsCreated"),
+                icon: '/images/gold-icons/icons.svg',
+                value: '20 000 000 +',
+                label: t('funnel.subscriptionStep.stats.companionsCreated'),
             },
             {
-                icon: "/images/gold-icons/icons.svg",
-                value: "50 000 000",
-                label: t("funnel.subscriptionStep.stats.photosAndVideos"),
+                icon: '/images/gold-icons/icons.svg',
+                value: '50 000 000',
+                label: t('funnel.subscriptionStep.stats.photosAndVideos'),
             },
             {
-                icon: "/images/gold-icons/star-award.svg",
-                value: "4.9/5",
-                label: t("funnel.subscriptionStep.stats.satisfactionScore"),
+                icon: '/images/gold-icons/star-award.svg',
+                value: '4.9/5',
+                label: t('funnel.subscriptionStep.stats.satisfactionScore'),
             },
             {
-                icon: "/images/gold-icons/star.svg",
-                value: "5+",
-                label: t("funnel.subscriptionStep.stats.newFeatures"),
+                icon: '/images/gold-icons/star.svg',
+                value: '5+',
+                label: t('funnel.subscriptionStep.stats.newFeatures'),
             },
         ],
         [t],
@@ -184,35 +170,35 @@ export function SubscriptionStep() {
     const steps = useMemo(
         () => [
             {
-                step: t("funnel.subscriptionStep.steps.step1.step"),
-                title: t("funnel.subscriptionStep.steps.step1.title"),
-                desc: t("funnel.subscriptionStep.steps.step1.desc"),
-                img: "/images/how-it-work/circle.png",
-                bgFrom: "#361728",
-                bgTo: "#2B2136",
-                borderFrom: "#361728",
-                borderTo: "#2B2136",
+                step: t('funnel.subscriptionStep.steps.step1.step'),
+                title: t('funnel.subscriptionStep.steps.step1.title'),
+                desc: t('funnel.subscriptionStep.steps.step1.desc'),
+                img: '/images/how-it-work/circle.png',
+                bgFrom: '#361728',
+                bgTo: '#2B2136',
+                borderFrom: '#361728',
+                borderTo: '#2B2136',
             },
             {
-                step: t("funnel.subscriptionStep.steps.step2.step"),
-                title: t("funnel.subscriptionStep.steps.step2.title"),
-                desc: t("funnel.subscriptionStep.steps.step2.desc"),
-                img: "/images/how-it-work/photo.png",
-                pClass: "mb-[-35px]",
-                bgFrom: "#361728",
-                bgTo: "#2B2136",
-                borderFrom: "#361728",
-                borderTo: "#2B2136",
+                step: t('funnel.subscriptionStep.steps.step2.step'),
+                title: t('funnel.subscriptionStep.steps.step2.title'),
+                desc: t('funnel.subscriptionStep.steps.step2.desc'),
+                img: '/images/how-it-work/photo.png',
+                pClass: 'mb-[-35px]',
+                bgFrom: '#361728',
+                bgTo: '#2B2136',
+                borderFrom: '#361728',
+                borderTo: '#2B2136',
             },
             {
-                step: t("funnel.subscriptionStep.steps.step3.step"),
-                title: t("funnel.subscriptionStep.steps.step3.title"),
-                desc: t("funnel.subscriptionStep.steps.step3.desc"),
-                img: "/images/how-it-work/chat.png",
-                bgFrom: "#361728",
-                bgTo: "#313137",
-                borderFrom: "#36172880",
-                borderTo: "#31313780",
+                step: t('funnel.subscriptionStep.steps.step3.step'),
+                title: t('funnel.subscriptionStep.steps.step3.title'),
+                desc: t('funnel.subscriptionStep.steps.step3.desc'),
+                img: '/images/how-it-work/chat.png',
+                bgFrom: '#361728',
+                bgTo: '#313137',
+                borderFrom: '#36172880',
+                borderTo: '#31313780',
             },
         ],
         [t],
@@ -221,13 +207,13 @@ export function SubscriptionStep() {
     const PERKS = useMemo(
         () =>
             [
-                { text: `🌶️ ${t("funnel.subscriptionStep.perks.spicyImages")}` },
-                { text: `🥵 ${t("funnel.subscriptionStep.perks.spicyVideos")}` },
-                { text: `🧠 ${t("funnel.subscriptionStep.perks.smartestChat")}` },
-                { text: `⏳ ${t("funnel.subscriptionStep.perks.longMemory")}` },
-                { text: `👩🏼 ${t("funnel.subscriptionStep.perks.multipleGirls")}` },
-                { text: `📚 ${t("funnel.subscriptionStep.perks.aiGirlsLibrary")}` },
-                { text: `🔒 ${t("funnel.subscriptionStep.perks.contentPrivacy")}` },
+                { text: `🌶️ ${t('funnel.subscriptionStep.perks.spicyImages')}` },
+                { text: `🥵 ${t('funnel.subscriptionStep.perks.spicyVideos')}` },
+                { text: `🧠 ${t('funnel.subscriptionStep.perks.smartestChat')}` },
+                { text: `⏳ ${t('funnel.subscriptionStep.perks.longMemory')}` },
+                { text: `👩🏼 ${t('funnel.subscriptionStep.perks.multipleGirls')}` },
+                { text: `📚 ${t('funnel.subscriptionStep.perks.aiGirlsLibrary')}` },
+                { text: `🔒 ${t('funnel.subscriptionStep.perks.contentPrivacy')}` },
             ] as const,
         [t],
     );
@@ -236,11 +222,11 @@ export function SubscriptionStep() {
         () =>
             [
                 {
-                    value: "item-1",
-                    question: t("funnel.subscriptionStep.faqs.question1"),
+                    value: 'item-1',
+                    question: t('funnel.subscriptionStep.faqs.question1'),
                     answer: (
                         <>
-                            {t("funnel.subscriptionStep.faqs.answer1")}
+                            {t('funnel.subscriptionStep.faqs.answer1')}
                             <a
                                 target="_blank"
                                 href="mailto:support@mydreamcompanion.com"
@@ -254,11 +240,11 @@ export function SubscriptionStep() {
                     ),
                 },
                 {
-                    value: "item-2",
-                    question: t("funnel.subscriptionStep.faqs.question2"),
+                    value: 'item-2',
+                    question: t('funnel.subscriptionStep.faqs.question2'),
                     answer: (
                         <>
-                            {t("funnel.subscriptionStep.faqs.answer2")}
+                            {t('funnel.subscriptionStep.faqs.answer2')}
                             <a
                                 target="_blank"
                                 href="mailto:support@mydreamcompanion.com"
@@ -272,14 +258,11 @@ export function SubscriptionStep() {
                     ),
                 },
                 {
-                    value: "item-3",
-                    question: t("funnel.subscriptionStep.faqs.question3"),
+                    value: 'item-3',
+                    question: t('funnel.subscriptionStep.faqs.question3'),
                     answer: (
                         <>
-                            <Trans
-                                i18nKey="funnel.subscriptionStep.faqs.answer3"
-                                components={{ br: <br /> }}
-                            />
+                            <Trans i18nKey="funnel.subscriptionStep.faqs.answer3" components={{ br: <br /> }} />
                             <a
                                 target="_blank"
                                 href="mailto:support@mydreamcompanion.com"
@@ -288,14 +271,14 @@ export function SubscriptionStep() {
                             >
                                 support@mydreamcompanion.com
                             </a>
-                            {t("funnel.subscriptionStep.faqs.answer3Suffix")}
+                            {t('funnel.subscriptionStep.faqs.answer3Suffix')}
                         </>
                     ),
                 },
                 {
-                    value: "item-4",
-                    question: t("funnel.subscriptionStep.faqs.question4"),
-                    answer: <>{t("funnel.subscriptionStep.faqs.answer4")}</>,
+                    value: 'item-4',
+                    question: t('funnel.subscriptionStep.faqs.question4'),
+                    answer: <>{t('funnel.subscriptionStep.faqs.answer4')}</>,
                 },
             ] as const,
         [t],
@@ -304,14 +287,14 @@ export function SubscriptionStep() {
     const BENEFITS = useMemo(
         () =>
             [
-                t("funnel.subscriptionStep.benefits.dataProtection"),
+                t('funnel.subscriptionStep.benefits.dataProtection'),
                 <Trans
                     key="benefit-2"
                     i18nKey="funnel.subscriptionStep.benefits.noHiddenFees"
                     components={{ br: <br /> }}
                 />,
-                t("funnel.subscriptionStep.benefits.antivirusSecured"),
-                t("funnel.subscriptionStep.benefits.discreet"),
+                t('funnel.subscriptionStep.benefits.antivirusSecured'),
+                t('funnel.subscriptionStep.benefits.discreet'),
             ] as const,
         [t],
     );
@@ -331,10 +314,9 @@ export function SubscriptionStep() {
     const [carouselApi, setCarouselApi] = useState<CarouselApi>();
 
     useEffect(() => {
-        if (typeof window === "undefined") return;
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any -- Facebook Pixel global injected via script tag
-        const fbq = (window as any).fbq;
-        fbq?.("track", "ViewContent", {});
+        if (typeof window === 'undefined') return;
+        const fbq = window.fbq;
+        fbq?.('track', 'ViewContent', {});
     }, []);
 
     const form = useFormContext<FunnelSchema>();
@@ -349,29 +331,28 @@ export function SubscriptionStep() {
         return () => clearInterval(interval);
     }, [carouselApi]);
 
-    const productId = form.watch("productId");
+    const productId = form.watch('productId');
 
-    const ethnicity = form.watch("ethnicity");
-    const hair_color = form.watch("hair_color");
+    const ethnicity = form.watch('ethnicity');
+    const hair_color = form.watch('hair_color');
     const characterPreviewImage =
-        getBlurredCharacterImage(ethnicity, hair_color) ||
-        "/images/blurred-characters/white-brunette.webp";
+        getBlurredCharacterImage(ethnicity, hair_color) || '/images/blurred-characters/white-brunette.webp';
 
     const hero = useMeasure();
 
     useEffect(() => {
         if (!defaultProduct) return;
 
-        const currentProductId = form.getValues("productId");
+        const currentProductId = form.getValues('productId');
         if (isSpecialOfferOpened) {
-            form.setValue("productId", defaultProduct);
+            form.setValue('productId', defaultProduct);
             setIsSpecialOfferOpened(false);
             return;
         }
         if (currentProductId && productIds.includes(currentProductId)) {
             return;
         }
-        form.setValue("productId", defaultProduct);
+        form.setValue('productId', defaultProduct);
     }, [isSpecialOfferOpened, defaultProduct, productIds, form, setIsSpecialOfferOpened]);
 
     useEffect(() => {
@@ -388,7 +369,7 @@ export function SubscriptionStep() {
     const isPricingReady = pricingVariant !== null || pricingFallbackReady;
 
     const renderTermsText = (text: string) => {
-        const parts = text.split("|TERMS_LINK|");
+        const parts = text.split('|TERMS_LINK|');
         if (parts.length === 1) return text;
         return (
             <>
@@ -399,7 +380,7 @@ export function SubscriptionStep() {
                     className="text-blue-400  hover:text-blue-300 transition-colors "
                     rel="noopener noreferrer"
                 >
-                    {t("funnel.subscriptionStep.termsAndConditions")}
+                    {t('funnel.subscriptionStep.termsAndConditions')}
                 </a>
                 {parts[1]}
             </>
@@ -407,16 +388,16 @@ export function SubscriptionStep() {
     };
 
     return (
-        <div className={"w-full flex flex-col min-h-screen h-full sm:px-10 pb-10 md:pb-[70px]"}>
+        <div className={'w-full flex flex-col min-h-screen h-full sm:px-10 pb-10 md:pb-[70px]'}>
             <SaleBanner />
 
-            <div className={"max-w-[450px] flex-1 w-full mx-auto flex flex-col items-center"}>
-                <div className={"relative w-full h-auto aspect-square"}>
+            <div className={'max-w-[450px] flex-1 w-full mx-auto flex flex-col items-center'}>
+                <div className={'relative w-full h-auto aspect-square'}>
                     <div ref={hero.ref} className="absolute inset-0">
                         {hero.w > 0 && hero.h > 0 && (
                             <SpriteIcon
                                 src={characterPreviewImage}
-                                fallbackAlt={t("funnel.subscriptionStep.altCharacterPlaceholder")}
+                                fallbackAlt={t('funnel.subscriptionStep.altCharacterPlaceholder')}
                                 targetW={hero.w}
                                 targetH={hero.h}
                                 fit="cover"
@@ -427,35 +408,35 @@ export function SubscriptionStep() {
                     </div>
                 </div>
 
-                <div className={"mt-[-20px] mb-[25px]"}>
-                    <div className={"text-white text-[28px] font-bold text-center"}>
-                        {t("funnel.subscriptionStep.title")}
+                <div className={'mt-[-20px] mb-[25px]'}>
+                    <div className={'text-white text-[28px] font-bold text-center'}>
+                        {t('funnel.subscriptionStep.title')}
                     </div>
-                    <div className={"text-white/70 text-base font-medium text-center"}>
+                    <div className={'text-white/70 text-base font-medium text-center'}>
                         <Trans i18nKey="funnel.subscriptionStep.subtitle" components={{ br: <br /> }} />
                     </div>
                 </div>
 
-                <div className={"w-full px-[15px] sm:px-0"}>
+                <div className={'w-full px-[15px] sm:px-0'}>
                     {isPricingReady ? (
-                        <div className={"w-full flex flex-col gap-[15px] mb-[30px]"}>
+                        <div className={'w-full flex flex-col gap-[15px] mb-[30px]'}>
                             {activeSubscriptions.map((subscription) => (
                                 <Button
                                     key={subscription.id}
-                                    variant={"unstyled"}
-                                    onClick={() => form.setValue("productId", subscription.productId)}
+                                    variant={'unstyled'}
+                                    onClick={() => form.setValue('productId', subscription.productId)}
                                     className={clsx(
-                                        "relative w-full h-auto p-0 bg-white/5 rounded-[10px] text-left",
+                                        'relative w-full h-auto p-0 bg-white/5 rounded-[10px] text-left',
                                         productId === subscription.productId
-                                            ? "border-[2px] border-transparent bg-primary-gradient primary-shadow"
-                                            : "border-[2px] border-white/6",
+                                            ? 'border-[2px] border-transparent bg-primary-gradient primary-shadow'
+                                            : 'border-[2px] border-white/6',
                                     )}
                                 >
                                     <div className="w-full bg-[#2a2a2f] px-4 py-2 rounded-[10px] flex items-center justify-between flex-wrap sm:flex-nowrap gap-y-3 relative">
                                         {subscription.isBestChoice && (
                                             <div className="absolute top-[-12px] left-3 sm:left-4 bg-primary-gradient rounded-full flex items-center justify-center">
                                                 <span className="text-white text-[10px] sm:text-xs font-semibold uppercase px-[10px] py-1">
-                                                    {t("funnel.subscriptionStep.bestChoice")}
+                                                    {t('funnel.subscriptionStep.bestChoice')}
                                                 </span>
                                             </div>
                                         )}
@@ -482,7 +463,7 @@ export function SubscriptionStep() {
                                                 ${subscription.salePriceInDays}
                                             </div>
                                             <span className="text-[10px] sm:text-[11px] text-white/50">
-                                                {t("funnel.subscriptionStep.perDay")}
+                                                {t('funnel.subscriptionStep.perDay')}
                                             </span>
                                         </div>
                                     </div>
@@ -491,26 +472,26 @@ export function SubscriptionStep() {
 
                             <div className="bg-white/3 flex gap-3 items-center justify-center h-[42px] rounded-[10px]">
                                 <img
-                                    alt={t("funnel.subscriptionStep.altBasketCancel")}
-                                    src={"/icons/basket-cancel.svg"}
+                                    alt={t('funnel.subscriptionStep.altBasketCancel')}
+                                    src={'/icons/basket-cancel.svg'}
                                     width={20}
                                     height={20}
                                 />
                                 <p className="text-white font-medium text-[11px]">
-                                    {t("funnel.subscriptionStep.noCommitment")}
+                                    {t('funnel.subscriptionStep.noCommitment')}
                                 </p>
                             </div>
 
-                            <Button onClick={nextStep} className={"w-full h-[45px] bg-primary-gradient"}>
-                                <span className={"text-base font-bold"}>
-                                    {t("funnel.subscriptionStep.getDiscount")}
+                            <Button onClick={nextStep} className={'w-full h-[45px] bg-primary-gradient'}>
+                                <span className={'text-base font-bold'}>
+                                    {t('funnel.subscriptionStep.getDiscount')}
                                 </span>
                             </Button>
 
                             {productId && subscriptionTermsTexts[productId] && (
                                 <div
-                                    className={"text-white/40 text-[11px] leading-relaxed text-center"}
-                                    style={{ whiteSpace: "pre-line" }}
+                                    className={'text-white/40 text-[11px] leading-relaxed text-center'}
+                                    style={{ whiteSpace: 'pre-line' }}
                                 >
                                     {renderTermsText(subscriptionTermsTexts[productId])}
                                 </div>
@@ -521,7 +502,7 @@ export function SubscriptionStep() {
                                     <div key={i} className="flex items-center gap-2">
                                         <img
                                             src="/icons/security-check-icon.svg"
-                                            alt={t("funnel.subscriptionStep.altSecurityCheck")}
+                                            alt={t('funnel.subscriptionStep.altSecurityCheck')}
                                             width={20}
                                             height={20}
                                             className="w-[20px] h-[19px] invert brightness-0"
@@ -541,8 +522,8 @@ export function SubscriptionStep() {
                         <div className="flex gap-2 items-center justify-between">
                             <div className="flex-1 flex items-center relative">
                                 <SpriteIcon
-                                    src={"/images/avatars/avatar_2.webp"}
-                                    fallbackAlt={t("funnel.subscriptionStep.altAvatar") + " 1"}
+                                    src={'/images/avatars/avatar_2.webp'}
+                                    fallbackAlt={t('funnel.subscriptionStep.altAvatar') + ' 1'}
                                     targetW={31}
                                     targetH={31}
                                     fit="cover"
@@ -552,8 +533,8 @@ export function SubscriptionStep() {
                                     imageClassName="rounded-full border-[3px] border-[#2B2A2B] origin-[50%_20%]"
                                 />
                                 <SpriteIcon
-                                    src={"/images/avatars/avatar_7.webp"}
-                                    fallbackAlt={t("funnel.subscriptionStep.altAvatar") + " 2"}
+                                    src={'/images/avatars/avatar_7.webp'}
+                                    fallbackAlt={t('funnel.subscriptionStep.altAvatar') + ' 2'}
                                     targetW={31}
                                     targetH={31}
                                     fit="cover"
@@ -563,8 +544,8 @@ export function SubscriptionStep() {
                                     imageClassName="rounded-full border-[3px] border-[#2B2A2B] origin-[50%_20%]"
                                 />
                                 <SpriteIcon
-                                    src={"/images/avatars/avatar_8.webp"}
-                                    fallbackAlt={t("funnel.subscriptionStep.altAvatar") + " 3"}
+                                    src={'/images/avatars/avatar_8.webp'}
+                                    fallbackAlt={t('funnel.subscriptionStep.altAvatar') + ' 3'}
                                     targetW={31}
                                     targetH={31}
                                     fit="cover"
@@ -581,14 +562,14 @@ export function SubscriptionStep() {
                                 </div>
                             </div>
 
-                            <div className={"flex-1 text-white text-[10px] font-bold uppercase"}>
-                                {t("funnel.subscriptionStep.happyUsers")}
+                            <div className={'flex-1 text-white text-[10px] font-bold uppercase'}>
+                                {t('funnel.subscriptionStep.happyUsers')}
                             </div>
 
-                            <div className={"relative flex-1 flex items-center justify-end"}>
+                            <div className={'relative flex-1 flex items-center justify-end'}>
                                 <img
                                     src="/images/award-ranking.svg"
-                                    alt={t("funnel.subscriptionStep.altAwardRanking")}
+                                    alt={t('funnel.subscriptionStep.altAwardRanking')}
                                     width={126}
                                     height={38}
                                     className="object-contain max-w-full"
@@ -615,7 +596,7 @@ export function SubscriptionStep() {
                             {/* PRO badge */}
                             <div className="absolute right-0 top-[-52px] w-[60px] bg-gray-2 rounded-t-[10px] px-[9px] pt-[8px] pb-[6px] flex items-center justify-center">
                                 <p className="bg-gradient-primary font-bold text-[12px] p-[3px] text-center rounded-[4px] w-full">
-                                    {t("funnel.subscriptionStep.pro")}
+                                    {t('funnel.subscriptionStep.pro')}
                                 </p>
                             </div>
 
@@ -623,8 +604,8 @@ export function SubscriptionStep() {
                                 <Fragment key={i}>
                                     <div
                                         className={clsx(
-                                            "flex items-center gap-[10px] border-white/5 py-3",
-                                            i !== PERKS.length - 1 && "border-b",
+                                            'flex items-center gap-[10px] border-white/5 py-3',
+                                            i !== PERKS.length - 1 && 'border-b',
                                         )}
                                     >
                                         <p className="text-white text-[14px] font-medium">{text}</p>
@@ -632,16 +613,14 @@ export function SubscriptionStep() {
 
                                     <div
                                         className={clsx(
-                                            "bg-gray-2 flex items-center justify-center border-white/5 py-3",
-                                            i === 0 && "rounded-tl-[10px]",
-                                            i === PERKS.length - 1
-                                                ? "rounded-b-[10px]"
-                                                : "border-b",
+                                            'bg-gray-2 flex items-center justify-center border-white/5 py-3',
+                                            i === 0 && 'rounded-tl-[10px]',
+                                            i === PERKS.length - 1 ? 'rounded-b-[10px]' : 'border-b',
                                         )}
                                     >
                                         <img
                                             src="/icons/tick.svg"
-                                            alt={t("funnel.subscriptionStep.altTick")}
+                                            alt={t('funnel.subscriptionStep.altTick')}
                                             width={26}
                                             height={26}
                                             className="block"
@@ -655,13 +634,13 @@ export function SubscriptionStep() {
 
                     <div
                         className={
-                            "w-full bg-white/5 border border-white/6 rounded-[10px] px-[10px] pt-[15px] pb-[35px] mb-[35px] overflow-hidden"
+                            'w-full bg-white/5 border border-white/6 rounded-[10px] px-[10px] pt-[15px] pb-[35px] mb-[35px] overflow-hidden'
                         }
                     >
-                        <div className={"text-white text-[20px] font-bold text-center mb-2"}>
-                            {t("funnel.subscriptionStep.asFeatureIn")}
+                        <div className={'text-white text-[20px] font-bold text-center mb-2'}>
+                            {t('funnel.subscriptionStep.asFeatureIn')}
                         </div>
-                        <div className={"grid grid-cols-3 gap-3 items-center justify-center"}>
+                        <div className={'grid grid-cols-3 gap-3 items-center justify-center'}>
                             {brands.map((brand) => (
                                 <SpriteIcon
                                     key={brand.id}
@@ -676,8 +655,8 @@ export function SubscriptionStep() {
                         </div>
                     </div>
 
-                    <div className={"w-full flex flex-col items-center gap-5 mb-[35px]"}>
-                        <div className={"text-white text-[20px] font-bold text-center"}>
+                    <div className={'w-full flex flex-col items-center gap-5 mb-[35px]'}>
+                        <div className={'text-white text-[20px] font-bold text-center'}>
                             <Trans
                                 i18nKey="funnel.subscriptionStep.reviews"
                                 components={{
@@ -687,25 +666,25 @@ export function SubscriptionStep() {
                                 }}
                             />
                         </div>
-                        <div className={"w-full"}>
+                        <div className={'w-full'}>
                             <Carousel
                                 setApi={setCarouselApi}
                                 opts={{
-                                    align: "start",
+                                    align: 'start',
                                     loop: true,
                                 }}
                             >
                                 <CarouselContent>
                                     {reviews.map((review) => (
-                                        <CarouselItem className={"relative"} key={review.id}>
+                                        <CarouselItem className={'relative'} key={review.id}>
                                             <div
                                                 className={clsx(
-                                                    "relative w-full rounded-[10px] pt-5 px-5 pb-9 overflow-hidden",
-                                                    "bg-linear-to-b from-white/15 to-white/0 border border-[#2a323b]",
+                                                    'relative w-full rounded-[10px] pt-5 px-5 pb-9 overflow-hidden',
+                                                    'bg-linear-to-b from-white/15 to-white/0 border border-[#2a323b]',
                                                 )}
                                             >
-                                                <div className={"flex flex-col gap-[16px]"}>
-                                                    <div className={"w-full flex items-center gap-[14px]"}>
+                                                <div className={'flex flex-col gap-[16px]'}>
+                                                    <div className={'w-full flex items-center gap-[14px]'}>
                                                         <SpriteIcon
                                                             src={review.avatar}
                                                             targetW={50}
@@ -715,13 +694,13 @@ export function SubscriptionStep() {
                                                             imageClassName="rounded-full"
                                                         />
                                                         <div>
-                                                            <div className={"text-white"}>{review.name}</div>
-                                                            <div className={"flex"}>
+                                                            <div className={'text-white'}>{review.name}</div>
+                                                            <div className={'flex'}>
                                                                 {Array.from({ length: review.rating }).map((_, i) => (
                                                                     <img
                                                                         key={i}
                                                                         src="/icons/rating-star.svg"
-                                                                        alt={t("funnel.subscriptionStep.altRatingStar")}
+                                                                        alt={t('funnel.subscriptionStep.altRatingStar')}
                                                                         width={16}
                                                                         height={16}
                                                                         className="inline-block"
@@ -730,7 +709,7 @@ export function SubscriptionStep() {
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div className={"w-full text-sm text-white font-medium"}>
+                                                    <div className={'w-full text-sm text-white font-medium'}>
                                                         {review.message}
                                                     </div>
                                                 </div>
@@ -757,57 +736,38 @@ export function SubscriptionStep() {
                         </div>
 
                         <div className="grid gap-[20px]">
-                            {steps.map(
-                                (
-                                    {
-                                        step,
-                                        title,
-                                        desc,
-                                        img,
-                                        pClass,
-                                        bgFrom,
-                                        bgTo,
-                                        borderFrom,
-                                        borderTo,
-                                    },
-                                    i,
-                                ) => (
-                                    <div
-                                        key={i}
-                                        className="gradient-border-universal"
-                                        style={
-                                            {
-                                                "--bg-direction": "to bottom",
-                                                "--border-direction": "to bottom",
-                                                "--bg-from": bgFrom,
-                                                "--bg-to": bgTo,
-                                                "--border-from": borderFrom,
-                                                "--border-to": borderTo,
-                                                "--radius": "15px",
-                                            } as React.CSSProperties
-                                        }
-                                    >
-                                        <div className="pt-[15px] px-[10px] ">
-                                            <span className="inline-block text-white font-semibold text-[14px] px-4 py-[2px] bg-coral-red rounded-[43px] mb-7">
-                                                {step}
-                                            </span>
+                            {steps.map(({ step, title, desc, img, pClass, bgFrom, bgTo, borderFrom, borderTo }, i) => (
+                                <div
+                                    key={i}
+                                    className="gradient-border-universal"
+                                    style={
+                                        {
+                                            '--bg-direction': 'to bottom',
+                                            '--border-direction': 'to bottom',
+                                            '--bg-from': bgFrom,
+                                            '--bg-to': bgTo,
+                                            '--border-from': borderFrom,
+                                            '--border-to': borderTo,
+                                            '--radius': '15px',
+                                        } as React.CSSProperties
+                                    }
+                                >
+                                    <div className="pt-[15px] px-[10px] ">
+                                        <span className="inline-block text-white font-semibold text-[14px] px-4 py-[2px] bg-coral-red rounded-[43px] mb-7">
+                                            {step}
+                                        </span>
 
-                                            <h4 className="text-white font-bold text-[18px] mb-2">{title}</h4>
+                                        <h4 className="text-white font-bold text-[18px] mb-2">{title}</h4>
 
-                                            <p
-                                                className={`text-white/70 font-medium text-[14px] ${
-                                                    pClass || "mb-3"
-                                                }`}
-                                            >
-                                                {desc}
-                                            </p>
-                                        </div>
-                                        <div className="flex justify-center">
-                                            <img alt={title} src={img} height={400} width={450} />
-                                        </div>
+                                        <p className={`text-white/70 font-medium text-[14px] ${pClass || 'mb-3'}`}>
+                                            {desc}
+                                        </p>
                                     </div>
-                                ),
-                            )}
+                                    <div className="flex justify-center">
+                                        <img alt={title} src={img} height={400} width={450} />
+                                    </div>
+                                </div>
+                            ))}
                         </div>
                     </div>
 
@@ -815,7 +775,7 @@ export function SubscriptionStep() {
                         <div className="flex justify-center">
                             <img
                                 src="/images/3m-users.svg"
-                                alt={t("funnel.subscriptionStep.alt3mUsers")}
+                                alt={t('funnel.subscriptionStep.alt3mUsers')}
                                 width={400}
                                 height={400}
                                 className="block"
@@ -841,9 +801,9 @@ export function SubscriptionStep() {
 
                     <div className="w-full flex flex-col gap-[15px] mb-[35px]">
                         <div className="text-white text-[20px] font-bold text-center">
-                            {t("funnel.subscriptionStep.faq")}
+                            {t('funnel.subscriptionStep.faq')}
                         </div>
-                        <Accordion type="multiple" className="w-full" defaultValue={["item-1"]}>
+                        <Accordion type="multiple" className="w-full" defaultValue={['item-1']}>
                             {FAQS.map(({ value, question, answer }) => (
                                 <AccordionItem
                                     key={value}

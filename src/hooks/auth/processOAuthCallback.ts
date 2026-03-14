@@ -1,10 +1,12 @@
-import { authService } from "@/services/auth-service";
-import { handleAuthSuccess } from "@/utils/auth/handleAuthSuccess";
-import { decodeJWT } from "@/utils/auth/jwtDecoder";
-import { toastType, triggerToast } from "@/components/AlertToast";
-import { FunnelSchema, useFunnelForm } from "@/hooks/funnel/useFunnelForm";
-import { UseFormReturn } from "react-hook-form";
-import { OAuthProviderType } from "@/constants/oauth";
+import { authService } from '@/services/auth-service';
+import { handleAuthSuccess } from '@/utils/auth/handleAuthSuccess';
+import { decodeJWT } from '@/utils/auth/jwtDecoder';
+import { toastType, triggerToast } from '@/components/AlertToast';
+import { FunnelSchema, useFunnelForm } from '@/hooks/funnel/useFunnelForm';
+import { UseFormReturn } from 'react-hook-form';
+import { OAuthProviderType } from '@/constants/oauth';
+import type { PostHog } from 'posthog-js';
+import { AxiosError } from 'axios';
 
 type FunnelStepper = ReturnType<typeof useFunnelForm>['stepper'];
 
@@ -15,7 +17,7 @@ interface ProcessOAuthCallbackParams {
     clearOAuthState: () => void;
     form: UseFormReturn<FunnelSchema>;
     stepper: FunnelStepper;
-    posthog: any;
+    posthog?: PostHog;
     setUserId: (userId: number) => void;
     setToken: (token: string) => void;
     setFormState: (state: FunnelSchema) => void;
@@ -37,24 +39,24 @@ export const processOAuthCallback = async ({
 }: ProcessOAuthCallbackParams): Promise<void> => {
     try {
         const { formValues: restoredFormValues, step: restoredStep } = restoreOAuthState();
-        
+
         if (restoredFormValues) {
             form.reset(restoredFormValues);
         }
-        
+
         const data = await authService.verifyOAuthToken(state, { code });
-        
+
         const decoded = decodeJWT(data.authToken);
         if (!decoded.success) {
-            throw new Error("Failed to decode JWT token");
+            throw new Error('Failed to decode JWT token');
         }
         const { payload } = decoded;
-        
+
         const rawFormValues = restoredFormValues || form.getValues();
-        const { productId, ...funnelFormValues } = rawFormValues as any;
-        
+        const { productId: _productId, ...funnelFormValues } = rawFormValues;
+
         const targetStep = restoredStep + 1;
-        
+
         handleAuthSuccess({
             userId: payload.userId,
             email: payload.email ?? '',
@@ -68,11 +70,12 @@ export const processOAuthCallback = async ({
             funnelFormValues,
             activeStep: restoredStep,
         });
-        
+
         clearOAuthState();
-    } catch (error: any) {
+    } catch (error: unknown) {
+        const axiosError = error as AxiosError<{ messages?: string[] }>;
         triggerToast({
-            title: error.response?.data?.messages?.[0] || "OAuth verification failed",
+            title: axiosError.response?.data?.messages?.[0] || 'OAuth verification failed',
             type: toastType.error,
         });
     }

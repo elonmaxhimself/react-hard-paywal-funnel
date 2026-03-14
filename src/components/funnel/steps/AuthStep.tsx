@@ -1,19 +1,19 @@
-import { Controller } from "react-hook-form";
-import { useRef, useState, useEffect } from "react";
-import { Loader2Icon } from "lucide-react";
-import { useTranslation, Trans } from "react-i18next";
+import { Controller } from 'react-hook-form';
+import { useRef, useState, useEffect } from 'react';
+import { Loader2Icon } from 'lucide-react';
+import { useTranslation, Trans } from 'react-i18next';
 
-import { Button } from "@/components/ui/button";
-import { Checkbox } from "@/components/ui/checkbox";
+import { Button } from '@/components/ui/button';
+import { Checkbox } from '@/components/ui/checkbox';
 
-import CustomInput from "@/components/CustomInput";
-import SpriteIcon from "@/components/SpriteIcon";
+import CustomInput from '@/components/CustomInput';
+import SpriteIcon from '@/components/SpriteIcon';
 
-import { useSignUpForm } from "@/hooks/auth/useSignUpForm";
-import { useOAuth } from "@/hooks/auth/useOAuth";
-import { usePostHog } from "posthog-js/react";
+import { useSignUpForm } from '@/hooks/auth/useSignUpForm';
+import { useOAuth } from '@/hooks/auth/useOAuth';
+import { usePostHog } from 'posthog-js/react';
 
-import { useCheckboxes } from "@/constants/auth-checkboxes";
+import { useCheckboxes } from '@/constants/auth-checkboxes';
 
 function useScaleToFit(contentWidth: number) {
     const containerRef = useRef<HTMLDivElement>(null);
@@ -48,7 +48,7 @@ export function AuthStep() {
         isGoogleLoading,
         isTwitterLoading,
         isDiscordLoading,
-    } = useOAuth(posthog);
+    } = useOAuth();
 
     const errors = form.formState.errors;
 
@@ -60,7 +60,7 @@ export function AuthStep() {
                     className="w-full flex-1 sm:flex-none flex flex-col items-center sm:justify-center mb-[30px] sm:mb-[70px]"
                 >
                     <SpriteIcon
-                        src={"/images/logo.svg"}
+                        src={'/images/logo.svg'}
                         fallbackAlt={t('funnel.authStep.altLogo')}
                         targetW={35}
                         targetH={35}
@@ -73,21 +73,19 @@ export function AuthStep() {
                             i18nKey="funnel.authStep.title"
                             components={{
                                 br: <br />,
-                                highlight: <span className="text-transparent bg-clip-text bg-primary-gradient" />
+                                highlight: <span className="text-transparent bg-clip-text bg-primary-gradient" />,
                             }}
                         />
                     </div>
 
                     <div className="w-full">
-                        <p className="text-white/50 text-sm mb-3">
-                            {t('funnel.authStep.createFreeAccount')}
-                        </p>
+                        <p className="text-white/50 text-sm mb-3">{t('funnel.authStep.createFreeAccount')}</p>
 
                         <Button
                             type="button"
                             variant="outline"
                             className="w-full h-[45px] bg-transparent border-white/10 hover:bg-white/5 mb-3 rounded-none"
-                            onClick={() => oauthSignIn("google")}
+                            onClick={() => oauthSignIn('google')}
                             disabled={isOAuthLoading || isPending}
                         >
                             {isGoogleLoading ? (
@@ -105,7 +103,7 @@ export function AuthStep() {
                                 type="button"
                                 variant="outline"
                                 className="flex-1 h-[45px] bg-transparent border-white/10 hover:bg-white/5 rounded-none"
-                                onClick={() => oauthSignIn("twitter")}
+                                onClick={() => oauthSignIn('twitter')}
                                 disabled={isOAuthLoading || isPending}
                             >
                                 {isTwitterLoading ? (
@@ -118,7 +116,7 @@ export function AuthStep() {
                                 type="button"
                                 variant="outline"
                                 className="flex-1 h-[45px] bg-transparent border-white/10 hover:bg-white/5 rounded-none"
-                                onClick={() => oauthSignIn("discord")}
+                                onClick={() => oauthSignIn('discord')}
                                 disabled={isOAuthLoading || isPending}
                             >
                                 {isDiscordLoading ? (
@@ -163,15 +161,11 @@ export function AuthStep() {
                                             value={field.value}
                                             onChange={field.onChange}
                                             isError={apiError?.message}
-                                            resetInput={() => onValueReset("email")}
+                                            resetInput={() => onValueReset('email')}
                                         />
                                     )}
                                 />
-                                {errors.email && (
-                                    <p className="text-red-500 text-xs mt-1">
-                                        {errors.email.message}
-                                    </p>
-                                )}
+                                {errors.email && <p className="text-red-500 text-xs mt-1">{errors.email.message}</p>}
                             </div>
 
                             <div>
@@ -195,20 +189,16 @@ export function AuthStep() {
                                             value={field.value}
                                             onChange={(event) => {
                                                 field.onChange(event);
-                                                form.trigger("password");
+                                                form.trigger('password');
                                             }}
                                             isError={errors.password?.message}
-                                            resetInput={() => onValueReset("password")}
-                                            isSuccess={
-                                                fieldState.isDirty && !errors?.password?.message
-                                            }
+                                            resetInput={() => onValueReset('password')}
+                                            isSuccess={fieldState.isDirty && !errors?.password?.message}
                                         />
                                     )}
                                 />
                                 {errors.password && (
-                                    <p className="text-red-500 text-xs mt-1">
-                                        {errors.password.message}
-                                    </p>
+                                    <p className="text-red-500 text-xs mt-1">{errors.password.message}</p>
                                 )}
                             </div>
 
@@ -237,9 +227,7 @@ export function AuthStep() {
                                         </label>
                                     </div>
                                     {errors[name] && (
-                                        <p className="text-red-500 text-xs mt-1">
-                                            {errors[name]?.message as string}
-                                        </p>
+                                        <p className="text-red-500 text-xs mt-1">{errors[name]?.message as string}</p>
                                     )}
                                 </div>
                             ))}
@@ -251,9 +239,7 @@ export function AuthStep() {
                             className="w-full h-[45px] bg-primary-gradient mb-[30px]"
                         >
                             {isPending && <Loader2Icon className="animate-spin" />}
-                            <span className="text-base font-bold">
-                                {t('funnel.authStep.joinFree')}
-                            </span>
+                            <span className="text-base font-bold">{t('funnel.authStep.joinFree')}</span>
                         </Button>
 
                         <div
@@ -264,14 +250,14 @@ export function AuthStep() {
                                 className="flex gap-2 items-center justify-between"
                                 style={{
                                     transform: `scale(${scale})`,
-                                    transformOrigin: "left center",
-                                    width: scale > 0 ? `${100 / scale}%` : "100%",
+                                    transformOrigin: 'left center',
+                                    width: scale > 0 ? `${100 / scale}%` : '100%',
                                 }}
                             >
                                 <div className="flex shrink-0 items-center relative">
                                     <SpriteIcon
-                                        src={"/images/avatars/avatar_2.webp"}
-                                        fallbackAlt={t('funnel.authStep.altAvatar') + " 1"}
+                                        src={'/images/avatars/avatar_2.webp'}
+                                        fallbackAlt={t('funnel.authStep.altAvatar') + ' 1'}
                                         targetW={31}
                                         targetH={31}
                                         fit="cover"
@@ -281,8 +267,8 @@ export function AuthStep() {
                                         imageClassName="rounded-full border-[3px] border-[#2B2A2B] origin-[50%_20%]"
                                     />
                                     <SpriteIcon
-                                        src={"/images/avatars/avatar_7.webp"}
-                                        fallbackAlt={t('funnel.authStep.altAvatar') + " 2"}
+                                        src={'/images/avatars/avatar_7.webp'}
+                                        fallbackAlt={t('funnel.authStep.altAvatar') + ' 2'}
                                         targetW={31}
                                         targetH={31}
                                         fit="cover"
@@ -292,8 +278,8 @@ export function AuthStep() {
                                         imageClassName="rounded-full border-[3px] border-[#2B2A2B] origin-[50%_20%]"
                                     />
                                     <SpriteIcon
-                                        src={"/images/avatars/avatar_8.webp"}
-                                        fallbackAlt={t('funnel.authStep.altAvatar') + " 3"}
+                                        src={'/images/avatars/avatar_8.webp'}
+                                        fallbackAlt={t('funnel.authStep.altAvatar') + ' 3'}
                                         targetW={31}
                                         targetH={31}
                                         fit="cover"
@@ -315,7 +301,7 @@ export function AuthStep() {
 
                                 <div className="shrink-0">
                                     <SpriteIcon
-                                        src={"/images/award-ranking.svg"}
+                                        src={'/images/award-ranking.svg'}
                                         fallbackAlt={t('funnel.authStep.altAwardRanking')}
                                         targetW={126}
                                         targetH={38}

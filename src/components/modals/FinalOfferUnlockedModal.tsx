@@ -1,14 +1,14 @@
-import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { useTranslation } from "react-i18next";
+import { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
 
-import Modal from "@/components/modals/Modal";
+import Modal from '@/components/modals/Modal';
 
-import { useStore } from "@/store/state";
+import { useStore } from '@/store/state';
 
-import { ModalTriggers } from "@/utils/enums/modal-triggers";
+import { ModalTriggers } from '@/utils/enums/modal-triggers';
 
-import fireworksIcon from "@@/images/fireworks.png";
+import fireworksIcon from '@@/images/fireworks.png';
 
 const DEFAULT_GIF_KEY = 0;
 const PAUSE_FOR_STEP = 1000;
@@ -17,12 +17,12 @@ const AUTO_CLICK_DELAY = 3000;
 const FinalOfferUnlockedModal = () => {
     const { t } = useTranslation();
     const { trigger, open, setOpen, title } = useStore((state) => state.modal);
-    const [step, setStep] = useState<"none" | "first" | "second">("none");
+    const [step, setStep] = useState<'none' | 'first' | 'second'>('none');
     const [gifKey, setGifKey] = useState<number>(DEFAULT_GIF_KEY);
 
     const openModal = () => {
         setOpen({
-            trigger: title === "80%" ? ModalTriggers.SECRET_OFFER : ModalTriggers.FINAL_OFFER_MODAL,
+            trigger: title === '80%' ? ModalTriggers.SECRET_OFFER : ModalTriggers.FINAL_OFFER_MODAL,
         });
     };
 
@@ -32,23 +32,24 @@ const FinalOfferUnlockedModal = () => {
 
         if (open && trigger === ModalTriggers.FINAL_OFFER_UNLOCKED_MODAL) {
             setGifKey((prev) => prev + 1);
-            setStep("first");
+            setStep('first');
 
             stepTimer = setTimeout(() => {
-                setStep("second");
+                setStep('second');
             }, PAUSE_FOR_STEP);
 
             autoClickTimer = setTimeout(() => {
                 openModal();
             }, AUTO_CLICK_DELAY);
         } else {
-            setStep("none");
+            setStep('none');
         }
 
         return () => {
             clearTimeout(stepTimer);
             clearTimeout(autoClickTimer);
         };
+        // eslint-disable-next-line react-hooks/exhaustive-deps -- openModal is a closure that changes every render
     }, [open, trigger]);
 
     return (
@@ -66,7 +67,7 @@ const FinalOfferUnlockedModal = () => {
         >
             <div className="flex flex-col justify-between h-full relative items-center">
                 <AnimatePresence mode="wait">
-                    {step === "first" && (
+                    {step === 'first' && (
                         <motion.div
                             key="first-part"
                             initial={{ opacity: 0 }}
@@ -88,13 +89,13 @@ const FinalOfferUnlockedModal = () => {
                         </motion.div>
                     )}
 
-                    {step === "second" && (
+                    {step === 'second' && (
                         <motion.div
                             key="second-part"
                             initial={{ scale: 0, opacity: 0 }}
                             animate={{ scale: 1, opacity: 1 }}
                             exit={{ opacity: 0 }}
-                            transition={{ type: "spring", stiffness: 260, damping: 20 }}
+                            transition={{ type: 'spring', stiffness: 260, damping: 20 }}
                             className="relative h-full w-full"
                         >
                             <img

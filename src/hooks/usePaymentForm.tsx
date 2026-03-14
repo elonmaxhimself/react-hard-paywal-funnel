@@ -18,10 +18,7 @@ import { Shift4Statuses } from '@/utils/enums/shift4-statuses';
 
 import { products } from '@/constants/products';
 
-import { analyticsService } from '@/services/analytics-service';
-import type { PaymentEventProps } from '@/utils/types/analytics';
 import { shift4Service } from '@/services/shift4-service';
-import { AnalyticsEventTypeEnum } from '@/utils/enums/analytics-event-types';
 import { reportPurchase } from '@/lib/gtag';
 
 const Shift4Options = {
@@ -198,7 +195,6 @@ export function usePaymentForm(posthog?: PostHog) {
             setIsSubmitting(true);
             cancelPolling = pollPaymentStatus(
                 subscriptionId,
-                { distinct_id: String(userId ?? ''), product_name: '', value: 0, currency: 'USD', product_id: '' },
                 () => {
                     const channel = initPaymentChannel();
                     if (channel) {
@@ -240,7 +236,6 @@ export function usePaymentForm(posthog?: PostHog) {
     // Returns a cancel function to stop the polling chain
     const pollPaymentStatus = (
         subscriptionId: string,
-        _mpPayload: PaymentEventProps,
         onSuccess: () => void,
         onError: (errorMessage: string) => void,
     ): (() => void) => {
@@ -465,44 +460,12 @@ export function usePaymentForm(posthog?: PostHog) {
                 return;
             }
 
-            let utm: Record<string, unknown> | undefined;
-            try {
-                const stored = localStorage.getItem('utm_params');
-                if (stored) utm = JSON.parse(stored);
-            } catch {
-                /* ignored */
-            }
-
-            const mpPayload = {
-                distinct_id: String(userId ?? ''),
-                product_name: product.name,
-                value: product.amount / 100,
-                currency: 'USD',
-                product_id: product.id,
-                tid: (utm?.deal ?? undefined) as string | undefined,
-            };
-
-            analyticsService.trackPaymentEvent(AnalyticsEventTypeEnum.PAYMENT_INITIATED, mpPayload);
-
-            // if (typeof window !== 'undefined' && posthog) {
-            //     posthog.capture('payment_initiated', {
-            //         value: product.amount / 100,
-            //         currency: "USD",
-            //         product_id: product.id,
-            //         product_name: product.name,
-            //         user_id: userId,
-            //         payment_type: "subscription_initial_payment",
-            //         monthly_billing_cycle: product.durationMonths,
-            //         payment_provider: "shift4"
-            //     });
-            // }
-
             const result = await shift4Instance.createToken(componentsGroup);
             if (result.error) throw new Error(result.error.message);
 
             const token = await shift4Instance.verifyThreeDSecure({
                 amount: product.amount,
-                currency: mpPayload.currency,
+                currency: 'USD',
                 card: result?.id,
             });
             if (token?.error) throw new Error(token?.error?.message);
@@ -521,7 +484,6 @@ export function usePaymentForm(posthog?: PostHog) {
                             );
                             pollPaymentStatus(
                                 response.subscriptionId,
-                                mpPayload,
                                 () => {
                                     // FACEBOOK PIXEL TRACKING — Purchase
                                     const fbq = window.fbq;
@@ -547,26 +509,6 @@ export function usePaymentForm(posthog?: PostHog) {
                                         product_id: product.id,
                                         product_name: product.name,
                                     });
-
-                                    // PostHog — Payment Success
-                                    // if (typeof window !== 'undefined' && posthog) {
-                                    //     posthog.capture('payment_success', {
-                                    //         value: product.amount / 100,
-                                    //         currency: "USD",
-                                    //         product_id: product.id,
-                                    //         product_name: product.name,
-                                    //         user_id: userId,
-                                    //         payment_type: "subscription_initial_payment",
-                                    //         monthly_billing_cycle: product.durationMonths,
-                                    //         payment_provider: "shift4"
-                                    //     },  {send_instantly: true});
-                                    // }
-
-                                    // Mixpanel
-                                    analyticsService.trackPaymentEvent(
-                                        AnalyticsEventTypeEnum.PAYMENT_SUCCESS,
-                                        mpPayload,
-                                    );
 
                                     if (channel) {
                                         channel.postMessage({
@@ -597,11 +539,6 @@ export function usePaymentForm(posthog?: PostHog) {
                                         });
                                     }
 
-                                    analyticsService.trackPaymentEvent(
-                                        AnalyticsEventTypeEnum.PAYMENT_FAILED,
-                                        mpPayload,
-                                    );
-
                                     triggerToast({
                                         title: errorMessage,
                                         type: toastType.error,
@@ -618,8 +555,6 @@ export function usePaymentForm(posthog?: PostHog) {
                                     senderId: tabId.current,
                                 });
                             }
-
-                            analyticsService.trackPaymentEvent(AnalyticsEventTypeEnum.PAYMENT_FAILED, mpPayload);
 
                             triggerToast({
                                 title: t('hooks.usePaymentForm.errors.unexpectedError'),
@@ -640,8 +575,6 @@ export function usePaymentForm(posthog?: PostHog) {
                                 senderId: tabId.current,
                             });
                         }
-
-                        analyticsService.trackPaymentEvent(AnalyticsEventTypeEnum.PAYMENT_FAILED, mpPayload);
 
                         const axiosErr = error as AxiosError<{ message?: string }>;
                         triggerToast({
@@ -667,16 +600,6 @@ export function usePaymentForm(posthog?: PostHog) {
                     senderId: tabId.current,
                 });
             }
-
-            const mpPayload = {
-                distinct_id: String(userId ?? ''),
-                product_name: product?.name || '',
-                value: product?.amount ? product.amount / 100 : 0,
-                currency: 'USD',
-                product_id: product?.id || '',
-            };
-
-            analyticsService.trackPaymentEvent(AnalyticsEventTypeEnum.PAYMENT_FAILED, mpPayload);
 
             const catchErr = error as AxiosError<{ message?: string }>;
             triggerToast({

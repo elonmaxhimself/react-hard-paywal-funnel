@@ -1,18 +1,3 @@
-export interface SignUpEventProps {
-    distinct_id: number | string;
-    tid?: string;
-    utmOnRegistration?: Record<string, unknown>;
-}
-
-export interface PaymentEventProps {
-    distinct_id: number | string;
-    product_name: string;
-    value: number;
-    currency: string;
-    tid?: string;
-    product_id: number | string;
-}
-
 export interface UTMProps {
     utm_source?: string;
     utm_medium?: string;

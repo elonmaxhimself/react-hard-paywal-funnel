@@ -1,23 +1,23 @@
-import clsx from "clsx";
-import { useFormContext } from "react-hook-form";
-import { usePostHog } from "posthog-js/react";
-import { useEffect } from "react";
-import { useTranslation } from "react-i18next";
+import clsx from 'clsx';
+import { useFormContext } from 'react-hook-form';
+import { usePostHog } from 'posthog-js/react';
+import { useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 
-import Modal from "@/components/modals/Modal";
-import { Button } from "@/components/ui/button";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import Modal from '@/components/modals/Modal';
+import { Button } from '@/components/ui/button';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 
-import { useStore } from "@/store/state";
-import { useTimer } from "@/hooks/useTimerCount";
+import { useStore } from '@/store/state';
+import { useTimer } from '@/hooks/useTimerCount';
 
-import { ModalTriggers } from "@/utils/enums/modal-triggers";
-import { FunnelSchema } from "@/hooks/funnel/useFunnelForm";
+import { ModalTriggers } from '@/utils/enums/modal-triggers';
+import { FunnelSchema } from '@/hooks/funnel/useFunnelForm';
 
-import { useSecretOffer } from "@/constants/subscriptions";
-import { avatars } from "@/constants/avatars";
+import { useSecretOffer } from '@/constants/subscriptions';
+import { avatars } from '@/constants/avatars';
 
-import girlTokioIcon from "@@/images/backgrounds/tokio-girl.avif";
+import girlTokioIcon from '@@/images/backgrounds/tokio-girl.avif';
 
 const TIMER = 30;
 
@@ -37,8 +37,9 @@ const SecretOfferModal = () => {
 
     useEffect(() => {
         if (isSecretOfferModalOpen) {
-            form.setValue("productId", secretOffer.productId);
+            form.setValue('productId', secretOffer.productId);
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps -- secretOffer is stable from useMemo
     }, [isSecretOfferModalOpen, form]);
 
     const onClaimNow = () => {
@@ -53,7 +54,7 @@ const SecretOfferModal = () => {
             posthog?.capture('exit_offer_2_declined');
         }
         setOpen({
-            title: "goToDiscount",
+            title: 'goToDiscount',
             trigger: ModalTriggers.SHOW_VIDEO_MODAL,
         });
     };
@@ -65,7 +66,7 @@ const SecretOfferModal = () => {
             showCloseButton={false}
             disableOutsideClick
         >
-            <div className="relative w-full" style={{ aspectRatio: "16/9" }}>
+            <div className="relative w-full" style={{ aspectRatio: '16/9' }}>
                 <img
                     src={girlTokioIcon}
                     alt={t('common.altGirlTokio')}
@@ -85,10 +86,10 @@ const SecretOfferModal = () => {
                     <div
                         key={secretOffer.id}
                         className={clsx(
-                            "relative w-full bg-white/5 rounded-[10px]",
+                            'relative w-full bg-white/5 rounded-[10px]',
                             secretOffer.isBestChoice
-                                ? "border-[2px] border-transparent bg-primary-gradient primary-shadow"
-                                : "border-[2px] border-white/6",
+                                ? 'border-[2px] border-transparent bg-primary-gradient primary-shadow'
+                                : 'border-[2px] border-white/6',
                         )}
                     >
                         <div className="bg-[#2a2a2f] p-4 rounded-[10px] flex items-center justify-between flex-wrap sm:flex-nowrap gap-y-3 relative">
@@ -115,7 +116,10 @@ const SecretOfferModal = () => {
                                 </div>
                                 <div className="text-white text-[24px] sm:text-[32px] font-semibold leading-none">
                                     ${secretOffer.salePriceInDays}
-                                    <span className="text-[10px] sm:text-[11px]"> {t('modals.secretOffer.perDay')}</span>
+                                    <span className="text-[10px] sm:text-[11px]">
+                                        {' '}
+                                        {t('modals.secretOffer.perDay')}
+                                    </span>
                                 </div>
                             </div>
                         </div>
@@ -125,11 +129,7 @@ const SecretOfferModal = () => {
                         <div className="flex -space-x-2">
                             {avatars.map(({ src, alt, fallback }) => (
                                 <Avatar size="xs" key={src}>
-                                    <AvatarImage
-                                        className="w-10 h-10 rounded-full object-cover"
-                                        src={src}
-                                        alt={alt}
-                                    />
+                                    <AvatarImage className="w-10 h-10 rounded-full object-cover" src={src} alt={alt} />
                                     <AvatarFallback>{fallback}</AvatarFallback>
                                 </Avatar>
                             ))}
@@ -146,14 +146,14 @@ const SecretOfferModal = () => {
                             variant="default"
                             size="bold"
                             className={clsx(
-                                "w-full relative overflow-hidden transition-all duration-300",
-                                shouldShowTimer && "pulse-button",
+                                'w-full relative overflow-hidden transition-all duration-300',
+                                shouldShowTimer && 'pulse-button',
                             )}
                         >
                             {shouldShowTimer && (
                                 <div
                                     className="absolute inset-0 bg-black/20 transition-all duration-1000 ease-linear"
-                                    style={{ width: `${progress}%`, transformOrigin: "left" }}
+                                    style={{ width: `${progress}%`, transformOrigin: 'left' }}
                                 />
                             )}
                             <span className="flex items-center justify-center gap-2 relative z-10">
@@ -165,10 +165,7 @@ const SecretOfferModal = () => {
                         </Button>
                     </div>
 
-                    <Button
-                        variant="lose"
-                        onClick={onLoseChance}
-                    >
+                    <Button variant="lose" onClick={onLoseChance}>
                         {t('modals.secretOffer.loseChance')}
                     </Button>
                 </div>

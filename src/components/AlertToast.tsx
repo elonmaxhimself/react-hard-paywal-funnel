@@ -1,5 +1,7 @@
-import { toast as sonnerToast } from "sonner";
-import { Button } from "@/components/ui/button";
+/* eslint-disable react-refresh/only-export-components */
+import { toast as sonnerToast } from 'sonner';
+import type { ReactNode } from 'react';
+import { Button } from '@/components/ui/button';
 
 interface ToastProps {
     id: string | number;
@@ -7,19 +9,19 @@ interface ToastProps {
     description?: string;
     type?: string;
     button?: {
-        label: any;
+        label: ReactNode;
         onClick: () => void;
     };
 }
 
 export enum toastType {
-    default = "default",
-    success = "success",
-    warning = "warning",
-    error = "error",
+    default = 'default',
+    success = 'success',
+    warning = 'warning',
+    error = 'error',
 }
 
-export const triggerToast = (toast: Omit<ToastProps, "id">) => {
+export const triggerToast = (toast: Omit<ToastProps, 'id'>) => {
     return sonnerToast.custom((id) => (
         <Toast
             id={id}
@@ -43,13 +45,7 @@ const Toast = (props: ToastProps) => {
                 {type === toastType.success && (
                     <>
                         <div className="absolute -top-5 -left-5 w-[100px] h-[100px] bg-green-700 rounded-full blur-3xl" />
-                        <img
-                            src="/icons/success-icon.svg"
-                            alt="Icon"
-                            width={20}
-                            height={20}
-                            className="w-5 h-5 "
-                        />
+                        <img src="/icons/success-icon.svg" alt="Icon" width={20} height={20} className="w-5 h-5 " />
                     </>
                 )}
                 {type === toastType.error && (

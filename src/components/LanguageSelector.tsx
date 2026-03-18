@@ -1,9 +1,10 @@
 import { useState, useRef, useEffect } from 'react';
+import type { ComponentType } from 'react';
 import { useTranslation } from 'react-i18next';
 import { languages } from '@/configs/languages';
 import * as Flags from 'country-flag-icons/react/3x2';
 
-const flagMap: { [key: string]: any } = {
+const flagMap: Record<string, ComponentType<{ className?: string }>> = {
     en: Flags.GB,
     cs: Flags.CZ,
     fr: Flags.FR,
@@ -22,7 +23,7 @@ export default function LanguageSelector() {
     const dropdownRef = useRef<HTMLDivElement>(null);
 
     const currentLangCode = i18n.language.split('-')[0];
-    const currentLanguage = languages.find(lang => lang.code === currentLangCode) || languages[0];
+    const currentLanguage = languages.find((lang) => lang.code === currentLangCode) || languages[0];
     const CurrentFlag = flagMap[currentLanguage.code];
 
     useEffect(() => {

@@ -1,31 +1,32 @@
-import { useEffect, useMemo } from "react";
-import { useForm, useFormContext } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from "zod";
-import { useTranslation } from "react-i18next";
-import type { PostHog } from "posthog-js";
-import { AxiosError } from "axios";
+import { useEffect, useMemo } from 'react';
+import { useForm, useFormContext } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { z } from 'zod';
+import { useTranslation } from 'react-i18next';
+import type { PostHog } from 'posthog-js';
+import { AxiosError } from 'axios';
 
-import { useSignUp } from "@/hooks/queries/useAuth";
-import { toastType, triggerToast } from "@/components/AlertToast";
-import { useStepperContext } from "@/components/stepper/Stepper.context";
-import { useAuthStore } from "@/store/states/auth";
-import { useFunnelStore } from "@/store/states/funnel";
+import { useSignUp } from '@/hooks/queries/useAuth';
+import { toastType, triggerToast } from '@/components/AlertToast';
+import { useStepperContext } from '@/components/stepper/Stepper.context';
+import { useAuthStore } from '@/store/states/auth';
+import { useFunnelStore } from '@/store/states/funnel';
 
-import { FunnelSchema } from "@/hooks/funnel/useFunnelForm";
+import { FunnelSchema } from '@/hooks/funnel/useFunnelForm';
 
-import { getRandomFromRange } from "@/utils/helpers/getRandomFromRange";
-import { appendPersonalityTraits } from "@/utils/helpers/appendPersonalityTraits";
-import { appendHobbies } from "@/utils/helpers/appendHobbies";
-import { getRandomSexPosition } from "@/utils/helpers/getRandomSexPosition";
-import { passwordRegex } from "@/utils/helpers/password-regex";
-import { AuthResponse, SignUpPayload } from "@/utils/types/auth";
+import { getRandomFromRange } from '@/utils/helpers/getRandomFromRange';
+import { appendPersonalityTraits } from '@/utils/helpers/appendPersonalityTraits';
+import { appendHobbies } from '@/utils/helpers/appendHobbies';
+import { getRandomSexPosition } from '@/utils/helpers/getRandomSexPosition';
+import { passwordRegex } from '@/utils/helpers/password-regex';
+import { AuthResponse, SignUpPayload } from '@/utils/types/auth';
 
-import { voicesMap } from "@/constants/voices-map";
-import { useSexPositions } from "@/constants/sex-positions";
+import { voicesMap } from '@/constants/voices-map';
+import { useSexPositions } from '@/constants/sex-positions';
 
-import { useUtmStore } from "@/store/states/utm";
-import { handleAuthSuccess } from "@/utils/auth/handleAuthSuccess";
+import { useUtmStore } from '@/store/states/utm';
+import { getTrackDeskCid } from '@/utils/helpers/getTrackDeskCid';
+import { handleAuthSuccess } from '@/utils/auth/handleAuthSuccess';
 
 export function useSignUpForm(posthog?: PostHog) {
     const { t, i18n } = useTranslation();
@@ -33,18 +34,19 @@ export function useSignUpForm(posthog?: PostHog) {
     const signUpSchema = useMemo(
         () =>
             z.object({
-                email: z.string().email(t("hooks.useSignUpForm.emailInvalid")),
+                email: z.string().email(t('hooks.useSignUpForm.emailInvalid')),
                 password: z
                     .string()
-                    .min(8, t("hooks.useSignUpForm.passwordMin"))
-                    .regex(passwordRegex, t("hooks.useSignUpForm.passwordRegex")),
+                    .min(8, t('hooks.useSignUpForm.passwordMin'))
+                    .regex(passwordRegex, t('hooks.useSignUpForm.passwordRegex')),
                 isAdult: z.boolean().refine((val) => val === true, {
-                    message: t("hooks.useSignUpForm.isAdultRequired"),
+                    message: t('hooks.useSignUpForm.isAdultRequired'),
                 }),
                 acceptedTerms: z.boolean().refine((val) => val === true, {
-                    message: t("hooks.useSignUpForm.acceptedTermsRequired"),
+                    message: t('hooks.useSignUpForm.acceptedTermsRequired'),
                 }),
             }),
+        // eslint-disable-next-line react-hooks/exhaustive-deps -- use i18n.language instead of t to avoid re-renders
         [i18n.language],
     );
 
@@ -66,21 +68,22 @@ export function useSignUpForm(posthog?: PostHog) {
     const form = useForm<SignUpFormValues>({
         resolver: zodResolver(signUpSchema),
         defaultValues: {
-            email: "",
-            password: "",
+            email: '',
+            password: '',
             isAdult: false,
             acceptedTerms: false,
         },
     });
 
     useEffect(() => {
-        const fields = Object.keys(form.formState.errors) as any[];
+        const fields = Object.keys(form.formState.errors) as Array<keyof SignUpFormValues>;
         if (fields.length > 0) {
             form.trigger(fields);
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps -- only re-trigger validation on language change
     }, [i18n.language]);
 
-    const onValueReset = (field: "email" | "password") => {
+    const onValueReset = (field: 'email' | 'password') => {
         form.resetField(field);
         resetMutation();
     };
@@ -90,19 +93,15 @@ export function useSignUpForm(posthog?: PostHog) {
 
         let customCharacterPrompt = funnelFormValues.characterPrompt;
         const customAge = getRandomFromRange(funnelFormValues.age);
-        customCharacterPrompt = appendPersonalityTraits(
-            customCharacterPrompt,
-            funnelFormValues.personality_traits,
-        );
+        customCharacterPrompt = appendPersonalityTraits(customCharacterPrompt, funnelFormValues.personality_traits);
         customCharacterPrompt = appendHobbies(customCharacterPrompt, funnelFormValues.interests);
-        const customBreast = funnelFormValues.breast_size + "-" + funnelFormValues.breast_type;
+        const customBreast = funnelFormValues.breast_size + '-' + funnelFormValues.breast_type;
         const customKinks = [...funnelFormValues.turns_of_you, ...funnelFormValues.want_to_try];
         const customSexPosition = getRandomSexPosition(sexPositions);
 
-        const url =
-            import.meta.env.DEV
-                ? "https://mdc-react-funnel-v4-dev.pages.dev/"
-                : window.location.href;
+        const url = import.meta.env.DEV ? 'https://mdc-react-funnel-v4-dev.pages.dev/' : window.location.href;
+
+        const trackDeskCid = getTrackDeskCid();
 
         const payload: SignUpPayload = {
             email: values.email,
@@ -110,14 +109,15 @@ export function useSignUpForm(posthog?: PostHog) {
             utmOnRegistration: utm,
             url: url,
             referrer: document.referrer || undefined,
+            ...(trackDeskCid ? { trackDeskCid } : {}),
             createCharFunnelOptions: {
                 funnelOptions: funnelFormValues,
                 dtoAdultFannelV3: {
                     character_options: {
-                        funnel: "cc_funnel_juicy",
+                        funnel: 'cc_funnel_juicy',
                         character: {
                             age: customAge,
-                            sex: "female",
+                            sex: 'female',
                             body: funnelFormValues.body,
                             butt: funnelFormValues.butt,
                             eyes: funnelFormValues.eyes,
@@ -160,7 +160,7 @@ export function useSignUpForm(posthog?: PostHog) {
             onError: (error: Error) => {
                 const axiosError = error as AxiosError<{ messages?: string[] }>;
                 triggerToast({
-                    title: axiosError.response?.data?.messages?.[0] || t("hooks.useSignUpForm.signUpFailed"),
+                    title: axiosError.response?.data?.messages?.[0] || t('hooks.useSignUpForm.signUpFailed'),
                     type: toastType.error,
                 });
             },

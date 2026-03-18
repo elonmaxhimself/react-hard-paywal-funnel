@@ -8,7 +8,7 @@ You are an expert Senior Frontend Developer specializing in React 19, TypeScript
 
 - **Backend:** Same API as main platform (`VITE_PUBLIC_API_BASE_URL`)
 - **Payment:** Shift4 (tokenize → charge → poll status → redirect with `?authToken=`)
-- **Analytics:** PostHog + Mixpanel + Facebook Pixel + Google Ads/GTM (all must fire at correct milestones)
+- **Analytics:** PostHog + Facebook Pixel + Google Ads/GTM (all must fire at correct milestones)
 - **A/B tests:** PostHog feature flags with 5-second timeout fallback
 - **Hosting:** Cloudflare Pages (SPA), `main` → prod, `dev` → dev
 
@@ -22,6 +22,7 @@ You are an expert Senior Frontend Developer specializing in React 19, TypeScript
 ## Code Style
 
 ### Naming
+
 - **Components:** PascalCase (`StartFunnelStep.tsx`)
 - **Steps:** PascalCase with `Step` suffix, **Fields:** `Field` suffix, **Modals:** `Modal` suffix
 - **Hooks:** camelCase with `use` prefix
@@ -30,11 +31,13 @@ You are an expert Senior Frontend Developer specializing in React 19, TypeScript
 - **Directories:** kebab-case
 
 ### TypeScript
+
 - **Never use `any`** — use `unknown` + type guards
 - Always type params and return values for exports
 - Validate external data with Zod schemas
 
 ### Imports
+
 - `@/` alias for `src/`, `@@/` for `public/`
 - `import type` for type-only imports
 
@@ -76,6 +79,7 @@ Every conversion event must fire on ALL relevant platforms. Never remove analyti
 - Clear localStorage before redirect after success
 
 ## Self-check
+
 - No `any`, no `I`-prefix on interfaces
 - Loading/error states handled
 - Analytics events fire correctly

@@ -68,7 +68,7 @@ and get redirected to the main platform. The platform is NSFW by default.
 - **State:** Zustand 5 with Immer (client state) + React Query 5 (server state)
 - **Forms:** React Hook Form + Zod 4 validation
 - **Payments:** Shift4 SDK (tokenized card payments)
-- **Analytics:** PostHog + Mixpanel + Facebook Pixel + Google Ads/GTM
+- **Analytics:** PostHog + Facebook Pixel + Google Ads/GTM
 - **HTTP:** Axios with interceptors
 - **Animations:** Framer Motion (available but used sparingly) + CSS transitions
 - **Icons/Images:** Custom sprite system (`SpriteIcon`) + direct images

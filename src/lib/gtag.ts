@@ -87,7 +87,7 @@ export function gaCloseConvertLead(leadId: string) {
 }
 
 /** GA4 — purchase */
-export function gaPurchase(transactionId: string, value: number, currency = 'EUR', onSent?: () => void) {
+export function gaPurchase(transactionId: string, value: number, currency = 'USD', onSent?: () => void) {
     withDedup(transactionId, () => {
         safeGtag('event', 'purchase', {
             transaction_id: transactionId,

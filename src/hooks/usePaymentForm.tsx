@@ -524,15 +524,16 @@ export function usePaymentForm(posthog?: PostHog) {
                                     // GA4 — Purchase (redirect after event sent) 
                                     const redirectUrl = env.shift4.paymentRedirect;
                                     const redirectUrlWithToken = redirectUrl + '?authToken=' + authToken;
-                                   let redirected = false;
+                                    let redirected = false;
 
-                                    const doRedirect = () => {
-                                        if (redirected) return;
-                                        redirected = true;
-                                        authReset();
-                                        funnelReset();
-                                        window.location.href = redirectUrlWithToken;
-                                    };
+                                        const doRedirect = () => {
+                                            if (redirected) return;
+                                            redirected = true;
+                                            localStorage.removeItem(PAYMENT_IN_PROGRESS_KEY)
+                                            authReset();
+                                            funnelReset();
+                                            window.location.href = redirectUrlWithToken;
+                                        };
 
                                     const redirectFallback = setTimeout(doRedirect, 3000);
 

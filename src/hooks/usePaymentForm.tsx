@@ -521,11 +521,14 @@ export function usePaymentForm(posthog?: PostHog) {
                                         });
                                     }
 
-                                    // GA4 — Purchase (redirect after event sent) 
+                                    // GA4 — Purchase (redirect after event sent)
                                     const redirectUrl = env.shift4.paymentRedirect;
                                     const redirectUrlWithToken = redirectUrl + '?authToken=' + authToken;
 
+                                    let hasRedirected = false;
                                     const doRedirect = () => {
+                                        if (hasRedirected) return;
+                                        hasRedirected = true;
                                         localStorage.removeItem(PAYMENT_IN_PROGRESS_KEY);
                                         authReset();
                                         funnelReset();
@@ -534,7 +537,7 @@ export function usePaymentForm(posthog?: PostHog) {
 
                                     const redirectFallback = setTimeout(doRedirect, 3000);
 
-                                    gaPurchase(response.subscriptionId, product.amount / 100, 'EUR', () => {
+                                    gaPurchase(response.subscriptionId, product.amount / 100, 'USD', () => {
                                         clearTimeout(redirectFallback);
                                         doRedirect();
                                     });

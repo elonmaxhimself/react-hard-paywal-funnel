@@ -71,7 +71,6 @@ export function reportEmailVerified(url?: CallbackUrl, eventId?: string) {
     });
 }
 
-
 /** GA4 — qualify_lead */
 export function gaQualifyLead() {
     safeGtag('event', 'qualify_lead', {
@@ -87,7 +86,7 @@ export function gaCloseConvertLead(leadId: string) {
 }
 
 /** GA4 — purchase */
-export function gaPurchase(transactionId: string, value: number, currency = 'EUR', onSent?: () => void) {
+export function gaPurchase(transactionId: string, value: number, currency = 'USD', onSent?: () => void) {
     withDedup(transactionId, () => {
         safeGtag('event', 'purchase', {
             transaction_id: transactionId,

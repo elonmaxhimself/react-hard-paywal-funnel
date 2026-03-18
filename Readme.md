@@ -11,7 +11,6 @@
 
 Create a `.env` file based on `.env.example` and configure the required values for your environment.
 
-
 ## Environment Variables
 
 Configure the following variables in your `.env` file:
@@ -40,13 +39,16 @@ Configure the following variables in your `.env` file:
 - **`VITE_PUBLIC_ENABLE_DEV_ANALYTICS`** (boolean)  
   Enable or disable analytics in development mode. Set to false in local development to avoid polluting analytics data.
 
+- **`VITE_GA_ID`** (string)  
+  Google Analytics 4 measurement ID used to initialize `gtag` tracking.
+
 ---
 
 ## Development vs Production
 
 ### Development Mode
 
-Development mode uses `docker-compose.dev.yml` configuration with hot-reload enabled for faster iteration. The application connects to the development backend API. Analytics can be disabled by setting `VITE_PUBLIC_ENABLE_DEV_ANALYTICS` to false to avoid polluting production analytics data. 
+Development mode uses `docker-compose.dev.yml` configuration with hot-reload enabled for faster iteration. The application connects to the development backend API. Analytics can be disabled by setting `VITE_PUBLIC_ENABLE_DEV_ANALYTICS` to false to avoid polluting production analytics data.
 
 **Run development mode:**
 

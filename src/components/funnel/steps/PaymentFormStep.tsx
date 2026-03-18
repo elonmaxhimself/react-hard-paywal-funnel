@@ -25,7 +25,8 @@ export function PaymentFormStep() {
     const { t } = useTranslation();
     const setStep = useFunnelStore((s) => s.setStep);
     const posthog = usePostHog();
-    const { product, onSubmit, isPending, isPaymentInProgress, resumePollingFailed } = usePaymentForm(posthog);
+    const { product, onSubmit, isButtonDisabled, isPaymentInProgress, shift4Error, resumePollingFailed } =
+        usePaymentForm(posthog);
     const { prevStep } = useStepperContext();
     const hasRedirected = useRef(false);
 
@@ -157,11 +158,15 @@ export function PaymentFormStep() {
                         <Button
                             type="button"
                             onClick={onSubmit}
-                            disabled={isPending}
+                            disabled={isButtonDisabled}
                             className={'w-full h-[50px] bg-primary-gradient text-lg rounded-lg'}
                         >
-                            {isPending && <Loader2Icon className="animate-spin" />}
-                            <span className={'text-base font-bold'}>{t('funnel.paymentFormStep.completePayment')}</span>
+                            {isPaymentInProgress && <Loader2Icon className="animate-spin" />}
+                            <span className={'text-base font-bold'}>
+                                {shift4Error
+                                    ? t('funnel.paymentFormStep.paymentUnavailable')
+                                    : t('funnel.paymentFormStep.completePayment')}
+                            </span>
                         </Button>
                     </div>
 

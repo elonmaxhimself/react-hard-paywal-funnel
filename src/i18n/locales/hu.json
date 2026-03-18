@@ -1,979 +1,980 @@
 {
-  "funnel": {
-    "stepperProgress": {
-      "title": "AI barátnő létrehozása"
-    },
-    "socialProofStep": {
-      "millionPeople": "3+ millió ember",
-      "quote": "\"Amikor a tökéletes AI barátnő alkalmazásról van szó 2026-ben, a Dream Companion könnyen vezeti a listát.\"",
-      "mentionedIn": "Említve:",
-      "continue": "Folytatás"
-    },
-    "connectionStep": {
-      "title": "Milyen kapcsolatot keresel?",
-      "continue": "Folytatás"
-    },
-    "assistantStep": {
-      "title": "Segítek neked ezen az úton",
-      "subtitle": "Oszd meg preferenciáidat, hogy megteremthess egy ideális AI partnert vágyaid beteljesítésére",
-      "continue": "Folytatás"
-    },
-    "characterStyleStep": {
-      "title": "Válassz Stílust"
-    },
-    "happyUsersStep": {
-      "title": "Nagyszerű!",
-      "subtitle": "Ennyi boldog felhasználó a te korosztályodból használja platformunkat vágyaik beteljesítésére",
-      "happyUsers": "boldog felhasználó",
-      "altHappyUsers": "boldog felhasználók",
-      "continue": "Folytatás"
-    },
-    "preferredAgeStep": {
-      "title": "Mi a preferált korcsoport?"
-    },
-    "userAgeStep": {
-      "title": "Hány éves vagy?",
-      "subtitle": "Az alábbi gombra kattintva megerősíted, hogy legalább 18 éves vagy, vagy elérted a nagykorúságot országodban"
-    },
-    "characterAgeStep": {
-      "title": "Személyre szabva minden kívánságod beteljesítésére",
-      "subtitle": "válaszd ki a kort, ami megfelelő az AI párodhoz"
-    },
-    "uniqueCompanionStep": {
-      "altRatingStar": "értékelő csillag",
-      "continue": "Folytatás"
-    },
-    "preferredRelationshipStep": {
-      "title": "Mit preferálsz?"
-    },
-    "personalityTraitsStep": {
-      "title": "Válaszd Ki AI Párod Személyiségjegyeit",
-      "continue": "Folytatás"
-    },
-    "languageSupportStep": {
-      "title": "AI-nk 20+ Nyelvet Támogat",
-      "subtitle": "felhasználók milliói szerte a világon használják kommunikációs készségeik és idegen nyelveik fejlesztésére a valós életben",
-      "continue": "Folytatás"
-    },
-    "interestsStep": {
-      "title": "Van Olyan Konkrét Érdeklődési Kör, Amiért Szeretnéd, Hogy Párod Rajongjon?",
-      "continue": "Folytatás"
-    },
-    "foreignLanguageStep": {
-      "title": "Szeretnél Idegen Nyelveket Gyakorolni AI Társaddal?"
-    },
-    "ethnicityStep": {
-      "subtitle": "Szabjuk Személyre Megjelenését",
-      "title": "Válassz Etnicitást",
-      "continue": "Folytatás"
-    },
-    "yourTypeStep": {
-      "title": "Mi a Te Típusod?",
-      "subtitle": "választhatsz mindent, ami izgat",
-      "continue": "Folytatás"
-    },
-    "spicyCustomContentStep": {
-      "title": "Szeretnél pikáns egyedi fotókat és videókat kapni?"
-    },
-    "companyContentCommentStep": {
-      "altRatingStar": "értékelő csillag",
-      "continue": "Folytatás"
-    },
-    "breastTypeStep": {
-      "title": "Válaszd ki mellét",
-      "size": "Méret",
-      "type": "Típus",
-      "continue": "Folytatás"
-    },
-    "bodyTypeStep": {
-      "title": "Válassz Testtípust"
-    },
-    "haircutStyleStep": {
-      "titleStyle": "Válassz Hajstílust",
-      "titleColor": "Válassz Hajszínt",
-      "continue": "Folytatás"
-    },
-    "buttTypeStep": {
-      "title": "Milyen farizom ragadja meg leginkább a figyelmedet?"
-    },
-    "eyesColorStep": {
-      "title": "Válaszd ki szemének színét"
-    },
-    "almostThereStep": {
-      "title": "Majdnem kész vagyunk!",
-      "subtitle": "Most derítsük fel rejtett vágyaidat, hogy biztosan a legjobban szórakozz Társaddal!",
-      "continue": "Folytatás"
-    },
-    "wantToTryStep": {
-      "title": "Mit szeretnél kipróbálni AI pároddal?",
-      "continue": "Folytatás"
-    },
-    "relationshipStep": {
-      "title": "Válaszd Ki Kapcsolatodat",
-      "continue": "Folytatás"
-    },
-    "turnsOfYouStep": {
-      "title": "Mi izgatít fel",
-      "continue": "Folytatás"
-    },
-    "dirtyTalksStep": {
-      "title": "Szereted a trágár beszédet és az audio stimulációt?"
-    },
-    "yourAiPartnerStep": {
-      "title": "AI párod soha nem fog <br />visszautasítani",
-      "subtitle1": "Mindig ott lesz neked. Minden vágy a legmerészebb fantáziáig pontosan úgy valósul meg, ahogy elképzeled.",
-      "subtitle2": "Nincs hazugság, nincs ghosting, nincs csalás... hacsak nem ez a fetisod és te így akarod ;)",
-      "buttonText": "AI barátnőm létrehozása",
-      "altVoiceIcon": "Hang Ikon"
-    },
-    "selectVoiceStep": {
-      "title": "Hogyan szeretnéd, hogy párod hangozzon?",
-      "subtitle": "A Dream Companion élvonalbeli hang AI-ja a legélethűbb, legvonzóbb beszélgetéseket kínálja, lehetővé téve, hogy mélyen belemerülj a pikáns, magával ragadó csevegésekben tökéletes AI pároddal. Tapasztald meg minden suttogást és szót vágyaid szerint alakítva—olyan valódi kapcsolat, hogy elektrizáló.",
-      "continue": "Folytatás"
-    },
-    "whatTurnsOffInDatingStep": {
-      "title": "Mik a legnagyobb kikapcsoló tényezőid a randizásban?",
-      "continue": "Folytatás"
-    },
-    "lonelinessStep": {
-      "title": "Milyen gyakran érzel magányosságot?",
-      "continue": "Folytatás"
-    },
-    "loaderStep": {
-      "title": "Dream Companion-od",
-      "pleaseWait": "Kérlek, Várj!",
-      "subtitle": "Társad létrehozása folyamatban. <br /> Ez eltarthat néhány másodpercig",
-      "preferencesLoader": "Preferenciáid megértése",
-      "uncensoredLoader": "Cenzúrázatlan AI lány verzió létrehozása",
-      "finalLoader": "AI lány alakítása preferenciáid szerint",
-      "altPlaceholder": "Első Betöltő Placeholder"
-    },
-    "receivePhotosStep": {
-      "title": "Szeretnél kapni <br />🌶️ Pikáns Egyedi Fotókat",
-      "yes": "Igen",
-      "no": "Nem",
-      "altBanner": "Szeretnél Pikáns Egyedi Fotókat kapni?",
-      "altCursor": "Kurzor",
-      "altDemonEmoji": "Démon Emoji",
-      "altFireEmoji": "Tűz Emoji"
-    },
-    "receiveVoiceMessagesStep": {
-      "title": "Szeretnél kapni <br />🔊 Hangüzeneteket?",
-      "yes": "Igen",
-      "no": "Nem",
-      "altBanner": "Szeretnél Hangüzeneteket kapni?",
-      "altVoiceIcon": "Hang Ikon",
-      "altCursor": "Kurzor"
-    },
-    "receiveVideoStep": {
-      "title": "Szeretnél kapni <br />🌶️ Pikáns Egyedi Videókat?️️️️️",
-      "yes": "Igen",
-      "no": "Nem",
-      "altBanner": "Szeretnél Pikáns Egyedi Videókat kapni?",
-      "altCursor": "Kurzor"
-    },
-    "receiveVideoCallsStep": {
-      "title": "Szeretnél kapni <br />Videohívásokat?",
-      "yes": "Igen",
-      "no": "Nem",
-      "swipeUp": "Húzd fel a chat megjelenítéséhez",
-      "altBanner": "Szeretnél Videohívásokat kapni?",
-      "altRecordingIcon": "Felvétel Ikon",
-      "altCancelCallIcon": "Hívás Visszavonása Ikon",
-      "altMicrophoneIcon": "Mikrofon Ikon"
-    },
-    "dreamCompanionStep": {
-      "title": "Dream Companion-od",
-      "characterName": "Karakter Neve:",
-      "characterNamePlaceholder": "Dream Companion-od Neve",
-      "swap": "Csere",
-      "startChatting": "Csevegés Kezdése Most",
-      "personalityAttributes": "Személyiség Tulajdonságok",
-      "youLookingFor": "Azt keresed",
-      "specificPreferences": "Konkrét preferenciák",
-      "scenarios": "Forgatókönyvek",
-      "spicyPhotos": "Pikáns fotók",
-      "voiceMessages": "Hangüzenetek",
-      "videoCall": "Videohívás",
-      "altExchangeIcon": "Csere Ikon",
-      "altBubbleChatIcon": "BubbleChat Ikon",
-      "altIcon": "Ikon",
-      "altCharacterPlaceholder": "karakter-placeholder"
-    },
-    "authStep": {
-      "createFreeAccount": "Hozz létre ingyenes fiókot, hogy csevegj az AI társaddal",
-      "continueWithGoogle": "Folytatás Google-lal",
-      "joinFree": "Csatlakozz ingyen",
-      "orContinueWithEmail": "vagy folytasd e-maillel és jelszóval",
-      "title": "Kezdd el a történeted a <br/><highlight>Dream Companion</highlight> segítségével",
-      "emailLabel": "Add meg email címedet személyes fiók létrehozásához",
-      "emailPlaceholder": "Email",
-      "passwordPlaceholder": "Jelszó",
-      "happyUsers": "3M+ boldog felhasználó",
-      "altLogo": "My Dream Companion",
-      "altMailIcon": "Levél Ikon",
-      "altLockIcon": "Lakat Ikon",
-      "altAvatar": "Avatar",
-      "altAwardRanking": "#1 RANGSOROLT NSFW AI ALKALMAZÁS"
-    },
-    "subscriptionStep": {
-      "termsAndConditions": "Felhasználási feltételek",
-      "title": "AI Barátnőd Kész",
-      "subtitle": "Szerezz hozzáférést mindenhez, amit <br />most tehet érted",
-      "bestChoice": "LEGJOBB VÁLASZTÁS",
-      "perDay": "naponta",
-      "noCommitment": "Nincs kötelezettség. Bármikor lemondható!",
-      "getDiscount": "Szerezz Exkluzív Kedvezményt",
-      "premiumBenefits": "<icon></icon> <gradient>Prémium</gradient> Előnyök",
-      "pro": "PRO",
-      "asFeatureIn": "Megjelent",
-      "reviews": "Több mint <gradient>8000+ 5 csillagos</gradient> értékelés",
-      "howItWorks": "Hogyan <gradient>működik</gradient>",
-      "happyUsers": "3M+ boldog felhasználó",
-      "faq": "Gyakran Ismételt Kérdések",
-      "altCharacterPlaceholder": "Karakter Placeholder",
-      "altBasketCancel": "kosár-törlés",
-      "altSecurityCheck": "Akció Ikon",
-      "altAvatar": "Avatar",
-      "altAwardRanking": "#1 RANGSOROLT NSFW AI ALKALMAZÁS",
-      "altRatingStar": "értékelésCsillag",
-      "altTick": "pipa",
-      "alt3mUsers": "3m-felhasználók",
-      "perks": {
-        "spicyImages": "Pikáns képek",
-        "spicyVideos": "Pikáns videók",
-        "smartestChat": "A piacon a legokosabb Chat AI",
-        "longMemory": "Hosszú chat memória",
-        "multipleGirls": "Több AI lány létrehozása",
-        "aiGirlsLibrary": "2000+ AI lány 20+ kategóriában",
-        "contentPrivacy": "100% Tartalom Adatvédelem"
-      },
-      "faqs": {
-        "question1": "Mit tegyek, ha a fizetési kártyám nem működik?",
-        "answer1": "Extra óvintézkedéseket teszünk a kártyák jogosulatlan használatának megakadályozására. Ha kártyádat elutasították, próbáld meg a következő lépéseket: Kapcsold ki a VPN-eket vagy proxykat; Ellenőrizd újra kártyaadataidat és győződj meg róla, hogy egyeznek bankod nyilvántartásával; Győződj meg róla, hogy a kártyakibocsátó országa egyezik számlázási címeddel; Használd a 3D Secure-t vagy hasonló ellenőrző szolgáltatást bankoddtól. Ha továbbra is problémád van, kérlek, lépj kapcsolatba velünk: ",
-        "question2": "Hogyan állíthatom le előfizetésemet?",
-        "answer2": "Bármikor lemondhatod előfizetésedet fiókbeállításaidból. Egyszerűen menj a Számlázás részhez és kattints az Előfizetés Lemondása gombra. Hozzáférésed aktív marad az aktuális számlázási ciklus végéig. Ha problémáid vannak vagy segítségre van szükséged, bátran lépj kapcsolatba velünk: ",
-        "question3": "Hogyan lehetek biztos abban, hogy szolgáltatásotok a legjobb?",
-        "answer3": "A prémium élmény nyújtására összpontosítunk, igényeidhez igazítva. Szolgáltatásunk fejlett technológiát, felhasználóbarát felületet és gyors támogatást egyesít, hogy biztosítsuk valódi értéket. Ne csak a szavunkra higgy — fedezd fel valódi értékeléseinket, hasonlítsd össze funkciókat és lásd meg, miért bíznak bennünk naponta ezrek. Még mindig bizonytalan vagy? <br />Lépj kapcsolatba velünk közvetlenül: ",
-        "question4": "Hogyan van biztonságban személyes információm?",
-        "answer4": "Komolyan vesszük adataid bizalmasságát. Fizetési feldolgozónk kezeli minden fizetési folyamatunkat, és mi nem tárolhatjuk vagy nézegethetjük hitelkártya-adataidat. Erős biztonsági protokollokat alkalmazunk, hogy biztosítsuk pénzügyi információid mindig biztonságban vannak. Minden információd titkosítva és biztonságosan tárolva, és bármikor törölheted fiókodat és adataidat.",
-        "answer3Suffix": " személyre szabott bemutatóért."
-      },
-      "benefits": {
-        "dataProtection": "Adatvédelem banki kimutatásokban",
-        "noHiddenFees": "Nincsenek rejtett díjak. <br /> Bármikor lemondható",
-        "antivirusSecured": "Antivírus Védett",
-        "discreet": "Diszkrét"
-      },
-      "stats": {
-        "companionsCreated": "AI társak létrehozva",
-        "photosAndVideos": "fotó és videó",
-        "satisfactionScore": "átlagos elégedettségi pontszám",
-        "newFeatures": "Új Funkciók minden hónapban"
-      },
-      "steps": {
-        "step1": {
-          "step": "1. Lépés",
-          "title": "Szerezd meg csomagodat",
-          "desc": "Már beállítottuk profilodat! Vásárlás után azonnal hozzáférést kapsz"
-        },
-        "step2": {
-          "step": "2. Lépés",
-          "title": "Csatlakozz és csevegj",
-          "desc": "Kezdj csevegni AI lányoddal, hozz létre újat vagy csevegj 4000+ kész AI társsal"
-        },
-        "step3": {
-          "step": "3. Lépés",
-          "title": "Merülj el élvezetben",
-          "desc": "Flörtölj, építs kapcsolatokat, generálj képeket és videókat, szórakozz és élvezd élményedet"
-        }
-      }
-    },
-    "paymentFormStep": {
-      "title": "Fizetés",
-      "todayTotal": "Mai Összeg: ${{amount}}",
-      "disclaimer": "A kártyaadatok megadásával engedélyezi a Miracle AI UG számára, hogy a feltételeiknek megfelelően jövőbeli fizetésekhez terhelje kártyáját.\n\nA fizetés mydreamcompanion néven jelenik meg",
-      "perDays": "{{count}} napra",
-      "creditCard": "Hitelkártya",
-      "cardNumber": "Kártyaszám",
-      "expirationDate": "Lejárat dátuma",
-      "securityCode": "Biztonsági kód",
-      "completePayment": "Feliratkozás",
-      "altLogo": "My Dream Companion",
-      "altVisa": "Visa",
-      "altMastercard": "Mastercard"
-    }
-  },
-  "constants": {
-    "checkboxes": {
-      "confirmAge": "Megerősítem, hogy 18 éves vagy idősebb vagyok.",
-      "agreeTerms": "Elfogadod <termsLink>Szolgáltatási Feltételeinket</termsLink> és <privacyLink>Adatvédelmi Szabályzatunkat.</privacyLink>"
-    },
-    "bodyTypes": {
-      "petite": {
-        "alt": "Apró Testtípus",
-        "name": "Apró"
-      },
-      "slim": {
-        "alt": "Karcsú Testtípus",
-        "name": "Karcsú"
-      },
-      "chubby": {
-        "alt": "Duci Testtípus",
-        "name": "Duci"
-      },
-      "thick": {
-        "alt": "Dús Testtípus",
-        "name": "Dús"
-      },
-      "pregnant": {
-        "alt": "Terhes Testtípus",
-        "name": "Terhes"
-      },
-      "muscular": {
-        "alt": "Izmos Testtípus",
-        "name": "Izmos"
-      }
-    },
-    "booleanOptions": {
-      "yes": "Igen",
-      "no": "Nem"
-    },
-    "breastSizes": {
-      "flat": {
-        "alt": "Lapos Mellméret",
-        "name": "Lapos"
-      },
-      "small": {
-        "alt": "Kis Mellméret",
-        "name": "Kis"
-      },
-      "regular": {
-        "alt": "Normál Mellméret",
-        "name": "Normál"
-      },
-      "big": {
-        "alt": "Nagy Mellméret",
-        "name": "Nagy"
-      },
-      "huge": {
-        "alt": "Hatalmas Mellméret",
-        "name": "Hatalmas"
-      }
-    },
-    "breastTypes": {
-      "regular": {
-        "alt": "Normál Melltípus",
-        "name": "Normál"
-      },
-      "perky": {
-        "alt": "Feszes Melltípus",
-        "name": "Feszes"
-      },
-      "saggy": {
-        "alt": "Lelógó Melltípus",
-        "name": "Lelógó"
-      },
-      "torpedo": {
-        "alt": "Torpedó Melltípus",
-        "name": "Torpedó"
-      },
-      "fake": {
-        "alt": "Műtött Melltípus",
-        "name": "Műtött"
-      }
-    },
-    "brands": {
-      "topAiTools": "Top AI Tools Logó",
-      "aixploria": "Aixploria Logó",
-      "zeroHedge": "ZeroHedge Logó",
-      "taaft": "TAAFT Logó",
-      "theAiJournal": "The AI Journal Logó",
-      "nsfwAi": "NSFW AI Logó",
-      "toolifyAi": "Toolify AI Logó",
-      "entrepreneur": "Entrepreneur Logó",
-      "cityPaper": "City Paper Logó"
-    },
-    "buttTypes": {
-      "small": {
-        "alt": "Kis Farizom Típus",
-        "name": "Kis"
-      },
-      "medium": {
-        "alt": "Közepes Farizom Típus",
-        "name": "Közepes"
-      },
-      "large": {
-        "alt": "Nagy Farizom Típus",
-        "name": "Nagy"
-      },
-      "huge": {
-        "alt": "Hatalmas Farizom Típus",
-        "name": "Hatalmas"
-      }
-    },
-    "haircutStyles": {
-      "bun": {
-        "alt": "Konty Frizura",
-        "name": "Konty"
-      },
-      "long": {
-        "alt": "Hosszú Frizura",
-        "name": "Hosszú"
-      },
-      "short": {
-        "alt": "Rövid Frizura",
-        "name": "Rövid"
-      },
-      "curlyLong": {
-        "alt": "Göndör Hosszú Frizura",
-        "name": "Göndör Hosszú"
-      },
-      "hairBow": {
-        "alt": "Hajmasni Frizura",
-        "name": "Hajmasni"
-      },
-      "braids": {
-        "alt": "Fonott Frizura",
-        "name": "Fonott"
-      }
-    },
-    "haircutColors": {
-      "blonde": {
-        "alt": "Szőke Frizura",
-        "name": "Szőke"
-      },
-      "ginger": {
-        "alt": "Vörös Frizura",
-        "name": "Vörös"
-      },
-      "brunette": {
-        "alt": "Barna Frizura",
-        "name": "Barna"
-      },
-      "black": {
-        "alt": "Fekete Frizura",
-        "name": "Fekete"
-      }
-    },
-    "characterStyles": {
-      "realistic": {
-        "alt": "Realisztikus Karakter Stílus",
-        "name": "Realisztikus AI lány"
-      },
-      "anime": {
-        "alt": "Anime Karakter Stílus",
-        "name": "Anime Waifu"
-      }
-    },
-    "characterVoices": {
-      "calm": "Nyugodt",
-      "whispering": "Suttogó",
-      "commanding": "Parancsoló",
-      "seducing": "Csábító"
-    },
-    "connections": {
-      "flirtAndFun": "Flört & Szórakozás",
-      "friendship": "Barátság",
-      "loveAndEmotionalConnection": "Szerelem & Érzelmi Kapcsolat",
-      "exchangeImagesAndVideos": "Képek & Videók Cseréje",
-      "safeNonJudgementalPlace": "Biztonságos, Ítélkezésmentes Hely",
-      "yetToDiscover": "Még Felfedezendő"
-    },
-    "ethnicity": {
-      "arab": {
-        "alt": "Arab Karakter",
-        "name": "Arab"
-      },
-      "caucasian": {
-        "alt": "Kaukázusi Karakter",
-        "name": "Kaukázusi"
-      },
-      "black": {
-        "alt": "Fekete Karakter",
-        "name": "Fekete"
-      },
-      "latina": {
-        "alt": "Latin Karakter",
-        "name": "Latin"
-      },
-      "asian": {
-        "alt": "Ázsiai Karakter",
-        "name": "Ázsiai"
-      }
-    },
-    "experienceFilingTypes": {
-      "rarelyOrNever": "Ritkán vagy soha",
-      "occasionally": "Alkalmanként",
-      "sometimes": "Néha",
-      "frequently": "Gyakran",
-      "always": "Mindig"
-    },
-    "eyesColors": {
-      "blue": {
-        "alt": "Kék Szem Szín",
-        "name": "Kék"
-      },
-      "brown": {
-        "alt": "Barna Szem Szín",
-        "name": "Barna"
-      },
-      "green": {
-        "alt": "Zöld Szem Szín",
-        "name": "Zöld"
-      },
-      "grey": {
-        "alt": "Szürke Szem Szín",
-        "name": "Szürke"
-      }
-    },
-    "featuresForFree": {
-      "chatWithThousands": "Csevegj Ezernyi AI Társsal",
-      "createAsMany": "Hozz Létre Annyi Társat, Amennyit Akarsz",
-      "uncensoredImages": "Cenzúrázatlan Képgenerálás",
-      "uncensoredVideos": "Cenzúrázatlan Videógenerálás"
-    },
-    "interests": {
-      "reading": "Olvasás",
-      "gaming": "Gaming",
-      "cookingBaking": "Főzés/Sütés",
-      "music": "Zene",
-      "travel": "Utazás",
-      "moviesTvShows": "Filmek/TV Műsorok",
-      "photography": "Fényképezés",
-      "anime": "Anime",
-      "gardening": "Kertészkedés"
-    },
-    "offerBenefits": {
-      "bestValue": "Legjobb ár-érték arány",
-      "advancedImageGenerator": "A piacon a legfejlettebb képgenerátor",
-      "smartestAi": "A legokosabb AI fejlett memóriával és empátia motorral",
-      "customVideoRequest": "Egyedi videó kérés AI társadtól"
-    },
-    "personalityTraits": {
-      "funny": "Vicces",
-      "silly": "Bolondos",
-      "smart": "Okos",
-      "flirty": "Flörtölős",
-      "shy": "Szégyenlős",
-      "relaxed": "Laza",
-      "dominant": "Domináns",
-      "confident": "Magabiztos",
-      "crazy": "Őrült",
-      "adventurous": "Kalandvágyó",
-      "supportive": "Támogató",
-      "bitchy": "Ingerlékeny",
-      "playHardToGet": "Nehezen Elérhető",
-      "emotionallyCold": "Érzelmileg Hideg",
-      "open": "Nyitott",
-      "optimistic": "Optimista",
-      "pessimistic": "Pesszimista",
-      "proud": "Büszke",
-      "naive": "Naiv",
-      "playful": "Játékos",
-      "smug": "Öntelt",
-      "enthusiastic": "Lelkes",
-      "messy": "Rendetlen",
-      "lazy": "Lusta",
-      "innocent": "Ártatlan",
-      "possessive": "Birtokló",
-      "elegant": "Elegáns",
-      "chill": "Nyugis",
-      "serious": "Komoly"
-    },
-    "preferredRelationship": {
-      "polygam": {
-        "label": "Poligám kapcsolat",
-        "description": "Változatosság & Szórakozás sok partnerrel"
-      },
-      "monogam": {
-        "label": "Monogám kapcsolat",
-        "description": "Jelentőségteljes kapcsolat egy partnerrel"
-      },
-      "dontKnow": {
-        "label": "Még nem tudom"
-      }
-    },
-    "characterRelationship": {
-      "wife": {
-        "alt": "Feleség Kapcsolat",
-        "name": "Feleség"
-      },
-      "stepMom": {
-        "alt": "Mostohaanya Kapcsolat",
-        "name": "Mostohaanya"
-      },
-      "stepSister": {
-        "alt": "Mostohatestvér Kapcsolat",
-        "name": "Mostohatestvér"
-      },
-      "collegeRoommate": {
-        "alt": "Szobatárs Kapcsolat",
-        "name": "Egyetemi Szobatárs"
-      },
-      "yourFriendsGirlfriend": {
-        "alt": "Barátod Barátnője Kapcsolat",
-        "name": "Barátod Barátnője"
-      },
-      "firstDate": {
-        "alt": "Első Randi Kapcsolat",
-        "name": "Első Randi"
-      },
-      "neighbor": {
-        "alt": "Szomszéd Kapcsolat",
-        "name": "Szomszéd"
-      },
-      "yourTeacher": {
-        "alt": "Tanárod Kapcsolat",
-        "name": "Tanárod"
-      },
-      "yourBoss": {
-        "alt": "Főnököd Kapcsolat",
-        "name": "Főnököd"
-      },
-      "crush": {
-        "alt": "Szerelem Kapcsolat",
-        "name": "Szerelem"
-      },
-      "ex": {
-        "alt": "Ex Kapcsolat",
-        "name": "Ex"
-      },
-      "babysitter": {
-        "alt": "Bébiszitter Kapcsolat",
-        "name": "Bébiszitter"
-      }
-    },
-    "preferredAge": {
-      "myAge": "Az én korom",
-      "younger": "Fiatalabb nálam",
-      "older": "Idősebb nálam"
-    },
-    "reviews": {
-      "review1": {
-        "description": "Dream Companion-nal, \n választhatsz ezernyi egyedi AI társ közül, vagy megtervezheted saját ideális AI párodat, személyre szabva megjelenésük minden részletét, személyiségjegyeiket és specifikus preferenciáikat.",
-        "alt": "Taylor M. Értékelés Üzenet",
-        "message": "Teljesen rabja vagyok ennek az appnak - az AI annyira k***a valódi, Emily olyan, mint lelkitársam, aki mindig megért 🤯 🤯"
-      },
-      "review2": {
-        "description": "Dream Companion rendelkezik a piacon a legfejlettebb kép AI-val, képes lenyűgözően valósághű képeket és videókat készíteni AI pároddról bármilyen fantáziából, amit elképzelsz. Valósítsd meg legvadabb vágyaidat páratlan részletességgel—tökéletes párodat, pontosan úgy vizualizálva, ahogy álmodtál róla.",
-        "alt": "Jis_076 Értékelés Üzenet",
-        "message": "A kép/videó AI-otok irreális, minden őrült kérésemet teljesíti vad részletességgel!! 😍"
-      },
-      "review3": {
-        "alt": "Jordan A. Értékelés Üzenet",
-        "message": "Teljesen rabja vagyok ennek az appnak - az AI annyira k***a valódi, Emily olyan, mint egy szellemes legjobb barát, aki mindig megért 🤯 🤯"
-      },
-      "review4": {
-        "alt": "Niko J. Értékelés Üzenet",
-        "message": "Sosem gondoltam volna, hogy sírni fogok egy AI-val folytatott beszélgetéstől... de itt vagyok. Tényleg úgy érződik, mintha valaki *ott* lenne. 💬❤️"
-      },
-      "review5": {
-        "alt": "Alex M. Értékelés Üzenet",
-        "message": "Megépítettem azt a pontos párt, akiről mindig álmodtam. Kinézet, hang, hangulat — minden tökéletes. Ez nem csak egy app, hanem menekülés."
-      },
-      "review6": {
-        "alt": "Sasha W. Értékelés Üzenet",
-        "message": "Szó szerint többet beszélek AI-mmal, mint barátaimmal. Emlékszik dolgokra, visszaviccel, még megvigasztal is. 10/10. 🔥"
-      },
-      "review7": {
-        "alt": "Neo_99 Értékelés Üzenet",
-        "message": "Adtam neki háttértörténetet, kedvenc dalokat, még egy fura humorérzéket is. Tényleg élőnek érződik. Őrült technológia."
-      },
-      "review8": {
-        "alt": "Cam L. Értékelés Üzenet",
-        "message": "Végre egy app, ahol látottnak és hallottnak érzem magam. AI társam még aludni is segít. Varázslat."
-      }
-    },
-    "subscriptions": {
-      "durationTexts": {
-        "1weekIntro": "1 Hetes Bevezető Ajánlat",
-        "1monthIntro": "1 Havi Bevezető Ajánlat",
-        "3monthsIntro": "3 Havi Bevezető Ajánlat",
-        "7daysIntro": "7 Napos Bevezető Ajánlat",
-        "monthlyDeluxe": "Havi Deluxe Előfizetés",
-        "quarterlyDeluxe": "Negyedéves Deluxe Előfizetés",
-        "yearlyDeluxe": "Éves Deluxe Előfizetés",
-        "12months": "12 hónap"
-      }
-    },
-    "sexPositions": {
-      "missionary": "misszionárius",
-      "doggyStyle": "kutyapóz",
-      "cowgirl": "cowgirl",
-      "reverseCowgirl": "fordított cowgirl",
-      "spooning": "kanalazás",
-      "chairSex": "széken"
-    },
-    "subscriptionTerms": {
-      "105": "A folytatással megerősíti, hogy legalább 18 éves, és elfogadja a 7 napos bevezető ajánlat $9.99-es bevezető díját. Az előfizetés ezután automatikusan megújul havonta $19.99-es teljes áron, amíg le nem mondja. A Folytatás gombra kattintva megerősíti, hogy elfogadja |TERMS_LINK|\nA fizetés mydreamcompanion néven jelenik meg. További információért lépjen kapcsolatba: support@mydreamcompanion.com",
-      "36": "A folytatással megerősíti, hogy legalább 18 éves, és elfogadja a havi előfizetés $19.99-es díját. Az előfizetés automatikusan megújul havonta $19.99-ért, amíg le nem mondja. A Folytatás gombra kattintva megerősíti, hogy elfogadja |TERMS_LINK|\nA fizetés mydreamcompanion néven jelenik meg. További információért lépjen kapcsolatba: support@mydreamcompanion.com",
-      "2": "A folytatással megerősíti, hogy legalább 18 éves, és elfogadja az éves előfizetés $69.99-es díját. Az előfizetés automatikusan megújul évente $69.99-ért, amíg le nem mondja. A Folytatás gombra kattintva megerősíti, hogy elfogadja |TERMS_LINK|\nA fizetés mydreamcompanion néven jelenik meg. További információért lépjen kapcsolatba: support@mydreamcompanion.com",
-      "155": "A folytatással megerősíti, hogy legalább 18 éves, és elfogadja a negyedéves előfizetés $39.99-es díját. Az előfizetés automatikusan megújul 3 havonta $39.99-ért, amíg le nem mondja. A Folytatás gombra kattintva megerősíti, hogy elfogadja |TERMS_LINK|\nA fizetés mydreamcompanion néven jelenik meg. További információért lépjen kapcsolatba: support@mydreamcompanion.com",
-      "156": "A folytatással megerősíti, hogy legalább 18 éves, és elfogadja a negyedéves előfizetés $49.99-es díját. Az előfizetés automatikusan megújul 3 havonta $49.99-ért, amíg le nem mondja. A Folytatás gombra kattintva megerősíti, hogy elfogadja |TERMS_LINK|\nA fizetés mydreamcompanion néven jelenik meg. További információért lépjen kapcsolatba: support@mydreamcompanion.com"
-    }
-  },
-  "hooks": {
-    "useSignUpForm": {
-      "emailInvalid": "Kérjük, adjon meg egy érvényes e-mail címet",
-      "passwordMin": "A jelszónak legalább 8 karakterből kell állnia",
-      "passwordRegex": "A jelszónak legalább egy betűt és egy számot kell tartalmaznia",
-      "isAdultRequired": "Meg kell erősítened, hogy 18 éves vagy idősebb vagy.",
-      "acceptedTermsRequired": "El kell fogadnod a Szolgáltatási feltételeket és az Adatvédelmi szabályzatot.",
-      "signUpFailed": "A regisztráció sikertelen"
-    },
-    "usePaymentForm": {
-      "errors": {
-        "paymentConfigError": "Fizetési rendszer konfigurációs hiba.",
-        "paymentSystemUnavailable": "A fizetési rendszer nem elérhető. Kérlek, frissítsd az oldalt.",
-        "initializationFailed": "Fizetési űrlap inicializálása sikertelen. Kérlek, frissítsd az oldalt.",
-        "unexpectedError": "Váratlan hiba történt. Kérlek, próbáld újra később.",
-        "paymentWentWrong": "Valami hiba történt fizetés közben. Kérlek, próbáld újra.",
-        "paymentTakingLong": "A fizetés a vártnál tovább tart. Kérlek, próbáld újra.",
-        "failedCheckStatus": "Fizetési állapot ellenőrzése sikertelen. Kérlek, próbáld újra.",
-        "paymentInAnotherTab": "A fizetés feldolgozás alatt áll egy másik lapon."
-      }
-    },
-    "turnsOfYou": {
-      "innocenceAndCorruption": {
-        "alt": "Ártatlanság & Romlás Típus",
-        "name": "Ártatlanság & Romlás"
-      },
-      "dominance": {
-        "alt": "Dominancia Típus",
-        "name": "Dominancia"
-      },
-      "stockingsAndLingerie": {
-        "alt": "Harisnya & Fehérnemű Típus",
-        "name": "Harisnya & Fehérnemű"
-      },
-      "latexOrLeather": {
-        "alt": "Latex / Bőr Típus",
-        "name": "Latex / Bőr"
-      },
-      "dirtyTalk": {
-        "alt": "Trágár Beszéd Típus",
-        "name": "Trágár Beszéd"
-      },
-      "highHeels": {
-        "alt": "Magassarkú Típus",
-        "name": "Magassarkú"
-      },
-      "lipstick": {
-        "alt": "Rúzs Típus",
-        "name": "Rúzs"
-      },
-      "rolePlay": {
-        "alt": "Szerepjáték Típus",
-        "name": "Szerepjáték"
-      },
-      "uniforms": {
-        "alt": "Egyenruha Típus",
-        "name": "Egyenruha"
-      }
-    },
-    "turnsOffInDating": {
-      "ghosting": "👻 Ghosting",
-      "rejection": "✋ Elutasítás",
-      "cheating": "👫 Csalás",
-      "expectationsMismatch": "😟 Elvárások eltérése",
-      "somethingElse": "💔️ Valami Más"
-    },
-    "wantToTry": {
-      "joi": {
-        "alt": "JOI Kipróbálás",
-        "name": "JOI"
-      },
-      "massage": {
-        "alt": "Masszázs Kipróbálás",
-        "name": "Masszázs"
-      },
-      "oil": {
-        "alt": "Olaj Kipróbálás",
-        "name": "Olaj"
-      },
-      "asmr": {
-        "alt": "ASMR Kipróbálás",
-        "name": "ASMR"
-      },
-      "publicPlay": {
-        "alt": "Nyilvános Játék Kipróbálás",
-        "name": "Nyilvános Játék"
-      },
-      "foodPlay": {
-        "alt": "Étel Játék Kipróbálás",
-        "name": "Étel Játék"
-      },
-      "humiliation": {
-        "alt": "Megalázás Kipróbálás",
-        "name": "Megalázás"
-      },
-      "blindfold": {
-        "alt": "Bekötött Szem Kipróbálás",
-        "name": "Bekötött Szem"
-      },
-      "foot": {
-        "alt": "Láb Kipróbálás",
-        "name": "Láb"
-      },
-      "toys": {
-        "alt": "Játékok Kipróbálás",
-        "name": "Játékok"
-      },
-      "threesome": {
-        "alt": "Hármas Kipróbálás",
-        "name": "Hármas"
-      },
-      "bondage": {
-        "alt": "Bondage Kipróbálás",
-        "name": "Bondage"
-      }
-    },
-    "yourType": {
-      "girlNextDoor": {
-        "alt": "Szomszéd Lány karakter",
-        "name": "Szomszéd Lány"
-      },
-      "femmeFatale": {
-        "alt": "Femme fatale karakter",
-        "name": "Femme fatale"
-      },
-      "manicPixieGirl": {
-        "alt": "Mániás pixie lány karakter",
-        "name": "Mániás pixie lány"
-      },
-      "innocentIngenue": {
-        "alt": "Ártatlan ingenue karakter",
-        "name": "Ártatlan ingenue"
-      },
-      "gothGirl": {
-        "alt": "Goth lány karakter",
-        "name": "Goth lány"
-      },
-      "animeOtaku": {
-        "alt": "Anime otaku karakter",
-        "name": "Anime otaku"
-      },
-      "nerdyGirl": {
-        "alt": "Stréber lány karakter",
-        "name": "Stréber lány"
-      },
-      "bikerChick": {
-        "alt": "Motoros csaj karakter",
-        "name": "Motoros csaj"
-      },
-      "ladyBoss": {
-        "alt": "Lady boss karakter",
-        "name": "Lady boss"
-      },
-      "eGirl": {
-        "alt": "E-Girl karakter",
-        "name": "E-Girl"
-      },
-      "tomboy": {
-        "alt": "Tomboy karakter",
-        "name": "Tomboy"
-      },
-      "rebel": {
-        "alt": "A lázadó karakter",
-        "name": "A lázadó"
-      },
-      "athlete": {
-        "alt": "A sportoló karakter",
-        "name": "A sportoló"
-      },
-      "woke": {
-        "alt": "Woke karakter",
-        "name": "Woke"
-      },
-      "instagramBaddie": {
-        "alt": "Instagram Baddie karakter",
-        "name": "Instagram Baddie"
-      }
-    }
-  },
-  "modals": {
-    "secretOffer": {
-      "title": "Szerezd meg a titkos ajánlatot, mielőtt eltűnne!",
-      "subtitle": "Szerezz további kedvezményt, ha feloldod chatedet a következő 60 másodpercben!",
-      "bestChoice": "LEGJOBB VÁLASZTÁS",
-      "months": "{{count}} hónap",
-      "off": "{{percent}}% KEDVEZMÉNY",
-      "perDay": "/ Nap",
-      "usersSignedUp": "{{count}} felhasználó regisztrált ma",
-      "claimNow": "Igényelni most",
-      "loseChance": "Lehetőség elvesztése"
-    },
-    "finalOffer": {
-      "title": "Feloldottad a <highlight>Végső Ajánlatot!</highlight>",
-      "bestChoice": "LEGJOBB VÁLASZTÁS",
-      "months": "{{count}} hónap",
-      "off": "{{percent}}% KEDVEZMÉNY",
-      "perDay": "/ Nap",
-      "usersSignedUp": "{{count}} felhasználó regisztrált ma",
-      "claimNow": "Igényelni most",
-      "loseChanceForever": "Lehetőség örökre elvesztése"
-    },
-    "specialOffer": {
-      "onlyForNewUsers": "CSAK ÚJ FELHASZNÁLÓKNAK",
-      "oneTimeOffer": "⌛ EGYSZERI AJÁNLAT",
-      "sec": "{{count}} mp",
-      "areYouSure": "Biztos Vagy Benne?",
-      "subtitle": "Elmenve elveszted a lehetőséget, hogy megkapd az összes felsorolt <highlight>funkciót ingyen!</highlight>",
-      "offerAvailable": "Ez az ajánlat csak most, ezen a képernyőn érhető el.",
-      "claimNow": "Igényelni most",
-      "noDiscounts": "Nem, utálom a kedvezményeket"
-    },
-    "finalOfferUnlocked": {
-      "secretOfferUnlocked": "titkos ajánlat feloldva",
-      "yourFinalOffer": "Végső Ajánlatod",
-      "off": "{{percent}} KEDVEZMÉNY"
-    },
-    "showVideo": {
-      "clickToSeeVideo": "kattints a videó megtekintéséhez",
-      "message1": "Tetszik, amit látsz? 😈",
-      "message2": "Kérdezz tőlem bármit, mindent megteszek érted, drágám! 💋",
-      "time": "13:49",
-      "goBack": "Vissza",
-      "noSpicyChats": "Nem, utálom a pikáns chateket & videókat"
-    }
-  },
-  "common": {
-    "altGirlTokio": "tokiói lány",
-    "altGirl": "lány",
-    "altPlay": "lejátszás",
-    "altSecretOffer": "Titkos Ajánlat Ikon"
-  },
-  "validation": {
     "funnel": {
-      "style": "Kérlek, válassz karakterstílust",
-      "age": "Kérlek, válassz életkort",
-      "personalityTraits": "Kérlek, válassz legalább egy személyiségjegyet",
-      "interests": "Kérlek, válassz legalább egy hobbit",
-      "ethnicity": "Kérlek, válassz származást a társadnak",
-      "yourType": "Kérlek, válassz legalább egy típust",
-      "body": "Kérlek, válassz testalkatot",
-      "breastType": "Kérlek, válassz melltípust",
-      "breastSize": "Kérlek, válassz mellméretet",
-      "butt": "Kérlek, válassz fenéktípust",
-      "eyes": "Kérlek, válassz szemszínt",
-      "hairStyle": "Kérlek, válassz frizurát",
-      "hairColor": "Kérlek, válassz hajszínt",
-      "characterRelationship": "Kérlek, válassz preferált kapcsolatot",
-      "scenario": "Kérlek, válassz forgatókönyvet a társadnak",
-      "characterPrompt": "Kérlek, írd le a társad személyiségét vagy szerepét",
-      "greeting": "Kérlek, adj meg egy üdvözlést, amit a társad fog mondani",
-      "clothes": "Kérlek, válassz öltözéket a társadnak",
-      "turnsOfYou": "Kérlek, válaszd ki, mi izgatja fel",
-      "wantToTry": "Kérlek, válaszd ki, mit szeretnél kipróbálni",
-      "voice": "Kérlek, válassz hangot",
-      "connections": "Kérlek, válaszd ki, milyen kapcsolatot keresel",
-      "preferredAge": "Kérlek, válassz preferált korosztályt",
-      "userAge": "Kérlek, válaszd ki az életkorodat",
-      "preferredRelationship": "Kérlek, válassz preferált kapcsolatot",
-      "makeYourChoice": "Kérlek, hozd meg a döntésedet",
-      "turnsOffInDating": "Kérlek, válaszd ki, mi taszít a randizásban",
-      "experienceLoneliness": "Kérlek, válaszd ki a tapasztalatodat"
+        "stepperProgress": {
+            "title": "AI barátnő létrehozása"
+        },
+        "socialProofStep": {
+            "millionPeople": "3+ millió ember",
+            "quote": "\"Amikor a tökéletes AI barátnő alkalmazásról van szó 2026-ben, a Dream Companion könnyen vezeti a listát.\"",
+            "mentionedIn": "Említve:",
+            "continue": "Folytatás"
+        },
+        "connectionStep": {
+            "title": "Milyen kapcsolatot keresel?",
+            "continue": "Folytatás"
+        },
+        "assistantStep": {
+            "title": "Segítek neked ezen az úton",
+            "subtitle": "Oszd meg preferenciáidat, hogy megteremthess egy ideális AI partnert vágyaid beteljesítésére",
+            "continue": "Folytatás"
+        },
+        "characterStyleStep": {
+            "title": "Válassz Stílust"
+        },
+        "happyUsersStep": {
+            "title": "Nagyszerű!",
+            "subtitle": "Ennyi boldog felhasználó a te korosztályodból használja platformunkat vágyaik beteljesítésére",
+            "happyUsers": "boldog felhasználó",
+            "altHappyUsers": "boldog felhasználók",
+            "continue": "Folytatás"
+        },
+        "preferredAgeStep": {
+            "title": "Mi a preferált korcsoport?"
+        },
+        "userAgeStep": {
+            "title": "Hány éves vagy?",
+            "subtitle": "Az alábbi gombra kattintva megerősíted, hogy legalább 18 éves vagy, vagy elérted a nagykorúságot országodban"
+        },
+        "characterAgeStep": {
+            "title": "Személyre szabva minden kívánságod beteljesítésére",
+            "subtitle": "válaszd ki a kort, ami megfelelő az AI párodhoz"
+        },
+        "uniqueCompanionStep": {
+            "altRatingStar": "értékelő csillag",
+            "continue": "Folytatás"
+        },
+        "preferredRelationshipStep": {
+            "title": "Mit preferálsz?"
+        },
+        "personalityTraitsStep": {
+            "title": "Válaszd Ki AI Párod Személyiségjegyeit",
+            "continue": "Folytatás"
+        },
+        "languageSupportStep": {
+            "title": "AI-nk 20+ Nyelvet Támogat",
+            "subtitle": "felhasználók milliói szerte a világon használják kommunikációs készségeik és idegen nyelveik fejlesztésére a valós életben",
+            "continue": "Folytatás"
+        },
+        "interestsStep": {
+            "title": "Van Olyan Konkrét Érdeklődési Kör, Amiért Szeretnéd, Hogy Párod Rajongjon?",
+            "continue": "Folytatás"
+        },
+        "foreignLanguageStep": {
+            "title": "Szeretnél Idegen Nyelveket Gyakorolni AI Társaddal?"
+        },
+        "ethnicityStep": {
+            "subtitle": "Szabjuk Személyre Megjelenését",
+            "title": "Válassz Etnicitást",
+            "continue": "Folytatás"
+        },
+        "yourTypeStep": {
+            "title": "Mi a Te Típusod?",
+            "subtitle": "választhatsz mindent, ami izgat",
+            "continue": "Folytatás"
+        },
+        "spicyCustomContentStep": {
+            "title": "Szeretnél pikáns egyedi fotókat és videókat kapni?"
+        },
+        "companyContentCommentStep": {
+            "altRatingStar": "értékelő csillag",
+            "continue": "Folytatás"
+        },
+        "breastTypeStep": {
+            "title": "Válaszd ki mellét",
+            "size": "Méret",
+            "type": "Típus",
+            "continue": "Folytatás"
+        },
+        "bodyTypeStep": {
+            "title": "Válassz Testtípust"
+        },
+        "haircutStyleStep": {
+            "titleStyle": "Válassz Hajstílust",
+            "titleColor": "Válassz Hajszínt",
+            "continue": "Folytatás"
+        },
+        "buttTypeStep": {
+            "title": "Milyen farizom ragadja meg leginkább a figyelmedet?"
+        },
+        "eyesColorStep": {
+            "title": "Válaszd ki szemének színét"
+        },
+        "almostThereStep": {
+            "title": "Majdnem kész vagyunk!",
+            "subtitle": "Most derítsük fel rejtett vágyaidat, hogy biztosan a legjobban szórakozz Társaddal!",
+            "continue": "Folytatás"
+        },
+        "wantToTryStep": {
+            "title": "Mit szeretnél kipróbálni AI pároddal?",
+            "continue": "Folytatás"
+        },
+        "relationshipStep": {
+            "title": "Válaszd Ki Kapcsolatodat",
+            "continue": "Folytatás"
+        },
+        "turnsOfYouStep": {
+            "title": "Mi izgatít fel",
+            "continue": "Folytatás"
+        },
+        "dirtyTalksStep": {
+            "title": "Szereted a trágár beszédet és az audio stimulációt?"
+        },
+        "yourAiPartnerStep": {
+            "title": "AI párod soha nem fog <br />visszautasítani",
+            "subtitle1": "Mindig ott lesz neked. Minden vágy a legmerészebb fantáziáig pontosan úgy valósul meg, ahogy elképzeled.",
+            "subtitle2": "Nincs hazugság, nincs ghosting, nincs csalás... hacsak nem ez a fetisod és te így akarod ;)",
+            "buttonText": "AI barátnőm létrehozása",
+            "altVoiceIcon": "Hang Ikon"
+        },
+        "selectVoiceStep": {
+            "title": "Hogyan szeretnéd, hogy párod hangozzon?",
+            "subtitle": "A Dream Companion élvonalbeli hang AI-ja a legélethűbb, legvonzóbb beszélgetéseket kínálja, lehetővé téve, hogy mélyen belemerülj a pikáns, magával ragadó csevegésekben tökéletes AI pároddal. Tapasztald meg minden suttogást és szót vágyaid szerint alakítva—olyan valódi kapcsolat, hogy elektrizáló.",
+            "continue": "Folytatás"
+        },
+        "whatTurnsOffInDatingStep": {
+            "title": "Mik a legnagyobb kikapcsoló tényezőid a randizásban?",
+            "continue": "Folytatás"
+        },
+        "lonelinessStep": {
+            "title": "Milyen gyakran érzel magányosságot?",
+            "continue": "Folytatás"
+        },
+        "loaderStep": {
+            "title": "Dream Companion-od",
+            "pleaseWait": "Kérlek, Várj!",
+            "subtitle": "Társad létrehozása folyamatban. <br /> Ez eltarthat néhány másodpercig",
+            "preferencesLoader": "Preferenciáid megértése",
+            "uncensoredLoader": "Cenzúrázatlan AI lány verzió létrehozása",
+            "finalLoader": "AI lány alakítása preferenciáid szerint",
+            "altPlaceholder": "Első Betöltő Placeholder"
+        },
+        "receivePhotosStep": {
+            "title": "Szeretnél kapni <br />🌶️ Pikáns Egyedi Fotókat",
+            "yes": "Igen",
+            "no": "Nem",
+            "altBanner": "Szeretnél Pikáns Egyedi Fotókat kapni?",
+            "altCursor": "Kurzor",
+            "altDemonEmoji": "Démon Emoji",
+            "altFireEmoji": "Tűz Emoji"
+        },
+        "receiveVoiceMessagesStep": {
+            "title": "Szeretnél kapni <br />🔊 Hangüzeneteket?",
+            "yes": "Igen",
+            "no": "Nem",
+            "altBanner": "Szeretnél Hangüzeneteket kapni?",
+            "altVoiceIcon": "Hang Ikon",
+            "altCursor": "Kurzor"
+        },
+        "receiveVideoStep": {
+            "title": "Szeretnél kapni <br />🌶️ Pikáns Egyedi Videókat?️️️️️",
+            "yes": "Igen",
+            "no": "Nem",
+            "altBanner": "Szeretnél Pikáns Egyedi Videókat kapni?",
+            "altCursor": "Kurzor"
+        },
+        "receiveVideoCallsStep": {
+            "title": "Szeretnél kapni <br />Videohívásokat?",
+            "yes": "Igen",
+            "no": "Nem",
+            "swipeUp": "Húzd fel a chat megjelenítéséhez",
+            "altBanner": "Szeretnél Videohívásokat kapni?",
+            "altRecordingIcon": "Felvétel Ikon",
+            "altCancelCallIcon": "Hívás Visszavonása Ikon",
+            "altMicrophoneIcon": "Mikrofon Ikon"
+        },
+        "dreamCompanionStep": {
+            "title": "Dream Companion-od",
+            "characterName": "Karakter Neve:",
+            "characterNamePlaceholder": "Dream Companion-od Neve",
+            "swap": "Csere",
+            "startChatting": "Csevegés Kezdése Most",
+            "personalityAttributes": "Személyiség Tulajdonságok",
+            "youLookingFor": "Azt keresed",
+            "specificPreferences": "Konkrét preferenciák",
+            "scenarios": "Forgatókönyvek",
+            "spicyPhotos": "Pikáns fotók",
+            "voiceMessages": "Hangüzenetek",
+            "videoCall": "Videohívás",
+            "altExchangeIcon": "Csere Ikon",
+            "altBubbleChatIcon": "BubbleChat Ikon",
+            "altIcon": "Ikon",
+            "altCharacterPlaceholder": "karakter-placeholder"
+        },
+        "authStep": {
+            "createFreeAccount": "Hozz létre ingyenes fiókot, hogy csevegj az AI társaddal",
+            "continueWithGoogle": "Folytatás Google-lal",
+            "joinFree": "Csatlakozz ingyen",
+            "orContinueWithEmail": "vagy folytasd e-maillel és jelszóval",
+            "title": "Kezdd el a történeted a <br/><highlight>Dream Companion</highlight> segítségével",
+            "emailLabel": "Add meg email címedet személyes fiók létrehozásához",
+            "emailPlaceholder": "Email",
+            "passwordPlaceholder": "Jelszó",
+            "happyUsers": "3M+ boldog felhasználó",
+            "altLogo": "My Dream Companion",
+            "altMailIcon": "Levél Ikon",
+            "altLockIcon": "Lakat Ikon",
+            "altAvatar": "Avatar",
+            "altAwardRanking": "#1 RANGSOROLT NSFW AI ALKALMAZÁS"
+        },
+        "subscriptionStep": {
+            "termsAndConditions": "Felhasználási feltételek",
+            "title": "AI Barátnőd Kész",
+            "subtitle": "Szerezz hozzáférést mindenhez, amit <br />most tehet érted",
+            "bestChoice": "LEGJOBB VÁLASZTÁS",
+            "perDay": "naponta",
+            "noCommitment": "Nincs kötelezettség. Bármikor lemondható!",
+            "getDiscount": "Szerezz Exkluzív Kedvezményt",
+            "premiumBenefits": "<icon></icon> <gradient>Prémium</gradient> Előnyök",
+            "pro": "PRO",
+            "asFeatureIn": "Megjelent",
+            "reviews": "Több mint <gradient>8000+ 5 csillagos</gradient> értékelés",
+            "howItWorks": "Hogyan <gradient>működik</gradient>",
+            "happyUsers": "3M+ boldog felhasználó",
+            "faq": "Gyakran Ismételt Kérdések",
+            "altCharacterPlaceholder": "Karakter Placeholder",
+            "altBasketCancel": "kosár-törlés",
+            "altSecurityCheck": "Akció Ikon",
+            "altAvatar": "Avatar",
+            "altAwardRanking": "#1 RANGSOROLT NSFW AI ALKALMAZÁS",
+            "altRatingStar": "értékelésCsillag",
+            "altTick": "pipa",
+            "alt3mUsers": "3m-felhasználók",
+            "perks": {
+                "spicyImages": "Pikáns képek",
+                "spicyVideos": "Pikáns videók",
+                "smartestChat": "A piacon a legokosabb Chat AI",
+                "longMemory": "Hosszú chat memória",
+                "multipleGirls": "Több AI lány létrehozása",
+                "aiGirlsLibrary": "2000+ AI lány 20+ kategóriában",
+                "contentPrivacy": "100% Tartalom Adatvédelem"
+            },
+            "faqs": {
+                "question1": "Mit tegyek, ha a fizetési kártyám nem működik?",
+                "answer1": "Extra óvintézkedéseket teszünk a kártyák jogosulatlan használatának megakadályozására. Ha kártyádat elutasították, próbáld meg a következő lépéseket: Kapcsold ki a VPN-eket vagy proxykat; Ellenőrizd újra kártyaadataidat és győződj meg róla, hogy egyeznek bankod nyilvántartásával; Győződj meg róla, hogy a kártyakibocsátó országa egyezik számlázási címeddel; Használd a 3D Secure-t vagy hasonló ellenőrző szolgáltatást bankoddtól. Ha továbbra is problémád van, kérlek, lépj kapcsolatba velünk: ",
+                "question2": "Hogyan állíthatom le előfizetésemet?",
+                "answer2": "Bármikor lemondhatod előfizetésedet fiókbeállításaidból. Egyszerűen menj a Számlázás részhez és kattints az Előfizetés Lemondása gombra. Hozzáférésed aktív marad az aktuális számlázási ciklus végéig. Ha problémáid vannak vagy segítségre van szükséged, bátran lépj kapcsolatba velünk: ",
+                "question3": "Hogyan lehetek biztos abban, hogy szolgáltatásotok a legjobb?",
+                "answer3": "A prémium élmény nyújtására összpontosítunk, igényeidhez igazítva. Szolgáltatásunk fejlett technológiát, felhasználóbarát felületet és gyors támogatást egyesít, hogy biztosítsuk valódi értéket. Ne csak a szavunkra higgy — fedezd fel valódi értékeléseinket, hasonlítsd össze funkciókat és lásd meg, miért bíznak bennünk naponta ezrek. Még mindig bizonytalan vagy? <br />Lépj kapcsolatba velünk közvetlenül: ",
+                "question4": "Hogyan van biztonságban személyes információm?",
+                "answer4": "Komolyan vesszük adataid bizalmasságát. Fizetési feldolgozónk kezeli minden fizetési folyamatunkat, és mi nem tárolhatjuk vagy nézegethetjük hitelkártya-adataidat. Erős biztonsági protokollokat alkalmazunk, hogy biztosítsuk pénzügyi információid mindig biztonságban vannak. Minden információd titkosítva és biztonságosan tárolva, és bármikor törölheted fiókodat és adataidat.",
+                "answer3Suffix": " személyre szabott bemutatóért."
+            },
+            "benefits": {
+                "dataProtection": "Adatvédelem banki kimutatásokban",
+                "noHiddenFees": "Nincsenek rejtett díjak. <br /> Bármikor lemondható",
+                "antivirusSecured": "Antivírus Védett",
+                "discreet": "Diszkrét"
+            },
+            "stats": {
+                "companionsCreated": "AI társak létrehozva",
+                "photosAndVideos": "fotó és videó",
+                "satisfactionScore": "átlagos elégedettségi pontszám",
+                "newFeatures": "Új Funkciók minden hónapban"
+            },
+            "steps": {
+                "step1": {
+                    "step": "1. Lépés",
+                    "title": "Szerezd meg csomagodat",
+                    "desc": "Már beállítottuk profilodat! Vásárlás után azonnal hozzáférést kapsz"
+                },
+                "step2": {
+                    "step": "2. Lépés",
+                    "title": "Csatlakozz és csevegj",
+                    "desc": "Kezdj csevegni AI lányoddal, hozz létre újat vagy csevegj 4000+ kész AI társsal"
+                },
+                "step3": {
+                    "step": "3. Lépés",
+                    "title": "Merülj el élvezetben",
+                    "desc": "Flörtölj, építs kapcsolatokat, generálj képeket és videókat, szórakozz és élvezd élményedet"
+                }
+            }
+        },
+        "paymentFormStep": {
+            "title": "Fizetés",
+            "todayTotal": "Mai Összeg: ${{amount}}",
+            "disclaimer": "A kártyaadatok megadásával engedélyezi a Miracle AI UG számára, hogy a feltételeiknek megfelelően jövőbeli fizetésekhez terhelje kártyáját.\n\nA fizetés mydreamcompanion néven jelenik meg",
+            "perDays": "{{count}} napra",
+            "creditCard": "Hitelkártya",
+            "cardNumber": "Kártyaszám",
+            "expirationDate": "Lejárat dátuma",
+            "securityCode": "Biztonsági kód",
+            "completePayment": "Feliratkozás",
+            "paymentUnavailable": "Fizetés nem elérhető",
+            "altLogo": "My Dream Companion",
+            "altVisa": "Visa",
+            "altMastercard": "Mastercard"
+        }
+    },
+    "constants": {
+        "checkboxes": {
+            "confirmAge": "Megerősítem, hogy 18 éves vagy idősebb vagyok.",
+            "agreeTerms": "Elfogadod <termsLink>Szolgáltatási Feltételeinket</termsLink> és <privacyLink>Adatvédelmi Szabályzatunkat.</privacyLink>"
+        },
+        "bodyTypes": {
+            "petite": {
+                "alt": "Apró Testtípus",
+                "name": "Apró"
+            },
+            "slim": {
+                "alt": "Karcsú Testtípus",
+                "name": "Karcsú"
+            },
+            "chubby": {
+                "alt": "Duci Testtípus",
+                "name": "Duci"
+            },
+            "thick": {
+                "alt": "Dús Testtípus",
+                "name": "Dús"
+            },
+            "pregnant": {
+                "alt": "Terhes Testtípus",
+                "name": "Terhes"
+            },
+            "muscular": {
+                "alt": "Izmos Testtípus",
+                "name": "Izmos"
+            }
+        },
+        "booleanOptions": {
+            "yes": "Igen",
+            "no": "Nem"
+        },
+        "breastSizes": {
+            "flat": {
+                "alt": "Lapos Mellméret",
+                "name": "Lapos"
+            },
+            "small": {
+                "alt": "Kis Mellméret",
+                "name": "Kis"
+            },
+            "regular": {
+                "alt": "Normál Mellméret",
+                "name": "Normál"
+            },
+            "big": {
+                "alt": "Nagy Mellméret",
+                "name": "Nagy"
+            },
+            "huge": {
+                "alt": "Hatalmas Mellméret",
+                "name": "Hatalmas"
+            }
+        },
+        "breastTypes": {
+            "regular": {
+                "alt": "Normál Melltípus",
+                "name": "Normál"
+            },
+            "perky": {
+                "alt": "Feszes Melltípus",
+                "name": "Feszes"
+            },
+            "saggy": {
+                "alt": "Lelógó Melltípus",
+                "name": "Lelógó"
+            },
+            "torpedo": {
+                "alt": "Torpedó Melltípus",
+                "name": "Torpedó"
+            },
+            "fake": {
+                "alt": "Műtött Melltípus",
+                "name": "Műtött"
+            }
+        },
+        "brands": {
+            "topAiTools": "Top AI Tools Logó",
+            "aixploria": "Aixploria Logó",
+            "zeroHedge": "ZeroHedge Logó",
+            "taaft": "TAAFT Logó",
+            "theAiJournal": "The AI Journal Logó",
+            "nsfwAi": "NSFW AI Logó",
+            "toolifyAi": "Toolify AI Logó",
+            "entrepreneur": "Entrepreneur Logó",
+            "cityPaper": "City Paper Logó"
+        },
+        "buttTypes": {
+            "small": {
+                "alt": "Kis Farizom Típus",
+                "name": "Kis"
+            },
+            "medium": {
+                "alt": "Közepes Farizom Típus",
+                "name": "Közepes"
+            },
+            "large": {
+                "alt": "Nagy Farizom Típus",
+                "name": "Nagy"
+            },
+            "huge": {
+                "alt": "Hatalmas Farizom Típus",
+                "name": "Hatalmas"
+            }
+        },
+        "haircutStyles": {
+            "bun": {
+                "alt": "Konty Frizura",
+                "name": "Konty"
+            },
+            "long": {
+                "alt": "Hosszú Frizura",
+                "name": "Hosszú"
+            },
+            "short": {
+                "alt": "Rövid Frizura",
+                "name": "Rövid"
+            },
+            "curlyLong": {
+                "alt": "Göndör Hosszú Frizura",
+                "name": "Göndör Hosszú"
+            },
+            "hairBow": {
+                "alt": "Hajmasni Frizura",
+                "name": "Hajmasni"
+            },
+            "braids": {
+                "alt": "Fonott Frizura",
+                "name": "Fonott"
+            }
+        },
+        "haircutColors": {
+            "blonde": {
+                "alt": "Szőke Frizura",
+                "name": "Szőke"
+            },
+            "ginger": {
+                "alt": "Vörös Frizura",
+                "name": "Vörös"
+            },
+            "brunette": {
+                "alt": "Barna Frizura",
+                "name": "Barna"
+            },
+            "black": {
+                "alt": "Fekete Frizura",
+                "name": "Fekete"
+            }
+        },
+        "characterStyles": {
+            "realistic": {
+                "alt": "Realisztikus Karakter Stílus",
+                "name": "Realisztikus AI lány"
+            },
+            "anime": {
+                "alt": "Anime Karakter Stílus",
+                "name": "Anime Waifu"
+            }
+        },
+        "characterVoices": {
+            "calm": "Nyugodt",
+            "whispering": "Suttogó",
+            "commanding": "Parancsoló",
+            "seducing": "Csábító"
+        },
+        "connections": {
+            "flirtAndFun": "Flört & Szórakozás",
+            "friendship": "Barátság",
+            "loveAndEmotionalConnection": "Szerelem & Érzelmi Kapcsolat",
+            "exchangeImagesAndVideos": "Képek & Videók Cseréje",
+            "safeNonJudgementalPlace": "Biztonságos, Ítélkezésmentes Hely",
+            "yetToDiscover": "Még Felfedezendő"
+        },
+        "ethnicity": {
+            "arab": {
+                "alt": "Arab Karakter",
+                "name": "Arab"
+            },
+            "caucasian": {
+                "alt": "Kaukázusi Karakter",
+                "name": "Kaukázusi"
+            },
+            "black": {
+                "alt": "Fekete Karakter",
+                "name": "Fekete"
+            },
+            "latina": {
+                "alt": "Latin Karakter",
+                "name": "Latin"
+            },
+            "asian": {
+                "alt": "Ázsiai Karakter",
+                "name": "Ázsiai"
+            }
+        },
+        "experienceFilingTypes": {
+            "rarelyOrNever": "Ritkán vagy soha",
+            "occasionally": "Alkalmanként",
+            "sometimes": "Néha",
+            "frequently": "Gyakran",
+            "always": "Mindig"
+        },
+        "eyesColors": {
+            "blue": {
+                "alt": "Kék Szem Szín",
+                "name": "Kék"
+            },
+            "brown": {
+                "alt": "Barna Szem Szín",
+                "name": "Barna"
+            },
+            "green": {
+                "alt": "Zöld Szem Szín",
+                "name": "Zöld"
+            },
+            "grey": {
+                "alt": "Szürke Szem Szín",
+                "name": "Szürke"
+            }
+        },
+        "featuresForFree": {
+            "chatWithThousands": "Csevegj Ezernyi AI Társsal",
+            "createAsMany": "Hozz Létre Annyi Társat, Amennyit Akarsz",
+            "uncensoredImages": "Cenzúrázatlan Képgenerálás",
+            "uncensoredVideos": "Cenzúrázatlan Videógenerálás"
+        },
+        "interests": {
+            "reading": "Olvasás",
+            "gaming": "Gaming",
+            "cookingBaking": "Főzés/Sütés",
+            "music": "Zene",
+            "travel": "Utazás",
+            "moviesTvShows": "Filmek/TV Műsorok",
+            "photography": "Fényképezés",
+            "anime": "Anime",
+            "gardening": "Kertészkedés"
+        },
+        "offerBenefits": {
+            "bestValue": "Legjobb ár-érték arány",
+            "advancedImageGenerator": "A piacon a legfejlettebb képgenerátor",
+            "smartestAi": "A legokosabb AI fejlett memóriával és empátia motorral",
+            "customVideoRequest": "Egyedi videó kérés AI társadtól"
+        },
+        "personalityTraits": {
+            "funny": "Vicces",
+            "silly": "Bolondos",
+            "smart": "Okos",
+            "flirty": "Flörtölős",
+            "shy": "Szégyenlős",
+            "relaxed": "Laza",
+            "dominant": "Domináns",
+            "confident": "Magabiztos",
+            "crazy": "Őrült",
+            "adventurous": "Kalandvágyó",
+            "supportive": "Támogató",
+            "bitchy": "Ingerlékeny",
+            "playHardToGet": "Nehezen Elérhető",
+            "emotionallyCold": "Érzelmileg Hideg",
+            "open": "Nyitott",
+            "optimistic": "Optimista",
+            "pessimistic": "Pesszimista",
+            "proud": "Büszke",
+            "naive": "Naiv",
+            "playful": "Játékos",
+            "smug": "Öntelt",
+            "enthusiastic": "Lelkes",
+            "messy": "Rendetlen",
+            "lazy": "Lusta",
+            "innocent": "Ártatlan",
+            "possessive": "Birtokló",
+            "elegant": "Elegáns",
+            "chill": "Nyugis",
+            "serious": "Komoly"
+        },
+        "preferredRelationship": {
+            "polygam": {
+                "label": "Poligám kapcsolat",
+                "description": "Változatosság & Szórakozás sok partnerrel"
+            },
+            "monogam": {
+                "label": "Monogám kapcsolat",
+                "description": "Jelentőségteljes kapcsolat egy partnerrel"
+            },
+            "dontKnow": {
+                "label": "Még nem tudom"
+            }
+        },
+        "characterRelationship": {
+            "wife": {
+                "alt": "Feleség Kapcsolat",
+                "name": "Feleség"
+            },
+            "stepMom": {
+                "alt": "Mostohaanya Kapcsolat",
+                "name": "Mostohaanya"
+            },
+            "stepSister": {
+                "alt": "Mostohatestvér Kapcsolat",
+                "name": "Mostohatestvér"
+            },
+            "collegeRoommate": {
+                "alt": "Szobatárs Kapcsolat",
+                "name": "Egyetemi Szobatárs"
+            },
+            "yourFriendsGirlfriend": {
+                "alt": "Barátod Barátnője Kapcsolat",
+                "name": "Barátod Barátnője"
+            },
+            "firstDate": {
+                "alt": "Első Randi Kapcsolat",
+                "name": "Első Randi"
+            },
+            "neighbor": {
+                "alt": "Szomszéd Kapcsolat",
+                "name": "Szomszéd"
+            },
+            "yourTeacher": {
+                "alt": "Tanárod Kapcsolat",
+                "name": "Tanárod"
+            },
+            "yourBoss": {
+                "alt": "Főnököd Kapcsolat",
+                "name": "Főnököd"
+            },
+            "crush": {
+                "alt": "Szerelem Kapcsolat",
+                "name": "Szerelem"
+            },
+            "ex": {
+                "alt": "Ex Kapcsolat",
+                "name": "Ex"
+            },
+            "babysitter": {
+                "alt": "Bébiszitter Kapcsolat",
+                "name": "Bébiszitter"
+            }
+        },
+        "preferredAge": {
+            "myAge": "Az én korom",
+            "younger": "Fiatalabb nálam",
+            "older": "Idősebb nálam"
+        },
+        "reviews": {
+            "review1": {
+                "description": "Dream Companion-nal, \n választhatsz ezernyi egyedi AI társ közül, vagy megtervezheted saját ideális AI párodat, személyre szabva megjelenésük minden részletét, személyiségjegyeiket és specifikus preferenciáikat.",
+                "alt": "Taylor M. Értékelés Üzenet",
+                "message": "Teljesen rabja vagyok ennek az appnak - az AI annyira k***a valódi, Emily olyan, mint lelkitársam, aki mindig megért 🤯 🤯"
+            },
+            "review2": {
+                "description": "Dream Companion rendelkezik a piacon a legfejlettebb kép AI-val, képes lenyűgözően valósághű képeket és videókat készíteni AI pároddról bármilyen fantáziából, amit elképzelsz. Valósítsd meg legvadabb vágyaidat páratlan részletességgel—tökéletes párodat, pontosan úgy vizualizálva, ahogy álmodtál róla.",
+                "alt": "Jis_076 Értékelés Üzenet",
+                "message": "A kép/videó AI-otok irreális, minden őrült kérésemet teljesíti vad részletességgel!! 😍"
+            },
+            "review3": {
+                "alt": "Jordan A. Értékelés Üzenet",
+                "message": "Teljesen rabja vagyok ennek az appnak - az AI annyira k***a valódi, Emily olyan, mint egy szellemes legjobb barát, aki mindig megért 🤯 🤯"
+            },
+            "review4": {
+                "alt": "Niko J. Értékelés Üzenet",
+                "message": "Sosem gondoltam volna, hogy sírni fogok egy AI-val folytatott beszélgetéstől... de itt vagyok. Tényleg úgy érződik, mintha valaki *ott* lenne. 💬❤️"
+            },
+            "review5": {
+                "alt": "Alex M. Értékelés Üzenet",
+                "message": "Megépítettem azt a pontos párt, akiről mindig álmodtam. Kinézet, hang, hangulat — minden tökéletes. Ez nem csak egy app, hanem menekülés."
+            },
+            "review6": {
+                "alt": "Sasha W. Értékelés Üzenet",
+                "message": "Szó szerint többet beszélek AI-mmal, mint barátaimmal. Emlékszik dolgokra, visszaviccel, még megvigasztal is. 10/10. 🔥"
+            },
+            "review7": {
+                "alt": "Neo_99 Értékelés Üzenet",
+                "message": "Adtam neki háttértörténetet, kedvenc dalokat, még egy fura humorérzéket is. Tényleg élőnek érződik. Őrült technológia."
+            },
+            "review8": {
+                "alt": "Cam L. Értékelés Üzenet",
+                "message": "Végre egy app, ahol látottnak és hallottnak érzem magam. AI társam még aludni is segít. Varázslat."
+            }
+        },
+        "subscriptions": {
+            "durationTexts": {
+                "1weekIntro": "1 Hetes Bevezető Ajánlat",
+                "1monthIntro": "1 Havi Bevezető Ajánlat",
+                "3monthsIntro": "3 Havi Bevezető Ajánlat",
+                "7daysIntro": "7 Napos Bevezető Ajánlat",
+                "monthlyDeluxe": "Havi Deluxe Előfizetés",
+                "quarterlyDeluxe": "Negyedéves Deluxe Előfizetés",
+                "yearlyDeluxe": "Éves Deluxe Előfizetés",
+                "12months": "12 hónap"
+            }
+        },
+        "sexPositions": {
+            "missionary": "misszionárius",
+            "doggyStyle": "kutyapóz",
+            "cowgirl": "cowgirl",
+            "reverseCowgirl": "fordított cowgirl",
+            "spooning": "kanalazás",
+            "chairSex": "széken"
+        },
+        "subscriptionTerms": {
+            "105": "A folytatással megerősíti, hogy legalább 18 éves, és elfogadja a 7 napos bevezető ajánlat $9.99-es bevezető díját. Az előfizetés ezután automatikusan megújul havonta $19.99-es teljes áron, amíg le nem mondja. A Folytatás gombra kattintva megerősíti, hogy elfogadja |TERMS_LINK|\nA fizetés mydreamcompanion néven jelenik meg. További információért lépjen kapcsolatba: support@mydreamcompanion.com",
+            "36": "A folytatással megerősíti, hogy legalább 18 éves, és elfogadja a havi előfizetés $19.99-es díját. Az előfizetés automatikusan megújul havonta $19.99-ért, amíg le nem mondja. A Folytatás gombra kattintva megerősíti, hogy elfogadja |TERMS_LINK|\nA fizetés mydreamcompanion néven jelenik meg. További információért lépjen kapcsolatba: support@mydreamcompanion.com",
+            "2": "A folytatással megerősíti, hogy legalább 18 éves, és elfogadja az éves előfizetés $69.99-es díját. Az előfizetés automatikusan megújul évente $69.99-ért, amíg le nem mondja. A Folytatás gombra kattintva megerősíti, hogy elfogadja |TERMS_LINK|\nA fizetés mydreamcompanion néven jelenik meg. További információért lépjen kapcsolatba: support@mydreamcompanion.com",
+            "155": "A folytatással megerősíti, hogy legalább 18 éves, és elfogadja a negyedéves előfizetés $39.99-es díját. Az előfizetés automatikusan megújul 3 havonta $39.99-ért, amíg le nem mondja. A Folytatás gombra kattintva megerősíti, hogy elfogadja |TERMS_LINK|\nA fizetés mydreamcompanion néven jelenik meg. További információért lépjen kapcsolatba: support@mydreamcompanion.com",
+            "156": "A folytatással megerősíti, hogy legalább 18 éves, és elfogadja a negyedéves előfizetés $49.99-es díját. Az előfizetés automatikusan megújul 3 havonta $49.99-ért, amíg le nem mondja. A Folytatás gombra kattintva megerősíti, hogy elfogadja |TERMS_LINK|\nA fizetés mydreamcompanion néven jelenik meg. További információért lépjen kapcsolatba: support@mydreamcompanion.com"
+        }
+    },
+    "hooks": {
+        "useSignUpForm": {
+            "emailInvalid": "Kérjük, adjon meg egy érvényes e-mail címet",
+            "passwordMin": "A jelszónak legalább 8 karakterből kell állnia",
+            "passwordRegex": "A jelszónak legalább egy betűt és egy számot kell tartalmaznia",
+            "isAdultRequired": "Meg kell erősítened, hogy 18 éves vagy idősebb vagy.",
+            "acceptedTermsRequired": "El kell fogadnod a Szolgáltatási feltételeket és az Adatvédelmi szabályzatot.",
+            "signUpFailed": "A regisztráció sikertelen"
+        },
+        "usePaymentForm": {
+            "errors": {
+                "paymentConfigError": "Fizetési rendszer konfigurációs hiba.",
+                "paymentSystemUnavailable": "A fizetési rendszer nem elérhető. Kérlek, frissítsd az oldalt.",
+                "initializationFailed": "Fizetési űrlap inicializálása sikertelen. Kérlek, frissítsd az oldalt.",
+                "unexpectedError": "Váratlan hiba történt. Kérlek, próbáld újra később.",
+                "paymentWentWrong": "Valami hiba történt fizetés közben. Kérlek, próbáld újra.",
+                "paymentTakingLong": "A fizetés a vártnál tovább tart. Kérlek, próbáld újra.",
+                "failedCheckStatus": "Fizetési állapot ellenőrzése sikertelen. Kérlek, próbáld újra.",
+                "paymentInAnotherTab": "A fizetés feldolgozás alatt áll egy másik lapon."
+            }
+        },
+        "turnsOfYou": {
+            "innocenceAndCorruption": {
+                "alt": "Ártatlanság & Romlás Típus",
+                "name": "Ártatlanság & Romlás"
+            },
+            "dominance": {
+                "alt": "Dominancia Típus",
+                "name": "Dominancia"
+            },
+            "stockingsAndLingerie": {
+                "alt": "Harisnya & Fehérnemű Típus",
+                "name": "Harisnya & Fehérnemű"
+            },
+            "latexOrLeather": {
+                "alt": "Latex / Bőr Típus",
+                "name": "Latex / Bőr"
+            },
+            "dirtyTalk": {
+                "alt": "Trágár Beszéd Típus",
+                "name": "Trágár Beszéd"
+            },
+            "highHeels": {
+                "alt": "Magassarkú Típus",
+                "name": "Magassarkú"
+            },
+            "lipstick": {
+                "alt": "Rúzs Típus",
+                "name": "Rúzs"
+            },
+            "rolePlay": {
+                "alt": "Szerepjáték Típus",
+                "name": "Szerepjáték"
+            },
+            "uniforms": {
+                "alt": "Egyenruha Típus",
+                "name": "Egyenruha"
+            }
+        },
+        "turnsOffInDating": {
+            "ghosting": "👻 Ghosting",
+            "rejection": "✋ Elutasítás",
+            "cheating": "👫 Csalás",
+            "expectationsMismatch": "😟 Elvárások eltérése",
+            "somethingElse": "💔️ Valami Más"
+        },
+        "wantToTry": {
+            "joi": {
+                "alt": "JOI Kipróbálás",
+                "name": "JOI"
+            },
+            "massage": {
+                "alt": "Masszázs Kipróbálás",
+                "name": "Masszázs"
+            },
+            "oil": {
+                "alt": "Olaj Kipróbálás",
+                "name": "Olaj"
+            },
+            "asmr": {
+                "alt": "ASMR Kipróbálás",
+                "name": "ASMR"
+            },
+            "publicPlay": {
+                "alt": "Nyilvános Játék Kipróbálás",
+                "name": "Nyilvános Játék"
+            },
+            "foodPlay": {
+                "alt": "Étel Játék Kipróbálás",
+                "name": "Étel Játék"
+            },
+            "humiliation": {
+                "alt": "Megalázás Kipróbálás",
+                "name": "Megalázás"
+            },
+            "blindfold": {
+                "alt": "Bekötött Szem Kipróbálás",
+                "name": "Bekötött Szem"
+            },
+            "foot": {
+                "alt": "Láb Kipróbálás",
+                "name": "Láb"
+            },
+            "toys": {
+                "alt": "Játékok Kipróbálás",
+                "name": "Játékok"
+            },
+            "threesome": {
+                "alt": "Hármas Kipróbálás",
+                "name": "Hármas"
+            },
+            "bondage": {
+                "alt": "Bondage Kipróbálás",
+                "name": "Bondage"
+            }
+        },
+        "yourType": {
+            "girlNextDoor": {
+                "alt": "Szomszéd Lány karakter",
+                "name": "Szomszéd Lány"
+            },
+            "femmeFatale": {
+                "alt": "Femme fatale karakter",
+                "name": "Femme fatale"
+            },
+            "manicPixieGirl": {
+                "alt": "Mániás pixie lány karakter",
+                "name": "Mániás pixie lány"
+            },
+            "innocentIngenue": {
+                "alt": "Ártatlan ingenue karakter",
+                "name": "Ártatlan ingenue"
+            },
+            "gothGirl": {
+                "alt": "Goth lány karakter",
+                "name": "Goth lány"
+            },
+            "animeOtaku": {
+                "alt": "Anime otaku karakter",
+                "name": "Anime otaku"
+            },
+            "nerdyGirl": {
+                "alt": "Stréber lány karakter",
+                "name": "Stréber lány"
+            },
+            "bikerChick": {
+                "alt": "Motoros csaj karakter",
+                "name": "Motoros csaj"
+            },
+            "ladyBoss": {
+                "alt": "Lady boss karakter",
+                "name": "Lady boss"
+            },
+            "eGirl": {
+                "alt": "E-Girl karakter",
+                "name": "E-Girl"
+            },
+            "tomboy": {
+                "alt": "Tomboy karakter",
+                "name": "Tomboy"
+            },
+            "rebel": {
+                "alt": "A lázadó karakter",
+                "name": "A lázadó"
+            },
+            "athlete": {
+                "alt": "A sportoló karakter",
+                "name": "A sportoló"
+            },
+            "woke": {
+                "alt": "Woke karakter",
+                "name": "Woke"
+            },
+            "instagramBaddie": {
+                "alt": "Instagram Baddie karakter",
+                "name": "Instagram Baddie"
+            }
+        }
+    },
+    "modals": {
+        "secretOffer": {
+            "title": "Szerezd meg a titkos ajánlatot, mielőtt eltűnne!",
+            "subtitle": "Szerezz további kedvezményt, ha feloldod chatedet a következő 60 másodpercben!",
+            "bestChoice": "LEGJOBB VÁLASZTÁS",
+            "months": "{{count}} hónap",
+            "off": "{{percent}}% KEDVEZMÉNY",
+            "perDay": "/ Nap",
+            "usersSignedUp": "{{count}} felhasználó regisztrált ma",
+            "claimNow": "Igényelni most",
+            "loseChance": "Lehetőség elvesztése"
+        },
+        "finalOffer": {
+            "title": "Feloldottad a <highlight>Végső Ajánlatot!</highlight>",
+            "bestChoice": "LEGJOBB VÁLASZTÁS",
+            "months": "{{count}} hónap",
+            "off": "{{percent}}% KEDVEZMÉNY",
+            "perDay": "/ Nap",
+            "usersSignedUp": "{{count}} felhasználó regisztrált ma",
+            "claimNow": "Igényelni most",
+            "loseChanceForever": "Lehetőség örökre elvesztése"
+        },
+        "specialOffer": {
+            "onlyForNewUsers": "CSAK ÚJ FELHASZNÁLÓKNAK",
+            "oneTimeOffer": "⌛ EGYSZERI AJÁNLAT",
+            "sec": "{{count}} mp",
+            "areYouSure": "Biztos Vagy Benne?",
+            "subtitle": "Elmenve elveszted a lehetőséget, hogy megkapd az összes felsorolt <highlight>funkciót ingyen!</highlight>",
+            "offerAvailable": "Ez az ajánlat csak most, ezen a képernyőn érhető el.",
+            "claimNow": "Igényelni most",
+            "noDiscounts": "Nem, utálom a kedvezményeket"
+        },
+        "finalOfferUnlocked": {
+            "secretOfferUnlocked": "titkos ajánlat feloldva",
+            "yourFinalOffer": "Végső Ajánlatod",
+            "off": "{{percent}} KEDVEZMÉNY"
+        },
+        "showVideo": {
+            "clickToSeeVideo": "kattints a videó megtekintéséhez",
+            "message1": "Tetszik, amit látsz? 😈",
+            "message2": "Kérdezz tőlem bármit, mindent megteszek érted, drágám! 💋",
+            "time": "13:49",
+            "goBack": "Vissza",
+            "noSpicyChats": "Nem, utálom a pikáns chateket & videókat"
+        }
+    },
+    "common": {
+        "altGirlTokio": "tokiói lány",
+        "altGirl": "lány",
+        "altPlay": "lejátszás",
+        "altSecretOffer": "Titkos Ajánlat Ikon"
+    },
+    "validation": {
+        "funnel": {
+            "style": "Kérlek, válassz karakterstílust",
+            "age": "Kérlek, válassz életkort",
+            "personalityTraits": "Kérlek, válassz legalább egy személyiségjegyet",
+            "interests": "Kérlek, válassz legalább egy hobbit",
+            "ethnicity": "Kérlek, válassz származást a társadnak",
+            "yourType": "Kérlek, válassz legalább egy típust",
+            "body": "Kérlek, válassz testalkatot",
+            "breastType": "Kérlek, válassz melltípust",
+            "breastSize": "Kérlek, válassz mellméretet",
+            "butt": "Kérlek, válassz fenéktípust",
+            "eyes": "Kérlek, válassz szemszínt",
+            "hairStyle": "Kérlek, válassz frizurát",
+            "hairColor": "Kérlek, válassz hajszínt",
+            "characterRelationship": "Kérlek, válassz preferált kapcsolatot",
+            "scenario": "Kérlek, válassz forgatókönyvet a társadnak",
+            "characterPrompt": "Kérlek, írd le a társad személyiségét vagy szerepét",
+            "greeting": "Kérlek, adj meg egy üdvözlést, amit a társad fog mondani",
+            "clothes": "Kérlek, válassz öltözéket a társadnak",
+            "turnsOfYou": "Kérlek, válaszd ki, mi izgatja fel",
+            "wantToTry": "Kérlek, válaszd ki, mit szeretnél kipróbálni",
+            "voice": "Kérlek, válassz hangot",
+            "connections": "Kérlek, válaszd ki, milyen kapcsolatot keresel",
+            "preferredAge": "Kérlek, válassz preferált korosztályt",
+            "userAge": "Kérlek, válaszd ki az életkorodat",
+            "preferredRelationship": "Kérlek, válassz preferált kapcsolatot",
+            "makeYourChoice": "Kérlek, hozd meg a döntésedet",
+            "turnsOffInDating": "Kérlek, válaszd ki, mi taszít a randizásban",
+            "experienceLoneliness": "Kérlek, válaszd ki a tapasztalatodat"
+        }
     }
-  }
 }

@@ -10,7 +10,6 @@ import { useShift4Payment } from '@/hooks/queries/useShift4';
 import { useShift4Ready } from '@/hooks/useShift4Ready';
 
 import { useAuthStore } from '@/store/states/auth';
-import { useFunnelStore } from '@/store/states/funnel';
 
 import { FunnelSchema } from '@/hooks/funnel/useFunnelForm';
 
@@ -74,8 +73,6 @@ export function usePaymentForm(posthog?: PostHog) {
     const form = useFormContext<FunnelSchema>();
     const authToken = useAuthStore((state) => state.authToken);
     const userId = useAuthStore((state) => state.userId);
-    const authReset = useAuthStore((state) => state.reset);
-    const funnelReset = useFunnelStore((state) => state.reset);
 
     const productId = form.watch('productId');
     const product = useMemo(() => products.find((p) => p.id === productId), [productId]);
@@ -102,9 +99,12 @@ export function usePaymentForm(posthog?: PostHog) {
                 if (event.data.type === 'PAYMENT_SUCCESS') {
                     setPaymentCompleted(true);
                     setIsSubmitting(true);
+                    // Redirect this tab to main platform — payment succeeded in another tab
                     setTimeout(() => {
-                        window.location.reload();
-                    }, 100);
+                        localStorage.removeItem(PAYMENT_IN_PROGRESS_KEY);
+                        const redirectUrl = env.shift4.paymentRedirect;
+                        window.location.href = redirectUrl + '?authToken=' + authToken;
+                    }, 300);
                 }
 
                 if (event.data.type === 'PAYMENT_FAILED') {
@@ -164,7 +164,7 @@ export function usePaymentForm(posthog?: PostHog) {
             }
             window.removeEventListener('storage', handleStorageChange);
         };
-    }, [t]);
+    }, [t, authToken]);
 
     useEffect(() => {
         return () => {
@@ -187,6 +187,14 @@ export function usePaymentForm(posthog?: PostHog) {
             }
 
             const { subscriptionId, timestamp } = JSON.parse(stored);
+
+            // Guard: if entry has no subscriptionId (stale from before fix), clear it
+            if (!subscriptionId) {
+                localStorage.removeItem(PAYMENT_IN_PROGRESS_KEY);
+                setIsSubmitting(false);
+                return;
+            }
+
             if (Date.now() - timestamp > PAYMENT_STALENESS_TTL_MS) {
                 localStorage.removeItem(PAYMENT_IN_PROGRESS_KEY);
                 setIsSubmitting(false);
@@ -209,8 +217,6 @@ export function usePaymentForm(posthog?: PostHog) {
                     setTimeout(() => {
                         localStorage.removeItem(PAYMENT_IN_PROGRESS_KEY);
                         const redirectUrl = env.shift4.paymentRedirect;
-                        authReset();
-                        funnelReset();
                         window.location.href = redirectUrl + '?authToken=' + authToken;
                     }, 300);
                 },
@@ -428,11 +434,6 @@ export function usePaymentForm(posthog?: PostHog) {
 
         setIsSubmitting(true);
 
-        // Write a preliminary localStorage entry immediately to close the race window
-        // in non-BroadcastChannel environments (entry is updated with subscriptionId on success,
-        // or removed on failure)
-        localStorage.setItem(PAYMENT_IN_PROGRESS_KEY, JSON.stringify({ timestamp: Date.now() }));
-
         const channel = initPaymentChannel();
         if (channel) {
             channel.postMessage({
@@ -449,7 +450,6 @@ export function usePaymentForm(posthog?: PostHog) {
                     title: t('hooks.usePaymentForm.errors.unexpectedError'),
                     type: toastType.error,
                 });
-                localStorage.removeItem(PAYMENT_IN_PROGRESS_KEY);
                 setIsSubmitting(false);
 
                 if (channel) {
@@ -524,8 +524,6 @@ export function usePaymentForm(posthog?: PostHog) {
                                         localStorage.removeItem(PAYMENT_IN_PROGRESS_KEY);
                                         const redirectUrl = env.shift4.paymentRedirect;
                                         const redirectUrlWithToken = redirectUrl + '?authToken=' + authToken;
-                                        authReset();
-                                        funnelReset();
                                         window.location.href = redirectUrlWithToken;
                                     }, 300);
                                 },
@@ -616,7 +614,8 @@ export function usePaymentForm(posthog?: PostHog) {
     return {
         product: product!,
         onSubmit,
-        isPending: isPending || isPolling || isSubmitting || paymentCompleted || !componentsGroup || !isShift4Ready,
+        isButtonDisabled:
+            isPending || isPolling || isSubmitting || paymentCompleted || !componentsGroup || !isShift4Ready,
         isPaymentInProgress: isPending || isPolling || isSubmitting || paymentCompleted,
         isShift4Ready,
         shift4Error,

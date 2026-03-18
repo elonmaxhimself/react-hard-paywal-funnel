@@ -1,13 +1,13 @@
-import axios from "@/lib/axios";
-import { AuthResponse, SignUpPayload } from "@/utils/types/auth";
-import { getUtmStore } from "@/store/states/utm";
-import { getTrackDeskCid } from "@/utils/helpers/getTrackDeskCid";
-import { getAuthStore } from "@/store/states/auth";
-import { OAuthProviderType } from "@/constants/oauth";
+import axios from '@/lib/axios';
+import { AuthResponse, SignUpPayload } from '@/utils/types/auth';
+import { getUtmStore } from '@/store/states/utm';
+import { getTrackDeskCid } from '@/utils/helpers/getTrackDeskCid';
+import { getAuthStore } from '@/store/states/auth';
+import { OAuthProviderType } from '@/constants/oauth';
 
 export const authService = {
     signUp: async (data: SignUpPayload): Promise<AuthResponse> => {
-        const response = await axios.post<AuthResponse>("/auth/signup/adult/v3", data);
+        const response = await axios.post<AuthResponse>('/auth/signup/adult/v3', data);
         return response.data;
     },
 
@@ -22,7 +22,7 @@ export const authService = {
     verifyOAuthToken: async (provider: OAuthProviderType, payload: { code: string; state?: string }) => {
         const redirectUrl = window.location.origin + window.location.pathname;
         const { utm } = getUtmStore();
-        const url = import.meta.env.DEV ? "https://mdc-react-funnel-v4-dev.pages.dev/" : redirectUrl;
+        const url = import.meta.env.DEV ? 'https://mdc-react-funnel-v4-dev.pages.dev/' : redirectUrl;
         const { oauthState } = getAuthStore();
         const trackDeskCid = getTrackDeskCid();
         const response = await axios.post(

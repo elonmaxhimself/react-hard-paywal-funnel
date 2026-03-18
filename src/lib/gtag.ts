@@ -70,3 +70,30 @@ export function reportEmailVerified(url?: CallbackUrl, eventId?: string) {
         safeGtag('event', 'conversion', { send_to: SEND_TO.email, event_callback: callback });
     });
 }
+
+
+/** GA4 — qualify_lead */
+export function gaQualifyLead() {
+    safeGtag('event', 'qualify_lead', {
+        form_name: 'main_form',
+    });
+}
+
+/** GA4 — close_convert_lead */
+export function gaCloseConvertLead(leadId: string) {
+    safeGtag('event', 'close_convert_lead', {
+        lead_id: leadId,
+    });
+}
+
+/** GA4 — purchase */
+export function gaPurchase(transactionId: string, value: number, currency = 'EUR', onSent?: () => void) {
+    withDedup(transactionId, () => {
+        safeGtag('event', 'purchase', {
+            transaction_id: transactionId,
+            value,
+            currency,
+            ...(onSent ? { event_callback: onSent } : {}),
+        });
+    });
+}

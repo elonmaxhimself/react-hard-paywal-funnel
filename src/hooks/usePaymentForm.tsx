@@ -19,7 +19,7 @@ import { Shift4Statuses } from '@/utils/enums/shift4-statuses';
 import { products } from '@/constants/products';
 
 import { shift4Service } from '@/services/shift4-service';
-import { reportPurchase } from '@/lib/gtag';
+import { reportPurchase, gaCloseConvertLead, gaPurchase } from '@/lib/gtag';
 import { env } from '@/config/env';
 
 const Shift4Options = {
@@ -476,6 +476,7 @@ export function usePaymentForm(posthog?: PostHog) {
                 {
                     onSuccess: (response) => {
                         if (response.status === Shift4Statuses.SUBSCRIPTION_INITIATED) {
+                            gaCloseConvertLead(String(userId));
                             localStorage.setItem(
                                 PAYMENT_IN_PROGRESS_KEY,
                                 JSON.stringify({
@@ -520,14 +521,23 @@ export function usePaymentForm(posthog?: PostHog) {
                                         });
                                     }
 
-                                    setTimeout(() => {
+                                    // GA4 — Purchase (redirect after event sent) 
+                                    const redirectUrl = env.shift4.paymentRedirect;
+                                    const redirectUrlWithToken = redirectUrl + '?authToken=' + authToken;
+
+                                    const doRedirect = () => {
                                         localStorage.removeItem(PAYMENT_IN_PROGRESS_KEY);
-                                        const redirectUrl = env.shift4.paymentRedirect;
-                                        const redirectUrlWithToken = redirectUrl + '?authToken=' + authToken;
                                         authReset();
                                         funnelReset();
                                         window.location.href = redirectUrlWithToken;
-                                    }, 300);
+                                    };
+
+                                    const redirectFallback = setTimeout(doRedirect, 3000);
+
+                                    gaPurchase(response.subscriptionId, product.amount / 100, 'EUR', () => {
+                                        clearTimeout(redirectFallback);
+                                        doRedirect();
+                                    });
                                 },
                                 (errorMessage: string) => {
                                     localStorage.removeItem(PAYMENT_IN_PROGRESS_KEY);

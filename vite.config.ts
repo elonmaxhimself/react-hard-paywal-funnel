@@ -25,5 +25,8 @@ export default defineConfig(({ mode: _mode }) => ({
         'import.meta.env.VITE_PUBLIC_ENABLE_DEV_ANALYTICS': JSON.stringify(
             process.env.VITE_PUBLIC_ENABLE_DEV_ANALYTICS || '',
         ),
+        'import.meta.env.VITE_PUBLIC__GA_ID': JSON.stringify(
+            process.env.VITE_PUBLIC__GA_ID || '',
+        ),
     },
 }));

@@ -27,6 +27,7 @@ import { useSexPositions } from '@/constants/sex-positions';
 import { useUtmStore } from '@/store/states/utm';
 import { getTrackDeskCid } from '@/utils/helpers/getTrackDeskCid';
 import { handleAuthSuccess } from '@/utils/auth/handleAuthSuccess';
+import { gaQualifyLead } from '@/lib/gtag';
 
 export function useSignUpForm(posthog?: PostHog) {
     const { t, i18n } = useTranslation();
@@ -143,6 +144,7 @@ export function useSignUpForm(posthog?: PostHog) {
 
         signUp(payload, {
             onSuccess: (data: AuthResponse) => {
+                gaQualifyLead();
                 handleAuthSuccess({
                     userId: data.userId,
                     email: values.email,

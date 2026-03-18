@@ -40,7 +40,7 @@ Configure the following variables in your `.env` file:
 - **`VITE_PUBLIC_ENABLE_DEV_ANALYTICS`** (boolean)  
   Enable or disable analytics in development mode. Set to false in local development to avoid polluting analytics data.
 
--  **`VITE_GA_ID`**(string)
+-  **`VITE_PUBLIC__GA_ID`**(string)
   Id of ga4
 
 ---

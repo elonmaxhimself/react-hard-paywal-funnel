@@ -1,4 +1,4 @@
-import { FunnelSchema } from "@/hooks/funnel/useFunnelForm";
+import { FunnelSchema } from '@/hooks/funnel/useFunnelForm';
 
 export interface SignUpPayload {
     email: string;
@@ -6,11 +6,12 @@ export interface SignUpPayload {
     utmOnRegistration: Record<string, string>;
     url: string;
     referrer?: string;
+    trackDeskCid?: string | null;
     createCharFunnelOptions: {
-        funnelOptions: Omit<FunnelSchema, "email" | "productId">;
+        funnelOptions: Omit<FunnelSchema, 'email' | 'productId'>;
         dtoAdultFannelV3: {
             character_options: {
-                funnel: "cc_funnel_juicy";
+                funnel: 'cc_funnel_juicy';
                 character: {
                     age: number;
                     sex: string;

@@ -1,30 +1,30 @@
-import { useEffect, useMemo, useRef, useState } from "react";
-import { useFormContext } from "react-hook-form";
-import { useTranslation } from "react-i18next";
+import { useEffect, useMemo, useRef, useState } from 'react';
+import { useFormContext } from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
+import type { PostHog } from 'posthog-js';
+import { AxiosError } from 'axios';
 
-import { toastType, triggerToast } from "@/components/AlertToast";
+import { toastType, triggerToast } from '@/components/AlertToast';
 
-import { useShift4Payment } from "@/hooks/queries/useShift4";
-import { useShift4Ready } from "@/hooks/useShift4Ready";
+import { useShift4Payment } from '@/hooks/queries/useShift4';
+import { useShift4Ready } from '@/hooks/useShift4Ready';
 
-import { useAuthStore } from "@/store/states/auth";
-import { useFunnelStore } from "@/store/states/funnel";
+import { useAuthStore } from '@/store/states/auth';
 
-import { FunnelSchema } from "@/hooks/funnel/useFunnelForm";
+import { FunnelSchema } from '@/hooks/funnel/useFunnelForm';
 
-import { Shift4Statuses } from "@/utils/enums/shift4-statuses";
+import { Shift4Statuses } from '@/utils/enums/shift4-statuses';
 
-import { products } from "@/constants/products";
+import { products } from '@/constants/products';
 
-import { analyticsService } from "@/services/analytics-service";
-import { shift4Service } from "@/services/shift4-service";
-import { AnalyticsEventTypeEnum } from "@/utils/enums/analytics-event-types";
-import { reportPurchase } from "@/lib/gtag";
+import { shift4Service } from '@/services/shift4-service';
+import { reportPurchase } from '@/lib/gtag';
+import { env } from '@/config/env';
 
 const Shift4Options = {
     style: {
         base: {
-            color: "#fff",
+            color: '#fff',
         },
     },
 };
@@ -34,21 +34,38 @@ let paymentChannel: BroadcastChannel | null = null;
 const initPaymentChannel = () => {
     if (typeof BroadcastChannel !== 'undefined') {
         if (!paymentChannel) {
-            paymentChannel = new BroadcastChannel('payment_channel');
+            try {
+                paymentChannel = new BroadcastChannel('payment_channel');
+            } catch {
+                return null;
+            }
         }
         return paymentChannel;
     }
     return null;
 };
 
-export function usePaymentForm(posthog?: any) {
+export const PAYMENT_IN_PROGRESS_KEY = 'shift4_payment_in_progress';
+export const PAYMENT_STALENESS_TTL_MS = 5 * 60 * 1000; // 5 minutes
+
+export function usePaymentForm(posthog?: PostHog) {
     const { t } = useTranslation();
-    const [shift4Instance, setShift4Instance] = useState<any>(null);
-    const [componentsGroup, setComponentsGroup] = useState<any>(null);
+    const [shift4Instance, setShift4Instance] = useState<Shift4Instance | null>(null);
+    const [componentsGroup, setComponentsGroup] = useState<Shift4ComponentGroup | null>(null);
     const [isPolling, setIsPolling] = useState(false);
-    const [isSubmitting, setIsSubmitting] = useState(false);
+    const [isSubmitting, setIsSubmitting] = useState(() => {
+        try {
+            const stored = localStorage.getItem(PAYMENT_IN_PROGRESS_KEY);
+            if (!stored) return false;
+            const { timestamp } = JSON.parse(stored);
+            return Date.now() - timestamp <= PAYMENT_STALENESS_TTL_MS;
+        } catch {
+            return false;
+        }
+    });
     const [paymentCompleted, setPaymentCompleted] = useState(false);
-    const s4ComponentsRef = useRef<any>(null);
+    const [resumePollingFailed, setResumePollingFailed] = useState(false);
+    const s4ComponentsRef = useRef<Shift4ComponentGroup | null>(null);
     const tabId = useRef(`tab_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`);
 
     const { mutate: payment, isPending } = useShift4Payment();
@@ -56,23 +73,21 @@ export function usePaymentForm(posthog?: any) {
     const form = useFormContext<FunnelSchema>();
     const authToken = useAuthStore((state) => state.authToken);
     const userId = useAuthStore((state) => state.userId);
-    const authReset = useAuthStore((state) => state.reset);
-    const funnelReset = useFunnelStore((state) => state.reset);
 
-    const productId = form.watch("productId");
+    const productId = form.watch('productId');
     const product = useMemo(() => products.find((p) => p.id === productId), [productId]);
 
     const addToCartTrackedRef = useRef(false);
 
     useEffect(() => {
         const channel = initPaymentChannel();
-        
+
         if (channel) {
             const handleMessage = (event: MessageEvent) => {
                 if (event.data.senderId === tabId.current) {
                     return;
                 }
-                
+
                 if (event.data.type === 'PAYMENT_STARTED') {
                     setIsSubmitting(true);
                     triggerToast({
@@ -80,23 +95,26 @@ export function usePaymentForm(posthog?: any) {
                         type: toastType.warning,
                     });
                 }
-                
+
                 if (event.data.type === 'PAYMENT_SUCCESS') {
                     setPaymentCompleted(true);
                     setIsSubmitting(true);
+                    // Redirect this tab to main platform — payment succeeded in another tab
                     setTimeout(() => {
-                        window.location.reload();
-                    }, 100);
+                        localStorage.removeItem(PAYMENT_IN_PROGRESS_KEY);
+                        const redirectUrl = env.shift4.paymentRedirect;
+                        window.location.href = redirectUrl + '?authToken=' + authToken;
+                    }, 300);
                 }
-                
+
                 if (event.data.type === 'PAYMENT_FAILED') {
                     setIsSubmitting(false);
                 }
             };
-            
+
             channel.onmessage = handleMessage;
         }
-        
+
         const handleStorageChange = (e: StorageEvent) => {
             if (e.key === 'auth-storage') {
                 try {
@@ -111,17 +129,42 @@ export function usePaymentForm(posthog?: any) {
                     window.location.reload();
                 }
             }
+
+            // Cross-tab payment sync fallback (works even when BroadcastChannel is unavailable, e.g. Safari private mode)
+            // Only use storage events for payment sync when BroadcastChannel channel is NOT active —
+            // otherwise both handlers fire and user sees duplicate toasts
+            if (e.key === PAYMENT_IN_PROGRESS_KEY && !channel) {
+                if (e.newValue) {
+                    // Another tab started a payment
+                    try {
+                        const { timestamp } = JSON.parse(e.newValue);
+                        if (Date.now() - timestamp <= PAYMENT_STALENESS_TTL_MS) {
+                            setIsSubmitting(true);
+                            triggerToast({
+                                title: t('hooks.usePaymentForm.errors.paymentInAnotherTab'),
+                                type: toastType.warning,
+                            });
+                        }
+                    } catch {
+                        // Corrupted — ignore
+                    }
+                } else {
+                    // Another tab cleared the payment flag (failed or completed)
+                    // Without BroadcastChannel, this is the only signal we get — reset the blocked state
+                    setIsSubmitting(false);
+                }
+            }
         };
-        
+
         window.addEventListener('storage', handleStorageChange);
-        
+
         return () => {
             if (channel) {
                 channel.onmessage = null;
             }
             window.removeEventListener('storage', handleStorageChange);
         };
-    }, [t]);
+    }, [t, authToken]);
 
     useEffect(() => {
         return () => {
@@ -132,38 +175,106 @@ export function usePaymentForm(posthog?: any) {
         };
     }, []);
 
+    // Resume polling if payment was in progress (e.g. after page refresh)
+    useEffect(() => {
+        let cancelPolling: (() => void) | undefined;
+
+        try {
+            const stored = localStorage.getItem(PAYMENT_IN_PROGRESS_KEY);
+            if (!stored) {
+                setIsSubmitting(false);
+                return;
+            }
+
+            const { subscriptionId, timestamp } = JSON.parse(stored);
+
+            // Guard: if entry has no subscriptionId (stale from before fix), clear it
+            if (!subscriptionId) {
+                localStorage.removeItem(PAYMENT_IN_PROGRESS_KEY);
+                setIsSubmitting(false);
+                return;
+            }
+
+            if (Date.now() - timestamp > PAYMENT_STALENESS_TTL_MS) {
+                localStorage.removeItem(PAYMENT_IN_PROGRESS_KEY);
+                setIsSubmitting(false);
+                return;
+            }
+
+            setIsSubmitting(true);
+            cancelPolling = pollPaymentStatus(
+                subscriptionId,
+                () => {
+                    const channel = initPaymentChannel();
+                    if (channel) {
+                        channel.postMessage({
+                            type: 'PAYMENT_SUCCESS',
+                            senderId: tabId.current,
+                            subscriptionId,
+                            timestamp: Date.now(),
+                        });
+                    }
+                    setTimeout(() => {
+                        localStorage.removeItem(PAYMENT_IN_PROGRESS_KEY);
+                        const redirectUrl = env.shift4.paymentRedirect;
+                        window.location.href = redirectUrl + '?authToken=' + authToken;
+                    }, 300);
+                },
+                (errorMessage) => {
+                    localStorage.removeItem(PAYMENT_IN_PROGRESS_KEY);
+                    setIsSubmitting(false);
+                    setResumePollingFailed(true);
+                    triggerToast({ title: errorMessage, type: toastType.error });
+                },
+            );
+        } catch {
+            localStorage.removeItem(PAYMENT_IN_PROGRESS_KEY);
+            setIsSubmitting(false);
+            setResumePollingFailed(true);
+        }
+
+        return () => {
+            cancelPolling?.();
+        };
+        // eslint-disable-next-line react-hooks/exhaustive-deps -- mount-only polling resume
+    }, []);
+
     // Polling function for payment status
-    const pollPaymentStatus = async (
+    // Returns a cancel function to stop the polling chain
+    const pollPaymentStatus = (
         subscriptionId: string,
-        mpPayload: any,
         onSuccess: () => void,
         onError: (errorMessage: string) => void,
-    ) => {
+    ): (() => void) => {
         const pollInterval = 5000;
         const maxAttempts = 48;
         let attempts = 0;
+        let cancelled = false;
 
         setIsPolling(true);
 
         const poll = async () => {
+            if (cancelled) return;
+
             try {
                 attempts++;
-                
+
                 const statusResponse = await shift4Service.getPaymentStatus(subscriptionId);
 
-                if (statusResponse.paid_status === "paid") {
+                if (cancelled) return;
+
+                if (statusResponse.paid_status === 'paid') {
                     setIsPolling(false);
                     setPaymentCompleted(true);
                     onSuccess();
                     return;
-                } else if (statusResponse.paid_status === "failed") {
+                } else if (statusResponse.paid_status === 'failed') {
                     const errorMessage =
-                        statusResponse.failureMessage ||
-                        t('hooks.usePaymentForm.errors.paymentWentWrong');
+                        statusResponse.failureMessage || t('hooks.usePaymentForm.errors.paymentWentWrong');
                     setIsPolling(false);
                     onError(errorMessage);
                     return;
-                } else if (statusResponse.paid_status === "pending") {
+                } else if (statusResponse.paid_status === 'pending') {
                     if (attempts < maxAttempts) {
                         setTimeout(poll, pollInterval);
                     } else {
@@ -171,10 +282,12 @@ export function usePaymentForm(posthog?: any) {
                         onError(t('hooks.usePaymentForm.errors.paymentTakingLong'));
                     }
                 }
-            } catch (error: any) {
-                console.error("Error polling payment status:", error);
+            } catch (error: unknown) {
+                if (cancelled) return;
 
-                if (error.response?.status === 404) {
+                // Error polling payment status
+                const axiosErr = error as AxiosError;
+                if (axiosErr.response?.status === 404) {
                     if (attempts < maxAttempts) {
                         setTimeout(poll, pollInterval);
                     } else {
@@ -189,6 +302,10 @@ export function usePaymentForm(posthog?: any) {
         };
 
         poll();
+
+        return () => {
+            cancelled = true;
+        };
     };
 
     useEffect(() => {
@@ -196,7 +313,7 @@ export function usePaymentForm(posthog?: any) {
 
         const initializeShift4 = () => {
             try {
-                const publicKey = import.meta.env.VITE_PUBLIC_SHIFT4_PUBLISHABLE_KEY;
+                const publicKey = env.shift4.publishableKey;
                 if (!publicKey) {
                     triggerToast({
                         title: t('hooks.usePaymentForm.errors.paymentConfigError'),
@@ -205,7 +322,14 @@ export function usePaymentForm(posthog?: any) {
                     return;
                 }
 
-                const Shift4 = (window as any).Shift4;
+                const Shift4 = window.Shift4;
+                if (!Shift4) {
+                    triggerToast({
+                        title: t('hooks.usePaymentForm.errors.paymentConfigError'),
+                        type: toastType.error,
+                    });
+                    return;
+                }
                 const s4 = Shift4(publicKey);
                 const components = s4.createComponentGroup(Shift4Options);
 
@@ -216,21 +340,21 @@ export function usePaymentForm(posthog?: any) {
                 setComponentsGroup(components);
 
                 if (!addToCartTrackedRef.current) {
-                    const fbq = (window as any).fbq;
-                    fbq?.("track", "AddToCart", {
+                    const fbq = window.fbq;
+                    fbq?.('track', 'AddToCart', {
                         content_ids: [product.id],
                         content_name: product.name,
                         value: product.amount / 100,
-                        currency: "USD",
+                        currency: 'USD',
                     });
 
                     window.dataLayer = window.dataLayer || [];
                     window.dataLayer.push({
-                        event: "cd_add_to_cart",
+                        event: 'cd_add_to_cart',
                         product_id: product.id,
                         product_name: product.name,
                         value: product.amount / 100,
-                        currency: "USD",
+                        currency: 'USD',
                     });
 
                     addToCartTrackedRef.current = true;
@@ -240,21 +364,21 @@ export function usePaymentForm(posthog?: any) {
                         if (typeof window !== 'undefined' && posthog && product) {
                             posthog.capture('paywall_opened', {
                                 value: product.amount / 100,
-                                currency: "USD",
+                                currency: 'USD',
                                 product_id: product.id,
                                 product_name: product.name,
                                 user_id: userId,
-                                payment_type: "subscription_initial_payment",
+                                payment_type: 'subscription_initial_payment',
                                 monthly_billing_cycle: product.durationMonths,
-                                payment_provider: "shift4"
+                                payment_provider: 'shift4',
                             });
                         }
                     } catch (e) {
-                        console.warn("PostHog paywall tracking failed", e);
+                        console.warn('PostHog paywall tracking failed', e);
                     }
                 }
-            } catch (e) {
-                console.error("Error during Shift4 initialization:", e);
+            } catch {
+                // Shift4 initialization failed
                 triggerToast({
                     title: t('hooks.usePaymentForm.errors.initializationFailed'),
                     type: toastType.error,
@@ -265,11 +389,12 @@ export function usePaymentForm(posthog?: any) {
         initializeShift4();
 
         return () => {
-            if (s4ComponentsRef.current && typeof s4ComponentsRef.current.unmount === "function") {
+            if (s4ComponentsRef.current && typeof s4ComponentsRef.current.unmount === 'function') {
                 s4ComponentsRef.current.unmount();
                 s4ComponentsRef.current = null;
             }
         };
+        // eslint-disable-next-line react-hooks/exhaustive-deps -- re-init only when product or Shift4 readiness changes
     }, [product, isShift4Ready, t]);
 
     useEffect(() => {
@@ -286,16 +411,36 @@ export function usePaymentForm(posthog?: any) {
             console.warn('Payment already in progress or completed');
             return;
         }
-        
+
+        // Pre-flight check: another tab may have started payment (catches race even without BroadcastChannel)
+        try {
+            const existingPayment = localStorage.getItem(PAYMENT_IN_PROGRESS_KEY);
+            if (existingPayment) {
+                const { timestamp } = JSON.parse(existingPayment);
+                if (Date.now() - timestamp <= PAYMENT_STALENESS_TTL_MS) {
+                    setIsSubmitting(true);
+                    triggerToast({
+                        title: t('hooks.usePaymentForm.errors.paymentInAnotherTab'),
+                        type: toastType.warning,
+                    });
+                    return;
+                }
+                // Stale entry — remove it and proceed
+                localStorage.removeItem(PAYMENT_IN_PROGRESS_KEY);
+            }
+        } catch {
+            // Corrupted localStorage — proceed with payment
+        }
+
         setIsSubmitting(true);
-        
+
         const channel = initPaymentChannel();
         if (channel) {
-            channel.postMessage({ 
+            channel.postMessage({
                 type: 'PAYMENT_STARTED',
                 senderId: tabId.current,
                 userId,
-                timestamp: Date.now()
+                timestamp: Date.now(),
             });
         }
 
@@ -306,141 +451,92 @@ export function usePaymentForm(posthog?: any) {
                     type: toastType.error,
                 });
                 setIsSubmitting(false);
-                
+
                 if (channel) {
-                    channel.postMessage({ 
+                    channel.postMessage({
                         type: 'PAYMENT_FAILED',
-                        senderId: tabId.current
+                        senderId: tabId.current,
                     });
                 }
                 return;
             }
-
-            let utm: Record<string, any> | undefined;
-            try {
-                const stored = localStorage.getItem("utm_params");
-                if (stored) utm = JSON.parse(stored);
-            } catch {}
-
-            const mpPayload = {
-                distinct_id: String(userId ?? ""),
-                product_name: product.name,
-                value: product.amount / 100,
-                currency: "USD",
-                product_id: product.id,
-                tid: utm?.deal,
-            };
-
-            analyticsService.trackPaymentEvent(AnalyticsEventTypeEnum.PAYMENT_INITIATED, mpPayload);
-
-            // if (typeof window !== 'undefined' && posthog) {
-            //     posthog.capture('payment_initiated', {
-            //         value: product.amount / 100,
-            //         currency: "USD",
-            //         product_id: product.id,
-            //         product_name: product.name,
-            //         user_id: userId,
-            //         payment_type: "subscription_initial_payment",
-            //         monthly_billing_cycle: product.durationMonths,
-            //         payment_provider: "shift4"                    
-            //     });
-            // }
 
             const result = await shift4Instance.createToken(componentsGroup);
             if (result.error) throw new Error(result.error.message);
 
             const token = await shift4Instance.verifyThreeDSecure({
                 amount: product.amount,
-                currency: mpPayload.currency,
+                currency: 'USD',
                 card: result?.id,
             });
             if (token?.error) throw new Error(token?.error?.message);
 
             payment(
-                { paymentToken: token?.id, productId: product.id },
+                { paymentToken: token?.id ?? '', productId: product.id },
                 {
                     onSuccess: (response) => {
                         if (response.status === Shift4Statuses.SUBSCRIPTION_INITIATED) {
+                            localStorage.setItem(
+                                PAYMENT_IN_PROGRESS_KEY,
+                                JSON.stringify({
+                                    subscriptionId: response.subscriptionId,
+                                    timestamp: Date.now(),
+                                }),
+                            );
                             pollPaymentStatus(
                                 response.subscriptionId,
-                                mpPayload,
                                 () => {
                                     // FACEBOOK PIXEL TRACKING — Purchase
-                                    const fbq = (window as any).fbq;
-                                    fbq?.("track", "Purchase", {
+                                    const fbq = window.fbq;
+                                    fbq?.('track', 'Purchase', {
                                         product_name: product.name,
                                         value: product.amount / 100,
-                                        currency: "USD",
+                                        currency: 'USD',
                                     });
 
                                     // GOOGLE ADS — Purchase
                                     reportPurchase(response.subscriptionId, {
                                         value: product.amount / 100,
-                                        currency: "USD",
+                                        currency: 'USD',
                                     });
 
                                     // GTM / dataLayer — Purchase
                                     window.dataLayer = window.dataLayer || [];
                                     window.dataLayer.push({
-                                        event: "cd_purchase",
+                                        event: 'cd_purchase',
                                         transaction_id: response.subscriptionId,
                                         value: product.amount / 100,
-                                        currency: "USD",
+                                        currency: 'USD',
                                         product_id: product.id,
                                         product_name: product.name,
                                     });
 
-                                    // PostHog — Payment Success
-                                    // if (typeof window !== 'undefined' && posthog) {
-                                    //     posthog.capture('payment_success', {
-                                    //         value: product.amount / 100,
-                                    //         currency: "USD",
-                                    //         product_id: product.id,
-                                    //         product_name: product.name,
-                                    //         user_id: userId,
-                                    //         payment_type: "subscription_initial_payment",
-                                    //         monthly_billing_cycle: product.durationMonths,
-                                    //         payment_provider: "shift4"
-                                    //     },  {send_instantly: true});
-                                    // }
-
-                                    // Mixpanel
-                                    analyticsService.trackPaymentEvent(
-                                        AnalyticsEventTypeEnum.PAYMENT_SUCCESS,
-                                        mpPayload,
-                                    );
-
                                     if (channel) {
-                                        channel.postMessage({ 
+                                        channel.postMessage({
                                             type: 'PAYMENT_SUCCESS',
                                             senderId: tabId.current,
                                             subscriptionId: response.subscriptionId,
-                                            timestamp: Date.now()
+                                            timestamp: Date.now(),
                                         });
                                     }
 
                                     setTimeout(() => {
-                                        const redirectUrl = import.meta.env.VITE_PUBLIC_SHIFT4_PAYMENT_REDIRECT || "/";
-                                        const redirectUrlWithToken = redirectUrl + "?authToken=" + authToken;
-                                        authReset();
-                                        funnelReset();
+                                        localStorage.removeItem(PAYMENT_IN_PROGRESS_KEY);
+                                        const redirectUrl = env.shift4.paymentRedirect;
+                                        const redirectUrlWithToken = redirectUrl + '?authToken=' + authToken;
                                         window.location.href = redirectUrlWithToken;
                                     }, 300);
                                 },
                                 (errorMessage: string) => {
+                                    localStorage.removeItem(PAYMENT_IN_PROGRESS_KEY);
                                     setIsSubmitting(false);
-                                    
+
                                     if (channel) {
-                                        channel.postMessage({ 
+                                        channel.postMessage({
                                             type: 'PAYMENT_FAILED',
-                                            senderId: tabId.current
+                                            senderId: tabId.current,
                                         });
                                     }
-                                    
-                                    analyticsService.trackPaymentEvent(
-                                        AnalyticsEventTypeEnum.PAYMENT_FAILED,
-                                        mpPayload,
-                                    );
 
                                     triggerToast({
                                         title: errorMessage,
@@ -449,19 +545,15 @@ export function usePaymentForm(posthog?: any) {
                                 },
                             );
                         } else {
+                            localStorage.removeItem(PAYMENT_IN_PROGRESS_KEY);
                             setIsSubmitting(false);
-                            
+
                             if (channel) {
-                                channel.postMessage({ 
+                                channel.postMessage({
                                     type: 'PAYMENT_FAILED',
-                                    senderId: tabId.current
+                                    senderId: tabId.current,
                                 });
                             }
-                            
-                            analyticsService.trackPaymentEvent(
-                                AnalyticsEventTypeEnum.PAYMENT_FAILED,
-                                mpPayload,
-                            );
 
                             triggerToast({
                                 title: t('hooks.usePaymentForm.errors.unexpectedError'),
@@ -469,57 +561,51 @@ export function usePaymentForm(posthog?: any) {
                             });
                         }
                     },
-                    onError: (error) => {
-                        console.error("Payment processing error:", error);
-                        
+                    onError: (error: Error) => {
+                        // Payment processing error
+
+                        localStorage.removeItem(PAYMENT_IN_PROGRESS_KEY);
                         setIsPolling(false);
                         setIsSubmitting(false);
 
                         if (channel) {
-                            channel.postMessage({ 
+                            channel.postMessage({
                                 type: 'PAYMENT_FAILED',
-                                senderId: tabId.current
+                                senderId: tabId.current,
                             });
                         }
 
-                        analyticsService.trackPaymentEvent(
-                            AnalyticsEventTypeEnum.PAYMENT_FAILED,
-                            mpPayload,
-                        );
-
+                        const axiosErr = error as AxiosError<{ message?: string }>;
                         triggerToast({
                             title:
-                                error.message || t('hooks.usePaymentForm.errors.unexpectedError'),
+                                axiosErr.response?.data?.message ||
+                                error.message ||
+                                t('hooks.usePaymentForm.errors.unexpectedError'),
                             type: toastType.error,
                         });
                     },
                 },
             );
-        } catch (error: any) {
-            console.error("Payment processing error:", error);
-            
+        } catch (error: unknown) {
+            // Payment processing error
+
+            localStorage.removeItem(PAYMENT_IN_PROGRESS_KEY);
             setIsPolling(false);
             setIsSubmitting(false);
 
             if (channel) {
-                channel.postMessage({ 
+                channel.postMessage({
                     type: 'PAYMENT_FAILED',
-                    senderId: tabId.current
+                    senderId: tabId.current,
                 });
             }
 
-            const mpPayload = {
-                distinct_id: String(userId ?? ""),
-                product_name: product?.name || "",
-                value: product?.amount ? product.amount / 100 : 0,
-                currency: "USD",
-                product_id: product?.id || "",
-            };
-
-            analyticsService.trackPaymentEvent(AnalyticsEventTypeEnum.PAYMENT_FAILED, mpPayload);
-
+            const catchErr = error as AxiosError<{ message?: string }>;
             triggerToast({
-                title: error.message || t('hooks.usePaymentForm.errors.unexpectedError'),
+                title:
+                    catchErr.response?.data?.message ||
+                    catchErr.message ||
+                    t('hooks.usePaymentForm.errors.unexpectedError'),
                 type: toastType.error,
             });
         }
@@ -528,8 +614,11 @@ export function usePaymentForm(posthog?: any) {
     return {
         product: product!,
         onSubmit,
-        isPending: isPending || isPolling || isSubmitting || paymentCompleted || !componentsGroup || !isShift4Ready,
+        isButtonDisabled:
+            isPending || isPolling || isSubmitting || paymentCompleted || !componentsGroup || !isShift4Ready,
+        isPaymentInProgress: isPending || isPolling || isSubmitting || paymentCompleted,
         isShift4Ready,
         shift4Error,
+        resumePollingFailed,
     };
 }

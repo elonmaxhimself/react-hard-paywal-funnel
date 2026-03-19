@@ -1,6 +1,6 @@
-"use client";
+'use client';
 
-import { SPRITE_ITEMS, SPRITE_URL, SPRITE_W, SPRITE_H } from "@/constants/sprite";
+import { SPRITE_ITEMS, SPRITE_URL, SPRITE_W, SPRITE_H } from '@/constants/sprite';
 
 type SizeProps =
     | { size: number; targetW?: never; targetH?: never }
@@ -14,7 +14,7 @@ type Props = SizeProps & {
 
     center?: boolean;
 
-    fit?: "contain" | "cover";
+    fit?: 'contain' | 'cover';
 
     fallbackSrc?: string;
     fallbackAlt?: string;
@@ -28,10 +28,10 @@ type Props = SizeProps & {
 function srcToId(src?: string) {
     if (!src) return undefined;
     return src
-        .replace(/^\/?images\//, "")
-        .replace(/^\/?public\//, "")
-        .replace(/\.[^.]+$/, "")
-        .replace(/[\/\\]/g, "-");
+        .replace(/^\/?images\//, '')
+        .replace(/^\/?public\//, '')
+        .replace(/\.[^.]+$/, '')
+        .replace(/[/\\]/g, '-');
 }
 
 export default function SpriteIcon(props: Props) {
@@ -40,7 +40,7 @@ export default function SpriteIcon(props: Props) {
         src,
         title,
         center = true,
-        fit = "contain",
+        fit = 'contain',
         fallbackSrc,
         fallbackAlt,
         className,
@@ -48,26 +48,26 @@ export default function SpriteIcon(props: Props) {
         frame = false,
     } = props;
 
-    const targetW = "size" in props && props.size ? props.size : (props as any).targetW;
-    const targetH = "size" in props && props.size ? props.size : (props as any).targetH;
+    const targetW = 'size' in props && props.size ? props.size : 'targetW' in props ? (props.targetW ?? 0) : 0;
+    const targetH = 'size' in props && props.size ? props.size : 'targetH' in props ? (props.targetH ?? 0) : 0;
 
     const finalId = id ?? srcToId(src);
     const item = finalId ? SPRITE_ITEMS.find((b) => b.id === finalId) : undefined;
 
     if (!item) {
         const eff = fallbackSrc ?? src;
-        if (import.meta.env.VITE_NODE_ENV !== "production") {
+        if (import.meta.env.DEV) {
             console.warn(`[SpriteIcon] Missing in sprite: ${finalId}`);
         }
         return eff ? (
             <img
                 src={eff}
-                alt={fallbackAlt ?? title ?? finalId ?? ""}
+                alt={fallbackAlt ?? title ?? finalId ?? ''}
                 width={targetW}
                 height={targetH}
                 className={imageClassName}
                 style={{
-                    display: "block",
+                    display: 'block',
                     objectFit: fit,
                     width: targetW,
                     height: targetH,
@@ -77,7 +77,7 @@ export default function SpriteIcon(props: Props) {
     }
 
     const s =
-        fit === "cover"
+        fit === 'cover'
             ? Math.max(targetW / item.w, targetH / item.h)
             : Math.min(targetW / item.w, targetH / item.h, 1);
 
@@ -94,9 +94,9 @@ export default function SpriteIcon(props: Props) {
             style={{
                 width: targetW,
                 height: targetH,
-                display: center ? "flex" : undefined,
-                alignItems: center ? "center" : undefined,
-                justifyContent: center ? "center" : undefined,
+                display: center ? 'flex' : undefined,
+                alignItems: center ? 'center' : undefined,
+                justifyContent: center ? 'center' : undefined,
             }}
         >
             <span
@@ -105,16 +105,16 @@ export default function SpriteIcon(props: Props) {
                 title={title ?? item.title}
                 className={imageClassName}
                 style={{
-                    display: "block",
+                    display: 'block',
                     width: frame ? targetW : wImg,
                     height: frame ? targetH : hImg,
 
                     backgroundImage: `url(${SPRITE_URL})`,
-                    backgroundRepeat: "no-repeat",
+                    backgroundRepeat: 'no-repeat',
                     backgroundPosition: `${posX}px ${posY}px`,
                     backgroundSize: `${sizeW}px ${sizeH}px`,
-                    imageRendering: "auto",
-                    overflow: frame ? "hidden" : undefined,
+                    imageRendering: 'auto',
+                    overflow: frame ? 'hidden' : undefined,
                 }}
             />
         </div>

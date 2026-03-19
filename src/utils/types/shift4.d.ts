@@ -1,5 +1,3 @@
-declare const Shift4: any;
-
 interface Shift4Payload {
     paymentToken: string;
     productId: number;
@@ -19,7 +17,7 @@ interface PaymentStatusEvent {
 
 interface PaymentStatusResponse {
     subscriptionId: string;
-    paid_status: "pending" | "success" | "paid" | "failed";
+    paid_status: 'pending' | 'success' | 'paid' | 'failed';
     failureMessage?: string;
     events: PaymentStatusEvent[];
 }

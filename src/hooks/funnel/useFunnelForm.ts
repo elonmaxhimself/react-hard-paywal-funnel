@@ -1,66 +1,65 @@
-import { useState, useEffect, useMemo } from "react";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from "zod";
-import { useTranslation } from "react-i18next";
+import { useState, useEffect, useMemo } from 'react';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { z } from 'zod';
+import { useTranslation } from 'react-i18next';
 import { usePostHog } from 'posthog-js/react';
-import { EXPERIMENTS } from '@/configs/experiment.config';
 
-import { getFunnelStore } from "@/store/states/funnel";
+import { getFunnelStore } from '@/store/states/funnel';
 
-import { createFunnelSchema } from "@/features/funnel/validation";
-import { useSubscriptions } from "@/constants/subscriptions";
-import { funnelSteps, STEPS_COUNT } from "@/features/funnel/funnelSteps";
+import { createFunnelSchema } from '@/features/funnel/validation';
+import { useSubscriptions } from '@/constants/subscriptions';
+import { STEPS_COUNT } from '@/features/funnel/funnelSteps';
 
 export type FunnelSchema = z.infer<ReturnType<typeof createFunnelSchema>>;
 
 const triggers: Record<number, keyof FunnelSchema | Array<keyof FunnelSchema>> = {
-    1: "connections",
-    10: "personality_traits",
-    11: "interests",
-    14: "ethnicity",
-    15: "your_type",
-    19: ["breast_size", "breast_type"],
-    22: ["hair_style", "hair_color"],
-    24: "character_relationship",
-    25: "turns_of_you",
-    26: "want_to_try",
-    28: "voice",
-    29: "turns_off_in_dating",
+    1: 'connections',
+    10: 'personality_traits',
+    11: 'interests',
+    14: 'ethnicity',
+    15: 'your_type',
+    19: ['breast_size', 'breast_type'],
+    22: ['hair_style', 'hair_color'],
+    24: 'character_relationship',
+    25: 'turns_of_you',
+    26: 'want_to_try',
+    28: 'voice',
+    29: 'turns_off_in_dating',
 };
 
 export const defaultValues = {
-    style: "",
-    age: "",
+    style: '',
+    age: '',
     personality_traits: [],
     interests: [],
-    ethnicity: "",
+    ethnicity: '',
     your_type: [],
-    body: "",
-    breast_type: "",
-    breast_size: "",
-    butt: "",
-    eyes: "",
-    hair_style: "",
-    hair_color: "",
-    character_relationship: "",
-    scenario: "",
-    characterPrompt: "",
-    greeting: "",
-    clothes: "",
+    body: '',
+    breast_type: '',
+    breast_size: '',
+    butt: '',
+    eyes: '',
+    hair_style: '',
+    hair_color: '',
+    character_relationship: '',
+    scenario: '',
+    characterPrompt: '',
+    greeting: '',
+    clothes: '',
     turns_of_you: [],
     want_to_try: [],
-    voice: "",
+    voice: '',
 
     connections: [],
-    preferred_age: "",
-    user_age: "",
-    preferred_relationship: "",
+    preferred_age: '',
+    user_age: '',
+    preferred_relationship: '',
     practiceForeignLanguage: undefined,
     receiveSpicyContent: undefined,
     dirtyTalks: undefined,
     turns_off_in_dating: [],
-    experience_filings_of_loneliness: "",
+    experience_filings_of_loneliness: '',
     receiveCustomPhotos: undefined,
     receiveCustomVideos: undefined,
     receiveVideoCalls: undefined,
@@ -73,18 +72,21 @@ const STEPS_INDICATOR_COUNT = 31;
 
 export function useFunnelForm() {
     const { t, i18n } = useTranslation();
-    const posthog = usePostHog();
     const subscriptions = useSubscriptions();
+    const posthog = usePostHog();
     const [active, setActive] = useState(0);
-    const [isExperimentReady, setIsExperimentReady] = useState(false);
     const [isFormReady, setIsFormReady] = useState(false);
 
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- use i18n.language instead of t
     const funnelSchema = useMemo(() => createFunnelSchema(t), [i18n.language]);
 
-    const formDefaultValues = useMemo(() => ({
-        ...defaultValues,
-        productId: subscriptions.find((subscription) => subscription.isBestChoice)?.productId,
-    }), [subscriptions]);
+    const formDefaultValues = useMemo(
+        () => ({
+            ...defaultValues,
+            productId: subscriptions.find((subscription) => subscription.isBestChoice)?.productId,
+        }),
+        [subscriptions],
+    );
 
     const form = useForm<FunnelSchema>({
         resolver: zodResolver(funnelSchema),
@@ -96,60 +98,14 @@ export function useFunnelForm() {
         if (fields.length > 0) {
             form.trigger(fields);
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps -- only re-trigger on language change
     }, [i18n.language]);
 
     useEffect(() => {
-        const token = import.meta.env.VITE_PUBLIC_POSTHOG_TOKEN;
-        
-        if (!token) {
-            setIsExperimentReady(true);
-            return;
-        }
-
-        const timeout = setTimeout(() => {
-            console.warn('PostHog initialization timeout - continuing without analytics');
-            setIsExperimentReady(true);
-        }, 5000);
-
-        if (!posthog) {
-            return () => clearTimeout(timeout);
-        }
-
-        const cleanup = posthog.onFeatureFlags(() => {
-            try {
-                clearTimeout(timeout);
-                
-                const pricingVariant = String(posthog.getFeatureFlag(EXPERIMENTS.PRICING.flagKey) || 'control');
-                
-                posthog.capture('pricing_variant_assigned', {
-                    $set_once: {
-                        pricing_ab_test_variant: pricingVariant
-                    }
-                });
-                
-                posthog.capture('funnel_started');
-                
-                setIsExperimentReady(true);
-            } catch (error) {
-                console.error('PostHog feature flag processing error:', error);
-                clearTimeout(timeout);
-                setIsExperimentReady(true);
-            }
-        });
-
-        return () => {
-            clearTimeout(timeout);
-            if (cleanup) cleanup();
-        };
-    }, [posthog]);
-
-    useEffect(() => {
-        if (!isExperimentReady) return;
-
         try {
             const savedData = getFunnelStore().form;
             const savedStep = getFunnelStore().step;
-            
+
             if (savedData) form.reset(savedData);
             if (savedStep !== undefined && savedStep !== null) {
                 setActive(savedStep >= STEPS_COUNT ? 0 : savedStep);
@@ -161,7 +117,13 @@ export function useFunnelForm() {
         } finally {
             setIsFormReady(true);
         }
-    }, [isExperimentReady]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps -- mount-only form restoration
+    }, []);
+
+    useEffect(() => {
+        if (!posthog || !isFormReady) return;
+        posthog.capture('funnel_started');
+    }, [posthog, isFormReady]);
 
     const nextStep = () => {
         const trigger = triggers[active as keyof typeof triggers];
@@ -189,6 +151,6 @@ export function useFunnelForm() {
             nextStep,
             prevStep,
         },
-        isReady: isExperimentReady && isFormReady,
+        isReady: isFormReady,
     };
 }

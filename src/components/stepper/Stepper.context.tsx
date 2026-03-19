@@ -1,4 +1,5 @@
-import { createContext, useContext, PropsWithChildren } from "react";
+/* eslint-disable react-refresh/only-export-components */
+import { createContext, useContext, PropsWithChildren } from 'react';
 
 export type StepperProps = {
     value: number;
@@ -23,7 +24,7 @@ export function StepperContextProvider({ children, ...props }: PropsWithChildren
 export function useStepperContext() {
     const context = useContext(StepperContext);
     if (!context) {
-        throw new Error("useStepperContext must be used within StepperContextProvider");
+        throw new Error('useStepperContext must be used within StepperContextProvider');
     }
     return context;
 }

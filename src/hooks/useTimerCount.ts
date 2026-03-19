@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState } from 'react';
 
 export const useTimer = (initialTime: number, isActive: boolean = false) => {
     const [countdown, setCountdown] = useState(initialTime);
@@ -24,6 +24,7 @@ export const useTimer = (initialTime: number, isActive: boolean = false) => {
         } else {
             stopTimer();
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps -- startTimer uses initialTime which is already in deps
     }, [isActive, initialTime]);
 
     useEffect(() => {
@@ -46,7 +47,7 @@ export const useTimer = (initialTime: number, isActive: boolean = false) => {
     const formatTime = (seconds: number) => {
         const mins = Math.floor(seconds / 60);
         const secs = seconds % 60;
-        return `${mins.toString().padStart(2, "0")}:${secs.toString().padStart(2, "0")}`;
+        return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
     };
 
     const progress = countdown === 0 ? 100 : ((initialTime - countdown) / initialTime) * 100;

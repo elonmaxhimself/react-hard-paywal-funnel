@@ -58,12 +58,13 @@ Object.defineProperty(window, 'matchMedia', {
     })),
 });
 
-// Polyfill ResizeObserver for jsdom
-global.ResizeObserver = vi.fn().mockImplementation(() => ({
-    observe: vi.fn(),
-    unobserve: vi.fn(),
-    disconnect: vi.fn(),
-}));
+// Polyfill ResizeObserver for jsdom (must be a class for `new ResizeObserver()`)
+global.ResizeObserver = class ResizeObserver {
+    observe = vi.fn();
+    unobserve = vi.fn();
+    disconnect = vi.fn();
+    constructor(_callback: ResizeObserverCallback) {}
+} as unknown as typeof globalThis.ResizeObserver;
 
 // Mock environment variables
 vi.stubEnv('VITE_PUBLIC_API_BASE_URL', 'http://localhost:4000');

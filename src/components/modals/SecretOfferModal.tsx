@@ -37,6 +37,14 @@ const SecretOfferModal = () => {
 
     useEffect(() => {
         if (isSecretOfferModalOpen) {
+            // Don't change product if a payment was already completed or is in progress
+            try {
+                const completed = localStorage.getItem('shift4_payment_completed');
+                const inProgress = localStorage.getItem('shift4_payment_in_progress');
+                if (completed || inProgress) return;
+            } catch {
+                // localStorage not available
+            }
             form.setValue('productId', secretOffer.productId);
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps -- secretOffer is stable from useMemo

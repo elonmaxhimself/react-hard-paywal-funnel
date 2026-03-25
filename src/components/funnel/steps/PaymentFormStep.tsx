@@ -66,10 +66,29 @@ export function PaymentFormStep() {
         // eslint-disable-next-line react-hooks/exhaustive-deps -- only react to polling failure
     }, [resumePollingFailed]);
 
+    // If payment resolved (success redirect or failure) but we still have no product — go back
+    useEffect(() => {
+        if (!product && !isPaymentInProgress && !hasRedirected.current) {
+            hasRedirected.current = true;
+            prevStep();
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps -- react to payment resolution when no product
+    }, [product, isPaymentInProgress]);
+
     const onOpenSpecialOffer = () => {
         if (isPaymentInProgress) return;
         prevStep();
     };
+
+    // No product but payment in progress — show processing state instead of blank screen
+    if (!product && isPaymentInProgress) {
+        return (
+            <div className="w-full flex flex-col min-h-screen items-center justify-center">
+                <Loader2Icon className="animate-spin text-white mb-4" size={40} />
+                <p className="text-white/70 text-center px-4">{t('hooks.usePaymentForm.errors.paymentInAnotherTab')}</p>
+            </div>
+        );
+    }
 
     if (!product) return null;
     return (

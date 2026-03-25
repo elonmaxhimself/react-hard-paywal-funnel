@@ -25,3 +25,8 @@ dist-ssr
 
 
 .env
+
+# Test
+coverage/
+test-results/
+playwright-report/

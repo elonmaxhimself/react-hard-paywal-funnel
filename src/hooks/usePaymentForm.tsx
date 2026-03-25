@@ -46,6 +46,7 @@ const initPaymentChannel = () => {
 };
 
 export const PAYMENT_IN_PROGRESS_KEY = 'shift4_payment_in_progress';
+export const PAYMENT_COMPLETED_KEY = 'shift4_payment_completed';
 export const PAYMENT_STALENESS_TTL_MS = 5 * 60 * 1000; // 5 minutes
 
 export function usePaymentForm(posthog?: PostHog) {
@@ -63,8 +64,27 @@ export function usePaymentForm(posthog?: PostHog) {
             return false;
         }
     });
-    const [paymentCompleted, setPaymentCompleted] = useState(false);
+    const [paymentCompleted, setPaymentCompleted] = useState(() => {
+        try {
+            const stored = localStorage.getItem(PAYMENT_COMPLETED_KEY);
+            if (!stored) return false;
+            const { timestamp } = JSON.parse(stored);
+            return Date.now() - timestamp <= PAYMENT_STALENESS_TTL_MS;
+        } catch {
+            return false;
+        }
+    });
     const [resumePollingFailed, setResumePollingFailed] = useState(false);
+
+    const markPaymentCompleted = () => {
+        setPaymentCompleted(true);
+        try {
+            localStorage.setItem(PAYMENT_COMPLETED_KEY, JSON.stringify({ timestamp: Date.now() }));
+        } catch {
+            // localStorage not available
+        }
+    };
+
     const s4ComponentsRef = useRef<Shift4ComponentGroup | null>(null);
     const tabId = useRef(`tab_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`);
 
@@ -97,11 +117,12 @@ export function usePaymentForm(posthog?: PostHog) {
                 }
 
                 if (event.data.type === 'PAYMENT_SUCCESS') {
-                    setPaymentCompleted(true);
+                    markPaymentCompleted();
                     setIsSubmitting(true);
                     // Redirect this tab to main platform — payment succeeded in another tab
                     setTimeout(() => {
                         localStorage.removeItem(PAYMENT_IN_PROGRESS_KEY);
+                        localStorage.removeItem(PAYMENT_COMPLETED_KEY);
                         const redirectUrl = env.shift4.paymentRedirect;
                         window.location.href = redirectUrl + '?authToken=' + authToken;
                     }, 300);
@@ -216,6 +237,7 @@ export function usePaymentForm(posthog?: PostHog) {
                     }
                     setTimeout(() => {
                         localStorage.removeItem(PAYMENT_IN_PROGRESS_KEY);
+                        localStorage.removeItem(PAYMENT_COMPLETED_KEY);
                         const redirectUrl = env.shift4.paymentRedirect;
                         window.location.href = redirectUrl + '?authToken=' + authToken;
                     }, 300);
@@ -265,7 +287,7 @@ export function usePaymentForm(posthog?: PostHog) {
 
                 if (statusResponse.paid_status === 'paid') {
                     setIsPolling(false);
-                    setPaymentCompleted(true);
+                    markPaymentCompleted();
                     onSuccess();
                     return;
                 } else if (statusResponse.paid_status === 'failed') {
@@ -522,6 +544,7 @@ export function usePaymentForm(posthog?: PostHog) {
 
                                     setTimeout(() => {
                                         localStorage.removeItem(PAYMENT_IN_PROGRESS_KEY);
+                                        localStorage.removeItem(PAYMENT_COMPLETED_KEY);
                                         const redirectUrl = env.shift4.paymentRedirect;
                                         const redirectUrlWithToken = redirectUrl + '?authToken=' + authToken;
                                         window.location.href = redirectUrlWithToken;

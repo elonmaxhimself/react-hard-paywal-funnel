@@ -302,7 +302,8 @@
             "paymentUnavailable": "Payment unavailable",
             "altLogo": "My Dream Companion",
             "altVisa": "Visa",
-            "altMastercard": "Mastercard"
+            "altMastercard": "Mastercard",
+            "redirecting": "Your subscription is active. Redirecting you now..."
         }
     },
     "constants": {

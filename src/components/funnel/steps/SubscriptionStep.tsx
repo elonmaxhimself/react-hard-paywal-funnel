@@ -22,6 +22,7 @@ import { brands } from '@/constants/brands';
 import { useSubscriptionTermsTexts } from '@/constants/subscriptionTermsTexts';
 
 import SpriteIcon from '@/components/SpriteIcon';
+import { usePremiumRedirect } from '@/hooks/usePremiumRedirect';
 import { EXPERIMENTS } from '@/configs/experiment.config';
 import { Loader2Icon } from 'lucide-react';
 
@@ -94,6 +95,7 @@ export function SubscriptionStep() {
     const setIsSpecialOfferOpened = useStore((state) => state.offer.setIsSpecialOfferOpened);
     const isSpecialOfferOpened = useStore((state) => state.offer.isSpecialOfferOpened);
     const posthog = usePostHog();
+    const { isRedirecting } = usePremiumRedirect();
 
     const [pricingVariant, setPricingVariant] = useState<string | null>(null);
     const [pricingFallbackReady, setPricingFallbackReady] = useState(false);
@@ -386,6 +388,15 @@ export function SubscriptionStep() {
             </>
         );
     };
+
+    if (isRedirecting) {
+        return (
+            <div className="w-full flex flex-col min-h-screen items-center justify-center">
+                <Loader2Icon className="animate-spin text-white mb-4" size={40} />
+                <p className="text-white/70 text-center px-4">{t('funnel.paymentFormStep.redirecting')}</p>
+            </div>
+        );
+    }
 
     return (
         <div className={'w-full flex flex-col min-h-screen h-full sm:px-10 pb-10 md:pb-[70px]'}>

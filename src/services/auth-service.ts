@@ -1,11 +1,16 @@
 import axios from '@/lib/axios';
-import { AuthResponse, SignUpPayload } from '@/utils/types/auth';
+import { AuthResponse, MeResponse, SignUpPayload } from '@/utils/types/auth';
 import { getUtmStore } from '@/store/states/utm';
 import { getTrackDeskCid } from '@/utils/helpers/getTrackDeskCid';
 import { getAuthStore } from '@/store/states/auth';
 import { OAuthProviderType } from '@/constants/oauth';
 
 export const authService = {
+    getMe: async (): Promise<MeResponse> => {
+        const response = await axios.get<MeResponse>('/auth/me');
+        return response.data;
+    },
+
     signUp: async (data: SignUpPayload): Promise<AuthResponse> => {
         const response = await axios.post<AuthResponse>('/auth/signup/adult/v3', data);
         return response.data;

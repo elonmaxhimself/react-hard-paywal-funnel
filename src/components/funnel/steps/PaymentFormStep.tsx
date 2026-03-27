@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { Button } from '@/components/ui/button';
 import { useStepperContext } from '@/components/stepper/Stepper.context';
 import { usePaymentForm, PAYMENT_IN_PROGRESS_KEY, PAYMENT_STALENESS_TTL_MS } from '@/hooks/usePaymentForm';
+import { usePremiumRedirect } from '@/hooks/usePremiumRedirect';
 import { useFunnelStore } from '@/store/states/funnel';
 import { useEffect, useRef } from 'react';
 import SpriteIcon from '@/components/SpriteIcon';
@@ -27,6 +28,7 @@ export function PaymentFormStep() {
     const posthog = usePostHog();
     const { product, onSubmit, isButtonDisabled, isPaymentInProgress, shift4Error, resumePollingFailed } =
         usePaymentForm(posthog);
+    const { isRedirecting } = usePremiumRedirect();
     const { prevStep } = useStepperContext();
     const hasRedirected = useRef(false);
 
@@ -79,6 +81,16 @@ export function PaymentFormStep() {
         if (isPaymentInProgress) return;
         prevStep();
     };
+
+    // User already has an active subscription — redirect in progress
+    if (isRedirecting) {
+        return (
+            <div className="w-full flex flex-col min-h-screen items-center justify-center">
+                <Loader2Icon className="animate-spin text-white mb-4" size={40} />
+                <p className="text-white/70 text-center px-4">{t('funnel.paymentFormStep.redirecting')}</p>
+            </div>
+        );
+    }
 
     // No product but payment in progress — show processing state instead of blank screen
     if (!product && isPaymentInProgress) {

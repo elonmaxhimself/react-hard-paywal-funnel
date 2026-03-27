@@ -33,6 +33,30 @@ describe('authService', () => {
         vi.clearAllMocks();
     });
 
+    describe('getMe', () => {
+        it('calls GET /auth/me and returns response data', async () => {
+            mockAxios.get.mockResolvedValue({
+                data: { id: 42, isPremium: true },
+            } as AxiosResponse);
+
+            const result = await authService.getMe();
+
+            expect(mockAxios.get).toHaveBeenCalledWith('/auth/me');
+            expect(result.id).toBe(42);
+            expect(result.isPremium).toBe(true);
+        });
+
+        it('propagates API errors (e.g. 401 Unauthorized)', async () => {
+            mockAxios.get.mockRejectedValue({
+                response: { status: 401, data: { message: 'Unauthorized' } },
+            });
+
+            await expect(authService.getMe()).rejects.toMatchObject({
+                response: { status: 401 },
+            });
+        });
+    });
+
     describe('signUp', () => {
         it('calls POST /auth/signup/adult/v3 with payload', async () => {
             const authResponse = createAuthResponse();

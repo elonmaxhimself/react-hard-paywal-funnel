@@ -6,7 +6,7 @@
  *   const payload = createSignUpPayload({ email: 'custom@test.com' });
  */
 
-import type { AuthResponse, SignUpPayload } from '@/utils/types/auth';
+import type { AuthResponse, MeResponse, SignUpPayload } from '@/utils/types/auth';
 
 // ─── Auth ────────────────────────────────────────────────────────────────────
 
@@ -14,6 +14,14 @@ export function createAuthResponse(overrides: Partial<AuthResponse> = {}): AuthR
     return {
         authToken: 'eyJhbGciOiJIUzI1NiJ9.' + btoa(JSON.stringify({ userId: 42, email: 'test@test.com' })) + '.sig',
         userId: 42,
+        ...overrides,
+    };
+}
+
+export function createMeResponse(overrides: Partial<MeResponse> = {}): MeResponse {
+    return {
+        id: 42,
+        isPremium: false,
         ...overrides,
     };
 }

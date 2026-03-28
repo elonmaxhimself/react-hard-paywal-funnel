@@ -302,7 +302,8 @@
             "paymentUnavailable": "Platba nedostupná",
             "altLogo": "My Dream Companion",
             "altVisa": "Visa",
-            "altMastercard": "Mastercard"
+            "altMastercard": "Mastercard",
+            "redirecting": "Vaše předplatné je aktivní. Přesměrováváme vás..."
         }
     },
     "constants": {

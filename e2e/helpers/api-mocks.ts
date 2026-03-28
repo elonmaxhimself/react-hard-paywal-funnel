@@ -59,6 +59,10 @@ export interface MockApiOptions {
     paymentFailed?: { failureMessage?: string };
     /** Number of "pending" polls before "paid" (default: 0 = immediate) */
     pendingPolls?: number;
+    /** Override GET /auth/me response (default: isPremium: false) */
+    meResponse?: { isPremium: boolean; [key: string]: unknown };
+    /** Simulate GET /auth/me error (e.g. 401) */
+    meError?: { status: number; body: Record<string, unknown> };
 }
 
 /**
@@ -67,6 +71,31 @@ export interface MockApiOptions {
  */
 export async function setupApiMocks(page: Page, options: MockApiOptions = {}) {
     let pollCount = 0;
+
+    // ── Auth: GET /auth/me (premium redirect guard) ─────────────────────
+    await page.route('**/auth/me', async (route) => {
+        if (route.request().method() !== 'GET') {
+            await route.fallback();
+            return;
+        }
+        if (options.meError) {
+            await route.fulfill({
+                status: options.meError.status,
+                contentType: 'application/json',
+                body: JSON.stringify(options.meError.body),
+            });
+        } else {
+            await route.fulfill({
+                status: 200,
+                contentType: 'application/json',
+                body: JSON.stringify({
+                    id: 42,
+                    isPremium: false,
+                    ...options.meResponse,
+                }),
+            });
+        }
+    });
 
     // ── Auth: sign-up ───────────────────────────────────────────────────
     await page.route('**/auth/signup/adult/v3', async (route) => {

@@ -44,6 +44,13 @@ vi.mock('@/hooks/usePaymentForm', async () => {
     };
 });
 
+// ── usePremiumRedirect mock ─────────────────────────────────────────────
+let mockPremiumRedirectReturn = { isRedirecting: false };
+
+vi.mock('@/hooks/usePremiumRedirect', () => ({
+    usePremiumRedirect: () => mockPremiumRedirectReturn,
+}));
+
 // ── useFunnelStore ──────────────────────────────────────────────────────
 vi.mock('@/store/states/funnel', () => ({
     useFunnelStore: () => vi.fn(),
@@ -106,6 +113,7 @@ beforeEach(async () => {
         shift4Error: null,
         resumePollingFailed: false,
     };
+    mockPremiumRedirectReturn = { isRedirecting: false };
 
     // Dynamic import to get fresh module with mocks applied
     const mod = await import('./PaymentFormStep');
@@ -255,6 +263,40 @@ describe('PaymentFormStep', () => {
 
             // i18n key shown as-is
             expect(screen.getByText(/paymentUnavailable/)).toBeInTheDocument();
+        });
+    });
+
+    describe('premium redirect guard', () => {
+        it('shows redirecting UI when user is already premium', () => {
+            mockPremiumRedirectReturn = { isRedirecting: true };
+
+            render(<PaymentFormStep />, { wrapper: Wrapper });
+
+            // Should show redirecting message instead of payment form
+            expect(screen.getByText(/redirecting/i)).toBeInTheDocument();
+            // Payment form should NOT be visible
+            expect(screen.queryByText(/completePayment/)).not.toBeInTheDocument();
+        });
+
+        it('shows normal payment form when user is not premium', () => {
+            mockPremiumRedirectReturn = { isRedirecting: false };
+
+            render(<PaymentFormStep />, { wrapper: Wrapper });
+
+            // Normal payment form should be visible
+            expect(screen.getByText(/paymentFormStep\.title/)).toBeInTheDocument();
+            expect(screen.getByText(/completePayment/)).toBeInTheDocument();
+        });
+
+        it('redirecting state takes priority over payment-in-progress state', () => {
+            mockPremiumRedirectReturn = { isRedirecting: true };
+            mockPaymentFormReturn.isPaymentInProgress = true;
+
+            render(<PaymentFormStep />, { wrapper: Wrapper });
+
+            // Should show redirecting, not payment-in-progress
+            expect(screen.getByText(/redirecting/i)).toBeInTheDocument();
+            expect(screen.queryByText(/paymentInAnotherTab/)).not.toBeInTheDocument();
         });
     });
 });

@@ -302,7 +302,8 @@
             "paymentUnavailable": "Fizetés nem elérhető",
             "altLogo": "My Dream Companion",
             "altVisa": "Visa",
-            "altMastercard": "Mastercard"
+            "altMastercard": "Mastercard",
+            "redirecting": "Az előfizetésed aktív. Átirányítás folyamatban..."
         }
     },
     "constants": {

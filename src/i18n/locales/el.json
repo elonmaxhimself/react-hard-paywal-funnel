@@ -302,7 +302,8 @@
             "paymentUnavailable": "Πληρωμή μη διαθέσιμη",
             "altLogo": "My Dream Companion",
             "altVisa": "Visa",
-            "altMastercard": "Mastercard"
+            "altMastercard": "Mastercard",
+            "redirecting": "Η συνδρομή σας είναι ενεργή. Ανακατεύθυνση σε εξέλιξη..."
         }
     },
     "constants": {

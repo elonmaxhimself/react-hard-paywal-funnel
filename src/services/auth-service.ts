@@ -26,10 +26,14 @@ export const authService = {
 
     verifyOAuthToken: async (provider: OAuthProviderType, payload: { code: string; state?: string }) => {
         const redirectUrl = window.location.origin + window.location.pathname;
-        const { utm } = getUtmStore();
-        const url = import.meta.env.DEV ? 'https://mdc-react-funnel-v4-dev.pages.dev/' : redirectUrl;
+        const { utm, initialUrl } = getUtmStore();
         const { oauthState } = getAuthStore();
         const trackDeskCid = getTrackDeskCid();
+
+        // Use the landing URL captured on first visit (includes UTM params).
+        // Falls back to current origin+pathname if initialUrl wasn't captured (shouldn't happen).
+        const url = initialUrl || redirectUrl;
+
         const response = await axios.post(
             `/auth/${provider}/token`,
             {

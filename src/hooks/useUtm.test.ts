@@ -89,4 +89,81 @@ describe('useInitUtm', () => {
         expect(utm.gclid).toBe('abc123');
         expect(utm.fbclid).toBe('def456');
     });
+
+    describe('initialUrl capture', () => {
+        it('captures full landing URL with UTM params', () => {
+            Object.defineProperty(window, 'location', {
+                writable: true,
+                value: {
+                    ...window.location,
+                    href: 'https://companiondream.com/?utm_source=google&utm_campaign=spring',
+                    search: '?utm_source=google&utm_campaign=spring',
+                },
+            });
+
+            renderHook(() => useInitUtm());
+
+            expect(useUtmStore.getState().initialUrl).toBe(
+                'https://companiondream.com/?utm_source=google&utm_campaign=spring',
+            );
+        });
+
+        it('captures landing URL even without query params', () => {
+            Object.defineProperty(window, 'location', {
+                writable: true,
+                value: {
+                    ...window.location,
+                    href: 'https://companiondream.com/',
+                    search: '',
+                },
+            });
+
+            renderHook(() => useInitUtm());
+
+            expect(useUtmStore.getState().initialUrl).toBe('https://companiondream.com/');
+        });
+
+        it('does NOT capture URL on OAuth callback page', () => {
+            Object.defineProperty(window, 'location', {
+                writable: true,
+                value: {
+                    ...window.location,
+                    href: 'https://companiondream.com/?state=google&code=auth_code',
+                    search: '?state=google&code=auth_code',
+                },
+            });
+
+            renderHook(() => useInitUtm());
+
+            // OAuth callback — URL should NOT be captured (landing URL was already stored before redirect)
+            expect(useUtmStore.getState().initialUrl).toBeNull();
+        });
+
+        it('preserves first URL across re-renders (first-win)', () => {
+            Object.defineProperty(window, 'location', {
+                writable: true,
+                value: {
+                    ...window.location,
+                    href: 'https://companiondream.com/?utm_source=first',
+                    search: '?utm_source=first',
+                },
+            });
+
+            renderHook(() => useInitUtm());
+
+            // Simulate second mount with different URL
+            Object.defineProperty(window, 'location', {
+                writable: true,
+                value: {
+                    ...window.location,
+                    href: 'https://companiondream.com/?utm_source=second',
+                    search: '?utm_source=second',
+                },
+            });
+
+            renderHook(() => useInitUtm());
+
+            expect(useUtmStore.getState().initialUrl).toBe('https://companiondream.com/?utm_source=first');
+        });
+    });
 });

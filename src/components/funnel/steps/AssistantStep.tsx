@@ -58,7 +58,7 @@ export function AssistantStep() {
                         />
                     </div>
                 </div>
-                <div className="w-full flex items-center justify-center px-[15px] sm:px-0 p-5 bg-black-2 sm:static fixed bottom-0 left-0 z-10">
+                <div className="w-full flex items-center justify-center px-[15px] sm:px-0 p-5 bg-black-2 sm:static fixed bottom-0 left-0 z-100">
                     <div className="max-w-[450px] w-full">
                         <Button onClick={nextStep} className="w-full h-[45px] bg-primary-gradient">
                             <span className="text-base font-bold">{t('funnel.assistantStep.continue')}</span>

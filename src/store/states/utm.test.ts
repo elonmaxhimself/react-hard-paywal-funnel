@@ -11,6 +11,10 @@ describe('useUtmStore', () => {
         it('starts with empty utm object', () => {
             expect(useUtmStore.getState().utm).toEqual({});
         });
+
+        it('starts with null initialUrl', () => {
+            expect(useUtmStore.getState().initialUrl).toBeNull();
+        });
     });
 
     describe('set', () => {
@@ -46,11 +50,38 @@ describe('useUtmStore', () => {
         });
     });
 
+    describe('setInitialUrl', () => {
+        it('stores the landing URL', () => {
+            useUtmStore.getState().setInitialUrl('https://companiondream.com/?utm_source=google');
+            expect(useUtmStore.getState().initialUrl).toBe('https://companiondream.com/?utm_source=google');
+        });
+
+        it('first-win: does NOT overwrite existing URL', () => {
+            useUtmStore.getState().setInitialUrl('https://companiondream.com/?utm_source=google');
+            useUtmStore.getState().setInitialUrl('https://companiondream.com/?utm_source=facebook');
+            expect(useUtmStore.getState().initialUrl).toBe('https://companiondream.com/?utm_source=google');
+        });
+
+        it('ignores empty string', () => {
+            useUtmStore.getState().setInitialUrl('');
+            expect(useUtmStore.getState().initialUrl).toBeNull();
+        });
+    });
+
     describe('reset', () => {
-        it('clears all utm data', () => {
+        it('clears all utm data and initialUrl', () => {
             useUtmStore.getState().set({ utm_source: 'google', utm_medium: 'cpc' });
+            useUtmStore.getState().setInitialUrl('https://companiondream.com/');
             useUtmStore.getState().reset();
             expect(useUtmStore.getState().utm).toEqual({});
+            expect(useUtmStore.getState().initialUrl).toBeNull();
+        });
+
+        it('allows new values after reset (unblocks first-win)', () => {
+            useUtmStore.getState().setInitialUrl('https://companiondream.com/first');
+            useUtmStore.getState().reset();
+            useUtmStore.getState().setInitialUrl('https://companiondream.com/second');
+            expect(useUtmStore.getState().initialUrl).toBe('https://companiondream.com/second');
         });
     });
 
@@ -67,6 +98,13 @@ describe('useUtmStore', () => {
 
             const stored = JSON.parse(localStorage.getItem('utm-storage') || '{}');
             expect(stored.state.utm).toEqual({ utm_source: 'fb' });
+        });
+
+        it('persists initialUrl to localStorage', () => {
+            useUtmStore.getState().setInitialUrl('https://companiondream.com/?utm_source=test');
+
+            const stored = JSON.parse(localStorage.getItem('utm-storage') || '{}');
+            expect(stored.state.initialUrl).toBe('https://companiondream.com/?utm_source=test');
         });
     });
 });

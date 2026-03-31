@@ -13,7 +13,10 @@ vi.mock('@/lib/axios', () => ({
 
 // Mock store getters used by verifyOAuthToken
 vi.mock('@/store/states/utm', () => ({
-    getUtmStore: () => ({ utm: { utm_source: 'test' } }),
+    getUtmStore: () => ({
+        utm: { utm_source: 'test' },
+        initialUrl: 'https://companiondream.com/?utm_source=test&utm_campaign=spring',
+    }),
 }));
 
 vi.mock('@/store/states/auth', () => ({
@@ -142,6 +145,20 @@ describe('authService', () => {
                 }),
             );
             expect(result.authToken).toBe(authResponse.authToken);
+        });
+
+        it('sends initialUrl (with UTM) as the url field, not the OAuth callback URL', async () => {
+            const authResponse = createAuthResponse();
+            mockAxios.post.mockResolvedValue({ data: authResponse } as AxiosResponse);
+
+            await authService.verifyOAuthToken('google', { code: 'auth_code_123' });
+
+            const payload = mockAxios.post.mock.calls[0][1];
+            // url should be the landing URL from the store (with UTM), not origin+pathname
+            expect(payload.url).toBe('https://companiondream.com/?utm_source=test&utm_campaign=spring');
+            // It should NOT be the OAuth callback URL
+            expect(payload.url).not.toContain('code=');
+            expect(payload.url).not.toContain('state=');
         });
     });
 });

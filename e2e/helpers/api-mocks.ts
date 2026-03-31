@@ -116,28 +116,59 @@ export async function setupApiMocks(page: Page, options: MockApiOptions = {}) {
 
     // ── Auth: OAuth redirect ────────────────────────────────────────────
     await page.route('**/auth/google', async (route) => {
-        await route.fulfill({
-            status: 200,
-            contentType: 'application/json',
-            body: JSON.stringify({ url: 'https://accounts.google.com/o/oauth2/fake' }),
-        });
+        if (route.request().method() === 'GET') {
+            await route.fulfill({
+                status: 200,
+                contentType: 'application/json',
+                body: JSON.stringify({ url: 'https://accounts.google.com/o/oauth2/fake' }),
+            });
+        } else {
+            await route.fallback();
+        }
     });
 
     await page.route('**/auth/twitter', async (route) => {
-        await route.fulfill({
-            status: 200,
-            contentType: 'application/json',
-            body: JSON.stringify({ url: 'https://twitter.com/oauth/fake' }),
-        });
+        if (route.request().method() === 'GET') {
+            await route.fulfill({
+                status: 200,
+                contentType: 'application/json',
+                body: JSON.stringify({ url: 'https://twitter.com/oauth/fake' }),
+            });
+        } else {
+            await route.fallback();
+        }
     });
 
     await page.route('**/auth/discord', async (route) => {
-        await route.fulfill({
-            status: 200,
-            contentType: 'application/json',
-            body: JSON.stringify({ url: 'https://discord.com/oauth/fake' }),
-        });
+        if (route.request().method() === 'GET') {
+            await route.fulfill({
+                status: 200,
+                contentType: 'application/json',
+                body: JSON.stringify({ url: 'https://discord.com/oauth/fake' }),
+            });
+        } else {
+            await route.fallback();
+        }
     });
+
+    // ── Auth: OAuth token verification (POST /auth/:provider/token) ────
+    for (const provider of ['google', 'discord', 'twitter']) {
+        await page.route(`**/auth/${provider}/token**`, async (route) => {
+            if (options.authError) {
+                await route.fulfill({
+                    status: options.authError.status,
+                    contentType: 'application/json',
+                    body: JSON.stringify(options.authError.body),
+                });
+            } else {
+                await route.fulfill({
+                    status: 200,
+                    contentType: 'application/json',
+                    body: JSON.stringify(createAuthResponse(options.authResponse)),
+                });
+            }
+        });
+    }
 
     // ── Payment: charge ─────────────────────────────────────────────────
     await page.route('**/shift4/charge', async (route) => {

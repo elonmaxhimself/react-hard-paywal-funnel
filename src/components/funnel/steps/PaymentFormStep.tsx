@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { Button } from '@/components/ui/button';
 import { useStepperContext } from '@/components/stepper/Stepper.context';
 import { usePaymentForm, PAYMENT_IN_PROGRESS_KEY, PAYMENT_STALENESS_TTL_MS } from '@/hooks/usePaymentForm';
+import { usePremiumRedirect } from '@/hooks/usePremiumRedirect';
 import { useFunnelStore } from '@/store/states/funnel';
 import { useEffect, useRef } from 'react';
 import SpriteIcon from '@/components/SpriteIcon';
@@ -25,7 +26,9 @@ export function PaymentFormStep() {
     const { t } = useTranslation();
     const setStep = useFunnelStore((s) => s.setStep);
     const posthog = usePostHog();
-    const { product, onSubmit, isPending, isPaymentInProgress, resumePollingFailed } = usePaymentForm(posthog);
+    const { product, onSubmit, isButtonDisabled, isPaymentInProgress, shift4Error, resumePollingFailed } =
+        usePaymentForm(posthog);
+    const { isRedirecting } = usePremiumRedirect();
     const { prevStep } = useStepperContext();
     const hasRedirected = useRef(false);
 
@@ -65,10 +68,39 @@ export function PaymentFormStep() {
         // eslint-disable-next-line react-hooks/exhaustive-deps -- only react to polling failure
     }, [resumePollingFailed]);
 
+    // If payment resolved (success redirect or failure) but we still have no product — go back
+    useEffect(() => {
+        if (!product && !isPaymentInProgress && !hasRedirected.current) {
+            hasRedirected.current = true;
+            prevStep();
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps -- react to payment resolution when no product
+    }, [product, isPaymentInProgress]);
+
     const onOpenSpecialOffer = () => {
         if (isPaymentInProgress) return;
         prevStep();
     };
+
+    // User already has an active subscription — redirect in progress
+    if (isRedirecting) {
+        return (
+            <div className="w-full flex flex-col min-h-screen items-center justify-center">
+                <Loader2Icon className="animate-spin text-white mb-4" size={40} />
+                <p className="text-white/70 text-center px-4">{t('funnel.paymentFormStep.redirecting')}</p>
+            </div>
+        );
+    }
+
+    // No product but payment in progress — show processing state instead of blank screen
+    if (!product && isPaymentInProgress) {
+        return (
+            <div className="w-full flex flex-col min-h-screen items-center justify-center">
+                <Loader2Icon className="animate-spin text-white mb-4" size={40} />
+                <p className="text-white/70 text-center px-4">{t('hooks.usePaymentForm.errors.paymentInAnotherTab')}</p>
+            </div>
+        );
+    }
 
     if (!product) return null;
     return (
@@ -157,11 +189,15 @@ export function PaymentFormStep() {
                         <Button
                             type="button"
                             onClick={onSubmit}
-                            disabled={isPending}
+                            disabled={isButtonDisabled}
                             className={'w-full h-[50px] bg-primary-gradient text-lg rounded-lg'}
                         >
-                            {isPending && <Loader2Icon className="animate-spin" />}
-                            <span className={'text-base font-bold'}>{t('funnel.paymentFormStep.completePayment')}</span>
+                            {isPaymentInProgress && <Loader2Icon className="animate-spin" />}
+                            <span className={'text-base font-bold'}>
+                                {shift4Error
+                                    ? t('funnel.paymentFormStep.paymentUnavailable')
+                                    : t('funnel.paymentFormStep.completePayment')}
+                            </span>
                         </Button>
                     </div>
 

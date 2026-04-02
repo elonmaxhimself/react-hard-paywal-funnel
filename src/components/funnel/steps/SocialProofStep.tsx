@@ -1,19 +1,19 @@
-import { useTranslation } from "react-i18next";
-import StepWrapper from "@/components/StepWrapper";
-import { Button } from "@/components/ui/button";
-import { useStepperContext } from "@/components/stepper/Stepper.context";
-import SpriteIcon from "@/components/SpriteIcon";
+import { useTranslation } from 'react-i18next';
+import StepWrapper from '@/components/StepWrapper';
+import { Button } from '@/components/ui/button';
+import { useStepperContext } from '@/components/stepper/Stepper.context';
+import SpriteIcon from '@/components/SpriteIcon';
 
 const BRAND_IDS: string[] = [
-    "brands-top-ai-tools-logo",
-    "brands-aixploria-logo",
-    "brands-zerohedge-logo",
-    "brands-taaft-logo",
-    "brands-the-ai-journal",
-    "brands-nsfwaii-logo",
-    "brands-toolify-ai-logo",
-    "brands-entrepreneur-logo",
-    "brands-citypaper-logo",
+    'brands-top-ai-tools-logo',
+    'brands-aixploria-logo',
+    'brands-zerohedge-logo',
+    'brands-taaft-logo',
+    'brands-the-ai-journal',
+    'brands-nsfwaii-logo',
+    'brands-toolify-ai-logo',
+    'brands-entrepreneur-logo',
+    'brands-citypaper-logo',
 ];
 
 export function SocialProofStep() {
@@ -31,17 +31,11 @@ export function SocialProofStep() {
                         {t('funnel.socialProofStep.millionPeople')}
                     </h1>
                     <div className="text-white bg-[#000]/30 px-[28px] py-[20px] rounded-[10px] flex flex-col items-center justify-center mb-[30px]">
-                        <div className="text-[45px] font-extrabold text-center leading-[30px]">
-                            "
-                        </div>
+                        <div className="text-[45px] font-extrabold text-center leading-[30px]">"</div>
                         <div className="text-base font-semibold text-center capitalize mb-[25px]">
                             {t('funnel.socialProofStep.quote')}
                         </div>
-                        <SpriteIcon
-                            src="/images/brands/entrepreneur-logo.png"
-                            targetW={116}
-                            targetH={28}
-                        />
+                        <SpriteIcon src="/images/brands/entrepreneur-logo.png" targetW={116} targetH={28} />
                     </div>
                     <div className="w-full flex flex-col items-center justify-center">
                         <div className="text-white/70 text-xs font-semibold text-center uppercase mb-[22px]">
@@ -52,7 +46,7 @@ export function SocialProofStep() {
                                 <li key={id} className="flex items-center justify-center">
                                     <SpriteIcon
                                         id={id}
-                                        src={`/images/${id.replace(/^brands-/, "brands/")}.png`}
+                                        src={`/images/${id.replace(/^brands-/, 'brands/')}.png`}
                                         targetW={FRAME_W}
                                         targetH={FRAME_H}
                                     />
@@ -68,7 +62,7 @@ export function SocialProofStep() {
                         px-[15px] sm:px-10
                         p-5
                         bg-black-2
-                        sm:static fixed bottom-0 left-0
+                        sm:static fixed bottom-0 left-0 z-100
                     "
                 >
                     <div className="max-w-[450px] w-full">

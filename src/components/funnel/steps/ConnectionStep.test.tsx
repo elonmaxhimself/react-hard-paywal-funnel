@@ -59,6 +59,14 @@ describe('ConnectionStep', () => {
         expect(nextStep).toHaveBeenCalled();
     });
 
+    it('fixed bottom bar has z-100 class for mobile stacking', () => {
+        renderWithProviders(<ConnectionStep />);
+        const continueButton = screen.getByText('funnel.connectionStep.continue');
+        const fixedBar = continueButton.closest('.fixed');
+        expect(fixedBar).toBeTruthy();
+        expect(fixedBar!.className).toContain('z-100');
+    });
+
     it('shows validation error when Continue clicked with no selection', async () => {
         const nextStep = vi.fn();
         const { user } = renderWithProviders(<ConnectionStep />, {

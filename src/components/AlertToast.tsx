@@ -106,19 +106,28 @@ const Toast = (props: ToastProps) => {
             <div className="flex flex-1 items-center gap-x-3">
                 {type === toastType.success && (
                     <>
-                        <div className="absolute -top-5 -left-5 w-[100px] h-[100px] bg-green-700 rounded-full blur-3xl" />
+                        <div
+                            className="absolute -top-5 -left-5 w-[100px] h-[100px] rounded-full"
+                            style={{ background: 'radial-gradient(circle, rgba(21,128,61,0.6) 0%, transparent 70%)' }}
+                        />
                         <SuccessIcon />
                     </>
                 )}
                 {type === toastType.error && (
                     <>
-                        <div className="absolute -top-5 -left-5 w-[100px] h-[100px] bg-pink-red rounded-full blur-3xl" />
+                        <div
+                            className="absolute -top-5 -left-5 w-[100px] h-[100px] rounded-full"
+                            style={{ background: 'radial-gradient(circle, rgba(225,29,72,0.6) 0%, transparent 70%)' }}
+                        />
                         <ErrorIcon />
                     </>
                 )}
                 {type === toastType.warning && (
                     <>
-                        <div className="absolute -top-5 -left-5 w-[100px] h-[100px] bg-yellow-700 rounded-full blur-3xl" />
+                        <div
+                            className="absolute -top-5 -left-5 w-[100px] h-[100px] rounded-full"
+                            style={{ background: 'radial-gradient(circle, rgba(161,98,7,0.6) 0%, transparent 70%)' }}
+                        />
                         <WarningIcon />
                     </>
                 )}

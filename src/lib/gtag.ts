@@ -71,7 +71,6 @@ export function reportEmailVerified(url?: CallbackUrl, eventId?: string) {
     });
 }
 
-
 /** GA4 — qualify_lead */
 export function gaQualifyLead() {
     safeGtag('event', 'qualify_lead', {
@@ -81,8 +80,10 @@ export function gaQualifyLead() {
 
 /** GA4 — close_convert_lead */
 export function gaCloseConvertLead(leadId: string) {
-    safeGtag('event', 'close_convert_lead', {
-        lead_id: leadId,
+    withDedup(`close_convert_lead_${leadId}`, () => {
+        safeGtag('event', 'close_convert_lead', {
+            lead_id: leadId,
+        });
     });
 }
 

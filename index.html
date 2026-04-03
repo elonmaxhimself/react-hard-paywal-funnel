@@ -21,7 +21,7 @@
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
       gtag('config', 'AW-16515055993');
-      if ('%VITE_PUBLIC__GA_ID%') gtag('config', '%VITE_PUBLIC__GA_ID%');
+      if ('%VITE_PUBLIC_GA4_ID%' && !'%VITE_PUBLIC_GA4_ID%'.includes('VITE_PUBLIC_GA4_ID')) gtag('config', '%VITE_PUBLIC_GA4_ID%');
     </script>
 
     <!-- TrackDesk Affiliate Tracking -->

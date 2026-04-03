@@ -10,7 +10,6 @@ import { useShift4Payment } from '@/hooks/queries/useShift4';
 import { useShift4Ready } from '@/hooks/useShift4Ready';
 
 import { useAuthStore } from '@/store/states/auth';
-import { useFunnelStore } from '@/store/states/funnel';
 
 import { FunnelSchema } from '@/hooks/funnel/useFunnelForm';
 
@@ -46,7 +45,24 @@ const initPaymentChannel = () => {
     return null;
 };
 
+const isNetworkError = (error: unknown): boolean => {
+    const err = error as { message?: string; code?: string };
+    // Shift4 SDK ERR# codes are only treated as network errors when the device is actually offline.
+    // This avoids misclassifying card/validation errors (e.g. ERR#40100) as connectivity issues.
+    if (typeof err?.message === 'string' && err.message.startsWith('ERR#') && !navigator.onLine) return true;
+    // Chrome / Edge
+    if (error instanceof TypeError && error.message === 'Failed to fetch') return true;
+    // Firefox
+    if (error instanceof TypeError && error.message === 'NetworkError when attempting to fetch resource.') return true;
+    // Safari
+    if (error instanceof TypeError && error.message === 'Load failed') return true;
+    // Axios with fetch adapter wraps network failures as AxiosError with code ERR_NETWORK
+    if (err?.code === 'ERR_NETWORK') return true;
+    return false;
+};
+
 export const PAYMENT_IN_PROGRESS_KEY = 'shift4_payment_in_progress';
+export const PAYMENT_COMPLETED_KEY = 'shift4_payment_completed';
 export const PAYMENT_STALENESS_TTL_MS = 5 * 60 * 1000; // 5 minutes
 
 export function usePaymentForm(posthog?: PostHog) {
@@ -64,8 +80,27 @@ export function usePaymentForm(posthog?: PostHog) {
             return false;
         }
     });
-    const [paymentCompleted, setPaymentCompleted] = useState(false);
+    const [paymentCompleted, setPaymentCompleted] = useState(() => {
+        try {
+            const stored = localStorage.getItem(PAYMENT_COMPLETED_KEY);
+            if (!stored) return false;
+            const { timestamp } = JSON.parse(stored);
+            return Date.now() - timestamp <= PAYMENT_STALENESS_TTL_MS;
+        } catch {
+            return false;
+        }
+    });
     const [resumePollingFailed, setResumePollingFailed] = useState(false);
+
+    const markPaymentCompleted = () => {
+        setPaymentCompleted(true);
+        try {
+            localStorage.setItem(PAYMENT_COMPLETED_KEY, JSON.stringify({ timestamp: Date.now() }));
+        } catch {
+            // localStorage not available
+        }
+    };
+
     const s4ComponentsRef = useRef<Shift4ComponentGroup | null>(null);
     const tabId = useRef(`tab_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`);
 
@@ -74,8 +109,6 @@ export function usePaymentForm(posthog?: PostHog) {
     const form = useFormContext<FunnelSchema>();
     const authToken = useAuthStore((state) => state.authToken);
     const userId = useAuthStore((state) => state.userId);
-    const authReset = useAuthStore((state) => state.reset);
-    const funnelReset = useFunnelStore((state) => state.reset);
 
     const productId = form.watch('productId');
     const product = useMemo(() => products.find((p) => p.id === productId), [productId]);
@@ -100,11 +133,15 @@ export function usePaymentForm(posthog?: PostHog) {
                 }
 
                 if (event.data.type === 'PAYMENT_SUCCESS') {
-                    setPaymentCompleted(true);
+                    markPaymentCompleted();
                     setIsSubmitting(true);
+                    // Redirect this tab to main platform — payment succeeded in another tab
                     setTimeout(() => {
-                        window.location.reload();
-                    }, 100);
+                        localStorage.removeItem(PAYMENT_IN_PROGRESS_KEY);
+                        localStorage.removeItem(PAYMENT_COMPLETED_KEY);
+                        const redirectUrl = env.shift4.paymentRedirect;
+                        window.location.href = redirectUrl + '?authToken=' + authToken;
+                    }, 300);
                 }
 
                 if (event.data.type === 'PAYMENT_FAILED') {
@@ -164,7 +201,7 @@ export function usePaymentForm(posthog?: PostHog) {
             }
             window.removeEventListener('storage', handleStorageChange);
         };
-    }, [t]);
+    }, [t, authToken]);
 
     useEffect(() => {
         return () => {
@@ -187,6 +224,14 @@ export function usePaymentForm(posthog?: PostHog) {
             }
 
             const { subscriptionId, timestamp } = JSON.parse(stored);
+
+            // Guard: if entry has no subscriptionId (stale from before fix), clear it
+            if (!subscriptionId) {
+                localStorage.removeItem(PAYMENT_IN_PROGRESS_KEY);
+                setIsSubmitting(false);
+                return;
+            }
+
             if (Date.now() - timestamp > PAYMENT_STALENESS_TTL_MS) {
                 localStorage.removeItem(PAYMENT_IN_PROGRESS_KEY);
                 setIsSubmitting(false);
@@ -208,9 +253,8 @@ export function usePaymentForm(posthog?: PostHog) {
                     }
                     setTimeout(() => {
                         localStorage.removeItem(PAYMENT_IN_PROGRESS_KEY);
+                        localStorage.removeItem(PAYMENT_COMPLETED_KEY);
                         const redirectUrl = env.shift4.paymentRedirect;
-                        authReset();
-                        funnelReset();
                         window.location.href = redirectUrl + '?authToken=' + authToken;
                     }, 300);
                 },
@@ -259,7 +303,7 @@ export function usePaymentForm(posthog?: PostHog) {
 
                 if (statusResponse.paid_status === 'paid') {
                     setIsPolling(false);
-                    setPaymentCompleted(true);
+                    markPaymentCompleted();
                     onSuccess();
                     return;
                 } else if (statusResponse.paid_status === 'failed') {
@@ -279,7 +323,12 @@ export function usePaymentForm(posthog?: PostHog) {
             } catch (error: unknown) {
                 if (cancelled) return;
 
-                // Error polling payment status
+                if (isNetworkError(error)) {
+                    setIsPolling(false);
+                    onError(t('hooks.usePaymentForm.errors.noInternet'));
+                    return;
+                }
+
                 const axiosErr = error as AxiosError;
                 if (axiosErr.response?.status === 404) {
                     if (attempts < maxAttempts) {
@@ -428,11 +477,6 @@ export function usePaymentForm(posthog?: PostHog) {
 
         setIsSubmitting(true);
 
-        // Write a preliminary localStorage entry immediately to close the race window
-        // in non-BroadcastChannel environments (entry is updated with subscriptionId on success,
-        // or removed on failure)
-        localStorage.setItem(PAYMENT_IN_PROGRESS_KEY, JSON.stringify({ timestamp: Date.now() }));
-
         const channel = initPaymentChannel();
         if (channel) {
             channel.postMessage({
@@ -449,7 +493,6 @@ export function usePaymentForm(posthog?: PostHog) {
                     title: t('hooks.usePaymentForm.errors.unexpectedError'),
                     type: toastType.error,
                 });
-                localStorage.removeItem(PAYMENT_IN_PROGRESS_KEY);
                 setIsSubmitting(false);
 
                 if (channel) {
@@ -521,19 +564,18 @@ export function usePaymentForm(posthog?: PostHog) {
                                         });
                                     }
 
-                                    // GA4 — Purchase (redirect after event sent) 
+                                    // GA4 — Purchase (redirect after event sent)
                                     const redirectUrl = env.shift4.paymentRedirect;
                                     const redirectUrlWithToken = redirectUrl + '?authToken=' + authToken;
                                     let redirected = false;
 
-                                        const doRedirect = () => {
-                                            if (redirected) return;
-                                            redirected = true;
-                                            localStorage.removeItem(PAYMENT_IN_PROGRESS_KEY)
-                                            authReset();
-                                            funnelReset();
-                                            window.location.href = redirectUrlWithToken;
-                                        };
+                                    const doRedirect = () => {
+                                        if (redirected) return;
+                                        redirected = true;
+                                        localStorage.removeItem(PAYMENT_IN_PROGRESS_KEY);
+                                        localStorage.removeItem(PAYMENT_COMPLETED_KEY);
+                                        window.location.href = redirectUrlWithToken;
+                                    };
 
                                     const redirectFallback = setTimeout(doRedirect, 3000);
 
@@ -592,10 +634,11 @@ export function usePaymentForm(posthog?: PostHog) {
 
                         const axiosErr = error as AxiosError<{ message?: string }>;
                         triggerToast({
-                            title:
-                                axiosErr.response?.data?.message ||
-                                error.message ||
-                                t('hooks.usePaymentForm.errors.unexpectedError'),
+                            title: isNetworkError(error)
+                                ? t('hooks.usePaymentForm.errors.noInternet')
+                                : axiosErr.response?.data?.message ||
+                                  error.message ||
+                                  t('hooks.usePaymentForm.errors.unexpectedError'),
                             type: toastType.error,
                         });
                     },
@@ -617,10 +660,11 @@ export function usePaymentForm(posthog?: PostHog) {
 
             const catchErr = error as AxiosError<{ message?: string }>;
             triggerToast({
-                title:
-                    catchErr.response?.data?.message ||
-                    catchErr.message ||
-                    t('hooks.usePaymentForm.errors.unexpectedError'),
+                title: isNetworkError(error)
+                    ? t('hooks.usePaymentForm.errors.noInternet')
+                    : catchErr.response?.data?.message ||
+                      catchErr.message ||
+                      t('hooks.usePaymentForm.errors.unexpectedError'),
                 type: toastType.error,
             });
         }
@@ -629,7 +673,8 @@ export function usePaymentForm(posthog?: PostHog) {
     return {
         product: product!,
         onSubmit,
-        isPending: isPending || isPolling || isSubmitting || paymentCompleted || !componentsGroup || !isShift4Ready,
+        isButtonDisabled:
+            isPending || isPolling || isSubmitting || paymentCompleted || !componentsGroup || !isShift4Ready,
         isPaymentInProgress: isPending || isPolling || isSubmitting || paymentCompleted,
         isShift4Ready,
         shift4Error,

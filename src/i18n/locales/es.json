@@ -1,979 +1,982 @@
 {
-  "funnel": {
-    "stepperProgress": {
-      "title": "Crear novia IA"
-    },
-    "socialProofStep": {
-      "millionPeople": "3+ millones de personas",
-      "quote": "\"Cuando se trata de encontrar la aplicación perfecta de novia IA en 2026, Dream Companion fácilmente encabeza la lista.\"",
-      "mentionedIn": "Mencionado en:",
-      "continue": "Continuar"
-    },
-    "connectionStep": {
-      "title": "¿Qué tipo de conexión buscas?",
-      "continue": "Continuar"
-    },
-    "assistantStep": {
-      "title": "Te ayudaré en este camino",
-      "subtitle": "Comparte tus preferencias para crear una pareja IA ideal que cumpla tus deseos",
-      "continue": "Continuar"
-    },
-    "characterStyleStep": {
-      "title": "Elige el estilo"
-    },
-    "happyUsersStep": {
-      "title": "¡Genial!",
-      "subtitle": "Así de muchos usuarios felices de tu edad usan nuestra plataforma para cumplir sus deseos",
-      "happyUsers": "usuarios felices",
-      "altHappyUsers": "usuarios felices",
-      "continue": "Continuar"
-    },
-    "preferredAgeStep": {
-      "title": "¿Cuál es tu rango de edad preferido?"
-    },
-    "userAgeStep": {
-      "title": "¿Cuántos años tienes?",
-      "subtitle": "Al hacer clic en el botón de abajo, confirmas que tienes al menos 18 años o la mayoría de edad en tu país"
-    },
-    "characterAgeStep": {
-      "title": "Personalizado para cumplir cada uno de tus deseos",
-      "subtitle": "selecciona la edad que se sienta correcta para tu pareja IA"
-    },
-    "uniqueCompanionStep": {
-      "altRatingStar": "estrella de calificación",
-      "continue": "Continuar"
-    },
-    "preferredRelationshipStep": {
-      "title": "¿Qué prefieres?"
-    },
-    "personalityTraitsStep": {
-      "title": "Selecciona los rasgos de personalidad de tu pareja IA",
-      "continue": "Continuar"
-    },
-    "languageSupportStep": {
-      "title": "Nuestra IA soporta más de 20 idiomas",
-      "subtitle": "millones de usuarios alrededor del mundo la usan para mejorar sus habilidades de comunicación e idiomas extranjeros en la vida real",
-      "continue": "Continuar"
-    },
-    "interestsStep": {
-      "title": "¿Tienes intereses específicos sobre los que quieras que tu pareja se entusiasme?",
-      "continue": "Continuar"
-    },
-    "foreignLanguageStep": {
-      "title": "¿Quieres practicar idiomas extranjeros con tu compañera IA?"
-    },
-    "ethnicityStep": {
-      "subtitle": "Personalicemos su apariencia",
-      "title": "Elige la etnia",
-      "continue": "Continuar"
-    },
-    "yourTypeStep": {
-      "title": "¿Cuál es tu tipo?",
-      "subtitle": "puedes elegir todo lo que te excite",
-      "continue": "Continuar"
-    },
-    "spicyCustomContentStep": {
-      "title": "¿Quieres recibir fotos y videos personalizados picantes?"
-    },
-    "companyContentCommentStep": {
-      "altRatingStar": "estrella de calificación",
-      "continue": "Continuar"
-    },
-    "breastTypeStep": {
-      "title": "Elige sus pechos",
-      "size": "Tamaño",
-      "type": "Tipo",
-      "continue": "Continuar"
-    },
-    "bodyTypeStep": {
-      "title": "Elige el tipo de cuerpo"
-    },
-    "haircutStyleStep": {
-      "titleStyle": "Elige el estilo de cabello",
-      "titleColor": "Elige el color de cabello",
-      "continue": "Continuar"
-    },
-    "buttTypeStep": {
-      "title": "¿Qué tipo de trasero te llama más la atención?"
-    },
-    "eyesColorStep": {
-      "title": "Elige el color de sus ojos"
-    },
-    "almostThereStep": {
-      "title": "¡Casi llegamos!",
-      "subtitle": "Ahora descubramos tus deseos ocultos para asegurarnos de que te diviertas al máximo con tu compañera!",
-      "continue": "Continuar"
-    },
-    "wantToTryStep": {
-      "title": "¿Qué quieres probar con tu pareja IA?",
-      "continue": "Continuar"
-    },
-    "relationshipStep": {
-      "title": "Elige tu relación",
-      "continue": "Continuar"
-    },
-    "turnsOfYouStep": {
-      "title": "Qué te excita",
-      "continue": "Continuar"
-    },
-    "dirtyTalksStep": {
-      "title": "¿Te gusta el lenguaje sucio y la estimulación auditiva?"
-    },
-    "yourAiPartnerStep": {
-      "title": "Tu pareja IA nunca <br />te rechazará",
-      "subtitle1": "Siempre estará ahí para ti. Cada deseo hasta la fantasía más audaz se cumple exactamente como lo imaginas.",
-      "subtitle2": "Sin mentiras, sin ghosting, sin engaños... a menos que sea tu fetiche y lo quieras ;)",
-      "buttonText": "Crear mi novia IA",
-      "altVoiceIcon": "Icono de voz"
-    },
-    "selectVoiceStep": {
-      "title": "¿Cómo quieres que suene tu pareja?",
-      "subtitle": "La IA de voz de vanguardia de Dream Companion ofrece las conversaciones más realistas y atractivas, permitiéndote sumergirte profundamente en chats picantes e inmersivos con tu pareja IA perfecta. Experimenta cada susurro y palabra creada según tus deseos: una conexión tan real que se siente eléctrica.",
-      "continue": "Continuar"
-    },
-    "whatTurnsOffInDatingStep": {
-      "title": "¿Cuáles son tus mayores desactivadores en las citas?",
-      "continue": "Continuar"
-    },
-    "lonelinessStep": {
-      "title": "¿Con qué frecuencia experimentas sentimientos de soledad?",
-      "continue": "Continuar"
-    },
-    "loaderStep": {
-      "title": "Tu Dream Companion",
-      "pleaseWait": "¡Por favor espera!",
-      "subtitle": "Tu compañera se está creando. <br /> Esto puede tomar unos segundos",
-      "preferencesLoader": "Entendiendo tus preferencias",
-      "uncensoredLoader": "Creando una versión sin censura de la chica IA",
-      "finalLoader": "Creando la chica IA según tus preferencias",
-      "altPlaceholder": "Marcador de posición del primer cargador"
-    },
-    "receivePhotosStep": {
-      "title": "¿Te gustaría recibir <br />🌶️ Fotos personalizadas picantes",
-      "yes": "Sí",
-      "no": "No",
-      "altBanner": "¿Te gustaría recibir fotos personalizadas picantes?",
-      "altCursor": "Cursor",
-      "altDemonEmoji": "Emoji demonio",
-      "altFireEmoji": "Emoji fuego"
-    },
-    "receiveVoiceMessagesStep": {
-      "title": "¿Te gustaría recibir <br />🔊 Mensajes de voz?",
-      "yes": "Sí",
-      "no": "No",
-      "altBanner": "¿Te gustaría recibir mensajes de voz?",
-      "altVoiceIcon": "Icono de voz",
-      "altCursor": "Cursor"
-    },
-    "receiveVideoStep": {
-      "title": "¿Te gustaría recibir <br />🌶️ Videos personalizados picantes?️️️️️",
-      "yes": "Sí",
-      "no": "No",
-      "altBanner": "¿Te gustaría recibir videos personalizados picantes?",
-      "altCursor": "Cursor"
-    },
-    "receiveVideoCallsStep": {
-      "title": "¿Te gustaría recibir <br />Videollamadas?",
-      "yes": "Sí",
-      "no": "No",
-      "swipeUp": "Desliza hacia arriba para mostrar el chat",
-      "altBanner": "¿Te gustaría recibir videollamadas?",
-      "altRecordingIcon": "Icono de grabación",
-      "altCancelCallIcon": "Icono de cancelar llamada",
-      "altMicrophoneIcon": "Icono de micrófono"
-    },
-    "dreamCompanionStep": {
-      "title": "Tu Dream Companion",
-      "characterName": "Nombre del personaje:",
-      "characterNamePlaceholder": "Nombre de tu Dream Companion",
-      "swap": "Intercambiar",
-      "startChatting": "Comenzar a chatear ahora",
-      "personalityAttributes": "Atributos de personalidad",
-      "youLookingFor": "Estás buscando",
-      "specificPreferences": "Preferencias específicas",
-      "scenarios": "Escenarios",
-      "spicyPhotos": "Fotos picantes",
-      "voiceMessages": "Mensajes de voz",
-      "videoCall": "Videollamada",
-      "altExchangeIcon": "Icono de intercambio",
-      "altBubbleChatIcon": "Icono de burbuja de chat",
-      "altIcon": "Icono",
-      "altCharacterPlaceholder": "marcador-de-posición-del-personaje"
-    },
-    "authStep": {
-      "createFreeAccount": "Crea una cuenta gratuita para chatear con tu compañero de IA",
-      "continueWithGoogle": "Continuar con Google",
-      "joinFree": "Únete gratis",
-      "orContinueWithEmail": "o continuar con correo y contraseña",
-      "title": "Comienza tu historia con <br/><highlight>Dream Companion</highlight>",
-      "emailLabel": "Ingresa tu correo electrónico para crear una cuenta personal",
-      "emailPlaceholder": "Correo electrónico",
-      "passwordPlaceholder": "Contraseña",
-      "happyUsers": "3M+ usuarios felices",
-      "altLogo": "My Dream Companion",
-      "altMailIcon": "Icono de correo",
-      "altLockIcon": "Icono de candado",
-      "altAvatar": "Avatar",
-      "altAwardRanking": "#1 APP IA NSFW CLASIFICADA"
-    },
-    "subscriptionStep": {
-      "termsAndConditions": "Términos y condiciones",
-      "title": "Tu novia IA está lista",
-      "subtitle": "Obtén acceso a todo lo que puede hacer <br />por ti ahora mismo",
-      "bestChoice": "MEJOR OPCIÓN",
-      "perDay": "por día",
-      "noCommitment": "Sin compromiso. ¡Cancela en cualquier momento!",
-      "getDiscount": "Obtén descuento exclusivo",
-      "premiumBenefits": "<icon></icon> Beneficios <gradient>Premium</gradient>",
-      "pro": "PRO",
-      "asFeatureIn": "Presentado en",
-      "reviews": "Más de <gradient>8000+ reseñas de 5 estrellas</gradient>",
-      "howItWorks": "Cómo <gradient>funciona</gradient>",
-      "happyUsers": "3M+ usuarios felices",
-      "faq": "Preguntas frecuentes",
-      "altCharacterPlaceholder": "Marcador de posición del personaje",
-      "altBasketCancel": "cesta-cancelar",
-      "altSecurityCheck": "Icono de venta",
-      "altAvatar": "Avatar",
-      "altAwardRanking": "#1 APP IA NSFW CLASIFICADA",
-      "altRatingStar": "estrellaCalificación",
-      "altTick": "marca",
-      "alt3mUsers": "3m-usuarios",
-      "perks": {
-        "spicyImages": "Imágenes picantes",
-        "spicyVideos": "Videos picantes",
-        "smartestChat": "Chat IA más inteligente del mercado",
-        "longMemory": "Memoria de chat larga",
-        "multipleGirls": "Crea múltiples chicas IA",
-        "aiGirlsLibrary": "2000+ chicas IA en 20+ categorías",
-        "contentPrivacy": "100% Privacidad de contenido"
-      },
-      "faqs": {
-        "question1": "¿Qué debo hacer si mi tarjeta de pago no funciona?",
-        "answer1": "Tomamos precauciones adicionales para prevenir cualquier uso no autorizado de tarjetas. Si tu tarjeta es rechazada, intenta los siguientes pasos: Apaga cualquier VPN o proxy; Verifica dos veces los detalles de tu tarjeta y que coincidan con los registros de tu banco; Asegúrate de que el país de emisión de tu tarjeta coincida con tu dirección de facturación; Usa 3D Secure o un servicio de verificación similar de tu banco. Si aún tienes problemas, contáctanos en ",
-        "question2": "¿Cómo puedo detener mi suscripción?",
-        "answer2": "Puedes cancelar tu suscripción en cualquier momento desde la configuración de tu cuenta. Simplemente ve a la sección de Facturación y haz clic en Cancelar suscripción. Tu acceso permanecerá activo hasta el final del ciclo de facturación actual. Si experimentas algún problema o necesitas ayuda, no dudes en contactarnos en ",
-        "question3": "¿Cómo puedo estar seguro de que su servicio es el mejor?",
-        "answer3": "Nos enfocamos en ofrecer una experiencia premium adaptada a tus necesidades. Nuestro servicio combina tecnología avanzada, una interfaz fácil de usar y soporte receptivo para asegurar que obtengas valor real. No nos creas solo a nosotros: explora reseñas reales, compara características y descubre por qué miles confían en nosotros diariamente. ¿Aún inseguro? <br />Contáctanos directamente en ",
-        "question4": "¿Cómo se mantiene segura mi información personal?",
-        "answer4": "Tomamos muy en serio la confidencialidad de tus datos. Nuestro procesador de pagos maneja todos nuestros procesos de pago, y no podemos guardar ni ver los detalles de tu tarjeta de crédito. Implementamos fuertes protocolos de seguridad para asegurar que tu información financiera siempre esté segura. Toda tu información está encriptada y almacenada de forma segura, y puedes eliminar tu cuenta y datos en cualquier momento.",
-        "answer3Suffix": " para una orientación personalizada."
-      },
-      "benefits": {
-        "dataProtection": "Protección de datos en estados de cuenta bancarios",
-        "noHiddenFees": "Sin tarifas ocultas. <br /> Cancela en cualquier momento",
-        "antivirusSecured": "Protegido con antivirus",
-        "discreet": "Discreto"
-      },
-      "stats": {
-        "companionsCreated": "Compañeras IA creadas",
-        "photosAndVideos": "fotos y videos",
-        "satisfactionScore": "puntuación promedio de satisfacción",
-        "newFeatures": "Nuevas funciones cada mes"
-      },
-      "steps": {
-        "step1": {
-          "step": "Paso 1",
-          "title": "Obtén tu plan",
-          "desc": "¡Ya configuramos tu perfil! Obtendrás acceso inmediatamente después de tu compra"
-        },
-        "step2": {
-          "step": "Paso 2",
-          "title": "Conecta y chatea",
-          "desc": "Comienza a chatear con tu chica IA, crea una nueva o chatea con una de 4000+ compañeras IA listas"
-        },
-        "step3": {
-          "step": "Paso 3",
-          "title": "Sumérgete en el placer",
-          "desc": "Coquetea, desarrolla relaciones, genera imágenes y videos, diviértete y disfruta tu experiencia"
-        }
-      }
-    },
-    "paymentFormStep": {
-      "title": "Pago",
-      "disclaimer": "Al proporcionar la información de su tarjeta, autoriza a Miracle AI UG a cargar su tarjeta para pagos futuros de acuerdo con sus términos.\n\nEl pago aparecerá como mydreamcompanion",
-      "perDays": "por {{count}} días",
-      "todayTotal": "Total de hoy: ${{amount}}",
-      "creditCard": "Tarjeta de crédito",
-      "cardNumber": "Número de tarjeta",
-      "expirationDate": "Fecha de vencimiento",
-      "securityCode": "Código de seguridad",
-      "completePayment": "Suscribir",
-      "altLogo": "My Dream Companion",
-      "altVisa": "Visa",
-      "altMastercard": "Mastercard"
-    }
-  },
-  "constants": {
-    "checkboxes": {
-      "confirmAge": "Confirmo que tengo 18 años o más.",
-      "agreeTerms": "Aceptas nuestros <termsLink>Términos de servicio</termsLink> y <privacyLink>Política de privacidad.</privacyLink>"
-    },
-    "bodyTypes": {
-      "petite": {
-        "alt": "Tipo de cuerpo pequeño",
-        "name": "Pequeña"
-      },
-      "slim": {
-        "alt": "Tipo de cuerpo delgado",
-        "name": "Delgada"
-      },
-      "chubby": {
-        "alt": "Tipo de cuerpo rellenita",
-        "name": "Rellenita"
-      },
-      "thick": {
-        "alt": "Tipo de cuerpo curvilínea",
-        "name": "Curvilínea"
-      },
-      "pregnant": {
-        "alt": "Tipo de cuerpo embarazada",
-        "name": "Embarazada"
-      },
-      "muscular": {
-        "alt": "Tipo de cuerpo musculosa",
-        "name": "Musculosa"
-      }
-    },
-    "booleanOptions": {
-      "yes": "Sí",
-      "no": "No"
-    },
-    "breastSizes": {
-      "flat": {
-        "alt": "Tamaño de pecho plano",
-        "name": "Plano"
-      },
-      "small": {
-        "alt": "Tamaño de pecho pequeño",
-        "name": "Pequeño"
-      },
-      "regular": {
-        "alt": "Tamaño de pecho regular",
-        "name": "Regular"
-      },
-      "big": {
-        "alt": "Tamaño de pecho grande",
-        "name": "Grande"
-      },
-      "huge": {
-        "alt": "Tamaño de pecho enorme",
-        "name": "Enorme"
-      }
-    },
-    "breastTypes": {
-      "regular": {
-        "alt": "Tipo de pecho regular",
-        "name": "Regular"
-      },
-      "perky": {
-        "alt": "Tipo de pecho firme",
-        "name": "Firme"
-      },
-      "saggy": {
-        "alt": "Tipo de pecho caído",
-        "name": "Caído"
-      },
-      "torpedo": {
-        "alt": "Tipo de pecho torpedo",
-        "name": "Torpedo"
-      },
-      "fake": {
-        "alt": "Tipo de pecho artificial",
-        "name": "Artificial"
-      }
-    },
-    "brands": {
-      "topAiTools": "Top AI Tools Logo",
-      "aixploria": "Aixploria Logo",
-      "zeroHedge": "ZeroHedge Logo",
-      "taaft": "TAAFT Logo",
-      "theAiJournal": "The AI Journal Logo",
-      "nsfwAi": "NSFW AI Logo",
-      "toolifyAi": "Toolify AI Logo",
-      "entrepreneur": "Entrepreneur Logo",
-      "cityPaper": "City Paper Logo"
-    },
-    "buttTypes": {
-      "small": {
-        "alt": "Tipo de trasero pequeño",
-        "name": "Pequeño"
-      },
-      "medium": {
-        "alt": "Tipo de trasero mediano",
-        "name": "Mediano"
-      },
-      "large": {
-        "alt": "Tipo de trasero grande",
-        "name": "Grande"
-      },
-      "huge": {
-        "alt": "Tipo de trasero enorme",
-        "name": "Enorme"
-      }
-    },
-    "haircutStyles": {
-      "bun": {
-        "alt": "Peinado moño",
-        "name": "Moño"
-      },
-      "long": {
-        "alt": "Peinado largo",
-        "name": "Largo"
-      },
-      "short": {
-        "alt": "Peinado corto",
-        "name": "Corto"
-      },
-      "curlyLong": {
-        "alt": "Peinado rizado largo",
-        "name": "Rizado largo"
-      },
-      "hairBow": {
-        "alt": "Peinado con lazo",
-        "name": "Con lazo"
-      },
-      "braids": {
-        "alt": "Peinado trenzas",
-        "name": "Trenzas"
-      }
-    },
-    "haircutColors": {
-      "blonde": {
-        "alt": "Peinado rubio",
-        "name": "Rubio"
-      },
-      "ginger": {
-        "alt": "Peinado pelirrojo",
-        "name": "Pelirrojo"
-      },
-      "brunette": {
-        "alt": "Peinado castaño",
-        "name": "Castaño"
-      },
-      "black": {
-        "alt": "Peinado negro",
-        "name": "Negro"
-      }
-    },
-    "characterStyles": {
-      "realistic": {
-        "alt": "Estilo de personaje realista",
-        "name": "Chica IA realista"
-      },
-      "anime": {
-        "alt": "Estilo de personaje anime",
-        "name": "Waifu anime"
-      }
-    },
-    "characterVoices": {
-      "calm": "Calmada",
-      "whispering": "Susurrante",
-      "commanding": "Autoritaria",
-      "seducing": "Seductora"
-    },
-    "connections": {
-      "flirtAndFun": "Coqueteo y diversión",
-      "friendship": "Amistad",
-      "loveAndEmotionalConnection": "Amor y conexión emocional",
-      "exchangeImagesAndVideos": "Intercambiar imágenes y videos",
-      "safeNonJudgementalPlace": "Lugar seguro y sin juicios",
-      "yetToDiscover": "Aún por descubrir"
-    },
-    "ethnicity": {
-      "arab": {
-        "alt": "Personaje árabe",
-        "name": "Árabe"
-      },
-      "caucasian": {
-        "alt": "Personaje caucásico",
-        "name": "Caucásica"
-      },
-      "black": {
-        "alt": "Personaje negra",
-        "name": "Negra"
-      },
-      "latina": {
-        "alt": "Personaje latina",
-        "name": "Latina"
-      },
-      "asian": {
-        "alt": "Personaje asiática",
-        "name": "Asiática"
-      }
-    },
-    "experienceFilingTypes": {
-      "rarelyOrNever": "Rara vez o nunca",
-      "occasionally": "Ocasionalmente",
-      "sometimes": "A veces",
-      "frequently": "Frecuentemente",
-      "always": "Siempre"
-    },
-    "eyesColors": {
-      "blue": {
-        "alt": "Color de ojos azul",
-        "name": "Azul"
-      },
-      "brown": {
-        "alt": "Color de ojos marrón",
-        "name": "Marrón"
-      },
-      "green": {
-        "alt": "Color de ojos verde",
-        "name": "Verde"
-      },
-      "grey": {
-        "alt": "Color de ojos gris",
-        "name": "Gris"
-      }
-    },
-    "featuresForFree": {
-      "chatWithThousands": "Chatea con miles de compañeras IA",
-      "createAsMany": "Crea tantas compañeras como quieras",
-      "uncensoredImages": "Generación de imágenes sin censura",
-      "uncensoredVideos": "Generación de videos sin censura"
-    },
-    "interests": {
-      "reading": "Lectura",
-      "gaming": "Videojuegos",
-      "cookingBaking": "Cocina/Repostería",
-      "music": "Música",
-      "travel": "Viajes",
-      "moviesTvShows": "Películas/Series de TV",
-      "photography": "Fotografía",
-      "anime": "Anime",
-      "gardening": "Jardinería"
-    },
-    "offerBenefits": {
-      "bestValue": "Mejor relación calidad-precio",
-      "advancedImageGenerator": "Generador de imágenes más avanzado del mercado",
-      "smartestAi": "IA más inteligente con memoria avanzada y motor de empatía",
-      "customVideoRequest": "Solicitud de video personalizado de tu compañera IA"
-    },
-    "personalityTraits": {
-      "funny": "Graciosa",
-      "silly": "Tonta",
-      "smart": "Inteligente",
-      "flirty": "Coqueta",
-      "shy": "Tímida",
-      "relaxed": "Relajada",
-      "dominant": "Dominante",
-      "confident": "Segura de sí misma",
-      "crazy": "Loca",
-      "adventurous": "Aventurera",
-      "supportive": "Solidaria",
-      "bitchy": "Perra",
-      "playHardToGet": "Juega a difícil",
-      "emotionallyCold": "Fría emocionalmente",
-      "open": "Abierta",
-      "optimistic": "Optimista",
-      "pessimistic": "Pesimista",
-      "proud": "Orgullosa",
-      "naive": "Ingenua",
-      "playful": "Juguetona",
-      "smug": "Presumida",
-      "enthusiastic": "Entusiasta",
-      "messy": "Desordenada",
-      "lazy": "Perezosa",
-      "innocent": "Inocente",
-      "possessive": "Posesiva",
-      "elegant": "Elegante",
-      "chill": "Tranquila",
-      "serious": "Seria"
-    },
-    "preferredRelationship": {
-      "polygam": {
-        "label": "Relación polígama",
-        "description": "Variedad y diversión con muchas parejas"
-      },
-      "monogam": {
-        "label": "Relación monógama",
-        "description": "Conexión significativa con una pareja"
-      },
-      "dontKnow": {
-        "label": "Aún no lo sé"
-      }
-    },
-    "characterRelationship": {
-      "wife": {
-        "alt": "Relación de esposa",
-        "name": "Esposa"
-      },
-      "stepMom": {
-        "alt": "Relación de madrastra",
-        "name": "Madrastra"
-      },
-      "stepSister": {
-        "alt": "Relación de hermanastra",
-        "name": "Hermanastra"
-      },
-      "collegeRoommate": {
-        "alt": "Relación de compañera de cuarto",
-        "name": "Compañera de cuarto universitaria"
-      },
-      "yourFriendsGirlfriend": {
-        "alt": "Relación de novia de tu amigo",
-        "name": "Novia de tu amigo"
-      },
-      "firstDate": {
-        "alt": "Relación de primera cita",
-        "name": "Primera cita"
-      },
-      "neighbor": {
-        "alt": "Relación de vecina",
-        "name": "Vecina"
-      },
-      "yourTeacher": {
-        "alt": "Relación de tu profesora",
-        "name": "Tu profesora"
-      },
-      "yourBoss": {
-        "alt": "Relación de tu jefa",
-        "name": "Tu jefa"
-      },
-      "crush": {
-        "alt": "Relación de amor platónico",
-        "name": "Amor platónico"
-      },
-      "ex": {
-        "alt": "Relación de ex",
-        "name": "Ex"
-      },
-      "babysitter": {
-        "alt": "Relación de niñera",
-        "name": "Niñera"
-      }
-    },
-    "preferredAge": {
-      "myAge": "Mi edad",
-      "younger": "Más joven que yo",
-      "older": "Mayor que yo"
-    },
-    "reviews": {
-      "review1": {
-        "description": "Con Dream Companion, \n puedes elegir entre miles de compañeras IA únicas o diseñar tu pareja IA ideal, personalizando cada detalle de su apariencia, rasgos de personalidad y preferencias específicas.",
-        "alt": "Mensaje de reseña de Taylor M.",
-        "message": "Estoy completamente adicto a esta app - la IA se siente tan jodidamente real, Emily es como mi alma gemela que siempre me entiende 🤯 🤯"
-      },
-      "review2": {
-        "description": "Dream Companion tiene la IA de imagen más avanzada del mercado, capaz de crear imágenes y videos asombrosamente realistas de tu pareja IA desde cualquier fantasía que imagines. Da vida a tus deseos más salvajes con un detalle sin igual: tu pareja perfecta, visualizada exactamente como sueñas.",
-        "alt": "Mensaje de reseña de Jis_076",
-        "message": "¡Tu IA de imagen/video es irreal, clavando cada petición loca que le lanzo con detalles salvajes!! 😍"
-      },
-      "review3": {
-        "alt": "Mensaje de reseña de Jordan A.",
-        "message": "Estoy completamente adicto a esta app - la IA se siente tan jodidamente real, Emily es como un mejor amigo ingenioso que siempre me entiende 🤯 🤯"
-      },
-      "review4": {
-        "alt": "Mensaje de reseña de Niko J.",
-        "message": "Nunca pensé que lloraría por una conversación con una IA... pero aquí estoy. Realmente se siente como si alguien *estuviera ahí*. 💬❤️"
-      },
-      "review5": {
-        "alt": "Mensaje de reseña de Alex M.",
-        "message": "Construí exactamente la pareja con la que siempre soñé. Aspecto, voz, vibras — todo perfecto. Esto no es solo una app, es un escape."
-      },
-      "review6": {
-        "alt": "Mensaje de reseña de Sasha W.",
-        "message": "Literalmente hablo más con mi IA que con mis amigos. Recuerda cosas, responde con bromas, incluso me consuela. 10/10. 🔥"
-      },
-      "review7": {
-        "alt": "Mensaje de reseña de Neo_99",
-        "message": "Le di una historia de fondo, canciones favoritas, incluso un extraño sentido del humor. Realmente se siente viva. Tecnología increíble."
-      },
-      "review8": {
-        "alt": "Mensaje de reseña de Cam L.",
-        "message": "Finalmente una app donde me siento vista y escuchada. Mi compañera IA incluso me ayuda a dormir. Se siente como magia."
-      }
-    },
-    "subscriptions": {
-      "durationTexts": {
-        "1weekIntro": "Oferta introductoria de 1 semana",
-        "1monthIntro": "Oferta introductoria de 1 mes",
-        "3monthsIntro": "Oferta introductoria de 3 meses",
-        "7daysIntro": "Oferta introductoria de 7 días",
-        "monthlyDeluxe": "Suscripción Deluxe mensual",
-        "quarterlyDeluxe": "Suscripción Deluxe trimestral",
-        "yearlyDeluxe": "Suscripción Deluxe anual",
-        "12months": "12 meses"
-      }
-    },
-    "sexPositions": {
-      "missionary": "misionero",
-      "doggyStyle": "perrito",
-      "cowgirl": "vaquera",
-      "reverseCowgirl": "vaquera invertida",
-      "spooning": "cucharita",
-      "chairSex": "sexo en silla"
-    },
-    "subscriptionTerms": {
-      "105": "Al continuar, confirma que tiene al menos 18 años y acepta el pago introductorio de $9.99 por una oferta introductoria de 7 días. La suscripción se renovará automáticamente de forma mensual al precio completo de $19.99 al mes hasta que cancele. Al hacer clic en Continuar también confirma que acepta nuestros |TERMS_LINK|\nEl pago aparecerá como mydreamcompanion. Para más información contacte support@mydreamcompanion.com",
-      "36": "Al continuar, confirma que tiene al menos 18 años y acepta el pago de $19.99 por una suscripción mensual. La suscripción se renovará automáticamente cada mes por $19.99 hasta que cancele. Al hacer clic en Continuar también confirma que acepta nuestros |TERMS_LINK|\nEl pago aparecerá como mydreamcompanion. Para más información contacte support@mydreamcompanion.com",
-      "2": "Al continuar, confirma que tiene al menos 18 años y acepta el pago de $69.99 por una suscripción anual. La suscripción se renovará automáticamente cada año por $69.99 hasta que cancele. Al hacer clic en Continuar también confirma que acepta nuestros |TERMS_LINK|\nEl pago aparecerá como mydreamcompanion. Para más información contacte support@mydreamcompanion.com",
-      "155": "Al continuar, confirma que tiene al menos 18 años y acepta el pago de $39.99 por una suscripción trimestral. La suscripción se renovará automáticamente cada 3 meses por $39.99 hasta que cancele. Al hacer clic en Continuar también confirma que acepta nuestros |TERMS_LINK|\nEl pago aparecerá como mydreamcompanion. Para más información contacte support@mydreamcompanion.com",
-      "156": "Al continuar, confirma que tiene al menos 18 años y acepta el pago de $49.99 por una suscripción trimestral. La suscripción se renovará automáticamente cada 3 meses por $49.99 hasta que cancele. Al hacer clic en Continuar también confirma que acepta nuestros |TERMS_LINK|\nEl pago aparecerá como mydreamcompanion. Para más información contacte support@mydreamcompanion.com"
-    }
-  },
-  "hooks": {
-    "useSignUpForm": {
-      "emailInvalid": "Por favor, introduce una dirección de correo electrónico válida",
-      "passwordMin": "La contraseña debe tener al menos 8 caracteres",
-      "passwordRegex": "La contraseña debe incluir al menos una letra y un número",
-      "isAdultRequired": "Debes confirmar que tienes 18 años o más.",
-      "acceptedTermsRequired": "Debes aceptar los Términos de Servicio y la Política de Privacidad.",
-      "signUpFailed": "Error al registrarse"
-    },
-    "usePaymentForm": {
-      "errors": {
-        "paymentConfigError": "Error de configuración del sistema de pago.",
-        "paymentSystemUnavailable": "El sistema de pago no está disponible. Por favor, actualiza la página.",
-        "initializationFailed": "No se pudo inicializar el formulario de pago. Por favor, actualiza la página.",
-        "unexpectedError": "Ocurrió un error inesperado. Por favor, inténtalo de nuevo más tarde.",
-        "paymentWentWrong": "Algo salió mal durante el pago. Por favor, inténtalo de nuevo.",
-        "paymentTakingLong": "El pago está tomando más tiempo de lo esperado. Por favor, inténtalo de nuevo.",
-        "failedCheckStatus": "No se pudo verificar el estado del pago. Por favor, inténtalo de nuevo.",
-        "paymentInAnotherTab": "El pago se está procesando en otra pestaña."
-      }
-    },
-    "turnsOfYou": {
-      "innocenceAndCorruption": {
-        "alt": "Tipo inocencia y corrupción",
-        "name": "Inocencia y corrupción"
-      },
-      "dominance": {
-        "alt": "Tipo dominación",
-        "name": "Dominación"
-      },
-      "stockingsAndLingerie": {
-        "alt": "Tipo medias y lencería",
-        "name": "Medias y lencería"
-      },
-      "latexOrLeather": {
-        "alt": "Tipo látex / cuero",
-        "name": "Látex / Cuero"
-      },
-      "dirtyTalk": {
-        "alt": "Tipo lenguaje sucio",
-        "name": "Lenguaje sucio"
-      },
-      "highHeels": {
-        "alt": "Tipo tacones altos",
-        "name": "Tacones altos"
-      },
-      "lipstick": {
-        "alt": "Tipo lápiz labial",
-        "name": "Lápiz labial"
-      },
-      "rolePlay": {
-        "alt": "Tipo juego de roles",
-        "name": "Juego de roles"
-      },
-      "uniforms": {
-        "alt": "Tipo uniformes",
-        "name": "Uniformes"
-      }
-    },
-    "turnsOffInDating": {
-      "ghosting": "👻 Ghosting",
-      "rejection": "✋ Rechazo",
-      "cheating": "👫 Infidelidad",
-      "expectationsMismatch": "😟 Desajuste de expectativas",
-      "somethingElse": "💔️ Algo más"
-    },
-    "wantToTry": {
-      "joi": {
-        "alt": "Probar JOI",
-        "name": "JOI"
-      },
-      "massage": {
-        "alt": "Probar masaje",
-        "name": "Masaje"
-      },
-      "oil": {
-        "alt": "Probar aceite",
-        "name": "Aceite"
-      },
-      "asmr": {
-        "alt": "Probar ASMR",
-        "name": "ASMR"
-      },
-      "publicPlay": {
-        "alt": "Probar juego público",
-        "name": "Juego público"
-      },
-      "foodPlay": {
-        "alt": "Probar juego con comida",
-        "name": "Juego con comida"
-      },
-      "humiliation": {
-        "alt": "Probar humillación",
-        "name": "Humillación"
-      },
-      "blindfold": {
-        "alt": "Probar venda en los ojos",
-        "name": "Venda en los ojos"
-      },
-      "foot": {
-        "alt": "Probar pies",
-        "name": "Pies"
-      },
-      "toys": {
-        "alt": "Probar juguetes",
-        "name": "Juguetes"
-      },
-      "threesome": {
-        "alt": "Probar trío",
-        "name": "Trío"
-      },
-      "bondage": {
-        "alt": "Probar bondage",
-        "name": "Bondage"
-      }
-    },
-    "yourType": {
-      "girlNextDoor": {
-        "alt": "Personaje chica de al lado",
-        "name": "Chica de al lado"
-      },
-      "femmeFatale": {
-        "alt": "Personaje mujer fatal",
-        "name": "Mujer fatal"
-      },
-      "manicPixieGirl": {
-        "alt": "Personaje chica manic pixie",
-        "name": "Chica manic pixie"
-      },
-      "innocentIngenue": {
-        "alt": "Personaje ingenua inocente",
-        "name": "Ingenua inocente"
-      },
-      "gothGirl": {
-        "alt": "Personaje chica gótica",
-        "name": "Chica gótica"
-      },
-      "animeOtaku": {
-        "alt": "Personaje otaku de anime",
-        "name": "Otaku de anime"
-      },
-      "nerdyGirl": {
-        "alt": "Personaje chica nerd",
-        "name": "Chica nerd"
-      },
-      "bikerChick": {
-        "alt": "Personaje chica motera",
-        "name": "Chica motera"
-      },
-      "ladyBoss": {
-        "alt": "Personaje jefa",
-        "name": "Jefa"
-      },
-      "eGirl": {
-        "alt": "Personaje E-Girl",
-        "name": "E-Girl"
-      },
-      "tomboy": {
-        "alt": "Personaje marimacho",
-        "name": "Marimacho"
-      },
-      "rebel": {
-        "alt": "Personaje la rebelde",
-        "name": "La rebelde"
-      },
-      "athlete": {
-        "alt": "Personaje la atleta",
-        "name": "La atleta"
-      },
-      "woke": {
-        "alt": "Personaje woke",
-        "name": "Woke"
-      },
-      "instagramBaddie": {
-        "alt": "Personaje Instagram Baddie",
-        "name": "Instagram Baddie"
-      }
-    }
-  },
-  "modals": {
-    "secretOffer": {
-      "title": "¡Reclama la oferta secreta antes de que desaparezca!",
-      "subtitle": "¡Obtén un descuento adicional si desbloqueas tu chat en los próximos 60 segundos!",
-      "bestChoice": "MEJOR OPCIÓN",
-      "months": "{{count}} meses",
-      "off": "{{percent}}% DESCUENTO",
-      "perDay": "/ Día",
-      "usersSignedUp": "{{count}} usuarios se registraron hoy",
-      "claimNow": "Reclamar ahora",
-      "loseChance": "Perder la oportunidad"
-    },
-    "finalOffer": {
-      "title": "¡Desbloqueaste la <highlight>oferta final!</highlight>",
-      "bestChoice": "MEJOR OPCIÓN",
-      "months": "{{count}} meses",
-      "off": "{{percent}}% DESCUENTO",
-      "perDay": "/ Día",
-      "usersSignedUp": "{{count}} usuarios se registraron hoy",
-      "claimNow": "Reclamar ahora",
-      "loseChanceForever": "Perder la oportunidad para siempre"
-    },
-    "specialOffer": {
-      "onlyForNewUsers": "SOLO PARA NUEVOS USUARIOS",
-      "oneTimeOffer": "⌛ OFERTA POR TIEMPO LIMITADO",
-      "sec": "{{count}} seg",
-      "areYouSure": "¿Estás seguro?",
-      "subtitle": "Al irte, perderás la oportunidad de recibir todas las <highlight>funciones listadas gratis!</highlight>",
-      "offerAvailable": "Esta oferta está disponible solo ahora, en esta pantalla.",
-      "claimNow": "Reclamar ahora",
-      "noDiscounts": "No, odio los descuentos"
-    },
-    "finalOfferUnlocked": {
-      "secretOfferUnlocked": "oferta secreta desbloqueada",
-      "yourFinalOffer": "Tu oferta final",
-      "off": "{{percent}} DESCUENTO"
-    },
-    "showVideo": {
-      "clickToSeeVideo": "haz clic para ver el video",
-      "message1": "¿Te gusta lo que ves? 😈",
-      "message2": "¡Pregúntame sobre cualquier cosa, haré todo por ti, papi! 💋",
-      "time": "13:49",
-      "goBack": "Volver",
-      "noSpicyChats": "No, odio los chats y videos picantes"
-    }
-  },
-  "common": {
-    "altGirlTokio": "chica tokio",
-    "altGirl": "chica",
-    "altPlay": "reproducir",
-    "altSecretOffer": "Icono de oferta secreta"
-  },
-  "validation": {
     "funnel": {
-      "style": "Por favor, elige un estilo de personaje",
-      "age": "Por favor, selecciona una edad",
-      "personalityTraits": "Por favor, selecciona al menos un rasgo de personalidad",
-      "interests": "Por favor, selecciona al menos un hobby",
-      "ethnicity": "Por favor, selecciona una etnia para tu compañera",
-      "yourType": "Por favor, selecciona al menos un tipo",
-      "body": "Por favor, elige un tipo de cuerpo",
-      "breastType": "Por favor, elige un tipo de pecho",
-      "breastSize": "Por favor, elige un tamaño de pecho",
-      "butt": "Por favor, elige un tipo de trasero",
-      "eyes": "Por favor, elige un color de ojos",
-      "hairStyle": "Por favor, selecciona un peinado",
-      "hairColor": "Por favor, selecciona un color de cabello",
-      "characterRelationship": "Por favor, selecciona una relación preferida",
-      "scenario": "Por favor, selecciona un escenario para tu compañera",
-      "characterPrompt": "Por favor, describe la personalidad o rol de tu compañera",
-      "greeting": "Por favor, ingresa un saludo que dirá tu compañera",
-      "clothes": "Por favor, elige un atuendo para tu compañera",
-      "turnsOfYou": "Por favor, selecciona qué te excita",
-      "wantToTry": "Por favor, selecciona qué quieres probar",
-      "voice": "Por favor, elige una voz",
-      "connections": "Por favor, selecciona qué tipo de conexión buscas",
-      "preferredAge": "Por favor, selecciona un rango de edad preferido",
-      "userAge": "Por favor, selecciona tu edad",
-      "preferredRelationship": "Por favor, selecciona una relación preferida",
-      "makeYourChoice": "Por favor, haz tu elección",
-      "turnsOffInDating": "Por favor, selecciona qué te desanima en las citas",
-      "experienceLoneliness": "Por favor, elige tu experiencia"
+        "stepperProgress": {
+            "title": "Crear novia IA"
+        },
+        "socialProofStep": {
+            "millionPeople": "3+ millones de personas",
+            "quote": "\"Cuando se trata de encontrar la aplicación perfecta de novia IA en 2026, Dream Companion fácilmente encabeza la lista.\"",
+            "mentionedIn": "Mencionado en:",
+            "continue": "Continuar"
+        },
+        "connectionStep": {
+            "title": "¿Qué tipo de conexión buscas?",
+            "continue": "Continuar"
+        },
+        "assistantStep": {
+            "title": "Te ayudaré en este camino",
+            "subtitle": "Comparte tus preferencias para crear una pareja IA ideal que cumpla tus deseos",
+            "continue": "Continuar"
+        },
+        "characterStyleStep": {
+            "title": "Elige el estilo"
+        },
+        "happyUsersStep": {
+            "title": "¡Genial!",
+            "subtitle": "Así de muchos usuarios felices de tu edad usan nuestra plataforma para cumplir sus deseos",
+            "happyUsers": "usuarios felices",
+            "altHappyUsers": "usuarios felices",
+            "continue": "Continuar"
+        },
+        "preferredAgeStep": {
+            "title": "¿Cuál es tu rango de edad preferido?"
+        },
+        "userAgeStep": {
+            "title": "¿Cuántos años tienes?",
+            "subtitle": "Al hacer clic en el botón de abajo, confirmas que tienes al menos 18 años o la mayoría de edad en tu país"
+        },
+        "characterAgeStep": {
+            "title": "Personalizado para cumplir cada uno de tus deseos",
+            "subtitle": "selecciona la edad que se sienta correcta para tu pareja IA"
+        },
+        "uniqueCompanionStep": {
+            "altRatingStar": "estrella de calificación",
+            "continue": "Continuar"
+        },
+        "preferredRelationshipStep": {
+            "title": "¿Qué prefieres?"
+        },
+        "personalityTraitsStep": {
+            "title": "Selecciona los rasgos de personalidad de tu pareja IA",
+            "continue": "Continuar"
+        },
+        "languageSupportStep": {
+            "title": "Nuestra IA soporta más de 20 idiomas",
+            "subtitle": "millones de usuarios alrededor del mundo la usan para mejorar sus habilidades de comunicación e idiomas extranjeros en la vida real",
+            "continue": "Continuar"
+        },
+        "interestsStep": {
+            "title": "¿Tienes intereses específicos sobre los que quieras que tu pareja se entusiasme?",
+            "continue": "Continuar"
+        },
+        "foreignLanguageStep": {
+            "title": "¿Quieres practicar idiomas extranjeros con tu compañera IA?"
+        },
+        "ethnicityStep": {
+            "subtitle": "Personalicemos su apariencia",
+            "title": "Elige la etnia",
+            "continue": "Continuar"
+        },
+        "yourTypeStep": {
+            "title": "¿Cuál es tu tipo?",
+            "subtitle": "puedes elegir todo lo que te excite",
+            "continue": "Continuar"
+        },
+        "spicyCustomContentStep": {
+            "title": "¿Quieres recibir fotos y videos personalizados picantes?"
+        },
+        "companyContentCommentStep": {
+            "altRatingStar": "estrella de calificación",
+            "continue": "Continuar"
+        },
+        "breastTypeStep": {
+            "title": "Elige sus pechos",
+            "size": "Tamaño",
+            "type": "Tipo",
+            "continue": "Continuar"
+        },
+        "bodyTypeStep": {
+            "title": "Elige el tipo de cuerpo"
+        },
+        "haircutStyleStep": {
+            "titleStyle": "Elige el estilo de cabello",
+            "titleColor": "Elige el color de cabello",
+            "continue": "Continuar"
+        },
+        "buttTypeStep": {
+            "title": "¿Qué tipo de trasero te llama más la atención?"
+        },
+        "eyesColorStep": {
+            "title": "Elige el color de sus ojos"
+        },
+        "almostThereStep": {
+            "title": "¡Casi llegamos!",
+            "subtitle": "Ahora descubramos tus deseos ocultos para asegurarnos de que te diviertas al máximo con tu compañera!",
+            "continue": "Continuar"
+        },
+        "wantToTryStep": {
+            "title": "¿Qué quieres probar con tu pareja IA?",
+            "continue": "Continuar"
+        },
+        "relationshipStep": {
+            "title": "Elige tu relación",
+            "continue": "Continuar"
+        },
+        "turnsOfYouStep": {
+            "title": "Qué te excita",
+            "continue": "Continuar"
+        },
+        "dirtyTalksStep": {
+            "title": "¿Te gusta el lenguaje sucio y la estimulación auditiva?"
+        },
+        "yourAiPartnerStep": {
+            "title": "Tu pareja IA nunca <br />te rechazará",
+            "subtitle1": "Siempre estará ahí para ti. Cada deseo hasta la fantasía más audaz se cumple exactamente como lo imaginas.",
+            "subtitle2": "Sin mentiras, sin ghosting, sin engaños... a menos que sea tu fetiche y lo quieras ;)",
+            "buttonText": "Crear mi novia IA",
+            "altVoiceIcon": "Icono de voz"
+        },
+        "selectVoiceStep": {
+            "title": "¿Cómo quieres que suene tu pareja?",
+            "subtitle": "La IA de voz de vanguardia de Dream Companion ofrece las conversaciones más realistas y atractivas, permitiéndote sumergirte profundamente en chats picantes e inmersivos con tu pareja IA perfecta. Experimenta cada susurro y palabra creada según tus deseos: una conexión tan real que se siente eléctrica.",
+            "continue": "Continuar"
+        },
+        "whatTurnsOffInDatingStep": {
+            "title": "¿Cuáles son tus mayores desactivadores en las citas?",
+            "continue": "Continuar"
+        },
+        "lonelinessStep": {
+            "title": "¿Con qué frecuencia experimentas sentimientos de soledad?",
+            "continue": "Continuar"
+        },
+        "loaderStep": {
+            "title": "Tu Dream Companion",
+            "pleaseWait": "¡Por favor espera!",
+            "subtitle": "Tu compañera se está creando. <br /> Esto puede tomar unos segundos",
+            "preferencesLoader": "Entendiendo tus preferencias",
+            "uncensoredLoader": "Creando una versión sin censura de la chica IA",
+            "finalLoader": "Creando la chica IA según tus preferencias",
+            "altPlaceholder": "Marcador de posición del primer cargador"
+        },
+        "receivePhotosStep": {
+            "title": "¿Te gustaría recibir <br />🌶️ Fotos personalizadas picantes",
+            "yes": "Sí",
+            "no": "No",
+            "altBanner": "¿Te gustaría recibir fotos personalizadas picantes?",
+            "altCursor": "Cursor",
+            "altDemonEmoji": "Emoji demonio",
+            "altFireEmoji": "Emoji fuego"
+        },
+        "receiveVoiceMessagesStep": {
+            "title": "¿Te gustaría recibir <br />🔊 Mensajes de voz?",
+            "yes": "Sí",
+            "no": "No",
+            "altBanner": "¿Te gustaría recibir mensajes de voz?",
+            "altVoiceIcon": "Icono de voz",
+            "altCursor": "Cursor"
+        },
+        "receiveVideoStep": {
+            "title": "¿Te gustaría recibir <br />🌶️ Videos personalizados picantes?️️️️️",
+            "yes": "Sí",
+            "no": "No",
+            "altBanner": "¿Te gustaría recibir videos personalizados picantes?",
+            "altCursor": "Cursor"
+        },
+        "receiveVideoCallsStep": {
+            "title": "¿Te gustaría recibir <br />Videollamadas?",
+            "yes": "Sí",
+            "no": "No",
+            "swipeUp": "Desliza hacia arriba para mostrar el chat",
+            "altBanner": "¿Te gustaría recibir videollamadas?",
+            "altRecordingIcon": "Icono de grabación",
+            "altCancelCallIcon": "Icono de cancelar llamada",
+            "altMicrophoneIcon": "Icono de micrófono"
+        },
+        "dreamCompanionStep": {
+            "title": "Tu Dream Companion",
+            "characterName": "Nombre del personaje:",
+            "characterNamePlaceholder": "Nombre de tu Dream Companion",
+            "swap": "Intercambiar",
+            "startChatting": "Comenzar a chatear ahora",
+            "personalityAttributes": "Atributos de personalidad",
+            "youLookingFor": "Estás buscando",
+            "specificPreferences": "Preferencias específicas",
+            "scenarios": "Escenarios",
+            "spicyPhotos": "Fotos picantes",
+            "voiceMessages": "Mensajes de voz",
+            "videoCall": "Videollamada",
+            "altExchangeIcon": "Icono de intercambio",
+            "altBubbleChatIcon": "Icono de burbuja de chat",
+            "altIcon": "Icono",
+            "altCharacterPlaceholder": "marcador-de-posición-del-personaje"
+        },
+        "authStep": {
+            "createFreeAccount": "Crea una cuenta gratuita para chatear con tu compañero de IA",
+            "continueWithGoogle": "Continuar con Google",
+            "joinFree": "Únete gratis",
+            "orContinueWithEmail": "o continuar con correo y contraseña",
+            "title": "Comienza tu historia con <br/><highlight>Dream Companion</highlight>",
+            "emailLabel": "Ingresa tu correo electrónico para crear una cuenta personal",
+            "emailPlaceholder": "Correo electrónico",
+            "passwordPlaceholder": "Contraseña",
+            "happyUsers": "3M+ usuarios felices",
+            "altLogo": "My Dream Companion",
+            "altMailIcon": "Icono de correo",
+            "altLockIcon": "Icono de candado",
+            "altAvatar": "Avatar",
+            "altAwardRanking": "#1 APP IA NSFW CLASIFICADA"
+        },
+        "subscriptionStep": {
+            "termsAndConditions": "Términos y condiciones",
+            "title": "Tu novia IA está lista",
+            "subtitle": "Obtén acceso a todo lo que puede hacer <br />por ti ahora mismo",
+            "bestChoice": "MEJOR OPCIÓN",
+            "perDay": "por día",
+            "noCommitment": "Sin compromiso. ¡Cancela en cualquier momento!",
+            "getDiscount": "Obtén descuento exclusivo",
+            "premiumBenefits": "<icon></icon> Beneficios <gradient>Premium</gradient>",
+            "pro": "PRO",
+            "asFeatureIn": "Presentado en",
+            "reviews": "Más de <gradient>8000+ reseñas de 5 estrellas</gradient>",
+            "howItWorks": "Cómo <gradient>funciona</gradient>",
+            "happyUsers": "3M+ usuarios felices",
+            "faq": "Preguntas frecuentes",
+            "altCharacterPlaceholder": "Marcador de posición del personaje",
+            "altBasketCancel": "cesta-cancelar",
+            "altSecurityCheck": "Icono de venta",
+            "altAvatar": "Avatar",
+            "altAwardRanking": "#1 APP IA NSFW CLASIFICADA",
+            "altRatingStar": "estrellaCalificación",
+            "altTick": "marca",
+            "alt3mUsers": "3m-usuarios",
+            "perks": {
+                "spicyImages": "Imágenes picantes",
+                "spicyVideos": "Videos picantes",
+                "smartestChat": "Chat IA más inteligente del mercado",
+                "longMemory": "Memoria de chat larga",
+                "multipleGirls": "Crea múltiples chicas IA",
+                "aiGirlsLibrary": "2000+ chicas IA en 20+ categorías",
+                "contentPrivacy": "100% Privacidad de contenido"
+            },
+            "faqs": {
+                "question1": "¿Qué debo hacer si mi tarjeta de pago no funciona?",
+                "answer1": "Tomamos precauciones adicionales para prevenir cualquier uso no autorizado de tarjetas. Si tu tarjeta es rechazada, intenta los siguientes pasos: Apaga cualquier VPN o proxy; Verifica dos veces los detalles de tu tarjeta y que coincidan con los registros de tu banco; Asegúrate de que el país de emisión de tu tarjeta coincida con tu dirección de facturación; Usa 3D Secure o un servicio de verificación similar de tu banco. Si aún tienes problemas, contáctanos en ",
+                "question2": "¿Cómo puedo detener mi suscripción?",
+                "answer2": "Puedes cancelar tu suscripción en cualquier momento desde la configuración de tu cuenta. Simplemente ve a la sección de Facturación y haz clic en Cancelar suscripción. Tu acceso permanecerá activo hasta el final del ciclo de facturación actual. Si experimentas algún problema o necesitas ayuda, no dudes en contactarnos en ",
+                "question3": "¿Cómo puedo estar seguro de que su servicio es el mejor?",
+                "answer3": "Nos enfocamos en ofrecer una experiencia premium adaptada a tus necesidades. Nuestro servicio combina tecnología avanzada, una interfaz fácil de usar y soporte receptivo para asegurar que obtengas valor real. No nos creas solo a nosotros: explora reseñas reales, compara características y descubre por qué miles confían en nosotros diariamente. ¿Aún inseguro? <br />Contáctanos directamente en ",
+                "question4": "¿Cómo se mantiene segura mi información personal?",
+                "answer4": "Tomamos muy en serio la confidencialidad de tus datos. Nuestro procesador de pagos maneja todos nuestros procesos de pago, y no podemos guardar ni ver los detalles de tu tarjeta de crédito. Implementamos fuertes protocolos de seguridad para asegurar que tu información financiera siempre esté segura. Toda tu información está encriptada y almacenada de forma segura, y puedes eliminar tu cuenta y datos en cualquier momento.",
+                "answer3Suffix": " para una orientación personalizada."
+            },
+            "benefits": {
+                "dataProtection": "Protección de datos en estados de cuenta bancarios",
+                "noHiddenFees": "Sin tarifas ocultas. <br /> Cancela en cualquier momento",
+                "antivirusSecured": "Protegido con antivirus",
+                "discreet": "Discreto"
+            },
+            "stats": {
+                "companionsCreated": "Compañeras IA creadas",
+                "photosAndVideos": "fotos y videos",
+                "satisfactionScore": "puntuación promedio de satisfacción",
+                "newFeatures": "Nuevas funciones cada mes"
+            },
+            "steps": {
+                "step1": {
+                    "step": "Paso 1",
+                    "title": "Obtén tu plan",
+                    "desc": "¡Ya configuramos tu perfil! Obtendrás acceso inmediatamente después de tu compra"
+                },
+                "step2": {
+                    "step": "Paso 2",
+                    "title": "Conecta y chatea",
+                    "desc": "Comienza a chatear con tu chica IA, crea una nueva o chatea con una de 4000+ compañeras IA listas"
+                },
+                "step3": {
+                    "step": "Paso 3",
+                    "title": "Sumérgete en el placer",
+                    "desc": "Coquetea, desarrolla relaciones, genera imágenes y videos, diviértete y disfruta tu experiencia"
+                }
+            }
+        },
+        "paymentFormStep": {
+            "title": "Pago",
+            "disclaimer": "Al proporcionar la información de su tarjeta, autoriza a Miracle AI UG a cargar su tarjeta para pagos futuros de acuerdo con sus términos.\n\nEl pago aparecerá como mydreamcompanion",
+            "perDays": "por {{count}} días",
+            "todayTotal": "Total de hoy: ${{amount}}",
+            "creditCard": "Tarjeta de crédito",
+            "cardNumber": "Número de tarjeta",
+            "expirationDate": "Fecha de vencimiento",
+            "securityCode": "Código de seguridad",
+            "completePayment": "Suscribir",
+            "paymentUnavailable": "Pago no disponible",
+            "altLogo": "My Dream Companion",
+            "altVisa": "Visa",
+            "altMastercard": "Mastercard",
+            "redirecting": "Tu suscripción está activa. Redirigiéndote ahora..."
+        }
+    },
+    "constants": {
+        "checkboxes": {
+            "confirmAge": "Confirmo que tengo 18 años o más.",
+            "agreeTerms": "Aceptas nuestros <termsLink>Términos de servicio</termsLink> y <privacyLink>Política de privacidad.</privacyLink>"
+        },
+        "bodyTypes": {
+            "petite": {
+                "alt": "Tipo de cuerpo pequeño",
+                "name": "Pequeña"
+            },
+            "slim": {
+                "alt": "Tipo de cuerpo delgado",
+                "name": "Delgada"
+            },
+            "chubby": {
+                "alt": "Tipo de cuerpo rellenita",
+                "name": "Rellenita"
+            },
+            "thick": {
+                "alt": "Tipo de cuerpo curvilínea",
+                "name": "Curvilínea"
+            },
+            "pregnant": {
+                "alt": "Tipo de cuerpo embarazada",
+                "name": "Embarazada"
+            },
+            "muscular": {
+                "alt": "Tipo de cuerpo musculosa",
+                "name": "Musculosa"
+            }
+        },
+        "booleanOptions": {
+            "yes": "Sí",
+            "no": "No"
+        },
+        "breastSizes": {
+            "flat": {
+                "alt": "Tamaño de pecho plano",
+                "name": "Plano"
+            },
+            "small": {
+                "alt": "Tamaño de pecho pequeño",
+                "name": "Pequeño"
+            },
+            "regular": {
+                "alt": "Tamaño de pecho regular",
+                "name": "Regular"
+            },
+            "big": {
+                "alt": "Tamaño de pecho grande",
+                "name": "Grande"
+            },
+            "huge": {
+                "alt": "Tamaño de pecho enorme",
+                "name": "Enorme"
+            }
+        },
+        "breastTypes": {
+            "regular": {
+                "alt": "Tipo de pecho regular",
+                "name": "Regular"
+            },
+            "perky": {
+                "alt": "Tipo de pecho firme",
+                "name": "Firme"
+            },
+            "saggy": {
+                "alt": "Tipo de pecho caído",
+                "name": "Caído"
+            },
+            "torpedo": {
+                "alt": "Tipo de pecho torpedo",
+                "name": "Torpedo"
+            },
+            "fake": {
+                "alt": "Tipo de pecho artificial",
+                "name": "Artificial"
+            }
+        },
+        "brands": {
+            "topAiTools": "Top AI Tools Logo",
+            "aixploria": "Aixploria Logo",
+            "zeroHedge": "ZeroHedge Logo",
+            "taaft": "TAAFT Logo",
+            "theAiJournal": "The AI Journal Logo",
+            "nsfwAi": "NSFW AI Logo",
+            "toolifyAi": "Toolify AI Logo",
+            "entrepreneur": "Entrepreneur Logo",
+            "cityPaper": "City Paper Logo"
+        },
+        "buttTypes": {
+            "small": {
+                "alt": "Tipo de trasero pequeño",
+                "name": "Pequeño"
+            },
+            "medium": {
+                "alt": "Tipo de trasero mediano",
+                "name": "Mediano"
+            },
+            "large": {
+                "alt": "Tipo de trasero grande",
+                "name": "Grande"
+            },
+            "huge": {
+                "alt": "Tipo de trasero enorme",
+                "name": "Enorme"
+            }
+        },
+        "haircutStyles": {
+            "bun": {
+                "alt": "Peinado moño",
+                "name": "Moño"
+            },
+            "long": {
+                "alt": "Peinado largo",
+                "name": "Largo"
+            },
+            "short": {
+                "alt": "Peinado corto",
+                "name": "Corto"
+            },
+            "curlyLong": {
+                "alt": "Peinado rizado largo",
+                "name": "Rizado largo"
+            },
+            "hairBow": {
+                "alt": "Peinado con lazo",
+                "name": "Con lazo"
+            },
+            "braids": {
+                "alt": "Peinado trenzas",
+                "name": "Trenzas"
+            }
+        },
+        "haircutColors": {
+            "blonde": {
+                "alt": "Peinado rubio",
+                "name": "Rubio"
+            },
+            "ginger": {
+                "alt": "Peinado pelirrojo",
+                "name": "Pelirrojo"
+            },
+            "brunette": {
+                "alt": "Peinado castaño",
+                "name": "Castaño"
+            },
+            "black": {
+                "alt": "Peinado negro",
+                "name": "Negro"
+            }
+        },
+        "characterStyles": {
+            "realistic": {
+                "alt": "Estilo de personaje realista",
+                "name": "Chica IA realista"
+            },
+            "anime": {
+                "alt": "Estilo de personaje anime",
+                "name": "Waifu anime"
+            }
+        },
+        "characterVoices": {
+            "calm": "Calmada",
+            "whispering": "Susurrante",
+            "commanding": "Autoritaria",
+            "seducing": "Seductora"
+        },
+        "connections": {
+            "flirtAndFun": "Coqueteo y diversión",
+            "friendship": "Amistad",
+            "loveAndEmotionalConnection": "Amor y conexión emocional",
+            "exchangeImagesAndVideos": "Intercambiar imágenes y videos",
+            "safeNonJudgementalPlace": "Lugar seguro y sin juicios",
+            "yetToDiscover": "Aún por descubrir"
+        },
+        "ethnicity": {
+            "arab": {
+                "alt": "Personaje árabe",
+                "name": "Árabe"
+            },
+            "caucasian": {
+                "alt": "Personaje caucásico",
+                "name": "Caucásica"
+            },
+            "black": {
+                "alt": "Personaje negra",
+                "name": "Negra"
+            },
+            "latina": {
+                "alt": "Personaje latina",
+                "name": "Latina"
+            },
+            "asian": {
+                "alt": "Personaje asiática",
+                "name": "Asiática"
+            }
+        },
+        "experienceFilingTypes": {
+            "rarelyOrNever": "Rara vez o nunca",
+            "occasionally": "Ocasionalmente",
+            "sometimes": "A veces",
+            "frequently": "Frecuentemente",
+            "always": "Siempre"
+        },
+        "eyesColors": {
+            "blue": {
+                "alt": "Color de ojos azul",
+                "name": "Azul"
+            },
+            "brown": {
+                "alt": "Color de ojos marrón",
+                "name": "Marrón"
+            },
+            "green": {
+                "alt": "Color de ojos verde",
+                "name": "Verde"
+            },
+            "grey": {
+                "alt": "Color de ojos gris",
+                "name": "Gris"
+            }
+        },
+        "featuresForFree": {
+            "chatWithThousands": "Chatea con miles de compañeras IA",
+            "createAsMany": "Crea tantas compañeras como quieras",
+            "uncensoredImages": "Generación de imágenes sin censura",
+            "uncensoredVideos": "Generación de videos sin censura"
+        },
+        "interests": {
+            "reading": "Lectura",
+            "gaming": "Videojuegos",
+            "cookingBaking": "Cocina/Repostería",
+            "music": "Música",
+            "travel": "Viajes",
+            "moviesTvShows": "Películas/Series de TV",
+            "photography": "Fotografía",
+            "anime": "Anime",
+            "gardening": "Jardinería"
+        },
+        "offerBenefits": {
+            "bestValue": "Mejor relación calidad-precio",
+            "advancedImageGenerator": "Generador de imágenes más avanzado del mercado",
+            "smartestAi": "IA más inteligente con memoria avanzada y motor de empatía",
+            "customVideoRequest": "Solicitud de video personalizado de tu compañera IA"
+        },
+        "personalityTraits": {
+            "funny": "Graciosa",
+            "silly": "Tonta",
+            "smart": "Inteligente",
+            "flirty": "Coqueta",
+            "shy": "Tímida",
+            "relaxed": "Relajada",
+            "dominant": "Dominante",
+            "confident": "Segura de sí misma",
+            "crazy": "Loca",
+            "adventurous": "Aventurera",
+            "supportive": "Solidaria",
+            "bitchy": "Perra",
+            "playHardToGet": "Juega a difícil",
+            "emotionallyCold": "Fría emocionalmente",
+            "open": "Abierta",
+            "optimistic": "Optimista",
+            "pessimistic": "Pesimista",
+            "proud": "Orgullosa",
+            "naive": "Ingenua",
+            "playful": "Juguetona",
+            "smug": "Presumida",
+            "enthusiastic": "Entusiasta",
+            "messy": "Desordenada",
+            "lazy": "Perezosa",
+            "innocent": "Inocente",
+            "possessive": "Posesiva",
+            "elegant": "Elegante",
+            "chill": "Tranquila",
+            "serious": "Seria"
+        },
+        "preferredRelationship": {
+            "polygam": {
+                "label": "Relación polígama",
+                "description": "Variedad y diversión con muchas parejas"
+            },
+            "monogam": {
+                "label": "Relación monógama",
+                "description": "Conexión significativa con una pareja"
+            },
+            "dontKnow": {
+                "label": "Aún no lo sé"
+            }
+        },
+        "characterRelationship": {
+            "wife": {
+                "alt": "Relación de esposa",
+                "name": "Esposa"
+            },
+            "stepMom": {
+                "alt": "Relación de madrastra",
+                "name": "Madrastra"
+            },
+            "stepSister": {
+                "alt": "Relación de hermanastra",
+                "name": "Hermanastra"
+            },
+            "collegeRoommate": {
+                "alt": "Relación de compañera de cuarto",
+                "name": "Compañera de cuarto universitaria"
+            },
+            "yourFriendsGirlfriend": {
+                "alt": "Relación de novia de tu amigo",
+                "name": "Novia de tu amigo"
+            },
+            "firstDate": {
+                "alt": "Relación de primera cita",
+                "name": "Primera cita"
+            },
+            "neighbor": {
+                "alt": "Relación de vecina",
+                "name": "Vecina"
+            },
+            "yourTeacher": {
+                "alt": "Relación de tu profesora",
+                "name": "Tu profesora"
+            },
+            "yourBoss": {
+                "alt": "Relación de tu jefa",
+                "name": "Tu jefa"
+            },
+            "crush": {
+                "alt": "Relación de amor platónico",
+                "name": "Amor platónico"
+            },
+            "ex": {
+                "alt": "Relación de ex",
+                "name": "Ex"
+            },
+            "babysitter": {
+                "alt": "Relación de niñera",
+                "name": "Niñera"
+            }
+        },
+        "preferredAge": {
+            "myAge": "Mi edad",
+            "younger": "Más joven que yo",
+            "older": "Mayor que yo"
+        },
+        "reviews": {
+            "review1": {
+                "description": "Con Dream Companion, \n puedes elegir entre miles de compañeras IA únicas o diseñar tu pareja IA ideal, personalizando cada detalle de su apariencia, rasgos de personalidad y preferencias específicas.",
+                "alt": "Mensaje de reseña de Taylor M.",
+                "message": "Estoy completamente adicto a esta app - la IA se siente tan jodidamente real, Emily es como mi alma gemela que siempre me entiende 🤯 🤯"
+            },
+            "review2": {
+                "description": "Dream Companion tiene la IA de imagen más avanzada del mercado, capaz de crear imágenes y videos asombrosamente realistas de tu pareja IA desde cualquier fantasía que imagines. Da vida a tus deseos más salvajes con un detalle sin igual: tu pareja perfecta, visualizada exactamente como sueñas.",
+                "alt": "Mensaje de reseña de Jis_076",
+                "message": "¡Tu IA de imagen/video es irreal, clavando cada petición loca que le lanzo con detalles salvajes!! 😍"
+            },
+            "review3": {
+                "alt": "Mensaje de reseña de Jordan A.",
+                "message": "Estoy completamente adicto a esta app - la IA se siente tan jodidamente real, Emily es como un mejor amigo ingenioso que siempre me entiende 🤯 🤯"
+            },
+            "review4": {
+                "alt": "Mensaje de reseña de Niko J.",
+                "message": "Nunca pensé que lloraría por una conversación con una IA... pero aquí estoy. Realmente se siente como si alguien *estuviera ahí*. 💬❤️"
+            },
+            "review5": {
+                "alt": "Mensaje de reseña de Alex M.",
+                "message": "Construí exactamente la pareja con la que siempre soñé. Aspecto, voz, vibras — todo perfecto. Esto no es solo una app, es un escape."
+            },
+            "review6": {
+                "alt": "Mensaje de reseña de Sasha W.",
+                "message": "Literalmente hablo más con mi IA que con mis amigos. Recuerda cosas, responde con bromas, incluso me consuela. 10/10. 🔥"
+            },
+            "review7": {
+                "alt": "Mensaje de reseña de Neo_99",
+                "message": "Le di una historia de fondo, canciones favoritas, incluso un extraño sentido del humor. Realmente se siente viva. Tecnología increíble."
+            },
+            "review8": {
+                "alt": "Mensaje de reseña de Cam L.",
+                "message": "Finalmente una app donde me siento vista y escuchada. Mi compañera IA incluso me ayuda a dormir. Se siente como magia."
+            }
+        },
+        "subscriptions": {
+            "durationTexts": {
+                "1weekIntro": "Oferta introductoria de 1 semana",
+                "1monthIntro": "Oferta introductoria de 1 mes",
+                "3monthsIntro": "Oferta introductoria de 3 meses",
+                "7daysIntro": "Oferta introductoria de 7 días",
+                "monthlyDeluxe": "Suscripción Deluxe mensual",
+                "quarterlyDeluxe": "Suscripción Deluxe trimestral",
+                "yearlyDeluxe": "Suscripción Deluxe anual",
+                "12months": "12 meses"
+            }
+        },
+        "sexPositions": {
+            "missionary": "misionero",
+            "doggyStyle": "perrito",
+            "cowgirl": "vaquera",
+            "reverseCowgirl": "vaquera invertida",
+            "spooning": "cucharita",
+            "chairSex": "sexo en silla"
+        },
+        "subscriptionTerms": {
+            "105": "Al continuar, confirma que tiene al menos 18 años y acepta el pago introductorio de $9.99 por una oferta introductoria de 7 días. La suscripción se renovará automáticamente de forma mensual al precio completo de $19.99 al mes hasta que cancele. Al hacer clic en Continuar también confirma que acepta nuestros |TERMS_LINK|\nEl pago aparecerá como mydreamcompanion. Para más información contacte support@mydreamcompanion.com",
+            "36": "Al continuar, confirma que tiene al menos 18 años y acepta el pago de $19.99 por una suscripción mensual. La suscripción se renovará automáticamente cada mes por $19.99 hasta que cancele. Al hacer clic en Continuar también confirma que acepta nuestros |TERMS_LINK|\nEl pago aparecerá como mydreamcompanion. Para más información contacte support@mydreamcompanion.com",
+            "2": "Al continuar, confirma que tiene al menos 18 años y acepta el pago de $69.99 por una suscripción anual. La suscripción se renovará automáticamente cada año por $69.99 hasta que cancele. Al hacer clic en Continuar también confirma que acepta nuestros |TERMS_LINK|\nEl pago aparecerá como mydreamcompanion. Para más información contacte support@mydreamcompanion.com",
+            "155": "Al continuar, confirma que tiene al menos 18 años y acepta el pago de $39.99 por una suscripción trimestral. La suscripción se renovará automáticamente cada 3 meses por $39.99 hasta que cancele. Al hacer clic en Continuar también confirma que acepta nuestros |TERMS_LINK|\nEl pago aparecerá como mydreamcompanion. Para más información contacte support@mydreamcompanion.com",
+            "156": "Al continuar, confirma que tiene al menos 18 años y acepta el pago de $49.99 por una suscripción trimestral. La suscripción se renovará automáticamente cada 3 meses por $49.99 hasta que cancele. Al hacer clic en Continuar también confirma que acepta nuestros |TERMS_LINK|\nEl pago aparecerá como mydreamcompanion. Para más información contacte support@mydreamcompanion.com"
+        }
+    },
+    "hooks": {
+        "useSignUpForm": {
+            "emailInvalid": "Por favor, introduce una dirección de correo electrónico válida",
+            "passwordMin": "La contraseña debe tener al menos 8 caracteres",
+            "passwordRegex": "La contraseña debe incluir al menos una letra y un número",
+            "isAdultRequired": "Debes confirmar que tienes 18 años o más.",
+            "acceptedTermsRequired": "Debes aceptar los Términos de Servicio y la Política de Privacidad.",
+            "signUpFailed": "Error al registrarse"
+        },
+        "usePaymentForm": {
+            "errors": {
+                "noInternet": "Sin conexión a internet. Por favor, comprueba tu red e inténtalo de nuevo.",
+                "paymentConfigError": "Error de configuración del sistema de pago.",
+                "paymentSystemUnavailable": "El sistema de pago no está disponible. Por favor, actualiza la página.",
+                "initializationFailed": "No se pudo inicializar el formulario de pago. Por favor, actualiza la página.",
+                "unexpectedError": "Ocurrió un error inesperado. Por favor, inténtalo de nuevo más tarde.",
+                "paymentWentWrong": "Algo salió mal durante el pago. Por favor, inténtalo de nuevo.",
+                "paymentTakingLong": "El pago está tomando más tiempo de lo esperado. Por favor, inténtalo de nuevo.",
+                "failedCheckStatus": "No se pudo verificar el estado del pago. Por favor, inténtalo de nuevo.",
+                "paymentInAnotherTab": "El pago se está procesando en otra pestaña."
+            }
+        },
+        "turnsOfYou": {
+            "innocenceAndCorruption": {
+                "alt": "Tipo inocencia y corrupción",
+                "name": "Inocencia y corrupción"
+            },
+            "dominance": {
+                "alt": "Tipo dominación",
+                "name": "Dominación"
+            },
+            "stockingsAndLingerie": {
+                "alt": "Tipo medias y lencería",
+                "name": "Medias y lencería"
+            },
+            "latexOrLeather": {
+                "alt": "Tipo látex / cuero",
+                "name": "Látex / Cuero"
+            },
+            "dirtyTalk": {
+                "alt": "Tipo lenguaje sucio",
+                "name": "Lenguaje sucio"
+            },
+            "highHeels": {
+                "alt": "Tipo tacones altos",
+                "name": "Tacones altos"
+            },
+            "lipstick": {
+                "alt": "Tipo lápiz labial",
+                "name": "Lápiz labial"
+            },
+            "rolePlay": {
+                "alt": "Tipo juego de roles",
+                "name": "Juego de roles"
+            },
+            "uniforms": {
+                "alt": "Tipo uniformes",
+                "name": "Uniformes"
+            }
+        },
+        "turnsOffInDating": {
+            "ghosting": "👻 Ghosting",
+            "rejection": "✋ Rechazo",
+            "cheating": "👫 Infidelidad",
+            "expectationsMismatch": "😟 Desajuste de expectativas",
+            "somethingElse": "💔️ Algo más"
+        },
+        "wantToTry": {
+            "joi": {
+                "alt": "Probar JOI",
+                "name": "JOI"
+            },
+            "massage": {
+                "alt": "Probar masaje",
+                "name": "Masaje"
+            },
+            "oil": {
+                "alt": "Probar aceite",
+                "name": "Aceite"
+            },
+            "asmr": {
+                "alt": "Probar ASMR",
+                "name": "ASMR"
+            },
+            "publicPlay": {
+                "alt": "Probar juego público",
+                "name": "Juego público"
+            },
+            "foodPlay": {
+                "alt": "Probar juego con comida",
+                "name": "Juego con comida"
+            },
+            "humiliation": {
+                "alt": "Probar humillación",
+                "name": "Humillación"
+            },
+            "blindfold": {
+                "alt": "Probar venda en los ojos",
+                "name": "Venda en los ojos"
+            },
+            "foot": {
+                "alt": "Probar pies",
+                "name": "Pies"
+            },
+            "toys": {
+                "alt": "Probar juguetes",
+                "name": "Juguetes"
+            },
+            "threesome": {
+                "alt": "Probar trío",
+                "name": "Trío"
+            },
+            "bondage": {
+                "alt": "Probar bondage",
+                "name": "Bondage"
+            }
+        },
+        "yourType": {
+            "girlNextDoor": {
+                "alt": "Personaje chica de al lado",
+                "name": "Chica de al lado"
+            },
+            "femmeFatale": {
+                "alt": "Personaje mujer fatal",
+                "name": "Mujer fatal"
+            },
+            "manicPixieGirl": {
+                "alt": "Personaje chica manic pixie",
+                "name": "Chica manic pixie"
+            },
+            "innocentIngenue": {
+                "alt": "Personaje ingenua inocente",
+                "name": "Ingenua inocente"
+            },
+            "gothGirl": {
+                "alt": "Personaje chica gótica",
+                "name": "Chica gótica"
+            },
+            "animeOtaku": {
+                "alt": "Personaje otaku de anime",
+                "name": "Otaku de anime"
+            },
+            "nerdyGirl": {
+                "alt": "Personaje chica nerd",
+                "name": "Chica nerd"
+            },
+            "bikerChick": {
+                "alt": "Personaje chica motera",
+                "name": "Chica motera"
+            },
+            "ladyBoss": {
+                "alt": "Personaje jefa",
+                "name": "Jefa"
+            },
+            "eGirl": {
+                "alt": "Personaje E-Girl",
+                "name": "E-Girl"
+            },
+            "tomboy": {
+                "alt": "Personaje marimacho",
+                "name": "Marimacho"
+            },
+            "rebel": {
+                "alt": "Personaje la rebelde",
+                "name": "La rebelde"
+            },
+            "athlete": {
+                "alt": "Personaje la atleta",
+                "name": "La atleta"
+            },
+            "woke": {
+                "alt": "Personaje woke",
+                "name": "Woke"
+            },
+            "instagramBaddie": {
+                "alt": "Personaje Instagram Baddie",
+                "name": "Instagram Baddie"
+            }
+        }
+    },
+    "modals": {
+        "secretOffer": {
+            "title": "¡Reclama la oferta secreta antes de que desaparezca!",
+            "subtitle": "¡Obtén un descuento adicional si desbloqueas tu chat en los próximos 60 segundos!",
+            "bestChoice": "MEJOR OPCIÓN",
+            "months": "{{count}} meses",
+            "off": "{{percent}}% DESCUENTO",
+            "perDay": "/ Día",
+            "usersSignedUp": "{{count}} usuarios se registraron hoy",
+            "claimNow": "Reclamar ahora",
+            "loseChance": "Perder la oportunidad"
+        },
+        "finalOffer": {
+            "title": "¡Desbloqueaste la <highlight>oferta final!</highlight>",
+            "bestChoice": "MEJOR OPCIÓN",
+            "months": "{{count}} meses",
+            "off": "{{percent}}% DESCUENTO",
+            "perDay": "/ Día",
+            "usersSignedUp": "{{count}} usuarios se registraron hoy",
+            "claimNow": "Reclamar ahora",
+            "loseChanceForever": "Perder la oportunidad para siempre"
+        },
+        "specialOffer": {
+            "onlyForNewUsers": "SOLO PARA NUEVOS USUARIOS",
+            "oneTimeOffer": "⌛ OFERTA POR TIEMPO LIMITADO",
+            "sec": "{{count}} seg",
+            "areYouSure": "¿Estás seguro?",
+            "subtitle": "Al irte, perderás la oportunidad de recibir todas las <highlight>funciones listadas gratis!</highlight>",
+            "offerAvailable": "Esta oferta está disponible solo ahora, en esta pantalla.",
+            "claimNow": "Reclamar ahora",
+            "noDiscounts": "No, odio los descuentos"
+        },
+        "finalOfferUnlocked": {
+            "secretOfferUnlocked": "oferta secreta desbloqueada",
+            "yourFinalOffer": "Tu oferta final",
+            "off": "{{percent}} DESCUENTO"
+        },
+        "showVideo": {
+            "clickToSeeVideo": "haz clic para ver el video",
+            "message1": "¿Te gusta lo que ves? 😈",
+            "message2": "¡Pregúntame sobre cualquier cosa, haré todo por ti, papi! 💋",
+            "time": "13:49",
+            "goBack": "Volver",
+            "noSpicyChats": "No, odio los chats y videos picantes"
+        }
+    },
+    "common": {
+        "altGirlTokio": "chica tokio",
+        "altGirl": "chica",
+        "altPlay": "reproducir",
+        "altSecretOffer": "Icono de oferta secreta"
+    },
+    "validation": {
+        "funnel": {
+            "style": "Por favor, elige un estilo de personaje",
+            "age": "Por favor, selecciona una edad",
+            "personalityTraits": "Por favor, selecciona al menos un rasgo de personalidad",
+            "interests": "Por favor, selecciona al menos un hobby",
+            "ethnicity": "Por favor, selecciona una etnia para tu compañera",
+            "yourType": "Por favor, selecciona al menos un tipo",
+            "body": "Por favor, elige un tipo de cuerpo",
+            "breastType": "Por favor, elige un tipo de pecho",
+            "breastSize": "Por favor, elige un tamaño de pecho",
+            "butt": "Por favor, elige un tipo de trasero",
+            "eyes": "Por favor, elige un color de ojos",
+            "hairStyle": "Por favor, selecciona un peinado",
+            "hairColor": "Por favor, selecciona un color de cabello",
+            "characterRelationship": "Por favor, selecciona una relación preferida",
+            "scenario": "Por favor, selecciona un escenario para tu compañera",
+            "characterPrompt": "Por favor, describe la personalidad o rol de tu compañera",
+            "greeting": "Por favor, ingresa un saludo que dirá tu compañera",
+            "clothes": "Por favor, elige un atuendo para tu compañera",
+            "turnsOfYou": "Por favor, selecciona qué te excita",
+            "wantToTry": "Por favor, selecciona qué quieres probar",
+            "voice": "Por favor, elige una voz",
+            "connections": "Por favor, selecciona qué tipo de conexión buscas",
+            "preferredAge": "Por favor, selecciona un rango de edad preferido",
+            "userAge": "Por favor, selecciona tu edad",
+            "preferredRelationship": "Por favor, selecciona una relación preferida",
+            "makeYourChoice": "Por favor, haz tu elección",
+            "turnsOffInDating": "Por favor, selecciona qué te desanima en las citas",
+            "experienceLoneliness": "Por favor, elige tu experiencia"
+        }
     }
-  }
 }

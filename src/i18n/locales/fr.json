@@ -726,6 +726,7 @@
         },
         "usePaymentForm": {
             "errors": {
+                "noInternet": "Pas de connexion internet. Veuillez vérifier votre réseau et réessayer.",
                 "paymentConfigError": "Erreur de configuration du système de paiement.",
                 "paymentSystemUnavailable": "Le système de paiement n'est pas disponible. Veuillez actualiser la page.",
                 "initializationFailed": "Échec de l'initialisation du formulaire de paiement. Veuillez actualiser la page.",

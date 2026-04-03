@@ -21,6 +21,68 @@ export enum toastType {
     error = 'error',
 }
 
+const SuccessIcon = () => (
+    <svg
+        className="w-5 h-5 shrink-0"
+        viewBox="0 0 20 20"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+        role="img"
+        aria-label="Success"
+    >
+        <circle cx="10" cy="10" r="10" fill="#16a34a" />
+        <path
+            d="M5.5 10.5L8.5 13.5L14.5 7"
+            stroke="white"
+            strokeWidth="1.8"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+        />
+    </svg>
+);
+
+const ErrorIcon = () => (
+    <svg
+        className="w-5 h-5 shrink-0"
+        viewBox="0 0 20 20"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+        role="img"
+        aria-label="Error"
+    >
+        <circle cx="10" cy="10" r="10" fill="#e11d48" />
+        <path d="M7 7L13 13M13 7L7 13" stroke="white" strokeWidth="1.8" strokeLinecap="round" />
+    </svg>
+);
+
+const WarningIcon = () => (
+    <svg
+        className="w-5 h-5 shrink-0"
+        viewBox="0 0 20 20"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+        role="img"
+        aria-label="Warning"
+    >
+        <circle cx="10" cy="10" r="10" fill="#a16207" />
+        <path d="M10 6V11" stroke="white" strokeWidth="1.8" strokeLinecap="round" />
+        <circle cx="10" cy="13.5" r="1" fill="white" />
+    </svg>
+);
+
+const CloseIcon = () => (
+    <svg
+        className="w-4 h-4"
+        viewBox="0 0 16 16"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+        role="img"
+        aria-label="Close"
+    >
+        <path d="M3 3L13 13M13 3L3 13" stroke="white" strokeWidth="1.6" strokeLinecap="round" />
+    </svg>
+);
+
 export const triggerToast = (toast: Omit<ToastProps, 'id'>) => {
     return sonnerToast.custom((id) => (
         <Toast
@@ -29,7 +91,7 @@ export const triggerToast = (toast: Omit<ToastProps, 'id'>) => {
             type={toast.type}
             description={toast.description}
             button={{
-                label: <img src="/icons/cross-icon.svg" alt="Close" width={16} height={16} className="w-4 h-4" />,
+                label: <CloseIcon />,
                 onClick: () => {},
             }}
         />
@@ -45,30 +107,29 @@ const Toast = (props: ToastProps) => {
                 {type === toastType.success && (
                     <>
                         <div className="absolute -top-5 -left-5 w-[100px] h-[100px] bg-green-700 rounded-full blur-3xl" />
-                        <img src="/icons/success-icon.svg" alt="Icon" width={20} height={20} className="w-5 h-5 " />
+                        <SuccessIcon />
                     </>
                 )}
                 {type === toastType.error && (
                     <>
                         <div className="absolute -top-5 -left-5 w-[100px] h-[100px] bg-pink-red rounded-full blur-3xl" />
-                        <img src="/icons/error-icon.svg" alt="Icon" width={20} height={20} className="w-5 h-5" />
+                        <ErrorIcon />
                     </>
                 )}
                 {type === toastType.warning && (
                     <>
                         <div className="absolute -top-5 -left-5 w-[100px] h-[100px] bg-yellow-700 rounded-full blur-3xl" />
-                        <img src="/icons/info-icon.svg" alt="Icon" width={20} height={20} className="w-5 h-5" />
+                        <WarningIcon />
                     </>
                 )}
-
                 <div className="w-full">
                     <p className="text-sm font-semibold text-white">{title}</p>
                     {description && <p className="mt-1 text-sm text-white">{description}</p>}
                 </div>
             </div>
-            <div className="ml-5 shrink-0 rounded-md text-sm font-medium text-indigo-600 hover:text-indigo-500 focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:outline-hidden">
+            <div className="ml-5 shrink-0">
                 <Button
-                    className="rounded-[6px] h-[30px] w-[30px] bg-transparent px-3 py-1 hover:bg-zinc-600"
+                    className="rounded-[6px] h-[30px] w-[30px] bg-transparent p-0 flex items-center justify-center hover:bg-zinc-600"
                     onClick={() => {
                         button?.onClick();
                         sonnerToast.dismiss(id);

@@ -225,10 +225,26 @@ export function usePaymentForm(posthog?: PostHog) {
 
             const { subscriptionId, timestamp } = JSON.parse(stored);
 
-            // Guard: if entry has no subscriptionId (stale from before fix), clear it
+            // Early marker (no subscriptionId) means payment was started but
+            // backend hadn't responded yet when the page was refreshed.
+            // Stay on this step — usePremiumRedirect will check /auth/me and
+            // redirect if the payment actually went through. After a short delay,
+            // clear the marker so the user can retry if the payment didn't go through.
             if (!subscriptionId) {
-                localStorage.removeItem(PAYMENT_IN_PROGRESS_KEY);
-                setIsSubmitting(false);
+                if (Date.now() - timestamp > PAYMENT_STALENESS_TTL_MS) {
+                    localStorage.removeItem(PAYMENT_IN_PROGRESS_KEY);
+                    setIsSubmitting(false);
+                    return;
+                }
+                setIsSubmitting(true);
+                // Give usePremiumRedirect time to check /auth/me and redirect if paid.
+                // If after 15s the user is still here, clear the marker and allow retry.
+                const earlyMarkerTimeout = setTimeout(() => {
+                    localStorage.removeItem(PAYMENT_IN_PROGRESS_KEY);
+                    setIsSubmitting(false);
+                    setResumePollingFailed(true);
+                }, 15_000);
+                cancelPolling = () => clearTimeout(earlyMarkerTimeout);
                 return;
             }
 
@@ -504,6 +520,15 @@ export function usePaymentForm(posthog?: PostHog) {
                 return;
             }
 
+            // Write payment marker BEFORE any async work so a page refresh
+            // during tokenization / 3DS / API call keeps the user on this step.
+            // The marker is updated with subscriptionId once the backend responds.
+            try {
+                localStorage.setItem(PAYMENT_IN_PROGRESS_KEY, JSON.stringify({ timestamp: Date.now() }));
+            } catch {
+                // localStorage not available — proceed anyway
+            }
+
             const result = await shift4Instance.createToken(componentsGroup);
             if (result.error) throw new Error(result.error.message);
 
@@ -606,7 +631,29 @@ export function usePaymentForm(posthog?: PostHog) {
                         }
                     },
                     onError: (error: Error) => {
-                        // Payment processing error
+                        const axiosErr = error as AxiosError<{ message?: string }>;
+
+                        // 409 means user already has an active subscription —
+                        // treat as success and redirect to the main platform.
+                        if (axiosErr.response?.status === 409) {
+                            markPaymentCompleted();
+                            localStorage.removeItem(PAYMENT_IN_PROGRESS_KEY);
+
+                            if (channel) {
+                                channel.postMessage({
+                                    type: 'PAYMENT_SUCCESS',
+                                    senderId: tabId.current,
+                                    timestamp: Date.now(),
+                                });
+                            }
+
+                            setTimeout(() => {
+                                localStorage.removeItem(PAYMENT_COMPLETED_KEY);
+                                const redirectUrl = env.shift4.paymentRedirect;
+                                window.location.href = redirectUrl + '?authToken=' + authToken;
+                            }, 300);
+                            return;
+                        }
 
                         localStorage.removeItem(PAYMENT_IN_PROGRESS_KEY);
                         setIsPolling(false);
@@ -619,7 +666,6 @@ export function usePaymentForm(posthog?: PostHog) {
                             });
                         }
 
-                        const axiosErr = error as AxiosError<{ message?: string }>;
                         triggerToast({
                             title: isNetworkError(error)
                                 ? t('hooks.usePaymentForm.errors.noInternet')

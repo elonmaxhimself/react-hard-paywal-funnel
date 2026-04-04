@@ -8,9 +8,11 @@ import { usePaymentForm, PAYMENT_IN_PROGRESS_KEY, PAYMENT_STALENESS_TTL_MS } fro
 import { usePremiumRedirect } from '@/hooks/usePremiumRedirect';
 import { useFunnelStore } from '@/store/states/funnel';
 import { useEffect, useRef } from 'react';
+import { useFormContext } from 'react-hook-form';
 import SpriteIcon from '@/components/SpriteIcon';
 import { usePostHog } from 'posthog-js/react';
 import { STEPS_COUNT } from '@/features/funnel/funnelSteps';
+import type { FunnelSchema } from '@/hooks/funnel/useFunnelForm';
 
 const s4InputContainerStyles = 'h-[50px] bg-[#000]/30 rounded-[8px] border border-white/6 p-[12px]';
 
@@ -25,12 +27,26 @@ const getPeriodDays = (durationMonths: number): number => {
 export function PaymentFormStep() {
     const { t } = useTranslation();
     const setStep = useFunnelStore((s) => s.setStep);
+    const setFormState = useFunnelStore((s) => s.setFormState);
     const posthog = usePostHog();
+    const funnelForm = useFormContext<FunnelSchema>();
     const { product, onSubmit, isButtonDisabled, isPaymentInProgress, shift4Error, resumePollingFailed } =
         usePaymentForm(posthog);
     const { isRedirecting } = usePremiumRedirect();
     const { prevStep } = useStepperContext();
     const hasRedirected = useRef(false);
+
+    // Sync full form state (including productId) to Zustand on mount.
+    // handleAuthSuccess excludes productId when saving, and SubscriptionStep
+    // only updates React Hook Form — so Zustand never gets productId.
+    // This ensures form survives page refresh on the payment step.
+    useEffect(() => {
+        const formValues = funnelForm.getValues();
+        if (formValues.productId) {
+            setFormState(formValues);
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps -- mount-only sync
+    }, []);
 
     useEffect(() => {
         if (!product) {

@@ -734,7 +734,8 @@
                 "paymentWentWrong": "Une erreur s'est produite lors du paiement. Veuillez réessayer.",
                 "paymentTakingLong": "Le paiement prend plus de temps que prévu. Veuillez réessayer.",
                 "failedCheckStatus": "Échec de la vérification du statut du paiement. Veuillez réessayer.",
-                "paymentInAnotherTab": "Le paiement est en cours de traitement dans un autre onglet."
+                "paymentInAnotherTab": "Le paiement est en cours de traitement dans un autre onglet.",
+                "sessionExpired": "Votre session a expiré. La page se rechargera automatiquement."
             }
         },
         "turnsOfYou": {

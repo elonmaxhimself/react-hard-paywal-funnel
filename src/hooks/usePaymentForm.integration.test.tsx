@@ -968,6 +968,82 @@ describe('usePaymentForm — integration', () => {
             restoreWindowLocation();
         });
 
+        it('handles 401 (session expired) with user-friendly message and auto-reload', async () => {
+            const { mockInstance } = setupShift4OnWindow();
+
+            mockPayment.mockRejectedValue({
+                response: { status: 401, data: { message: 'Unauthorized' } },
+                message: 'Request failed with status code 401',
+            });
+
+            const reloadMock = vi.fn();
+            Object.defineProperty(window, 'location', {
+                writable: true,
+                value: { ...window.location, reload: reloadMock },
+                configurable: true,
+            });
+
+            const { result } = renderPaymentHook(createWrapper());
+
+            await waitFor(() => {
+                expect(mockInstance.createComponentGroup).toHaveBeenCalled();
+            });
+
+            await act(async () => {
+                await result.current.onSubmit();
+            });
+
+            // Should show session expired message, NOT "Request failed with status code 401"
+            expect(mockTriggerToast).toHaveBeenCalledWith(
+                expect.objectContaining({
+                    title: 'hooks.usePaymentForm.errors.sessionExpired',
+                    type: 'error',
+                }),
+            );
+            expect(mockTriggerToast).not.toHaveBeenCalledWith(
+                expect.objectContaining({
+                    title: expect.stringContaining('Request failed'),
+                }),
+            );
+
+            // Should auto-reload after 2s
+            act(() => {
+                vi.advanceTimersByTime(2000);
+            });
+            expect(reloadMock).toHaveBeenCalled();
+        });
+
+        it('shows backend error message instead of generic axios message', async () => {
+            const { mockInstance } = setupShift4OnWindow();
+
+            mockPayment.mockRejectedValue({
+                response: { status: 400, data: { message: 'Invalid card token' } },
+                message: 'Request failed with status code 400',
+            });
+
+            renderPaymentHook(createWrapper());
+
+            await waitFor(() => {
+                expect(mockInstance.createComponentGroup).toHaveBeenCalled();
+            });
+
+            const { result } = renderPaymentHook(createWrapper());
+            await waitFor(() => {
+                expect(mockInstance.createComponentGroup).toHaveBeenCalled();
+            });
+
+            await act(async () => {
+                await result.current.onSubmit();
+            });
+
+            // Should show backend message, NOT "Request failed with status code 400"
+            expect(mockTriggerToast).toHaveBeenCalledWith(
+                expect.objectContaining({
+                    title: 'Invalid card token',
+                }),
+            );
+        });
+
         it('handles unexpected charge response status (not subscription_initiated)', async () => {
             const { mockInstance } = setupShift4OnWindow();
 

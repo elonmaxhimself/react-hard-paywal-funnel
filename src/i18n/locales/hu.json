@@ -734,7 +734,8 @@
                 "paymentWentWrong": "Valami hiba történt fizetés közben. Kérlek, próbáld újra.",
                 "paymentTakingLong": "A fizetés a vártnál tovább tart. Kérlek, próbáld újra.",
                 "failedCheckStatus": "Fizetési állapot ellenőrzése sikertelen. Kérlek, próbáld újra.",
-                "paymentInAnotherTab": "A fizetés feldolgozás alatt áll egy másik lapon."
+                "paymentInAnotherTab": "A fizetés feldolgozás alatt áll egy másik lapon.",
+                "sessionExpired": "A munkameneted lejárt. Az oldal automatikusan újratöltődik."
             }
         },
         "turnsOfYou": {

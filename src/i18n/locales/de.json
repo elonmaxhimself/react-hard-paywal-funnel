@@ -734,7 +734,8 @@
                 "paymentWentWrong": "Bei der Zahlung ist etwas schief gelaufen. Bitte versuche es erneut.",
                 "paymentTakingLong": "Die Zahlung dauert länger als erwartet. Bitte versuche es erneut.",
                 "failedCheckStatus": "Überprüfung des Zahlungsstatus fehlgeschlagen. Bitte versuche es erneut.",
-                "paymentInAnotherTab": "Die Zahlung wird in einem anderen Tab verarbeitet."
+                "paymentInAnotherTab": "Die Zahlung wird in einem anderen Tab verarbeitet.",
+                "sessionExpired": "Deine Sitzung ist abgelaufen. Die Seite wird automatisch neu geladen."
             }
         },
         "turnsOfYou": {

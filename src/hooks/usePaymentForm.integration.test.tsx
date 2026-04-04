@@ -791,18 +791,29 @@ describe('usePaymentForm — integration', () => {
             expect(localStorage.getItem(PAYMENT_IN_PROGRESS_KEY)).toBeNull();
         });
 
-        it('does not resume polling for entries without subscriptionId (legacy)', async () => {
+        it('stays on payment step for entries without subscriptionId (early marker) and clears after 15s', async () => {
             localStorage.setItem(PAYMENT_IN_PROGRESS_KEY, JSON.stringify({ timestamp: Date.now() }));
             setupShift4OnWindow();
 
-            renderPaymentHook(createWrapper());
+            const { result } = renderPaymentHook(createWrapper());
 
             await act(async () => {
                 vi.advanceTimersByTime(100);
             });
 
+            // Should NOT poll — no subscriptionId to poll with
             expect(mockGetPaymentStatus).not.toHaveBeenCalled();
+            // Should stay in submitting state (waiting for usePremiumRedirect)
+            expect(result.current.isPaymentInProgress).toBe(true);
+            expect(localStorage.getItem(PAYMENT_IN_PROGRESS_KEY)).not.toBeNull();
+
+            // After 15s timeout, clear the marker and allow retry
+            await act(async () => {
+                vi.advanceTimersByTime(15_000);
+            });
+
             expect(localStorage.getItem(PAYMENT_IN_PROGRESS_KEY)).toBeNull();
+            expect(result.current.resumePollingFailed).toBe(true);
         });
 
         it('cleans up and shows error when resume polling fails', async () => {
@@ -916,7 +927,8 @@ describe('usePaymentForm — integration', () => {
     // ─── Charge API errors ──────────────────────────────────────────────────
 
     describe('charge API errors', () => {
-        it('handles 409 conflict (already subscribed) with backend message', async () => {
+        it('handles 409 conflict (already subscribed) by redirecting to platform', async () => {
+            mockWindowLocation();
             const { mockInstance } = setupShift4OnWindow();
 
             mockPayment.mockRejectedValue({
@@ -934,18 +946,97 @@ describe('usePaymentForm — integration', () => {
                 await result.current.onSubmit();
             });
 
-            // Wait for mutation onError callback
-            await waitFor(() => {
-                expect(mockTriggerToast).toHaveBeenCalledWith(
-                    expect.objectContaining({
-                        title: 'User already has active subscription',
-                        type: 'error',
-                    }),
-                );
+            // 409 should NOT show error toast — it redirects instead
+            expect(mockTriggerToast).not.toHaveBeenCalledWith(
+                expect.objectContaining({
+                    title: 'User already has active subscription',
+                    type: 'error',
+                }),
+            );
+
+            // Payment marker should be cleaned up
+            expect(localStorage.getItem(PAYMENT_IN_PROGRESS_KEY)).toBeNull();
+            // Payment completed marker should be set (for cross-tab sync)
+            expect(localStorage.getItem(PAYMENT_COMPLETED_KEY)).not.toBeNull();
+
+            // Should redirect after 300ms delay
+            act(() => {
+                vi.advanceTimersByTime(350);
+            });
+            expect(locationHref).toContain('authToken=');
+
+            restoreWindowLocation();
+        });
+
+        it('handles 401 (session expired) with user-friendly message and auto-reload', async () => {
+            const { mockInstance } = setupShift4OnWindow();
+
+            mockPayment.mockRejectedValue({
+                response: { status: 401, data: { message: 'Unauthorized' } },
+                message: 'Request failed with status code 401',
             });
 
-            expect(localStorage.getItem(PAYMENT_IN_PROGRESS_KEY)).toBeNull();
-            expect(result.current.isPaymentInProgress).toBe(false);
+            const reloadMock = vi.fn();
+            Object.defineProperty(window, 'location', {
+                writable: true,
+                value: { ...window.location, reload: reloadMock },
+                configurable: true,
+            });
+
+            const { result } = renderPaymentHook(createWrapper());
+
+            await waitFor(() => {
+                expect(mockInstance.createComponentGroup).toHaveBeenCalled();
+            });
+
+            await act(async () => {
+                await result.current.onSubmit();
+            });
+
+            // Should show session expired message, NOT "Request failed with status code 401"
+            expect(mockTriggerToast).toHaveBeenCalledWith(
+                expect.objectContaining({
+                    title: 'hooks.usePaymentForm.errors.sessionExpired',
+                    type: 'error',
+                }),
+            );
+            expect(mockTriggerToast).not.toHaveBeenCalledWith(
+                expect.objectContaining({
+                    title: expect.stringContaining('Request failed'),
+                }),
+            );
+
+            // Should auto-reload after 2s
+            act(() => {
+                vi.advanceTimersByTime(2000);
+            });
+            expect(reloadMock).toHaveBeenCalled();
+        });
+
+        it('shows backend error message instead of generic axios message', async () => {
+            const { mockInstance } = setupShift4OnWindow();
+
+            mockPayment.mockRejectedValue({
+                response: { status: 400, data: { message: 'Invalid card token' } },
+                message: 'Request failed with status code 400',
+            });
+
+            const { result } = renderPaymentHook(createWrapper());
+
+            await waitFor(() => {
+                expect(mockInstance.createComponentGroup).toHaveBeenCalled();
+            });
+
+            await act(async () => {
+                await result.current.onSubmit();
+            });
+
+            // Should show backend message, NOT "Request failed with status code 400"
+            expect(mockTriggerToast).toHaveBeenCalledWith(
+                expect.objectContaining({
+                    title: 'Invalid card token',
+                }),
+            );
         });
 
         it('handles unexpected charge response status (not subscription_initiated)', async () => {

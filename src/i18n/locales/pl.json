@@ -734,7 +734,8 @@
                 "paymentWentWrong": "Coś poszło nie tak podczas płatności. Spróbuj ponownie.",
                 "paymentTakingLong": "Płatność trwa dłużej niż oczekiwano. Spróbuj ponownie.",
                 "failedCheckStatus": "Nie udało się sprawdzić statusu płatności. Spróbuj ponownie.",
-                "paymentInAnotherTab": "Płatność jest przetwarzana w innej karcie."
+                "paymentInAnotherTab": "Płatność jest przetwarzana w innej karcie.",
+                "sessionExpired": "Twoja sesja wygasła. Strona zostanie automatycznie odświeżona."
             }
         },
         "turnsOfYou": {

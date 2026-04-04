@@ -734,7 +734,8 @@
                 "paymentWentWrong": "Something went wrong during payment. Please try again.",
                 "paymentTakingLong": "Payment is taking longer than expected. Please try again.",
                 "failedCheckStatus": "Failed to check payment status. Please try again.",
-                "paymentInAnotherTab": "Payment is being processed in another tab."
+                "paymentInAnotherTab": "Payment is being processed in another tab.",
+                "sessionExpired": "Your session has expired. The page will reload automatically."
             }
         },
         "turnsOfYou": {

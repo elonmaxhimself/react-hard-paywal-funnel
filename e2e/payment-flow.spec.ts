@@ -88,7 +88,7 @@ test.describe('Payment flow', () => {
             await expect(payBtn).not.toBeDisabled({ timeout: 5000 });
         });
 
-        test('shows error when charge returns 409 (already subscribed)', async ({ page }) => {
+        test('redirects to platform when charge returns 409 (already subscribed)', async ({ page }) => {
             await setupApiMocks(page, {
                 chargeError: {
                     status: 409,
@@ -105,7 +105,8 @@ test.describe('Payment flow', () => {
             const payBtn = page.getByRole('button', { name: /complete.*payment|subscribe/i });
             await payBtn.click();
 
-            await expect(page.locator('text=User already has active subscription')).toBeVisible({ timeout: 10_000 });
+            // 409 means user already has subscription — redirect to platform
+            await page.waitForURL(/mydreamcompanion|authToken/, { timeout: 15_000 });
         });
 
         test('prevents double-click on payment button', async ({ page }) => {
@@ -411,7 +412,7 @@ test.describe('Payment flow', () => {
 
     // ─── QA Bug #5: Error message clarity ────────────────────────────────
     test.describe('error message clarity (QA bug #5)', () => {
-        test('shows backend-provided error message on 409, not generic axios message', async ({ page }) => {
+        test('redirects to platform on 409 instead of showing error toast', async ({ page }) => {
             await setupApiMocks(page, {
                 chargeError: {
                     status: 409,
@@ -428,10 +429,9 @@ test.describe('Payment flow', () => {
             const payBtn = page.getByRole('button', { name: /complete.*payment|subscribe/i });
             await payBtn.click();
 
-            // Should show the backend message, NOT "Request failed with status code 409"
-            await expect(page.locator('text=A payment is already being processed. Please wait.')).toBeVisible({
-                timeout: 10_000,
-            });
+            // 409 now redirects to platform — no error toast shown
+            await page.waitForURL(/mydreamcompanion|authToken/, { timeout: 15_000 });
+            // Should NOT show generic axios message
             await expect(page.locator('text=Request failed with status code')).not.toBeVisible({ timeout: 2000 });
         });
 
@@ -453,7 +453,7 @@ test.describe('Payment flow', () => {
             await expect(page.locator('text=Insufficient funds')).toBeVisible({ timeout: 10_000 });
         });
 
-        test('shows "active subscription" message clearly on 409', async ({ page }) => {
+        test('redirects to platform on 409 "active subscription"', async ({ page }) => {
             await setupApiMocks(page, {
                 chargeError: {
                     status: 409,
@@ -470,9 +470,8 @@ test.describe('Payment flow', () => {
             const payBtn = page.getByRole('button', { name: /complete.*payment|subscribe/i });
             await payBtn.click();
 
-            await expect(page.locator('text=You already have an active subscription.')).toBeVisible({
-                timeout: 10_000,
-            });
+            // 409 "active subscription" redirects to platform
+            await page.waitForURL(/mydreamcompanion|authToken/, { timeout: 15_000 });
         });
     });
 

@@ -1021,13 +1021,8 @@ describe('usePaymentForm — integration', () => {
                 message: 'Request failed with status code 400',
             });
 
-            renderPaymentHook(createWrapper());
-
-            await waitFor(() => {
-                expect(mockInstance.createComponentGroup).toHaveBeenCalled();
-            });
-
             const { result } = renderPaymentHook(createWrapper());
+
             await waitFor(() => {
                 expect(mockInstance.createComponentGroup).toHaveBeenCalled();
             });

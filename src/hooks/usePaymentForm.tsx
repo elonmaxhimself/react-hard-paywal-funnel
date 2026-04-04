@@ -240,12 +240,13 @@ export function usePaymentForm(posthog?: PostHog) {
     // Resume polling if payment was in progress (e.g. after page refresh)
     useEffect(() => {
         let cancelPolling: (() => void) | undefined;
+        const cleanup = () => cancelPolling?.();
 
         try {
             const stored = localStorage.getItem(PAYMENT_IN_PROGRESS_KEY);
             if (!stored) {
                 setIsSubmitting(false);
-                return;
+                return cleanup;
             }
 
             const { subscriptionId, timestamp } = JSON.parse(stored);
@@ -259,7 +260,7 @@ export function usePaymentForm(posthog?: PostHog) {
                 if (Date.now() - timestamp > PAYMENT_STALENESS_TTL_MS) {
                     localStorage.removeItem(PAYMENT_IN_PROGRESS_KEY);
                     setIsSubmitting(false);
-                    return;
+                    return cleanup;
                 }
                 setIsSubmitting(true);
                 // Give usePremiumRedirect time to check /auth/me and redirect if paid.
@@ -270,13 +271,13 @@ export function usePaymentForm(posthog?: PostHog) {
                     setResumePollingFailed(true);
                 }, 15_000);
                 cancelPolling = () => clearTimeout(earlyMarkerTimeout);
-                return;
+                return cleanup;
             }
 
             if (Date.now() - timestamp > PAYMENT_STALENESS_TTL_MS) {
                 localStorage.removeItem(PAYMENT_IN_PROGRESS_KEY);
                 setIsSubmitting(false);
-                return;
+                return cleanup;
             }
 
             setIsSubmitting(true);
@@ -312,9 +313,7 @@ export function usePaymentForm(posthog?: PostHog) {
             setResumePollingFailed(true);
         }
 
-        return () => {
-            cancelPolling?.();
-        };
+        return cleanup;
         // eslint-disable-next-line react-hooks/exhaustive-deps -- mount-only polling resume
     }, []);
 

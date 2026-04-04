@@ -30,8 +30,15 @@ export function PaymentFormStep() {
     const setFormState = useFunnelStore((s) => s.setFormState);
     const posthog = usePostHog();
     const funnelForm = useFormContext<FunnelSchema>();
-    const { product, onSubmit, isButtonDisabled, isPaymentInProgress, shift4Error, resumePollingFailed } =
-        usePaymentForm(posthog);
+    const {
+        product,
+        onSubmit,
+        isButtonDisabled,
+        isPaymentInProgress,
+        shouldWarnOnLeave,
+        shift4Error,
+        resumePollingFailed,
+    } = usePaymentForm(posthog);
     const { isRedirecting } = usePremiumRedirect();
     const { prevStep } = useStepperContext();
     const hasRedirected = useRef(false);
@@ -47,6 +54,19 @@ export function PaymentFormStep() {
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps -- mount-only sync
     }, []);
+
+    // Warn user when navigating away during active payment (browser back, tab close, refresh).
+    // Excluded when: payment completed (our redirect pending), usePremiumRedirect active.
+    useEffect(() => {
+        if (!shouldWarnOnLeave || isRedirecting) return;
+
+        const handleBeforeUnload = (e: BeforeUnloadEvent) => {
+            e.preventDefault();
+        };
+
+        window.addEventListener('beforeunload', handleBeforeUnload);
+        return () => window.removeEventListener('beforeunload', handleBeforeUnload);
+    }, [shouldWarnOnLeave, isRedirecting]);
 
     useEffect(() => {
         if (!product) {

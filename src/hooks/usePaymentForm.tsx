@@ -740,6 +740,10 @@ export function usePaymentForm(posthog?: PostHog) {
         isButtonDisabled:
             isPending || isPolling || isSubmitting || paymentCompleted || !componentsGroup || !isShift4Ready,
         isPaymentInProgress: isPending || isPolling || isSubmitting || paymentCompleted,
+        // True when payment is actively in-flight (not yet completed/failed).
+        // Used by PaymentFormStep to show beforeunload warning.
+        // Excludes paymentCompleted to avoid blocking our own redirect.
+        shouldWarnOnLeave: isSubmitting && !paymentCompleted,
         isShift4Ready,
         shift4Error,
         resumePollingFailed,

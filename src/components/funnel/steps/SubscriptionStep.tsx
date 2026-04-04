@@ -139,8 +139,8 @@ export function SubscriptionStep() {
         EXPERIMENTS.PRICING_V3.variants[pricingVariant as keyof typeof EXPERIMENTS.PRICING_V3.variants] ||
         EXPERIMENTS.PRICING_V3.variants.control;
 
-    const productIds = variantConfig.productIds;
-    const preselectedProductId = variantConfig.preselectedProductId;
+    const productIds: readonly number[] = variantConfig.productIds;
+    const preselectedProductId: number = variantConfig.preselectedProductId;
 
     const activeSubscriptions = useMemo(() => {
         return subscriptions.filter((sub) => productIds.includes(sub.productId));

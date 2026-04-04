@@ -104,7 +104,7 @@ export function SubscriptionStep() {
     useEffect(() => {
         if (!posthog) return;
 
-        const flagKey = EXPERIMENTS.PRICING.flagKey;
+        const flagKey = EXPERIMENTS.PRICING_V3.flagKey;
         const targetDistinctId = posthog.get_distinct_id();
         const cached = posthog.getFeatureFlag(flagKey);
         if (cached !== undefined) {
@@ -135,9 +135,12 @@ export function SubscriptionStep() {
         };
     }, [posthog]);
 
-    const productIds: readonly number[] =
-        EXPERIMENTS.PRICING.variants[pricingVariant as keyof typeof EXPERIMENTS.PRICING.variants] ||
-        EXPERIMENTS.PRICING.variants.control;
+    const variantConfig =
+        EXPERIMENTS.PRICING_V3.variants[pricingVariant as keyof typeof EXPERIMENTS.PRICING_V3.variants] ||
+        EXPERIMENTS.PRICING_V3.variants.control;
+
+    const productIds = variantConfig.productIds;
+    const preselectedProductId = variantConfig.preselectedProductId;
 
     const activeSubscriptions = useMemo(() => {
         return subscriptions.filter((sub) => productIds.includes(sub.productId));
@@ -302,16 +305,15 @@ export function SubscriptionStep() {
     );
 
     const defaultProduct = useMemo(() => {
-        const bestChoice = activeSubscriptions.find((sub) => sub.isBestChoice);
-        if (bestChoice) return bestChoice.productId;
+        if (preselectedProductId && productIds.includes(preselectedProductId)) {
+            return preselectedProductId;
+        }
         if (activeSubscriptions.length === 0) return productIds[0];
         const sorted = [...activeSubscriptions].sort(
             (a, b) => parseFloat(a.salePriceFull) - parseFloat(b.salePriceFull),
         );
-
-        const middleIndex = Math.floor(sorted.length / 2);
-        return sorted[middleIndex].productId;
-    }, [activeSubscriptions, productIds]);
+        return sorted[Math.floor(sorted.length / 2)].productId;
+    }, [activeSubscriptions, productIds, preselectedProductId]);
 
     const [carouselApi, setCarouselApi] = useState<CarouselApi>();
 
@@ -444,7 +446,7 @@ export function SubscriptionStep() {
                                     )}
                                 >
                                     <div className="w-full bg-[#2a2a2f] px-4 py-2 rounded-[10px] flex items-center justify-between flex-wrap sm:flex-nowrap gap-y-3 relative">
-                                        {subscription.isBestChoice && (
+                                        {subscription.productId === preselectedProductId && (
                                             <div className="absolute top-[-12px] left-3 sm:left-4 bg-primary-gradient rounded-full flex items-center justify-center">
                                                 <span className="text-white text-[10px] sm:text-xs font-semibold uppercase px-[10px] py-1">
                                                     {t('funnel.subscriptionStep.bestChoice')}

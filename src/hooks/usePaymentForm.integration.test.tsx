@@ -54,8 +54,12 @@ vi.mock('@/components/AlertToast', () => ({
 // ── gtag ────────────────────────────────────────────────────────────────────
 vi.mock('@/lib/gtag', () => ({
     reportPurchase: vi.fn(),
+    gaCloseConvertLead: vi.fn(),
+    gaPurchase: vi.fn((_txId: string, _value: number, _currency: string, onSent?: () => void) => {
+        onSent?.();
+    }),
 }));
-import { reportPurchase } from '@/lib/gtag';
+import { reportPurchase, gaPurchase } from '@/lib/gtag';
 
 // ── Shift4Ready hook ────────────────────────────────────────────────────────
 let mockShift4Ready = { isReady: true, error: null as string | null };
@@ -1511,6 +1515,10 @@ describe('usePaymentForm — integration', () => {
         });
 
         it('writes payment in-progress to localStorage on submit (cross-tab signal)', async () => {
+            // Override gaPurchase to NOT call onSent immediately — we want to inspect
+            // localStorage state DURING polling, before redirect cleans it up
+            vi.mocked(gaPurchase).mockImplementation(() => {});
+
             const { mockInstance } = setupShift4OnWindow();
 
             const { result } = renderPaymentHook(createWrapper());

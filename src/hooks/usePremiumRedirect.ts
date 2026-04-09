@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from 'react';
 import { authService } from '@/services/auth-service';
 import { useAuthStore } from '@/store/states/auth';
 import { env } from '@/config/env';
+import { redirectToMainApp } from '@/utils/auth/redirectToMainApp';
 
 /**
  * Checks whether the current user already has an active subscription (isPremium)
@@ -39,7 +40,7 @@ export function usePremiumRedirect(): { isRedirecting: boolean } {
                     // render the "redirecting" UI before navigation fires.
                     setTimeout(() => {
                         const redirectUrl = env.shift4.paymentRedirect;
-                        window.location.href = redirectUrl + '?authToken=' + authToken;
+                        void redirectToMainApp(redirectUrl, authToken);
                     }, 100);
                 }
             })

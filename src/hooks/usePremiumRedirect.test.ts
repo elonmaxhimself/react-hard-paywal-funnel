@@ -3,7 +3,7 @@
  *
  * Covers:
  *   - Calls GET /auth/me on mount when authToken exists
- *   - Redirects to main platform when isPremium === true
+ *   - Redirects via redirectToMainApp when isPremium === true
  *   - Does NOT redirect when isPremium === false
  *   - Does NOT redirect when getMe() fails (network error, 401, etc.)
  *   - Does NOT call getMe() when no authToken
@@ -14,7 +14,7 @@
  */
 
 import { renderHook, act, waitFor } from '@testing-library/react';
-import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
+import { describe, it, expect, vi, beforeEach } from 'vitest';
 
 import { usePremiumRedirect } from './usePremiumRedirect';
 import { useAuthStore } from '@/store/states/auth';
@@ -24,11 +24,16 @@ import { useAuthStore } from '@/store/states/auth';
 // =============================================================================
 
 const mockGetMe = vi.fn();
+const mockRedirectToMainApp = vi.fn().mockResolvedValue(undefined);
 
 vi.mock('@/services/auth-service', () => ({
     authService: {
         getMe: (...args: unknown[]) => mockGetMe(...args),
     },
+}));
+
+vi.mock('@/utils/auth/redirectToMainApp', () => ({
+    redirectToMainApp: (...args: unknown[]) => mockRedirectToMainApp(...args),
 }));
 
 vi.mock('@/config/env', () => ({
@@ -39,41 +44,13 @@ vi.mock('@/config/env', () => ({
             paymentRedirect: 'https://mydreamcompanion.com',
         },
         posthog: { token: '', host: '', enableDevAnalytics: false },
+        sessionTransferApiUrl: 'https://api.mydreamcompanion.com',
     },
 }));
 
-// Track window.location.href assignments
-let capturedRedirectUrl: string | null = null;
-const originalLocationDescriptor = Object.getOwnPropertyDescriptor(window, 'location');
-
 beforeEach(() => {
     vi.clearAllMocks();
-    capturedRedirectUrl = null;
-
-    // Mock window.location.href setter
-    Object.defineProperty(window, 'location', {
-        writable: true,
-        value: {
-            ...window.location,
-            href: '',
-            set href(url: string) {
-                capturedRedirectUrl = url;
-            },
-            get href() {
-                return capturedRedirectUrl ?? '';
-            },
-        },
-    });
-
-    // Reset auth store
     useAuthStore.setState({ authToken: null, userId: null });
-});
-
-afterEach(() => {
-    // Restore original window.location
-    if (originalLocationDescriptor) {
-        Object.defineProperty(window, 'location', originalLocationDescriptor);
-    }
 });
 
 // =============================================================================
@@ -96,16 +73,18 @@ describe('usePremiumRedirect', () => {
             });
         });
 
-        it('redirects to main platform when isPremium is true', async () => {
+        it('redirects via redirectToMainApp when isPremium is true', async () => {
             mockGetMe.mockResolvedValue({ id: 42, isPremium: true });
 
             const { result } = renderHook(() => usePremiumRedirect());
 
             await waitFor(() => {
-                expect(capturedRedirectUrl).toBe('https://mydreamcompanion.com?authToken=valid-jwt-token');
+                expect(result.current.isRedirecting).toBe(true);
             });
 
-            expect(result.current.isRedirecting).toBe(true);
+            await waitFor(() => {
+                expect(mockRedirectToMainApp).toHaveBeenCalledWith('https://mydreamcompanion.com', 'valid-jwt-token');
+            });
         });
 
         it('does NOT redirect when isPremium is false', async () => {
@@ -117,7 +96,10 @@ describe('usePremiumRedirect', () => {
                 expect(mockGetMe).toHaveBeenCalledTimes(1);
             });
 
-            expect(capturedRedirectUrl).toBeNull();
+            // Wait a tick for async to settle
+            await new Promise((r) => setTimeout(r, 200));
+
+            expect(mockRedirectToMainApp).not.toHaveBeenCalled();
             expect(result.current.isRedirecting).toBe(false);
         });
 
@@ -130,7 +112,10 @@ describe('usePremiumRedirect', () => {
                 expect(mockGetMe).toHaveBeenCalledTimes(1);
             });
 
-            expect(capturedRedirectUrl).toBeNull();
+            // Wait a tick for async to settle
+            await new Promise((r) => setTimeout(r, 200));
+
+            expect(mockRedirectToMainApp).not.toHaveBeenCalled();
             expect(result.current.isRedirecting).toBe(false);
         });
 
@@ -145,7 +130,10 @@ describe('usePremiumRedirect', () => {
                 expect(mockGetMe).toHaveBeenCalledTimes(1);
             });
 
-            expect(capturedRedirectUrl).toBeNull();
+            // Wait a tick for async to settle
+            await new Promise((r) => setTimeout(r, 200));
+
+            expect(mockRedirectToMainApp).not.toHaveBeenCalled();
             expect(result.current.isRedirecting).toBe(false);
         });
 
@@ -158,12 +146,10 @@ describe('usePremiumRedirect', () => {
                 expect(mockGetMe).toHaveBeenCalledTimes(1);
             });
 
-            // Re-render multiple times
             rerender();
             rerender();
             rerender();
 
-            // Still only 1 call (checkedRef prevents duplicates)
             expect(mockGetMe).toHaveBeenCalledTimes(1);
         });
 
@@ -180,16 +166,15 @@ describe('usePremiumRedirect', () => {
 
             expect(mockGetMe).toHaveBeenCalledTimes(1);
 
-            // Unmount before resolving
             unmount();
 
-            // Resolve after unmount
             await act(async () => {
                 resolveGetMe!({ id: 42, isPremium: true });
             });
 
-            // Should NOT redirect (cancelled flag)
-            expect(capturedRedirectUrl).toBeNull();
+            await new Promise((r) => setTimeout(r, 200));
+
+            expect(mockRedirectToMainApp).not.toHaveBeenCalled();
         });
     });
 
@@ -211,15 +196,15 @@ describe('usePremiumRedirect', () => {
         });
     });
 
-    describe('redirect URL format', () => {
-        it('includes authToken as query parameter', async () => {
+    describe('redirect behavior', () => {
+        it('passes correct redirectUrl and authToken to redirectToMainApp', async () => {
             useAuthStore.setState({ authToken: 'my-special-token', userId: 42 });
             mockGetMe.mockResolvedValue({ id: 42, isPremium: true });
 
             renderHook(() => usePremiumRedirect());
 
             await waitFor(() => {
-                expect(capturedRedirectUrl).toBe('https://mydreamcompanion.com?authToken=my-special-token');
+                expect(mockRedirectToMainApp).toHaveBeenCalledWith('https://mydreamcompanion.com', 'my-special-token');
             });
         });
     });

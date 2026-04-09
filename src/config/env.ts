@@ -30,6 +30,14 @@ export const env = {
         paymentRedirect: import.meta.env.VITE_PUBLIC_SHIFT4_PAYMENT_REDIRECT || '/',
     },
 
+    /**
+     * Session transfer API URL — the main platform's backend.
+     * Used for cross-domain auth transfer (funnel → main app).
+     * Must point to the MAIN backend (api.mydreamcompanion.com), not funnel backend.
+     * Defaults to production. Override with VITE_PUBLIC_SESSION_TRANSFER_API_URL for staging.
+     */
+    sessionTransferApiUrl: import.meta.env.VITE_PUBLIC_SESSION_TRANSFER_API_URL || 'https://api.mydreamcompanion.com',
+
     posthog: {
         /** PostHog project token — optional (analytics disabled if missing) */
         token: import.meta.env.VITE_PUBLIC_POSTHOG_TOKEN || '',

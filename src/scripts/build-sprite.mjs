@@ -8,7 +8,6 @@ const ROOT = process.cwd();
 const IMAGES_ROOT = path.join(ROOT, 'public', 'images');
 
 const OUT_DIR = path.join(ROOT, 'public', 'images', 'sprites');
-const OUT_PNG = path.join(OUT_DIR, 'sprite.png');
 const OUT_WEBP = path.join(OUT_DIR, 'sprite.webp');
 const OUT_TS = path.join(ROOT, 'src', 'constants', 'sprite.ts');
 
@@ -99,7 +98,6 @@ async function shouldInclude(abs) {
         ),
     );
 
-    await writeFile(OUT_PNG, result.image);
     const webpBuf = await sharp(result.image).webp({ quality: 85 }).toBuffer();
     await writeFile(OUT_WEBP, webpBuf);
 

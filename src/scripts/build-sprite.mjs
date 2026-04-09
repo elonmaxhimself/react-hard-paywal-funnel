@@ -7,12 +7,12 @@ import sharp from 'sharp';
 const ROOT = process.cwd();
 const IMAGES_ROOT = path.join(ROOT, 'public', 'images');
 
-const OUT_DIR = path.join(ROOT, 'public', 'images', 'company-logos');
+const OUT_DIR = path.join(ROOT, 'public', 'images', 'sprites');
 const OUT_PNG = path.join(OUT_DIR, 'sprite.png');
 const OUT_WEBP = path.join(OUT_DIR, 'sprite.webp');
 const OUT_TS = path.join(ROOT, 'src', 'constants', 'sprite.ts');
 
-const SPRITE_URL = '/images/company-logos/sprite.webp';
+const SPRITE_URL = '/images/sprites/sprite.webp';
 
 const TMP_DIR = path.join(ROOT, '.tmp', 'sprite-src');
 

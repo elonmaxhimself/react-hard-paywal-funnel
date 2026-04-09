@@ -1,11 +1,20 @@
 /* AUTO-GENERATED — DO NOT EDIT */
 export type SpriteItem = { id: string; title: string; group?: string; w: number; h: number; x: number; y: number };
 
-export const SPRITE_URL = '/images/company-logos/sprite.webp?v=2025-10-06';
+export const SPRITE_URL = '/images/sprites/sprite.webp';
 export const SPRITE_W = 6369;
 export const SPRITE_H = 6315;
 
 export const SPRITE_ITEMS: SpriteItem[] = [
+    {
+        id: '3m-users',
+        group: '',
+        title: '3m Users',
+        w: 373,
+        h: 213,
+        x: 5548,
+        y: 5265,
+    },
     {
         id: 'avatars-avatar_1',
         group: 'avatars',
@@ -40,7 +49,7 @@ export const SPRITE_ITEMS: SpriteItem[] = [
         w: 200,
         h: 200,
         x: 6009,
-        y: 3737,
+        y: 3972,
     },
     {
         id: 'avatars-avatar_5',
@@ -49,7 +58,7 @@ export const SPRITE_ITEMS: SpriteItem[] = [
         w: 150,
         h: 150,
         x: 6215,
-        y: 3532,
+        y: 3767,
     },
     {
         id: 'avatars-avatar_7',
@@ -67,7 +76,7 @@ export const SPRITE_ITEMS: SpriteItem[] = [
         w: 230,
         h: 296,
         x: 6009,
-        y: 3056,
+        y: 3266,
     },
     {
         id: 'avatars-avatar_9',
@@ -112,7 +121,7 @@ export const SPRITE_ITEMS: SpriteItem[] = [
         w: 202,
         h: 201,
         x: 6009,
-        y: 3532,
+        y: 3767,
     },
     {
         id: 'backgrounds-girl',
@@ -265,7 +274,7 @@ export const SPRITE_ITEMS: SpriteItem[] = [
         w: 400,
         h: 90,
         x: 3018,
-        y: 4733,
+        y: 4837,
     },
     {
         id: 'brands-citypaper-logo',
@@ -273,8 +282,8 @@ export const SPRITE_ITEMS: SpriteItem[] = [
         title: 'Citypaper Logo',
         w: 400,
         h: 117,
-        x: 5548,
-        y: 5265,
+        x: 4004,
+        y: 3317,
     },
     {
         id: 'brands-entrepreneur-logo',
@@ -283,16 +292,16 @@ export const SPRITE_ITEMS: SpriteItem[] = [
         w: 92,
         h: 18,
         x: 6262,
-        y: 1061,
+        y: 1019,
     },
     {
         id: 'brands-latin-times-logo',
         group: 'brands',
         title: 'Latin Times Logo',
-        w: 85,
-        h: 38,
-        x: 6262,
-        y: 891,
+        w: 623,
+        h: 90,
+        x: 4004,
+        y: 3223,
     },
     {
         id: 'brands-taaft-logo',
@@ -301,7 +310,7 @@ export const SPRITE_ITEMS: SpriteItem[] = [
         w: 79,
         h: 32,
         x: 6262,
-        y: 1025,
+        y: 983,
     },
     {
         id: 'brands-the-ai-journal',
@@ -309,8 +318,8 @@ export const SPRITE_ITEMS: SpriteItem[] = [
         title: 'The Ai Journal',
         w: 439,
         h: 84,
-        x: 2659,
-        y: 3302,
+        x: 3420,
+        y: 4733,
     },
     {
         id: 'brands-toolify-ai-logo',
@@ -318,8 +327,8 @@ export const SPRITE_ITEMS: SpriteItem[] = [
         title: 'Toolify Ai Logo',
         w: 455,
         h: 100,
-        x: 5548,
-        y: 5386,
+        x: 3160,
+        y: 2573,
     },
     {
         id: 'brands-top-ai-tools-logo',
@@ -328,7 +337,7 @@ export const SPRITE_ITEMS: SpriteItem[] = [
         w: 96,
         h: 32,
         x: 6262,
-        y: 933,
+        y: 891,
     },
     {
         id: 'brands-zerohedge-logo',
@@ -643,7 +652,7 @@ export const SPRITE_ITEMS: SpriteItem[] = [
         w: 52,
         h: 52,
         x: 6262,
-        y: 969,
+        y: 927,
     },
     {
         id: 'countries-china',
@@ -652,7 +661,7 @@ export const SPRITE_ITEMS: SpriteItem[] = [
         w: 42,
         h: 42,
         x: 6318,
-        y: 969,
+        y: 927,
     },
     {
         id: 'countries-france',
@@ -670,7 +679,7 @@ export const SPRITE_ITEMS: SpriteItem[] = [
         w: 34,
         h: 34,
         x: 6262,
-        y: 1083,
+        y: 1041,
     },
     {
         id: 'countries-india',
@@ -679,7 +688,7 @@ export const SPRITE_ITEMS: SpriteItem[] = [
         w: 34,
         h: 34,
         x: 6300,
-        y: 1083,
+        y: 1041,
     },
     {
         id: 'countries-liberia',
@@ -714,8 +723,8 @@ export const SPRITE_ITEMS: SpriteItem[] = [
         title: 'Blue Eyes Color',
         w: 398,
         h: 100,
-        x: 3573,
-        y: 2573,
+        x: 3018,
+        y: 4733,
     },
     {
         id: 'eyes-colors-brown-eyes-color',
@@ -723,8 +732,8 @@ export const SPRITE_ITEMS: SpriteItem[] = [
         title: 'Brown Eyes Color',
         w: 430,
         h: 100,
-        x: 4004,
-        y: 3327,
+        x: 3097,
+        y: 3302,
     },
     {
         id: 'eyes-colors-green-eyes-color',
@@ -732,8 +741,8 @@ export const SPRITE_ITEMS: SpriteItem[] = [
         title: 'Green Eyes Color',
         w: 409,
         h: 100,
-        x: 3160,
-        y: 2573,
+        x: 3531,
+        y: 3302,
     },
     {
         id: 'eyes-colors-grey-eyes-color',
@@ -741,8 +750,8 @@ export const SPRITE_ITEMS: SpriteItem[] = [
         title: 'Grey Eyes Color',
         w: 434,
         h: 100,
-        x: 4004,
-        y: 3223,
+        x: 2659,
+        y: 3302,
     },
     {
         id: 'fireworks',
@@ -754,13 +763,49 @@ export const SPRITE_ITEMS: SpriteItem[] = [
         y: 4242,
     },
     {
+        id: 'gold-icons-icons',
+        group: 'gold-icons',
+        title: 'Icons',
+        w: 15,
+        h: 15,
+        x: 6338,
+        y: 638,
+    },
+    {
+        id: 'gold-icons-star-award',
+        group: 'gold-icons',
+        title: 'Star Award',
+        w: 17,
+        h: 18,
+        x: 6338,
+        y: 576,
+    },
+    {
+        id: 'gold-icons-star',
+        group: 'gold-icons',
+        title: 'Star',
+        w: 16,
+        h: 17,
+        x: 6338,
+        y: 617,
+    },
+    {
+        id: 'gold-icons-users',
+        group: 'gold-icons',
+        title: 'Users',
+        w: 19,
+        h: 15,
+        x: 6338,
+        y: 598,
+    },
+    {
         id: 'haircut-colors-black-haircut',
         group: 'haircut-colors',
         title: 'Black Haircut',
         w: 163,
         h: 163,
         x: 6183,
-        y: 3941,
+        y: 4176,
     },
     {
         id: 'haircut-colors-blonde-haircut',
@@ -769,7 +814,7 @@ export const SPRITE_ITEMS: SpriteItem[] = [
         w: 160,
         h: 160,
         x: 6009,
-        y: 4115,
+        y: 4350,
     },
     {
         id: 'haircut-colors-brunette-haircut',
@@ -778,7 +823,7 @@ export const SPRITE_ITEMS: SpriteItem[] = [
         w: 145,
         h: 145,
         x: 6213,
-        y: 3737,
+        y: 3972,
     },
     {
         id: 'haircut-colors-ginger-haircut',
@@ -787,7 +832,7 @@ export const SPRITE_ITEMS: SpriteItem[] = [
         w: 170,
         h: 170,
         x: 6009,
-        y: 3941,
+        y: 4176,
     },
     {
         id: 'haircut-styles-braids-haircut',
@@ -853,13 +898,22 @@ export const SPRITE_ITEMS: SpriteItem[] = [
         y: 4975,
     },
     {
+        id: 'how-it-work-circle',
+        group: 'how-it-work',
+        title: 'Circle',
+        w: 321,
+        h: 197,
+        x: 6009,
+        y: 3566,
+    },
+    {
         id: 'how-it-work-photo',
         group: 'how-it-work',
         title: 'Photo',
         w: 335,
-        h: 172,
+        h: 206,
         x: 6009,
-        y: 3356,
+        y: 3056,
     },
     {
         id: 'logo-product',

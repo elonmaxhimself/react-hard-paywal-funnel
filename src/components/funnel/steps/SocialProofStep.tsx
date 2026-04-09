@@ -10,7 +10,7 @@ const BRAND_IDS: string[] = [
     'brands-zerohedge-logo',
     'brands-taaft-logo',
     'brands-the-ai-journal',
-    'brands-nsfwaii-logo',
+    'brands-latin-times-logo',
     'brands-toolify-ai-logo',
     'brands-entrepreneur-logo',
     'brands-citypaper-logo',

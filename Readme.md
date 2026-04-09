@@ -131,6 +131,36 @@ e2e/                        # Playwright E2E specs
 test/                       # Test setup (vitest)
 ```
 
+## Sprites
+
+All funnel images (avatars, backgrounds, characters, brands, icons, etc.) are packed into a single sprite sheet for performance.
+
+- **Sprite file:** `public/images/sprites/sprite.webp`
+- **Generated manifest:** `src/constants/sprite.ts` (auto-generated, do not edit manually)
+- **Build script:** `src/scripts/build-sprite.mjs`
+
+### How it works
+
+The build script scans `public/images/**` for all images (PNG, WebP, JPG, SVG, AVIF), filters out files that are too large (>800KB or >1024px), packs them into a single sprite sheet using Spritesmith, converts to WebP, and generates a TypeScript manifest with coordinates for each image.
+
+### Adding or replacing an image
+
+1. Add/replace the image file in the appropriate `public/images/<group>/` folder (e.g. `public/images/brands/`, `public/images/avatars/`)
+2. Rebuild the sprite:
+
+```bash
+npm run build:sprite
+```
+
+3. The script auto-updates `src/constants/sprite.ts` with the new coordinates — commit both the sprite and the manifest.
+
+### Constraints
+
+- Max file size: **800KB** (files above are excluded)
+- Max dimensions: **1024x1024px** (files above are excluded)
+- Videos and GIFs are ignored
+- Whitelisted files (see `WHITELIST` in the script) bypass size/dimension filters
+
 ## Docker
 
 For containerized deployment:

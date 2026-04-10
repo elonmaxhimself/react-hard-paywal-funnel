@@ -1,86 +1,174 @@
-# Companion Dream AI — Funnel & Tracking README
+# Dream Companion — Marketing Funnel
+
+Hard-paywall marketing funnel (React 19 + Vite 7 SPA). Users go through onboarding → character customization → sign-up → payment → redirect to the main platform. No free tier.
+
+## Tech Stack
+
+- **React 19**, **TypeScript 5.9**, **Vite 7**
+- **Tailwind CSS v4** + shadcn/ui + Radix UI
+- **Zustand 5** (state) + **React Query 5** (server state) + **React Hook Form** + **Zod 4**
+- **Shift4** (payments), **PostHog** + Facebook Pixel + Google Ads (analytics)
+- **Hosting:** Cloudflare Pages (`main` → production, `dev` → staging)
 
 ## Prerequisites
 
-- Node.js 18+ and npm (for local development)
-- Docker and Docker Compose (for containerized deployment)
+- Node.js 18+
+- npm
 
-## Quick Start
+## Getting Started
 
-### Environment Setup
-
-Create a `.env` file based on `.env.example` and configure the required values for your environment.
-
-
-## Environment Variables
-
-Configure the following variables in your `.env` file:
-
-### API Configuration
-
-- **`VITE_PUBLIC_API_BASE_URL`** (string)  
-  Base URL for the backend API. Points to the server handling authentication, payments, and data operations.
-
-### Payment Integration (Shift4)
-
-- **`VITE_PUBLIC_SHIFT4_PUBLISHABLE_KEY`** (string)  
-  Publishable API key for Shift4 payment processing. Use test key for development and live key for production.
-
-- **`VITE_PUBLIC_SHIFT4_PAYMENT_REDIRECT`** (string)  
-  Redirect URL after successful payment completion. Should point to the application page where users land after checkout.
-
-### Analytics (PostHog)
-
-- **`VITE_PUBLIC_POSTHOG_TOKEN`** (string)  
-  PostHog project API token for user analytics and event tracking.
-
-- **`VITE_PUBLIC_POSTHOG_HOST`** (string)  
-  PostHog instance URL.
-
-- **`VITE_PUBLIC_ENABLE_DEV_ANALYTICS`** (boolean)  
-  Enable or disable analytics in development mode. Set to false in local development to avoid polluting analytics data.
-
----
-
-## Development vs Production
-
-### Development Mode
-
-Development mode uses `docker-compose.dev.yml` configuration with hot-reload enabled for faster iteration. The application connects to the development backend API. Analytics can be disabled by setting `VITE_PUBLIC_ENABLE_DEV_ANALYTICS` to false to avoid polluting production analytics data. 
-
-**Run development mode:**
-
-```bash
-docker-compose -f docker-compose.dev.yml up
-```
-
-For local development without Docker:
+### 1. Install dependencies
 
 ```bash
 npm install
+```
+
+This will also set up Husky git hooks via the `prepare` script.
+
+### 2. Configure environment
+
+```bash
+cp .env.example .env
+```
+
+Fill in the required values:
+
+| Variable                              | Description                                                        |
+| ------------------------------------- | ------------------------------------------------------------------ |
+| `VITE_PUBLIC_API_BASE_URL`            | Backend API base URL                                               |
+| `VITE_PUBLIC_SHIFT4_PUBLISHABLE_KEY`  | Shift4 publishable key (test key for dev, live for prod)           |
+| `VITE_PUBLIC_SHIFT4_PAYMENT_REDIRECT` | Redirect URL after successful payment                              |
+| `VITE_PUBLIC_POSTHOG_TOKEN`           | PostHog project API token                                          |
+| `VITE_PUBLIC_POSTHOG_HOST`            | PostHog instance URL                                               |
+| `VITE_PUBLIC_ENABLE_DEV_ANALYTICS`    | `true`/`false` — disable in local dev to avoid polluting analytics |
+
+### 3. Start the dev server
+
+```bash
 npm run dev
 ```
 
-### Production Mode
+The app runs at `http://localhost:5173`.
 
-Production mode uses the optimized `docker-compose.yml` configuration with a production build. The application connects to the production backend API and uses live Shift4 keys for real payment processing. Analytics are always enabled in production to track user behavior and events. Payment redirects point to the final production application URLs.
+## Scripts
 
-**Run production mode:**
+| Command                 | Description                          |
+| ----------------------- | ------------------------------------ |
+| `npm run dev`           | Start Vite dev server                |
+| `npm run build`         | Lint + type-check + production build |
+| `npm run lint`          | Run ESLint                           |
+| `npm run lint:fix`      | Run ESLint with auto-fix             |
+| `npm run format`        | Format code with Prettier            |
+| `npm test`              | Run unit/integration tests (Vitest)  |
+| `npm run test:watch`    | Run tests in watch mode              |
+| `npm run test:coverage` | Run tests with coverage report       |
+| `npm run test:e2e`      | Run E2E tests (Playwright)           |
+| `npm run test:e2e:ui`   | Run E2E tests with Playwright UI     |
+
+## Testing
+
+The project uses a two-layer testing stack that runs automatically on every commit.
+
+### Unit & Integration Tests (Vitest)
+
+- **Framework:** Vitest + React Testing Library + jsdom
+- **Location:** `src/**/*.test.{ts,tsx}`
+- **Run:** `npm test`
+
+Covers stores, hooks, services, utils, and component integration tests. Coverage thresholds are enforced (see `vitest.config.ts`).
+
+### E2E Tests (Playwright)
+
+- **Framework:** Playwright (Chromium only)
+- **Location:** `e2e/*.spec.ts`
+- **Run:** `npm run test:e2e`
+
+Tests the full funnel: navigation between steps, sign-up form validation, payment flow, and offer modals. Uses API mocking via `page.route()` — no real backend needed.
+
+Playwright auto-starts the Vite dev server on `localhost:5173` (or reuses an existing one).
+
+#### First-time setup
+
+Playwright browser is downloaded automatically on `npm install`. If you see a `browserType.launch: Executable doesn't exist` error, run:
 
 ```bash
+npx playwright install --with-deps chromium
+```
+
+This only needs to be done once.
+
+### Pre-commit Hook
+
+Every commit runs the following checks automatically (via Husky):
+
+1. **lint-staged** — ESLint + Prettier on staged files
+2. **Vitest** — all unit/integration tests (~3s)
+3. **Playwright** — all E2E tests (~30s)
+
+All three must pass for the commit to succeed. **Do not skip hooks with `--no-verify`.**
+
+## Project Structure
+
+```
+src/
+├── components/
+│   ├── funnel/fields/      # Reusable form fields
+│   ├── funnel/steps/       # Funnel step components
+│   ├── modals/             # Offer modals
+│   ├── stepper/            # Stepper navigation
+│   └── ui/                 # shadcn/ui primitives
+├── configs/                # Feature flags, experiments
+├── constants/              # Static data (plans, traits)
+├── features/funnel/        # Step orchestration, validation
+├── hooks/
+│   ├── funnel/             # Funnel hooks (useFunnelForm)
+│   └── queries/            # React Query mutations
+├── lib/                    # Axios client, utils
+├── services/               # API services
+├── store/states/           # Zustand slices
+└── utils/                  # Helpers, enums, types
+e2e/                        # Playwright E2E specs
+test/                       # Test setup (vitest)
+```
+
+## Sprites
+
+All funnel images (avatars, backgrounds, characters, brands, icons, etc.) are packed into a single sprite sheet for performance.
+
+- **Sprite file:** `public/images/sprites/sprite.webp`
+- **Generated manifest:** `src/constants/sprite.ts` (auto-generated, do not edit manually)
+- **Build script:** `src/scripts/build-sprite.mjs`
+
+### How it works
+
+The build script scans `public/images/**` for all images (PNG, WebP, JPG, SVG, AVIF), filters out files that are too large (>800KB or >1024px), packs them into a single sprite sheet using Spritesmith, converts to WebP, and generates a TypeScript manifest with coordinates for each image.
+
+### Adding or replacing an image
+
+1. Add/replace the image file in the appropriate `public/images/<group>/` folder (e.g. `public/images/brands/`, `public/images/avatars/`)
+2. Rebuild the sprite:
+
+```bash
+npm run build:sprite
+```
+
+3. The script auto-updates `src/constants/sprite.ts` with the new coordinates — commit both the sprite and the manifest.
+
+### Constraints
+
+- Max file size: **800KB** (files above are excluded)
+- Max dimensions: **1024x1024px** (files above are excluded)
+- Videos and GIFs are ignored
+- Whitelisted files (see `WHITELIST` in the script) bypass size/dimension filters
+
+## Docker
+
+For containerized deployment:
+
+```bash
+# Development (with hot-reload)
+docker-compose -f docker-compose.dev.yml up
+
+# Production
 docker-compose up -d
-```
-
-For local production build:
-
-```bash
-npm install
-npm run build
-npm start
-```
-
-## Stopping the Application
-
-```bash
-docker-compose down
 ```

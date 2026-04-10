@@ -21,6 +21,7 @@ import { shift4Service } from '@/services/shift4-service';
 import { reportPurchase, gaCloseConvertLead, gaPurchase } from '@/lib/gtag';
 import { trackTaboola } from '@/lib/taboola';
 import { env } from '@/config/env';
+import { redirectToMainApp } from '@/utils/auth/redirectToMainApp';
 
 const Shift4Options = {
     style: {
@@ -166,7 +167,7 @@ export function usePaymentForm(posthog?: PostHog) {
                         localStorage.removeItem(PAYMENT_IN_PROGRESS_KEY);
                         localStorage.removeItem(PAYMENT_COMPLETED_KEY);
                         const redirectUrl = env.shift4.paymentRedirect;
-                        window.location.href = redirectUrl + '?authToken=' + authToken;
+                        void redirectToMainApp(redirectUrl, authToken);
                     }, 300);
                 }
 
@@ -300,7 +301,6 @@ export function usePaymentForm(posthog?: PostHog) {
 
                     // GA4 — Purchase (redirect after event sent)
                     const redirectUrl = env.shift4.paymentRedirect;
-                    const redirectUrlWithToken = redirectUrl + '?authToken=' + authToken;
                     let redirected = false;
 
                     const doRedirect = () => {
@@ -308,7 +308,7 @@ export function usePaymentForm(posthog?: PostHog) {
                         redirected = true;
                         localStorage.removeItem(PAYMENT_IN_PROGRESS_KEY);
                         localStorage.removeItem(PAYMENT_COMPLETED_KEY);
-                        window.location.href = redirectUrlWithToken;
+                        void redirectToMainApp(redirectUrl, authToken);
                     };
 
                     const redirectFallback = setTimeout(doRedirect, 3000);
@@ -636,7 +636,6 @@ export function usePaymentForm(posthog?: PostHog) {
 
                                     // GA4 — Purchase (redirect after event sent)
                                     const redirectUrl = env.shift4.paymentRedirect;
-                                    const redirectUrlWithToken = redirectUrl + '?authToken=' + authToken;
                                     let redirected = false;
 
                                     const doRedirect = () => {
@@ -644,7 +643,7 @@ export function usePaymentForm(posthog?: PostHog) {
                                         redirected = true;
                                         localStorage.removeItem(PAYMENT_IN_PROGRESS_KEY);
                                         localStorage.removeItem(PAYMENT_COMPLETED_KEY);
-                                        window.location.href = redirectUrlWithToken;
+                                        void redirectToMainApp(redirectUrl, authToken);
                                     };
 
                                     const redirectFallback = setTimeout(doRedirect, 3000);
@@ -709,7 +708,7 @@ export function usePaymentForm(posthog?: PostHog) {
                             setTimeout(() => {
                                 localStorage.removeItem(PAYMENT_COMPLETED_KEY);
                                 const redirectUrl = env.shift4.paymentRedirect;
-                                window.location.href = redirectUrl + '?authToken=' + authToken;
+                                void redirectToMainApp(redirectUrl, authToken);
                             }, 300);
                             return;
                         }

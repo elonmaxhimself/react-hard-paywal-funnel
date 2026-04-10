@@ -79,6 +79,14 @@ vi.mock('@/config/env', () => ({
     },
 }));
 
+// ── redirectToMainApp mock ──────────────────────────────────────────────────
+let capturedRedirectUrl = '';
+vi.mock('@/utils/auth/redirectToMainApp', () => ({
+    redirectToMainApp: vi.fn(async (redirectUrl: string, authToken: string | null) => {
+        capturedRedirectUrl = authToken ? `${redirectUrl}?authToken=${authToken}` : redirectUrl;
+    }),
+}));
+
 // =============================================================================
 // BroadcastChannel capture
 // =============================================================================
@@ -221,6 +229,7 @@ beforeEach(() => {
     localStorage.clear();
     sessionStorage.clear();
     vi.clearAllMocks();
+    capturedRedirectUrl = '';
 
     cleanupFns = [];
 
@@ -393,7 +402,7 @@ describe('usePaymentForm — integration', () => {
             });
 
             // Verify redirect
-            expect(locationHref).toContain('authToken=jwt_test_token');
+            expect(capturedRedirectUrl).toContain('authToken=jwt_test_token');
 
             restoreWindowLocation();
         });
@@ -583,7 +592,7 @@ describe('usePaymentForm — integration', () => {
                 vi.advanceTimersByTime(350);
             });
 
-            expect(locationHref).toContain('authToken=jwt_test_token');
+            expect(capturedRedirectUrl).toContain('authToken=jwt_test_token');
             restoreWindowLocation();
         });
 
@@ -718,7 +727,7 @@ describe('usePaymentForm — integration', () => {
                 vi.advanceTimersByTime(350);
             });
 
-            expect(locationHref).toContain('authToken=');
+            expect(capturedRedirectUrl).toContain('authToken=');
             restoreWindowLocation();
         });
 
@@ -777,7 +786,7 @@ describe('usePaymentForm — integration', () => {
                 vi.advanceTimersByTime(350);
             });
 
-            expect(locationHref).toContain('authToken=');
+            expect(capturedRedirectUrl).toContain('authToken=');
             restoreWindowLocation();
         });
 
@@ -963,11 +972,12 @@ describe('usePaymentForm — integration', () => {
             // Payment completed marker should be set (for cross-tab sync)
             expect(localStorage.getItem(PAYMENT_COMPLETED_KEY)).not.toBeNull();
 
-            // Should redirect after 300ms delay
-            act(() => {
+            // Should redirect after 300ms delay via redirectToMainApp
+            await act(async () => {
                 vi.advanceTimersByTime(350);
             });
-            expect(locationHref).toContain('authToken=');
+            const { redirectToMainApp } = await import('@/utils/auth/redirectToMainApp');
+            expect(redirectToMainApp).toHaveBeenCalled();
 
             restoreWindowLocation();
         });
@@ -1483,7 +1493,7 @@ describe('usePaymentForm — integration', () => {
                 vi.advanceTimersByTime(350);
             });
 
-            expect(locationHref).toBe('https://mydreamcompanion.com?authToken=jwt_test_token');
+            expect(capturedRedirectUrl).toBe('https://mydreamcompanion.com?authToken=jwt_test_token');
             restoreWindowLocation();
         });
 

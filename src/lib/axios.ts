@@ -5,6 +5,7 @@ import { env } from '@/config/env';
 const axiosInstance = axios.create({
     baseURL: env.apiBaseUrl,
     timeout: 10000,
+    withCredentials: true,
     adapter: 'fetch',
     headers: {
         'Content-Type': 'application/json',

@@ -35,6 +35,10 @@ describe('axios instance', () => {
         expect(axiosInstance.defaults.headers['Content-Type']).toBe('application/json');
     });
 
+    it('has withCredentials enabled for cookie auth', () => {
+        expect(axiosInstance.defaults.withCredentials).toBe(true);
+    });
+
     describe('request interceptor', () => {
         it('adds Authorization header when token exists', async () => {
             vi.mocked(getAuthStore).mockReturnValue({ authToken: 'jwt-test-token' } as ReturnType<typeof getAuthStore>);

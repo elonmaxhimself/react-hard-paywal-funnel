@@ -38,4 +38,8 @@ export const env = {
         /** Enable analytics in dev mode (local only, ignored in production builds) */
         enableDevAnalytics: import.meta.env.VITE_PUBLIC_ENABLE_DEV_ANALYTICS === 'true',
     },
+    taboola: {
+        /** Taboola pixel account ID — optional (tracking disabled if missing) */
+        accountId: import.meta.env.VITE_PUBLIC_TABOOLA_ACCOUNT_ID || '',
+    },
 } as const;

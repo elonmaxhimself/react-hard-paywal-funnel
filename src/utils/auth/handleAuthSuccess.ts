@@ -1,5 +1,6 @@
 import type { PostHog } from 'posthog-js';
 import { reportEmailVerified, reportSignUp } from '@/lib/gtag';
+import { trackTaboola } from '@/lib/taboola';
 import type { FunnelSchema } from '@/hooks/funnel/useFunnelForm';
 
 interface HandleAuthSuccessParams {
@@ -34,6 +35,9 @@ export const handleAuthSuccess = ({
         user_id: userId,
         email: email,
     });
+
+    // Taboola — Lead
+    trackTaboola('lead');
 
     // Google Ads conversions
     reportSignUp();

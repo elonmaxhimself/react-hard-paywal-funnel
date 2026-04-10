@@ -19,6 +19,7 @@ import { products } from '@/constants/products';
 
 import { shift4Service } from '@/services/shift4-service';
 import { reportPurchase } from '@/lib/gtag';
+import { trackTaboola } from '@/lib/taboola';
 import { env } from '@/config/env';
 
 const Shift4Options = {
@@ -214,6 +215,9 @@ export function usePaymentForm(posthog?: PostHog) {
                             timestamp: Date.now(),
                         });
                     }
+                    // TABOOLA — Purchase (resume polling path)
+                    trackTaboola('make_purchase', { orderid: String(userId) });
+
                     setTimeout(() => {
                         localStorage.removeItem(PAYMENT_IN_PROGRESS_KEY);
                         const redirectUrl = env.shift4.paymentRedirect;
@@ -486,6 +490,9 @@ export function usePaymentForm(posthog?: PostHog) {
                             pollPaymentStatus(
                                 response.subscriptionId,
                                 () => {
+                                    // TABOOLA — Purchase
+                                    trackTaboola('make_purchase', { orderid: String(userId) });
+
                                     // FACEBOOK PIXEL TRACKING — Purchase
                                     const fbq = window.fbq;
                                     fbq?.('track', 'Purchase', {

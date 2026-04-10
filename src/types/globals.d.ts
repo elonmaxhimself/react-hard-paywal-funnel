@@ -25,9 +25,17 @@ interface DataLayerEvent {
     [key: string]: unknown;
 }
 
+interface TaboolaEvent {
+    notify: string;
+    name: string;
+    id: number;
+    [key: string]: unknown;
+}
+
 interface Window {
     Shift4?: Shift4Constructor;
     fbq?: (command: FacebookPixelCommand, ...args: unknown[]) => void;
     gtag?: (...args: unknown[]) => void;
     dataLayer?: DataLayerEvent[];
+    _tfa?: TaboolaEvent[];
 }

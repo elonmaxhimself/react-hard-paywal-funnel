@@ -22,7 +22,7 @@ import { useSubscriptionTermsTexts } from '@/constants/subscriptionTermsTexts';
 
 import SpriteIcon from '@/components/SpriteIcon';
 import { usePremiumRedirect } from '@/hooks/usePremiumRedirect';
-import { useExperimentVariant } from '@/hooks/useExperimentVariant';
+import { useExperimentVariant } from '@/hooks/use-experiment-variant';
 import { EXPERIMENTS } from '@/configs/experiment.config';
 import { useAuthStore } from '@/store/states/auth';
 import { Loader2Icon } from 'lucide-react';

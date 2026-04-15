@@ -110,14 +110,23 @@ export function useExperimentVariant(
             return;
         }
 
-        if (!posthog) return;
-
         const commit = (value: string): void => {
             if (resolvedRef.current) return;
             resolvedRef.current = true;
             writePersisted(key, { variant: value, preselectionApplied: false });
             setVariant(value);
         };
+
+        if (!posthog) {
+            const timeoutId = window.setTimeout(() => {
+                if (resolvedRef.current) return;
+                commit(fallbackVariant);
+            }, fallbackMs);
+
+            return () => {
+                window.clearTimeout(timeoutId);
+            };
+        }
 
         // 2. Try a synchronous read. If PostHog already has the flags loaded,
         //    this returns the variant string and emits exactly one exposure

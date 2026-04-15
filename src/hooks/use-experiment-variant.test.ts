@@ -1,7 +1,7 @@
 import { act, renderHook } from '@testing-library/react';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 
-import { useExperimentVariant } from './useExperimentVariant';
+import { useExperimentVariant } from './use-experiment-variant';
 
 type FeatureFlagCallback = (
     flags: string[],
@@ -17,8 +17,10 @@ const mockPostHog = {
     identify: vi.fn(),
 };
 
+let posthogInstance: typeof mockPostHog | null = mockPostHog;
+
 vi.mock('posthog-js/react', () => ({
-    usePostHog: () => mockPostHog,
+    usePostHog: () => posthogInstance,
 }));
 
 const FLAG_KEY = 'third-pricing-test';
@@ -27,6 +29,8 @@ const STORAGE_KEY = 'mdc_test_pricing';
 describe('useExperimentVariant', () => {
     beforeEach(() => {
         vi.useFakeTimers();
+        localStorage.clear();
+        posthogInstance = mockPostHog;
         mockPostHog.getFeatureFlag.mockReset();
         mockPostHog.onFeatureFlags.mockReset();
         mockPostHog.onFeatureFlags.mockImplementation(() => () => {});
@@ -170,6 +174,30 @@ describe('useExperimentVariant', () => {
             variant: 'control',
             preselectionApplied: false,
         });
+    });
+
+    it('falls back when PostHog provider is absent', () => {
+        posthogInstance = null;
+
+        const { result } = renderHook(() =>
+            useExperimentVariant(FLAG_KEY, {
+                userId: 1234,
+                fallbackVariant: 'control',
+                fallbackMs: 2000,
+                storageKey: STORAGE_KEY,
+            }),
+        );
+
+        expect(result.current.variant).toBeNull();
+
+        act(() => {
+            vi.advanceTimersByTime(2000);
+        });
+
+        expect(result.current.variant).toBe('control');
+        expect(result.current.isReady).toBe(true);
+        expect(mockPostHog.getFeatureFlag).not.toHaveBeenCalled();
+        expect(mockPostHog.onFeatureFlags).not.toHaveBeenCalled();
     });
 
     it('does not fallback if a variant resolved first', () => {

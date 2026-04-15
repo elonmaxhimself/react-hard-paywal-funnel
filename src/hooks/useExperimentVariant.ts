@@ -128,28 +128,44 @@ export function useExperimentVariant(
             return;
         }
 
-        // 3. Try a synchronous read. If PostHog already has the flags loaded,
-        //    this returns the variant string and emits exactly one exposure
-        //    event with the identified distinct id.
-        const immediate = posthog.getFeatureFlag(flagKey);
-        if (typeof immediate === 'string') {
-            commit(immediate);
-            return;
-        }
-
-        // 4. Flags not yet loaded — subscribe for resolution, and set a
-        //    fallback timeout so the UI never stalls.
-        const unsubscribe = posthog.onFeatureFlags((_flags, variants, ctx) => {
-            if (resolvedRef.current) return;
-            if (ctx?.errorsLoading) return;
-            const v = variants?.[flagKey];
-            if (typeof v !== 'string') return;
+        // 3. Read the flag only once `identify(userId)` has propagated to
+        //    the SDK's `distinct_id`. Otherwise the very first exposure
+        //    event would be emitted against the anonymous distinct id —
+        //    which, without `ensure_experience_continuity` on the flag,
+        //    can hash-bucket to a different variant than the identified
+        //    user would later receive. `getFeatureFlag` also emits the
+        //    exposure event that PostHog needs to attribute the user to
+        //    the experiment; `onFeatureFlags` callback does NOT emit on
+        //    its own, so we must always route through `getFeatureFlag`.
+        const expectedDistinctId = String(userId);
+        const resolveIfIdentified = (): boolean => {
+            if (resolvedRef.current) return true;
+            if (posthog.get_distinct_id() !== expectedDistinctId) return false;
+            const v = posthog.getFeatureFlag(flagKey);
+            if (typeof v !== 'string') return false;
             commit(v);
+            return true;
+        };
+
+        // Fast path — identify already flushed and flags already cached.
+        if (resolveIfIdentified()) return;
+
+        // Slow path — retry on every flag reload. PostHog triggers a reload
+        // after `identify()`, so the callback will fire once the SDK has
+        // identified flags for `userId`.
+        const unsubscribe = posthog.onFeatureFlags((_flags, _variants, ctx) => {
+            if (ctx?.errorsLoading) return;
+            resolveIfIdentified();
         });
 
+        // Timeout fallback. If identify never flushes (network failure,
+        // PostHog outage, etc.), read the flag anyway after `fallbackMs`
+        // so the funnel is never stuck on a loader. We accept that this
+        // tail case may emit exposure with an anonymous distinct id.
         const timeoutId = window.setTimeout(() => {
             if (resolvedRef.current) return;
-            commit(fallbackVariant);
+            const v = posthog.getFeatureFlag(flagKey);
+            commit(typeof v === 'string' ? v : fallbackVariant);
         }, fallbackMs);
 
         return () => {

@@ -36,6 +36,12 @@ describe('useExperimentVariant', () => {
         mockPostHog.getFeatureFlag.mockReset();
         mockPostHog.onFeatureFlags.mockReset();
         mockPostHog.onFeatureFlags.mockImplementation(() => () => {});
+        // Default: identified distinct_id matches the userId=1234 used in
+        // most tests, so the hook's distinct_id guard accepts the
+        // synchronous flag read. Tests covering the "still anonymous"
+        // race case override this with a different value.
+        mockPostHog.get_distinct_id.mockReset();
+        mockPostHog.get_distinct_id.mockReturnValue('1234');
         // Reset `usePostHog` mock to the default mock client. Tests that
         // cover the "no PostHog provider" path should set this to `null`.
         posthogReturnValue = mockPostHog;
@@ -101,7 +107,8 @@ describe('useExperimentVariant', () => {
     });
 
     it('resolves via onFeatureFlags when flags load asynchronously', () => {
-        mockPostHog.getFeatureFlag.mockReturnValue(undefined);
+        // First sync read: flags not yet cached.
+        mockPostHog.getFeatureFlag.mockReturnValueOnce(undefined);
 
         let capturedCallback: FeatureFlagCallback | null = null;
         mockPostHog.onFeatureFlags.mockImplementation((cb) => {
@@ -120,12 +127,21 @@ describe('useExperimentVariant', () => {
         expect(result.current.variant).toBeNull();
         expect(mockPostHog.onFeatureFlags).toHaveBeenCalledTimes(1);
 
+        // Flags load — `onFeatureFlags` callback fires; the hook re-reads
+        // `getFeatureFlag` (which now returns the variant AND emits the
+        // exposure event PostHog needs to attribute the user).
+        mockPostHog.getFeatureFlag.mockReturnValue('variant4');
+
         act(() => {
             capturedCallback?.([FLAG_KEY], { [FLAG_KEY]: 'variant4' });
         });
 
         expect(result.current.variant).toBe('variant4');
         expect(result.current.isReady).toBe(true);
+        // getFeatureFlag was called twice: once on mount (returned undefined)
+        // and once after the flag-update callback (returned 'variant4').
+        // The second call is what emits the single exposure event.
+        expect(mockPostHog.getFeatureFlag).toHaveBeenCalledTimes(2);
     });
 
     it('ignores callback fires with errorsLoading', () => {
@@ -278,6 +294,88 @@ describe('useExperimentVariant', () => {
         );
 
         expect(result.current.variant).toBe('variant6');
+        expect(mockPostHog.getFeatureFlag).toHaveBeenCalledTimes(1);
+    });
+
+    it('waits for identify before emitting exposure (anonymous → identified)', () => {
+        // Simulates the realistic edge case: user returns to the funnel
+        // after the sessionStorage-backed PostHog distinct_id has expired.
+        // PostHog `init()` creates a fresh anonymous distinct_id and loads
+        // flags for it; only later does `loaded()` callback fire and call
+        // `identify(userId)`. If `getFeatureFlag` runs between init and
+        // identify, the exposure event would be attributed to the
+        // anonymous distinct_id — which (without ensure_experience_continuity)
+        // can resolve to a different variant than the identified user.
+
+        // Stage 1: SubscriptionStep mounts while PostHog is still on the
+        // anonymous distinct_id. The hook must NOT emit an exposure yet.
+        mockPostHog.get_distinct_id.mockReturnValue('anon-xxx');
+        let capturedCallback: FeatureFlagCallback | null = null;
+        mockPostHog.onFeatureFlags.mockImplementation((cb) => {
+            capturedCallback = cb;
+            return () => {};
+        });
+
+        const { result } = renderHook(() =>
+            useExperimentVariant(FLAG_KEY, {
+                userId: 1234,
+                fallbackVariant: 'control',
+                storageKey: STORAGE_KEY,
+            }),
+        );
+
+        // Hook subscribed for updates but did NOT call getFeatureFlag —
+        // distinct_id was anonymous, so reading the flag would emit
+        // exposure with the wrong identity.
+        expect(result.current.variant).toBeNull();
+        expect(mockPostHog.getFeatureFlag).not.toHaveBeenCalled();
+        expect(mockPostHog.onFeatureFlags).toHaveBeenCalledTimes(1);
+
+        // Stage 2: PostHog finishes its `loaded` callback and calls
+        // identify(1234). Subsequent flag reload triggers `onFeatureFlags`.
+        mockPostHog.get_distinct_id.mockReturnValue('1234');
+        mockPostHog.getFeatureFlag.mockReturnValue('variant5');
+
+        act(() => {
+            capturedCallback?.([FLAG_KEY], { [FLAG_KEY]: 'variant5' });
+        });
+
+        // Now the hook resolves — the exposure event is emitted via the
+        // `getFeatureFlag` call inside `resolveIfIdentified`, attributed
+        // to the identified distinct id.
+        expect(result.current.variant).toBe('variant5');
+        expect(result.current.isReady).toBe(true);
+        expect(mockPostHog.getFeatureFlag).toHaveBeenCalledTimes(1);
+        expect(mockPostHog.getFeatureFlag).toHaveBeenCalledWith(FLAG_KEY);
+    });
+
+    it('falls back via getFeatureFlag if identify never propagates within timeout', () => {
+        // Tail case: PostHog SDK never identifies (e.g. /flags request
+        // hangs, network failure). After fallbackMs we must read the flag
+        // anyway — better to emit an anonymous-attributed exposure than to
+        // strand the user on an indefinite loader.
+        mockPostHog.get_distinct_id.mockReturnValue('anon-xxx');
+        mockPostHog.getFeatureFlag.mockReturnValue('control');
+
+        const { result } = renderHook(() =>
+            useExperimentVariant(FLAG_KEY, {
+                userId: 1234,
+                fallbackVariant: 'control',
+                fallbackMs: 3000,
+                storageKey: STORAGE_KEY,
+            }),
+        );
+
+        expect(result.current.variant).toBeNull();
+        expect(mockPostHog.getFeatureFlag).not.toHaveBeenCalled();
+
+        act(() => {
+            vi.advanceTimersByTime(3000);
+        });
+
+        expect(result.current.variant).toBe('control');
+        expect(result.current.isReady).toBe(true);
+        // Called once inside the timeout callback.
         expect(mockPostHog.getFeatureFlag).toHaveBeenCalledTimes(1);
     });
 

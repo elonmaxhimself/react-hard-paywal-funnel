@@ -17,8 +17,14 @@ const mockPostHog = {
     identify: vi.fn(),
 };
 
+// Module-level holder so individual tests can swap the value `usePostHog`
+// returns — in particular, to `null` which is what happens when
+// `<ClientPosthogProvider>` renders without a token and therefore without a
+// PostHog context.
+let posthogReturnValue: typeof mockPostHog | null = mockPostHog;
+
 vi.mock('posthog-js/react', () => ({
-    usePostHog: () => mockPostHog,
+    usePostHog: () => posthogReturnValue,
 }));
 
 const FLAG_KEY = 'third-pricing-test';
@@ -30,6 +36,9 @@ describe('useExperimentVariant', () => {
         mockPostHog.getFeatureFlag.mockReset();
         mockPostHog.onFeatureFlags.mockReset();
         mockPostHog.onFeatureFlags.mockImplementation(() => () => {});
+        // Reset `usePostHog` mock to the default mock client. Tests that
+        // cover the "no PostHog provider" path should set this to `null`.
+        posthogReturnValue = mockPostHog;
     });
 
     it('waits while userId is null and never calls PostHog', () => {
@@ -270,6 +279,39 @@ describe('useExperimentVariant', () => {
 
         expect(result.current.variant).toBe('variant6');
         expect(mockPostHog.getFeatureFlag).toHaveBeenCalledTimes(1);
+    });
+
+    it('falls back immediately when PostHog client is unavailable (no provider)', () => {
+        // Scenario: `<ClientPosthogProvider>` rendered without a token
+        // (e.g. env var not set on a Cloudflare Pages preview deploy), so
+        // `usePostHog()` returns `null`. The hook must still resolve to the
+        // fallback variant so the funnel's SubscriptionStep can render.
+        posthogReturnValue = null;
+
+        const { result } = renderHook(() =>
+            useExperimentVariant(FLAG_KEY, {
+                userId: 1234,
+                fallbackVariant: 'control',
+                fallbackMs: 3000,
+                storageKey: STORAGE_KEY,
+            }),
+        );
+
+        // Fallback is committed immediately — no need to wait for the
+        // timeout, because the flag can never resolve without a client.
+        expect(result.current.variant).toBe('control');
+        expect(result.current.isReady).toBe(true);
+        expect(mockPostHog.getFeatureFlag).not.toHaveBeenCalled();
+        expect(mockPostHog.onFeatureFlags).not.toHaveBeenCalled();
+
+        // The fallback should be persisted like any other resolution, so a
+        // future mount (e.g. after env var is fixed and PostHog is
+        // available) still short-circuits via the localStorage cache.
+        const raw = localStorage.getItem(`${STORAGE_KEY}:1234`);
+        expect(JSON.parse(raw!)).toEqual({
+            variant: 'control',
+            preselectionApplied: false,
+        });
     });
 
     it('ignores non-string variant values (e.g. boolean flag accidentally used)', () => {

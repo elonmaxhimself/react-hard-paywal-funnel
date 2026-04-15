@@ -110,8 +110,6 @@ export function useExperimentVariant(
             return;
         }
 
-        if (!posthog) return;
-
         const commit = (value: string): void => {
             if (resolvedRef.current) return;
             resolvedRef.current = true;
@@ -119,7 +117,18 @@ export function useExperimentVariant(
             setVariant(value);
         };
 
-        // 2. Try a synchronous read. If PostHog already has the flags loaded,
+        // 2. If PostHog is unavailable (e.g. VITE_PUBLIC_POSTHOG_TOKEN is not
+        //    set so `<ClientPosthogProvider>` rendered without mounting the
+        //    PostHog context), fall back to the control variant immediately.
+        //    Waiting on a timeout here serves no purpose — the flag can never
+        //    resolve without a client, and stalling the UI for 3 s would
+        //    strand the user on a loading spinner.
+        if (!posthog) {
+            commit(fallbackVariant);
+            return;
+        }
+
+        // 3. Try a synchronous read. If PostHog already has the flags loaded,
         //    this returns the variant string and emits exactly one exposure
         //    event with the identified distinct id.
         const immediate = posthog.getFeatureFlag(flagKey);
@@ -128,7 +137,7 @@ export function useExperimentVariant(
             return;
         }
 
-        // 3. Flags not yet loaded — subscribe for resolution, and set a
+        // 4. Flags not yet loaded — subscribe for resolution, and set a
         //    fallback timeout so the UI never stalls.
         const unsubscribe = posthog.onFeatureFlags((_flags, variants, ctx) => {
             if (resolvedRef.current) return;

@@ -18,9 +18,10 @@ import { Shift4Statuses } from '@/utils/enums/shift4-statuses';
 import { products } from '@/constants/products';
 
 import { shift4Service } from '@/services/shift4-service';
-import { reportPurchase } from '@/lib/gtag';
+import { reportPurchase, gaCloseConvertLead, gaPurchase } from '@/lib/gtag';
 import { trackTaboola } from '@/lib/taboola';
 import { env } from '@/config/env';
+import { redirectToMainApp } from '@/utils/auth/redirectToMainApp';
 
 const Shift4Options = {
     style: {
@@ -46,8 +47,50 @@ const initPaymentChannel = () => {
     return null;
 };
 
+const isNetworkError = (error: unknown): boolean => {
+    const err = error as { message?: string; code?: string };
+    // Shift4 SDK ERR# codes are only treated as network errors when the device is actually offline.
+    // This avoids misclassifying card/validation errors (e.g. ERR#40100) as connectivity issues.
+    if (typeof err?.message === 'string' && err.message.startsWith('ERR#') && !navigator.onLine) return true;
+    // Chrome / Edge
+    if (error instanceof TypeError && error.message === 'Failed to fetch') return true;
+    // Firefox
+    if (error instanceof TypeError && error.message === 'NetworkError when attempting to fetch resource.') return true;
+    // Safari
+    if (error instanceof TypeError && error.message === 'Load failed') return true;
+    // Axios with fetch adapter wraps network failures as AxiosError with code ERR_NETWORK
+    if (err?.code === 'ERR_NETWORK') return true;
+    return false;
+};
+
 export const PAYMENT_IN_PROGRESS_KEY = 'shift4_payment_in_progress';
+export const PAYMENT_COMPLETED_KEY = 'shift4_payment_completed';
 export const PAYMENT_STALENESS_TTL_MS = 5 * 60 * 1000; // 5 minutes
+
+/**
+ * Extract a user-friendly error message from a payment error.
+ * Never shows raw Axios messages like "Request failed with status code 401" to users.
+ */
+const getPaymentErrorMessage = (error: unknown, fallback: string): string => {
+    const axiosErr = error as AxiosError<{ message?: string; messages?: string[] }>;
+    const data = axiosErr?.response?.data;
+
+    // Try backend message (string or first element of array)
+    const backendMessage = data?.message ?? data?.messages?.[0];
+    if (backendMessage && backendMessage !== 'Unauthorized') {
+        return backendMessage;
+    }
+
+    // For non-Axios errors (Shift4 SDK, 3DS), use the original message —
+    // these are already user-facing. Filter out raw Axios messages which
+    // start with "Request failed with status code".
+    const err = error as { message?: string };
+    if (err?.message && !err.message.startsWith('Request failed with status code')) {
+        return err.message;
+    }
+
+    return fallback;
+};
 
 export function usePaymentForm(posthog?: PostHog) {
     const { t } = useTranslation();
@@ -64,8 +107,27 @@ export function usePaymentForm(posthog?: PostHog) {
             return false;
         }
     });
-    const [paymentCompleted, setPaymentCompleted] = useState(false);
+    const [paymentCompleted, setPaymentCompleted] = useState(() => {
+        try {
+            const stored = localStorage.getItem(PAYMENT_COMPLETED_KEY);
+            if (!stored) return false;
+            const { timestamp } = JSON.parse(stored);
+            return Date.now() - timestamp <= PAYMENT_STALENESS_TTL_MS;
+        } catch {
+            return false;
+        }
+    });
     const [resumePollingFailed, setResumePollingFailed] = useState(false);
+
+    const markPaymentCompleted = () => {
+        setPaymentCompleted(true);
+        try {
+            localStorage.setItem(PAYMENT_COMPLETED_KEY, JSON.stringify({ timestamp: Date.now() }));
+        } catch {
+            // localStorage not available
+        }
+    };
+
     const s4ComponentsRef = useRef<Shift4ComponentGroup | null>(null);
     const tabId = useRef(`tab_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`);
 
@@ -98,13 +160,14 @@ export function usePaymentForm(posthog?: PostHog) {
                 }
 
                 if (event.data.type === 'PAYMENT_SUCCESS') {
-                    setPaymentCompleted(true);
+                    markPaymentCompleted();
                     setIsSubmitting(true);
                     // Redirect this tab to main platform — payment succeeded in another tab
                     setTimeout(() => {
                         localStorage.removeItem(PAYMENT_IN_PROGRESS_KEY);
+                        localStorage.removeItem(PAYMENT_COMPLETED_KEY);
                         const redirectUrl = env.shift4.paymentRedirect;
-                        window.location.href = redirectUrl + '?authToken=' + authToken;
+                        void redirectToMainApp(redirectUrl, authToken);
                     }, 300);
                 }
 
@@ -179,27 +242,44 @@ export function usePaymentForm(posthog?: PostHog) {
     // Resume polling if payment was in progress (e.g. after page refresh)
     useEffect(() => {
         let cancelPolling: (() => void) | undefined;
+        const cleanup = () => cancelPolling?.();
 
         try {
             const stored = localStorage.getItem(PAYMENT_IN_PROGRESS_KEY);
             if (!stored) {
                 setIsSubmitting(false);
-                return;
+                return cleanup;
             }
 
             const { subscriptionId, timestamp } = JSON.parse(stored);
 
-            // Guard: if entry has no subscriptionId (stale from before fix), clear it
+            // Early marker (no subscriptionId) means payment was started but
+            // backend hadn't responded yet when the page was refreshed.
+            // Stay on this step — usePremiumRedirect will check /auth/me and
+            // redirect if the payment actually went through. After a short delay,
+            // clear the marker so the user can retry if the payment didn't go through.
             if (!subscriptionId) {
-                localStorage.removeItem(PAYMENT_IN_PROGRESS_KEY);
-                setIsSubmitting(false);
-                return;
+                if (Date.now() - timestamp > PAYMENT_STALENESS_TTL_MS) {
+                    localStorage.removeItem(PAYMENT_IN_PROGRESS_KEY);
+                    setIsSubmitting(false);
+                    return cleanup;
+                }
+                setIsSubmitting(true);
+                // Give usePremiumRedirect time to check /auth/me and redirect if paid.
+                // If after 15s the user is still here, clear the marker and allow retry.
+                const earlyMarkerTimeout = setTimeout(() => {
+                    localStorage.removeItem(PAYMENT_IN_PROGRESS_KEY);
+                    setIsSubmitting(false);
+                    setResumePollingFailed(true);
+                }, 15_000);
+                cancelPolling = () => clearTimeout(earlyMarkerTimeout);
+                return cleanup;
             }
 
             if (Date.now() - timestamp > PAYMENT_STALENESS_TTL_MS) {
                 localStorage.removeItem(PAYMENT_IN_PROGRESS_KEY);
                 setIsSubmitting(false);
-                return;
+                return cleanup;
             }
 
             setIsSubmitting(true);
@@ -215,14 +295,28 @@ export function usePaymentForm(posthog?: PostHog) {
                             timestamp: Date.now(),
                         });
                     }
+
                     // TABOOLA — Purchase (resume polling path)
                     trackTaboola('make_purchase', { orderid: String(userId) });
 
-                    setTimeout(() => {
+                    // GA4 — Purchase (redirect after event sent)
+                    const redirectUrl = env.shift4.paymentRedirect;
+                    let redirected = false;
+
+                    const doRedirect = () => {
+                        if (redirected) return;
+                        redirected = true;
                         localStorage.removeItem(PAYMENT_IN_PROGRESS_KEY);
-                        const redirectUrl = env.shift4.paymentRedirect;
-                        window.location.href = redirectUrl + '?authToken=' + authToken;
-                    }, 300);
+                        localStorage.removeItem(PAYMENT_COMPLETED_KEY);
+                        void redirectToMainApp(redirectUrl, authToken);
+                    };
+
+                    const redirectFallback = setTimeout(doRedirect, 3000);
+
+                    gaPurchase(subscriptionId, product ? product.amount / 100 : 0, 'USD', () => {
+                        clearTimeout(redirectFallback);
+                        doRedirect();
+                    });
                 },
                 (errorMessage) => {
                     localStorage.removeItem(PAYMENT_IN_PROGRESS_KEY);
@@ -237,9 +331,7 @@ export function usePaymentForm(posthog?: PostHog) {
             setResumePollingFailed(true);
         }
 
-        return () => {
-            cancelPolling?.();
-        };
+        return cleanup;
         // eslint-disable-next-line react-hooks/exhaustive-deps -- mount-only polling resume
     }, []);
 
@@ -269,7 +361,7 @@ export function usePaymentForm(posthog?: PostHog) {
 
                 if (statusResponse.paid_status === 'paid') {
                     setIsPolling(false);
-                    setPaymentCompleted(true);
+                    markPaymentCompleted();
                     onSuccess();
                     return;
                 } else if (statusResponse.paid_status === 'failed') {
@@ -289,7 +381,12 @@ export function usePaymentForm(posthog?: PostHog) {
             } catch (error: unknown) {
                 if (cancelled) return;
 
-                // Error polling payment status
+                if (isNetworkError(error)) {
+                    setIsPolling(false);
+                    onError(t('hooks.usePaymentForm.errors.noInternet'));
+                    return;
+                }
+
                 const axiosErr = error as AxiosError;
                 if (axiosErr.response?.status === 404) {
                     if (attempts < maxAttempts) {
@@ -465,6 +562,15 @@ export function usePaymentForm(posthog?: PostHog) {
                 return;
             }
 
+            // Write payment marker BEFORE any async work so a page refresh
+            // during tokenization / 3DS / API call keeps the user on this step.
+            // The marker is updated with subscriptionId once the backend responds.
+            try {
+                localStorage.setItem(PAYMENT_IN_PROGRESS_KEY, JSON.stringify({ timestamp: Date.now() }));
+            } catch {
+                // localStorage not available — proceed anyway
+            }
+
             const result = await shift4Instance.createToken(componentsGroup);
             if (result.error) throw new Error(result.error.message);
 
@@ -480,6 +586,7 @@ export function usePaymentForm(posthog?: PostHog) {
                 {
                     onSuccess: (response) => {
                         if (response.status === Shift4Statuses.SUBSCRIPTION_INITIATED) {
+                            if (userId) gaCloseConvertLead(String(userId));
                             localStorage.setItem(
                                 PAYMENT_IN_PROGRESS_KEY,
                                 JSON.stringify({
@@ -527,12 +634,24 @@ export function usePaymentForm(posthog?: PostHog) {
                                         });
                                     }
 
-                                    setTimeout(() => {
+                                    // GA4 — Purchase (redirect after event sent)
+                                    const redirectUrl = env.shift4.paymentRedirect;
+                                    let redirected = false;
+
+                                    const doRedirect = () => {
+                                        if (redirected) return;
+                                        redirected = true;
                                         localStorage.removeItem(PAYMENT_IN_PROGRESS_KEY);
-                                        const redirectUrl = env.shift4.paymentRedirect;
-                                        const redirectUrlWithToken = redirectUrl + '?authToken=' + authToken;
-                                        window.location.href = redirectUrlWithToken;
-                                    }, 300);
+                                        localStorage.removeItem(PAYMENT_COMPLETED_KEY);
+                                        void redirectToMainApp(redirectUrl, authToken);
+                                    };
+
+                                    const redirectFallback = setTimeout(doRedirect, 3000);
+
+                                    gaPurchase(response.subscriptionId, product.amount / 100, 'USD', () => {
+                                        clearTimeout(redirectFallback);
+                                        doRedirect();
+                                    });
                                 },
                                 (errorMessage: string) => {
                                     localStorage.removeItem(PAYMENT_IN_PROGRESS_KEY);
@@ -569,7 +688,30 @@ export function usePaymentForm(posthog?: PostHog) {
                         }
                     },
                     onError: (error: Error) => {
-                        // Payment processing error
+                        const axiosErr = error as AxiosError<{ message?: string }>;
+                        const status = axiosErr.response?.status;
+
+                        // 409 means user already has an active subscription —
+                        // treat as success and redirect to the main platform.
+                        if (status === 409) {
+                            markPaymentCompleted();
+                            localStorage.removeItem(PAYMENT_IN_PROGRESS_KEY);
+
+                            if (channel) {
+                                channel.postMessage({
+                                    type: 'PAYMENT_SUCCESS',
+                                    senderId: tabId.current,
+                                    timestamp: Date.now(),
+                                });
+                            }
+
+                            setTimeout(() => {
+                                localStorage.removeItem(PAYMENT_COMPLETED_KEY);
+                                const redirectUrl = env.shift4.paymentRedirect;
+                                void redirectToMainApp(redirectUrl, authToken);
+                            }, 300);
+                            return;
+                        }
 
                         localStorage.removeItem(PAYMENT_IN_PROGRESS_KEY);
                         setIsPolling(false);
@@ -582,12 +724,20 @@ export function usePaymentForm(posthog?: PostHog) {
                             });
                         }
 
-                        const axiosErr = error as AxiosError<{ message?: string }>;
+                        // 401 = session expired — show message and auto-reload
+                        if (status === 401) {
+                            triggerToast({
+                                title: t('hooks.usePaymentForm.errors.sessionExpired'),
+                                type: toastType.error,
+                            });
+                            setTimeout(() => window.location.reload(), 2000);
+                            return;
+                        }
+
                         triggerToast({
-                            title:
-                                axiosErr.response?.data?.message ||
-                                error.message ||
-                                t('hooks.usePaymentForm.errors.unexpectedError'),
+                            title: isNetworkError(error)
+                                ? t('hooks.usePaymentForm.errors.noInternet')
+                                : getPaymentErrorMessage(error, t('hooks.usePaymentForm.errors.unexpectedError')),
                             type: toastType.error,
                         });
                     },
@@ -607,12 +757,10 @@ export function usePaymentForm(posthog?: PostHog) {
                 });
             }
 
-            const catchErr = error as AxiosError<{ message?: string }>;
             triggerToast({
-                title:
-                    catchErr.response?.data?.message ||
-                    catchErr.message ||
-                    t('hooks.usePaymentForm.errors.unexpectedError'),
+                title: isNetworkError(error)
+                    ? t('hooks.usePaymentForm.errors.noInternet')
+                    : getPaymentErrorMessage(error, t('hooks.usePaymentForm.errors.unexpectedError')),
                 type: toastType.error,
             });
         }
@@ -624,6 +772,10 @@ export function usePaymentForm(posthog?: PostHog) {
         isButtonDisabled:
             isPending || isPolling || isSubmitting || paymentCompleted || !componentsGroup || !isShift4Ready,
         isPaymentInProgress: isPending || isPolling || isSubmitting || paymentCompleted,
+        // True when payment is actively in-flight (not yet completed/failed).
+        // Used by PaymentFormStep to show beforeunload warning.
+        // Excludes paymentCompleted to avoid blocking our own redirect.
+        shouldWarnOnLeave: isSubmitting && !paymentCompleted,
         isShift4Ready,
         shift4Error,
         resumePollingFailed,

@@ -42,3 +42,9 @@ export interface AuthResponse {
     authToken: string;
     userId: number;
 }
+
+/** Minimal subset of GET /auth/me response — only fields the funnel needs */
+export interface MeResponse {
+    id: number;
+    isPremium: boolean;
+}

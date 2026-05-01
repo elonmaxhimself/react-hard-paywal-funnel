@@ -62,7 +62,7 @@ export function SocialProofStep() {
                         px-[15px] sm:px-10
                         p-5
                         bg-black-2
-                        sm:static fixed bottom-0 left-0
+                        sm:static fixed bottom-0 left-0 z-100
                     "
                 >
                     <div className="max-w-[450px] w-full">

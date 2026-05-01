@@ -302,7 +302,8 @@
             "paymentUnavailable": "Fizetés nem elérhető",
             "altLogo": "My Dream Companion",
             "altVisa": "Visa",
-            "altMastercard": "Mastercard"
+            "altMastercard": "Mastercard",
+            "redirecting": "Az előfizetésed aktív. Átirányítás folyamatban..."
         }
     },
     "constants": {
@@ -710,7 +711,10 @@
             "36": "A folytatással megerősíti, hogy legalább 18 éves, és elfogadja a havi előfizetés $19.99-es díját. Az előfizetés automatikusan megújul havonta $19.99-ért, amíg le nem mondja. A Folytatás gombra kattintva megerősíti, hogy elfogadja |TERMS_LINK|\nA fizetés mydreamcompanion néven jelenik meg. További információért lépjen kapcsolatba: support@mydreamcompanion.com",
             "2": "A folytatással megerősíti, hogy legalább 18 éves, és elfogadja az éves előfizetés $69.99-es díját. Az előfizetés automatikusan megújul évente $69.99-ért, amíg le nem mondja. A Folytatás gombra kattintva megerősíti, hogy elfogadja |TERMS_LINK|\nA fizetés mydreamcompanion néven jelenik meg. További információért lépjen kapcsolatba: support@mydreamcompanion.com",
             "155": "A folytatással megerősíti, hogy legalább 18 éves, és elfogadja a negyedéves előfizetés $39.99-es díját. Az előfizetés automatikusan megújul 3 havonta $39.99-ért, amíg le nem mondja. A Folytatás gombra kattintva megerősíti, hogy elfogadja |TERMS_LINK|\nA fizetés mydreamcompanion néven jelenik meg. További információért lépjen kapcsolatba: support@mydreamcompanion.com",
-            "156": "A folytatással megerősíti, hogy legalább 18 éves, és elfogadja a negyedéves előfizetés $49.99-es díját. Az előfizetés automatikusan megújul 3 havonta $49.99-ért, amíg le nem mondja. A Folytatás gombra kattintva megerősíti, hogy elfogadja |TERMS_LINK|\nA fizetés mydreamcompanion néven jelenik meg. További információért lépjen kapcsolatba: support@mydreamcompanion.com"
+            "156": "A folytatással megerősíti, hogy legalább 18 éves, és elfogadja a negyedéves előfizetés $49.99-es díját. Az előfizetés automatikusan megújul 3 havonta $49.99-ért, amíg le nem mondja. A Folytatás gombra kattintva megerősíti, hogy elfogadja |TERMS_LINK|\nA fizetés mydreamcompanion néven jelenik meg. További információért lépjen kapcsolatba: support@mydreamcompanion.com",
+            "157": "A folytatással megerősíti, hogy legalább 18 éves, és elfogadja a negyedéves előfizetés $29.99-es díját. Az előfizetés automatikusan megújul 3 havonta $29.99-ért, amíg le nem mondja. A Folytatás gombra kattintva megerősíti, hogy elfogadja |TERMS_LINK|\nA fizetés mydreamcompanion néven jelenik meg. További információért lépjen kapcsolatba: support@mydreamcompanion.com",
+            "158": "A folytatással megerősíti, hogy legalább 18 éves, és elfogadja a negyedéves előfizetés $34.99-es díját. Az előfizetés automatikusan megújul 3 havonta $34.99-ért, amíg le nem mondja. A Folytatás gombra kattintva megerősíti, hogy elfogadja |TERMS_LINK|\nA fizetés mydreamcompanion néven jelenik meg. További információért lépjen kapcsolatba: support@mydreamcompanion.com",
+            "159": "A folytatással megerősíti, hogy legalább 18 éves, és elfogadja a negyedéves előfizetés $44.99-es díját. Az előfizetés automatikusan megújul 3 havonta $44.99-ért, amíg le nem mondja. A Folytatás gombra kattintva megerősíti, hogy elfogadja |TERMS_LINK|\nA fizetés mydreamcompanion néven jelenik meg. További információért lépjen kapcsolatba: support@mydreamcompanion.com"
         }
     },
     "hooks": {
@@ -724,6 +728,7 @@
         },
         "usePaymentForm": {
             "errors": {
+                "noInternet": "Nincs internetkapcsolat. Kérjük, ellenőrizze a hálózatát, és próbálja újra.",
                 "paymentConfigError": "Fizetési rendszer konfigurációs hiba.",
                 "paymentSystemUnavailable": "A fizetési rendszer nem elérhető. Kérlek, frissítsd az oldalt.",
                 "initializationFailed": "Fizetési űrlap inicializálása sikertelen. Kérlek, frissítsd az oldalt.",
@@ -731,7 +736,8 @@
                 "paymentWentWrong": "Valami hiba történt fizetés közben. Kérlek, próbáld újra.",
                 "paymentTakingLong": "A fizetés a vártnál tovább tart. Kérlek, próbáld újra.",
                 "failedCheckStatus": "Fizetési állapot ellenőrzése sikertelen. Kérlek, próbáld újra.",
-                "paymentInAnotherTab": "A fizetés feldolgozás alatt áll egy másik lapon."
+                "paymentInAnotherTab": "A fizetés feldolgozás alatt áll egy másik lapon.",
+                "sessionExpired": "A munkameneted lejárt. Az oldal automatikusan újratöltődik."
             }
         },
         "turnsOfYou": {

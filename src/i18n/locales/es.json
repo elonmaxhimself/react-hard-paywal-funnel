@@ -302,7 +302,8 @@
             "paymentUnavailable": "Pago no disponible",
             "altLogo": "My Dream Companion",
             "altVisa": "Visa",
-            "altMastercard": "Mastercard"
+            "altMastercard": "Mastercard",
+            "redirecting": "Tu suscripción está activa. Redirigiéndote ahora..."
         }
     },
     "constants": {
@@ -710,7 +711,10 @@
             "36": "Al continuar, confirma que tiene al menos 18 años y acepta el pago de $19.99 por una suscripción mensual. La suscripción se renovará automáticamente cada mes por $19.99 hasta que cancele. Al hacer clic en Continuar también confirma que acepta nuestros |TERMS_LINK|\nEl pago aparecerá como mydreamcompanion. Para más información contacte support@mydreamcompanion.com",
             "2": "Al continuar, confirma que tiene al menos 18 años y acepta el pago de $69.99 por una suscripción anual. La suscripción se renovará automáticamente cada año por $69.99 hasta que cancele. Al hacer clic en Continuar también confirma que acepta nuestros |TERMS_LINK|\nEl pago aparecerá como mydreamcompanion. Para más información contacte support@mydreamcompanion.com",
             "155": "Al continuar, confirma que tiene al menos 18 años y acepta el pago de $39.99 por una suscripción trimestral. La suscripción se renovará automáticamente cada 3 meses por $39.99 hasta que cancele. Al hacer clic en Continuar también confirma que acepta nuestros |TERMS_LINK|\nEl pago aparecerá como mydreamcompanion. Para más información contacte support@mydreamcompanion.com",
-            "156": "Al continuar, confirma que tiene al menos 18 años y acepta el pago de $49.99 por una suscripción trimestral. La suscripción se renovará automáticamente cada 3 meses por $49.99 hasta que cancele. Al hacer clic en Continuar también confirma que acepta nuestros |TERMS_LINK|\nEl pago aparecerá como mydreamcompanion. Para más información contacte support@mydreamcompanion.com"
+            "156": "Al continuar, confirma que tiene al menos 18 años y acepta el pago de $49.99 por una suscripción trimestral. La suscripción se renovará automáticamente cada 3 meses por $49.99 hasta que cancele. Al hacer clic en Continuar también confirma que acepta nuestros |TERMS_LINK|\nEl pago aparecerá como mydreamcompanion. Para más información contacte support@mydreamcompanion.com",
+            "157": "Al continuar, confirma que tiene al menos 18 años y acepta el pago de $29.99 por una suscripción trimestral. La suscripción se renovará automáticamente cada 3 meses por $29.99 hasta que cancele. Al hacer clic en Continuar también confirma que acepta nuestros |TERMS_LINK|\nEl pago aparecerá como mydreamcompanion. Para más información contacte support@mydreamcompanion.com",
+            "158": "Al continuar, confirma que tiene al menos 18 años y acepta el pago de $34.99 por una suscripción trimestral. La suscripción se renovará automáticamente cada 3 meses por $34.99 hasta que cancele. Al hacer clic en Continuar también confirma que acepta nuestros |TERMS_LINK|\nEl pago aparecerá como mydreamcompanion. Para más información contacte support@mydreamcompanion.com",
+            "159": "Al continuar, confirma que tiene al menos 18 años y acepta el pago de $44.99 por una suscripción trimestral. La suscripción se renovará automáticamente cada 3 meses por $44.99 hasta que cancele. Al hacer clic en Continuar también confirma que acepta nuestros |TERMS_LINK|\nEl pago aparecerá como mydreamcompanion. Para más información contacte support@mydreamcompanion.com"
         }
     },
     "hooks": {
@@ -724,6 +728,7 @@
         },
         "usePaymentForm": {
             "errors": {
+                "noInternet": "Sin conexión a internet. Por favor, comprueba tu red e inténtalo de nuevo.",
                 "paymentConfigError": "Error de configuración del sistema de pago.",
                 "paymentSystemUnavailable": "El sistema de pago no está disponible. Por favor, actualiza la página.",
                 "initializationFailed": "No se pudo inicializar el formulario de pago. Por favor, actualiza la página.",
@@ -731,7 +736,8 @@
                 "paymentWentWrong": "Algo salió mal durante el pago. Por favor, inténtalo de nuevo.",
                 "paymentTakingLong": "El pago está tomando más tiempo de lo esperado. Por favor, inténtalo de nuevo.",
                 "failedCheckStatus": "No se pudo verificar el estado del pago. Por favor, inténtalo de nuevo.",
-                "paymentInAnotherTab": "El pago se está procesando en otra pestaña."
+                "paymentInAnotherTab": "El pago se está procesando en otra pestaña.",
+                "sessionExpired": "Tu sesión ha expirado. La página se recargará automáticamente."
             }
         },
         "turnsOfYou": {

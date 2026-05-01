@@ -302,7 +302,8 @@
             "paymentUnavailable": "Paiement indisponible",
             "altLogo": "My Dream Companion",
             "altVisa": "Visa",
-            "altMastercard": "Mastercard"
+            "altMastercard": "Mastercard",
+            "redirecting": "Votre abonnement est actif. Redirection en cours..."
         }
     },
     "constants": {
@@ -710,7 +711,10 @@
             "36": "En continuant, vous confirmez que vous avez au moins 18 ans et acceptez le paiement de 19,99 $ pour un abonnement mensuel. L'abonnement sera renouvelé automatiquement chaque mois pour 19,99 $ jusqu'à résiliation. En cliquant sur Continuer, vous confirmez également que vous acceptez nos |TERMS_LINK|\nLe paiement apparaîtra sous le nom mydreamcompanion. Pour plus d'informations, contactez support@mydreamcompanion.com",
             "2": "En continuant, vous confirmez que vous avez au moins 18 ans et acceptez le paiement de 69,99 $ pour un abonnement annuel. L'abonnement sera renouvelé automatiquement chaque année pour 69,99 $ jusqu'à résiliation. En cliquant sur Continuer, vous confirmez également que vous acceptez nos |TERMS_LINK|\nLe paiement apparaîtra sous le nom mydreamcompanion. Pour plus d'informations, contactez support@mydreamcompanion.com",
             "155": "En continuant, vous confirmez que vous avez au moins 18 ans et acceptez le paiement de 39,99 $ pour un abonnement trimestriel. L'abonnement sera renouvelé automatiquement tous les 3 mois pour 39,99 $ jusqu'à résiliation. En cliquant sur Continuer, vous confirmez également que vous acceptez nos |TERMS_LINK|\nLe paiement apparaîtra sous le nom mydreamcompanion. Pour plus d'informations, contactez support@mydreamcompanion.com",
-            "156": "En continuant, vous confirmez que vous avez au moins 18 ans et acceptez le paiement de 49,99 $ pour un abonnement trimestriel. L'abonnement sera renouvelé automatiquement tous les 3 mois pour 49,99 $ jusqu'à résiliation. En cliquant sur Continuer, vous confirmez également que vous acceptez nos |TERMS_LINK|\nLe paiement apparaîtra sous le nom mydreamcompanion. Pour plus d'informations, contactez support@mydreamcompanion.com"
+            "156": "En continuant, vous confirmez que vous avez au moins 18 ans et acceptez le paiement de 49,99 $ pour un abonnement trimestriel. L'abonnement sera renouvelé automatiquement tous les 3 mois pour 49,99 $ jusqu'à résiliation. En cliquant sur Continuer, vous confirmez également que vous acceptez nos |TERMS_LINK|\nLe paiement apparaîtra sous le nom mydreamcompanion. Pour plus d'informations, contactez support@mydreamcompanion.com",
+            "157": "En continuant, vous confirmez que vous avez au moins 18 ans et acceptez le paiement de 29,99 $ pour un abonnement trimestriel. L'abonnement sera renouvelé automatiquement tous les 3 mois pour 29,99 $ jusqu'à résiliation. En cliquant sur Continuer, vous confirmez également que vous acceptez nos |TERMS_LINK|\nLe paiement apparaîtra sous le nom mydreamcompanion. Pour plus d'informations, contactez support@mydreamcompanion.com",
+            "158": "En continuant, vous confirmez que vous avez au moins 18 ans et acceptez le paiement de 34,99 $ pour un abonnement trimestriel. L'abonnement sera renouvelé automatiquement tous les 3 mois pour 34,99 $ jusqu'à résiliation. En cliquant sur Continuer, vous confirmez également que vous acceptez nos |TERMS_LINK|\nLe paiement apparaîtra sous le nom mydreamcompanion. Pour plus d'informations, contactez support@mydreamcompanion.com",
+            "159": "En continuant, vous confirmez que vous avez au moins 18 ans et acceptez le paiement de 44,99 $ pour un abonnement trimestriel. L'abonnement sera renouvelé automatiquement tous les 3 mois pour 44,99 $ jusqu'à résiliation. En cliquant sur Continuer, vous confirmez également que vous acceptez nos |TERMS_LINK|\nLe paiement apparaîtra sous le nom mydreamcompanion. Pour plus d'informations, contactez support@mydreamcompanion.com"
         }
     },
     "hooks": {
@@ -724,6 +728,7 @@
         },
         "usePaymentForm": {
             "errors": {
+                "noInternet": "Pas de connexion internet. Veuillez vérifier votre réseau et réessayer.",
                 "paymentConfigError": "Erreur de configuration du système de paiement.",
                 "paymentSystemUnavailable": "Le système de paiement n'est pas disponible. Veuillez actualiser la page.",
                 "initializationFailed": "Échec de l'initialisation du formulaire de paiement. Veuillez actualiser la page.",
@@ -731,7 +736,8 @@
                 "paymentWentWrong": "Une erreur s'est produite lors du paiement. Veuillez réessayer.",
                 "paymentTakingLong": "Le paiement prend plus de temps que prévu. Veuillez réessayer.",
                 "failedCheckStatus": "Échec de la vérification du statut du paiement. Veuillez réessayer.",
-                "paymentInAnotherTab": "Le paiement est en cours de traitement dans un autre onglet."
+                "paymentInAnotherTab": "Le paiement est en cours de traitement dans un autre onglet.",
+                "sessionExpired": "Votre session a expiré. La page se rechargera automatiquement."
             }
         },
         "turnsOfYou": {

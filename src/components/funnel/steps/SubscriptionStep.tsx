@@ -8,7 +8,6 @@ import { Button } from '@/components/ui/button';
 import { useStepperContext } from '@/components/stepper/Stepper.context';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { Carousel, CarouselContent, CarouselItem, CarouselDots, type CarouselApi } from '@/components/ui/carousel';
-import { usePostHog } from 'posthog-js/react';
 
 import { useStore } from '@/store/state';
 
@@ -22,8 +21,14 @@ import { brands } from '@/constants/brands';
 import { useSubscriptionTermsTexts } from '@/constants/subscriptionTermsTexts';
 
 import SpriteIcon from '@/components/SpriteIcon';
+import { usePremiumRedirect } from '@/hooks/usePremiumRedirect';
+import { useExperimentVariant } from '@/hooks/useExperimentVariant';
 import { EXPERIMENTS } from '@/configs/experiment.config';
+import { useAuthStore } from '@/store/states/auth';
 import { Loader2Icon } from 'lucide-react';
+
+const PRICING_V3_STORAGE_KEY = 'mdc_funnel_pricing_v3';
+const PRICING_V3_FALLBACK_VARIANT = 'control';
 
 function useMeasure() {
     const ref = useRef<HTMLDivElement>(null);
@@ -93,49 +98,31 @@ export function SubscriptionStep() {
     const { nextStep } = useStepperContext();
     const setIsSpecialOfferOpened = useStore((state) => state.offer.setIsSpecialOfferOpened);
     const isSpecialOfferOpened = useStore((state) => state.offer.isSpecialOfferOpened);
-    const posthog = usePostHog();
+    const { isRedirecting } = usePremiumRedirect();
 
-    const [pricingVariant, setPricingVariant] = useState<string | null>(null);
-    const [pricingFallbackReady, setPricingFallbackReady] = useState(false);
-    const lockedRef = useRef(false);
+    const userId = useAuthStore((state) => state.userId);
 
-    useEffect(() => {
-        if (!posthog) return;
+    // Resolve the `third-pricing-test` variant once per identified user and
+    // persist it to localStorage. This keeps a single PostHog exposure event
+    // per user (no `$multiple` attribution) and stabilises the variant across
+    // component remounts and page refreshes.
+    const {
+        variant: pricingVariant,
+        isReady: isPricingReady,
+        hasAppliedPreselection,
+        markPreselectionApplied,
+    } = useExperimentVariant(EXPERIMENTS.PRICING_V3.flagKey, {
+        userId,
+        fallbackVariant: PRICING_V3_FALLBACK_VARIANT,
+        storageKey: PRICING_V3_STORAGE_KEY,
+    });
 
-        const flagKey = EXPERIMENTS.PRICING.flagKey;
-        const targetDistinctId = posthog.get_distinct_id();
-        const cached = posthog.getFeatureFlag(flagKey);
-        if (cached !== undefined) {
-            lockedRef.current = true;
-            setPricingVariant(String(cached));
-            return;
-        }
+    const variantConfig =
+        EXPERIMENTS.PRICING_V3.variants[pricingVariant as keyof typeof EXPERIMENTS.PRICING_V3.variants] ||
+        EXPERIMENTS.PRICING_V3.variants.control;
 
-        const unsubscribe = posthog.onFeatureFlags((_, variants, ctx) => {
-            if (ctx?.errorsLoading) return;
-            if (lockedRef.current) return;
-
-            if (posthog.get_distinct_id() !== targetDistinctId) return;
-
-            const v = variants?.[flagKey] ?? posthog.getFeatureFlag(flagKey);
-            if (v === undefined) return;
-
-            lockedRef.current = true;
-            setPricingVariant(String(v));
-        });
-
-        return () => {
-            try {
-                unsubscribe?.();
-            } catch {
-                /* ignored */
-            }
-        };
-    }, [posthog]);
-
-    const productIds: readonly number[] =
-        EXPERIMENTS.PRICING.variants[pricingVariant as keyof typeof EXPERIMENTS.PRICING.variants] ||
-        EXPERIMENTS.PRICING.variants.control;
+    const productIds: readonly number[] = variantConfig.productIds;
+    const preselectedProductId: number = variantConfig.preselectedProductId;
 
     const activeSubscriptions = useMemo(() => {
         return subscriptions.filter((sub) => productIds.includes(sub.productId));
@@ -300,16 +287,15 @@ export function SubscriptionStep() {
     );
 
     const defaultProduct = useMemo(() => {
-        const bestChoice = activeSubscriptions.find((sub) => sub.isBestChoice);
-        if (bestChoice) return bestChoice.productId;
+        if (preselectedProductId && productIds.includes(preselectedProductId)) {
+            return preselectedProductId;
+        }
         if (activeSubscriptions.length === 0) return productIds[0];
         const sorted = [...activeSubscriptions].sort(
             (a, b) => parseFloat(a.salePriceFull) - parseFloat(b.salePriceFull),
         );
-
-        const middleIndex = Math.floor(sorted.length / 2);
-        return sorted[middleIndex].productId;
-    }, [activeSubscriptions, productIds]);
+        return sorted[Math.floor(sorted.length / 2)].productId;
+    }, [activeSubscriptions, productIds, preselectedProductId]);
 
     const [carouselApi, setCarouselApi] = useState<CarouselApi>();
 
@@ -341,32 +327,39 @@ export function SubscriptionStep() {
     const hero = useMeasure();
 
     useEffect(() => {
+        if (!isPricingReady) return;
         if (!defaultProduct) return;
 
-        const currentProductId = form.getValues('productId');
+        // Returning from a dismissed special/secret offer — always re-apply
+        // the preselected product regardless of prior state.
         if (isSpecialOfferOpened) {
             form.setValue('productId', defaultProduct);
             setIsSpecialOfferOpened(false);
+            markPreselectionApplied();
             return;
         }
-        if (currentProductId && productIds.includes(currentProductId)) {
-            return;
-        }
+
+        // Apply the variant's preselection exactly once per identified user.
+        // On subsequent remounts/refreshes we respect whatever the user picked
+        // (persisted via the funnel form store) instead of overwriting with
+        // the variant default. Without this check, `currentProductId = 36`
+        // (Monthly, the `isBestChoice` default) would always pass the old
+        // `productIds.includes(currentProductId)` guard — since every variant
+        // includes 36 — and the Quarterly preselection for variants 3–6 was
+        // never applied.
+        if (hasAppliedPreselection) return;
+
         form.setValue('productId', defaultProduct);
-    }, [isSpecialOfferOpened, defaultProduct, productIds, form, setIsSpecialOfferOpened]);
-
-    useEffect(() => {
-        if (pricingVariant !== null) return;
-
-        const id = window.setTimeout(() => {
-            lockedRef.current = true;
-            setPricingFallbackReady(true);
-        }, 3000);
-
-        return () => window.clearTimeout(id);
-    }, [pricingVariant]);
-
-    const isPricingReady = pricingVariant !== null || pricingFallbackReady;
+        markPreselectionApplied();
+    }, [
+        isPricingReady,
+        isSpecialOfferOpened,
+        defaultProduct,
+        hasAppliedPreselection,
+        markPreselectionApplied,
+        form,
+        setIsSpecialOfferOpened,
+    ]);
 
     const renderTermsText = (text: string) => {
         const parts = text.split('|TERMS_LINK|');
@@ -386,6 +379,15 @@ export function SubscriptionStep() {
             </>
         );
     };
+
+    if (isRedirecting) {
+        return (
+            <div className="w-full flex flex-col min-h-screen items-center justify-center">
+                <Loader2Icon className="animate-spin text-white mb-4" size={40} />
+                <p className="text-white/70 text-center px-4">{t('funnel.paymentFormStep.redirecting')}</p>
+            </div>
+        );
+    }
 
     return (
         <div className={'w-full flex flex-col min-h-screen h-full sm:px-10 pb-10 md:pb-[70px]'}>
@@ -433,7 +435,7 @@ export function SubscriptionStep() {
                                     )}
                                 >
                                     <div className="w-full bg-[#2a2a2f] px-4 py-2 rounded-[10px] flex items-center justify-between flex-wrap sm:flex-nowrap gap-y-3 relative">
-                                        {subscription.isBestChoice && (
+                                        {subscription.productId === preselectedProductId && (
                                             <div className="absolute top-[-12px] left-3 sm:left-4 bg-primary-gradient rounded-full flex items-center justify-center">
                                                 <span className="text-white text-[10px] sm:text-xs font-semibold uppercase px-[10px] py-1">
                                                     {t('funnel.subscriptionStep.bestChoice')}

@@ -302,7 +302,8 @@
             "paymentUnavailable": "Pagamento indisponível",
             "altLogo": "My Dream Companion",
             "altVisa": "Visa",
-            "altMastercard": "Mastercard"
+            "altMastercard": "Mastercard",
+            "redirecting": "Sua assinatura está ativa. Redirecionando agora..."
         }
     },
     "constants": {
@@ -710,7 +711,10 @@
             "36": "Ao continuar, você confirma que tem pelo menos 18 anos e concorda com o pagamento de $19.99 por uma assinatura mensal. A assinatura será renovada automaticamente todos os meses por $19.99 até que você cancele. Ao clicar em Continuar, você também confirma que concorda com nossos |TERMS_LINK|\nO pagamento aparecerá como mydreamcompanion. Para mais informações, entre em contato com support@mydreamcompanion.com",
             "2": "Ao continuar, você confirma que tem pelo menos 18 anos e concorda com o pagamento de $69.99 por uma assinatura anual. A assinatura será renovada automaticamente anualmente por $69.99 até que você cancele. Ao clicar em Continuar, você também confirma que concorda com nossos |TERMS_LINK|\nO pagamento aparecerá como mydreamcompanion. Para mais informações, entre em contato com support@mydreamcompanion.com",
             "155": "Ao continuar, você confirma que tem pelo menos 18 anos e concorda com o pagamento de $39.99 por uma assinatura trimestral. A assinatura será renovada automaticamente a cada 3 meses por $39.99 até que você cancele. Ao clicar em Continuar, você também confirma que concorda com nossos |TERMS_LINK|\nO pagamento aparecerá como mydreamcompanion. Para mais informações, entre em contato com support@mydreamcompanion.com",
-            "156": "Ao continuar, você confirma que tem pelo menos 18 anos e concorda com o pagamento de $49.99 por uma assinatura trimestral. A assinatura será renovada automaticamente a cada 3 meses por $49.99 até que você cancele. Ao clicar em Continuar, você também confirma que concorda com nossos |TERMS_LINK|\nO pagamento aparecerá como mydreamcompanion. Para mais informações, entre em contato com support@mydreamcompanion.com"
+            "156": "Ao continuar, você confirma que tem pelo menos 18 anos e concorda com o pagamento de $49.99 por uma assinatura trimestral. A assinatura será renovada automaticamente a cada 3 meses por $49.99 até que você cancele. Ao clicar em Continuar, você também confirma que concorda com nossos |TERMS_LINK|\nO pagamento aparecerá como mydreamcompanion. Para mais informações, entre em contato com support@mydreamcompanion.com",
+            "157": "Ao continuar, você confirma que tem pelo menos 18 anos e concorda com o pagamento de $29.99 por uma assinatura trimestral. A assinatura será renovada automaticamente a cada 3 meses por $29.99 até que você cancele. Ao clicar em Continuar, você também confirma que concorda com nossos |TERMS_LINK|\nO pagamento aparecerá como mydreamcompanion. Para mais informações, entre em contato com support@mydreamcompanion.com",
+            "158": "Ao continuar, você confirma que tem pelo menos 18 anos e concorda com o pagamento de $34.99 por uma assinatura trimestral. A assinatura será renovada automaticamente a cada 3 meses por $34.99 até que você cancele. Ao clicar em Continuar, você também confirma que concorda com nossos |TERMS_LINK|\nO pagamento aparecerá como mydreamcompanion. Para mais informações, entre em contato com support@mydreamcompanion.com",
+            "159": "Ao continuar, você confirma que tem pelo menos 18 anos e concorda com o pagamento de $44.99 por uma assinatura trimestral. A assinatura será renovada automaticamente a cada 3 meses por $44.99 até que você cancele. Ao clicar em Continuar, você também confirma que concorda com nossos |TERMS_LINK|\nO pagamento aparecerá como mydreamcompanion. Para mais informações, entre em contato com support@mydreamcompanion.com"
         }
     },
     "hooks": {
@@ -724,6 +728,7 @@
         },
         "usePaymentForm": {
             "errors": {
+                "noInternet": "Sem conexão com a internet. Por favor, verifique sua rede e tente novamente.",
                 "paymentConfigError": "Erro na configuração do sistema de pagamento.",
                 "paymentSystemUnavailable": "O sistema de pagamento não está disponível. Atualize a página.",
                 "initializationFailed": "Falha ao inicializar o formulário de pagamento. Atualize a página.",
@@ -731,7 +736,8 @@
                 "paymentWentWrong": "Algo deu errado durante o pagamento. Tente novamente.",
                 "paymentTakingLong": "O pagamento está levando mais tempo do que o esperado. Tente novamente.",
                 "failedCheckStatus": "Falha ao verificar o status do pagamento. Tente novamente.",
-                "paymentInAnotherTab": "O pagamento está sendo processado em outra aba."
+                "paymentInAnotherTab": "O pagamento está sendo processado em outra aba.",
+                "sessionExpired": "Sua sessão expirou. A página será recarregada automaticamente."
             }
         },
         "turnsOfYou": {

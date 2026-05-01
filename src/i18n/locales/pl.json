@@ -302,7 +302,8 @@
             "paymentUnavailable": "Płatność niedostępna",
             "altLogo": "My Dream Companion",
             "altVisa": "Visa",
-            "altMastercard": "Mastercard"
+            "altMastercard": "Mastercard",
+            "redirecting": "Twoja subskrypcja jest aktywna. Przekierowujemy Cię..."
         }
     },
     "constants": {
@@ -710,7 +711,10 @@
             "36": "Kontynuując, potwierdzasz, że masz co najmniej 18 lat i zgadzasz się na opłatę w wysokości $19.99 za miesięczną subskrypcję. Subskrypcja będzie automatycznie odnawiana co miesiąc za $19.99 do momentu anulowania. Klikając Kontynuuj, potwierdzasz również, że akceptujesz nasze |TERMS_LINK|\nPłatność pojawi się jako mydreamcompanion. W celu uzyskania dalszych informacji skontaktuj się z support@mydreamcompanion.com",
             "2": "Kontynuując, potwierdzasz, że masz co najmniej 18 lat i zgadzasz się na opłatę w wysokości $69.99 za roczną subskrypcję. Subskrypcja będzie automatycznie odnawiana co roku za $69.99 do momentu anulowania. Klikając Kontynuuj, potwierdzasz również, że akceptujesz nasze |TERMS_LINK|\nPłatność pojawi się jako mydreamcompanion. W celu uzyskania dalszych informacji skontaktuj się z support@mydreamcompanion.com",
             "155": "Kontynuując, potwierdzasz, że masz co najmniej 18 lat i zgadzasz się na opłatę w wysokości $39.99 za subskrypcję kwartalną. Subskrypcja będzie automatycznie odnawiana co 3 miesiące za $39.99 do momentu anulowania. Klikając Kontynuuj, potwierdzasz również, że akceptujesz nasze |TERMS_LINK|\nPłatność pojawi się jako mydreamcompanion. W celu uzyskania dalszych informacji skontaktuj się z support@mydreamcompanion.com",
-            "156": "Kontynuując, potwierdzasz, że masz co najmniej 18 lat i zgadzasz się na opłatę w wysokości $49.99 za subskrypcję kwartalną. Subskrypcja będzie automatycznie odnawiana co 3 miesiące za $49.99 do momentu anulowania. Klikając Kontynuuj, potwierdzasz również, że akceptujesz nasze |TERMS_LINK|\nPłatność pojawi się jako mydreamcompanion. W celu uzyskania dalszych informacji skontaktuj się z support@mydreamcompanion.com"
+            "156": "Kontynuując, potwierdzasz, że masz co najmniej 18 lat i zgadzasz się na opłatę w wysokości $49.99 za subskrypcję kwartalną. Subskrypcja będzie automatycznie odnawiana co 3 miesiące za $49.99 do momentu anulowania. Klikając Kontynuuj, potwierdzasz również, że akceptujesz nasze |TERMS_LINK|\nPłatność pojawi się jako mydreamcompanion. W celu uzyskania dalszych informacji skontaktuj się z support@mydreamcompanion.com",
+            "157": "Kontynuując, potwierdzasz, że masz co najmniej 18 lat i zgadzasz się na opłatę w wysokości $29.99 za subskrypcję kwartalną. Subskrypcja będzie automatycznie odnawiana co 3 miesiące za $29.99 do momentu anulowania. Klikając Kontynuuj, potwierdzasz również, że akceptujesz nasze |TERMS_LINK|\nPłatność pojawi się jako mydreamcompanion. W celu uzyskania dalszych informacji skontaktuj się z support@mydreamcompanion.com",
+            "158": "Kontynuując, potwierdzasz, że masz co najmniej 18 lat i zgadzasz się na opłatę w wysokości $34.99 za subskrypcję kwartalną. Subskrypcja będzie automatycznie odnawiana co 3 miesiące za $34.99 do momentu anulowania. Klikając Kontynuuj, potwierdzasz również, że akceptujesz nasze |TERMS_LINK|\nPłatność pojawi się jako mydreamcompanion. W celu uzyskania dalszych informacji skontaktuj się z support@mydreamcompanion.com",
+            "159": "Kontynuując, potwierdzasz, że masz co najmniej 18 lat i zgadzasz się na opłatę w wysokości $44.99 za subskrypcję kwartalną. Subskrypcja będzie automatycznie odnawiana co 3 miesiące za $44.99 do momentu anulowania. Klikając Kontynuuj, potwierdzasz również, że akceptujesz nasze |TERMS_LINK|\nPłatność pojawi się jako mydreamcompanion. W celu uzyskania dalszych informacji skontaktuj się z support@mydreamcompanion.com"
         }
     },
     "hooks": {
@@ -724,6 +728,7 @@
         },
         "usePaymentForm": {
             "errors": {
+                "noInternet": "Brak połączenia z internetem. Sprawdź sieć i spróbuj ponownie.",
                 "paymentConfigError": "Błąd konfiguracji systemu płatności.",
                 "paymentSystemUnavailable": "System płatności jest niedostępny. Odśwież stronę.",
                 "initializationFailed": "Nie udało się zainicjować formularza płatności. Odśwież stronę.",
@@ -731,7 +736,8 @@
                 "paymentWentWrong": "Coś poszło nie tak podczas płatności. Spróbuj ponownie.",
                 "paymentTakingLong": "Płatność trwa dłużej niż oczekiwano. Spróbuj ponownie.",
                 "failedCheckStatus": "Nie udało się sprawdzić statusu płatności. Spróbuj ponownie.",
-                "paymentInAnotherTab": "Płatność jest przetwarzana w innej karcie."
+                "paymentInAnotherTab": "Płatność jest przetwarzana w innej karcie.",
+                "sessionExpired": "Twoja sesja wygasła. Strona zostanie automatycznie odświeżona."
             }
         },
         "turnsOfYou": {

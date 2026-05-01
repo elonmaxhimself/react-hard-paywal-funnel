@@ -5,11 +5,14 @@ import { useTranslation } from 'react-i18next';
 import { Button } from '@/components/ui/button';
 import { useStepperContext } from '@/components/stepper/Stepper.context';
 import { usePaymentForm, PAYMENT_IN_PROGRESS_KEY, PAYMENT_STALENESS_TTL_MS } from '@/hooks/usePaymentForm';
+import { usePremiumRedirect } from '@/hooks/usePremiumRedirect';
 import { useFunnelStore } from '@/store/states/funnel';
 import { useEffect, useRef } from 'react';
+import { useFormContext } from 'react-hook-form';
 import SpriteIcon from '@/components/SpriteIcon';
 import { usePostHog } from 'posthog-js/react';
 import { STEPS_COUNT } from '@/features/funnel/funnelSteps';
+import type { FunnelSchema } from '@/hooks/funnel/useFunnelForm';
 
 const s4InputContainerStyles = 'h-[50px] bg-[#000]/30 rounded-[8px] border border-white/6 p-[12px]';
 
@@ -24,11 +27,46 @@ const getPeriodDays = (durationMonths: number): number => {
 export function PaymentFormStep() {
     const { t } = useTranslation();
     const setStep = useFunnelStore((s) => s.setStep);
+    const setFormState = useFunnelStore((s) => s.setFormState);
     const posthog = usePostHog();
-    const { product, onSubmit, isButtonDisabled, isPaymentInProgress, shift4Error, resumePollingFailed } =
-        usePaymentForm(posthog);
+    const funnelForm = useFormContext<FunnelSchema>();
+    const {
+        product,
+        onSubmit,
+        isButtonDisabled,
+        isPaymentInProgress,
+        shouldWarnOnLeave,
+        shift4Error,
+        resumePollingFailed,
+    } = usePaymentForm(posthog);
+    const { isRedirecting } = usePremiumRedirect();
     const { prevStep } = useStepperContext();
     const hasRedirected = useRef(false);
+
+    // Sync full form state (including productId) to Zustand on mount.
+    // handleAuthSuccess excludes productId when saving, and SubscriptionStep
+    // only updates React Hook Form — so Zustand never gets productId.
+    // This ensures form survives page refresh on the payment step.
+    useEffect(() => {
+        const formValues = funnelForm.getValues();
+        if (formValues.productId) {
+            setFormState(formValues);
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps -- mount-only sync
+    }, []);
+
+    // Warn user when navigating away during active payment (browser back, tab close, refresh).
+    // Excluded when: payment completed (our redirect pending), usePremiumRedirect active.
+    useEffect(() => {
+        if (!shouldWarnOnLeave || isRedirecting) return;
+
+        const handleBeforeUnload = (e: BeforeUnloadEvent) => {
+            e.preventDefault();
+        };
+
+        window.addEventListener('beforeunload', handleBeforeUnload);
+        return () => window.removeEventListener('beforeunload', handleBeforeUnload);
+    }, [shouldWarnOnLeave, isRedirecting]);
 
     useEffect(() => {
         if (!product) {
@@ -66,10 +104,39 @@ export function PaymentFormStep() {
         // eslint-disable-next-line react-hooks/exhaustive-deps -- only react to polling failure
     }, [resumePollingFailed]);
 
+    // If payment resolved (success redirect or failure) but we still have no product — go back
+    useEffect(() => {
+        if (!product && !isPaymentInProgress && !hasRedirected.current) {
+            hasRedirected.current = true;
+            prevStep();
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps -- react to payment resolution when no product
+    }, [product, isPaymentInProgress]);
+
     const onOpenSpecialOffer = () => {
         if (isPaymentInProgress) return;
         prevStep();
     };
+
+    // User already has an active subscription — redirect in progress
+    if (isRedirecting) {
+        return (
+            <div className="w-full flex flex-col min-h-screen items-center justify-center">
+                <Loader2Icon className="animate-spin text-white mb-4" size={40} />
+                <p className="text-white/70 text-center px-4">{t('funnel.paymentFormStep.redirecting')}</p>
+            </div>
+        );
+    }
+
+    // No product but payment in progress — show processing state instead of blank screen
+    if (!product && isPaymentInProgress) {
+        return (
+            <div className="w-full flex flex-col min-h-screen items-center justify-center">
+                <Loader2Icon className="animate-spin text-white mb-4" size={40} />
+                <p className="text-white/70 text-center px-4">{t('hooks.usePaymentForm.errors.paymentInAnotherTab')}</p>
+            </div>
+        );
+    }
 
     if (!product) return null;
     return (

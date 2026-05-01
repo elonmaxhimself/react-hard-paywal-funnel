@@ -27,6 +27,7 @@ import { useSexPositions } from '@/constants/sex-positions';
 import { useUtmStore } from '@/store/states/utm';
 import { getTrackDeskCid } from '@/utils/helpers/getTrackDeskCid';
 import { handleAuthSuccess } from '@/utils/auth/handleAuthSuccess';
+import { gaQualifyLead } from '@/lib/gtag';
 
 export function useSignUpForm(posthog?: PostHog) {
     const { t, i18n } = useTranslation();
@@ -55,6 +56,7 @@ export function useSignUpForm(posthog?: PostHog) {
     const { mutate: signUp, isPending, error: apiError, reset: resetMutation } = useSignUp();
 
     const utm = useUtmStore((state) => state.utm);
+    const initialUrl = useUtmStore((state) => state.initialUrl);
     const sexPositions = useSexPositions();
 
     const setUserId = useAuthStore((state) => state.setUserId);
@@ -99,7 +101,9 @@ export function useSignUpForm(posthog?: PostHog) {
         const customKinks = [...funnelFormValues.turns_of_you, ...funnelFormValues.want_to_try];
         const customSexPosition = getRandomSexPosition(sexPositions);
 
-        const url = import.meta.env.DEV ? 'https://mdc-react-funnel-v4-dev.pages.dev/' : window.location.href;
+        // Use the landing URL captured on first visit (includes UTM query params).
+        // Falls back to current href if initialUrl wasn't captured (shouldn't happen).
+        const url = initialUrl || window.location.href;
 
         const trackDeskCid = getTrackDeskCid();
 
@@ -143,6 +147,7 @@ export function useSignUpForm(posthog?: PostHog) {
 
         signUp(payload, {
             onSuccess: (data: AuthResponse) => {
+                gaQualifyLead();
                 handleAuthSuccess({
                     userId: data.userId,
                     email: values.email,

@@ -302,7 +302,8 @@
             "paymentUnavailable": "Pagamento non disponibile",
             "altLogo": "My Dream Companion",
             "altVisa": "Visa",
-            "altMastercard": "Mastercard"
+            "altMastercard": "Mastercard",
+            "redirecting": "Il tuo abbonamento è attivo. Reindirizzamento in corso..."
         }
     },
     "constants": {
@@ -710,7 +711,10 @@
             "36": "Continuando, confermi di avere almeno 18 anni e accetti il pagamento di $19.99 per un abbonamento mensile. L'abbonamento si rinnoverà automaticamente ogni mese per $19.99 fino alla cancellazione. Cliccando su Continua confermi anche di accettare i nostri |TERMS_LINK|\nIl pagamento apparirà come mydreamcompanion. Per ulteriori informazioni contatta support@mydreamcompanion.com",
             "2": "Continuando, confermi di avere almeno 18 anni e accetti il pagamento di $69.99 per un abbonamento annuale. L'abbonamento si rinnoverà automaticamente ogni anno per $69.99 fino alla cancellazione. Cliccando su Continua confermi anche di accettare i nostri |TERMS_LINK|\nIl pagamento apparirà come mydreamcompanion. Per ulteriori informazioni contatta support@mydreamcompanion.com",
             "155": "Continuando, confermi di avere almeno 18 anni e accetti il pagamento di $39.99 per un abbonamento trimestrale. L'abbonamento si rinnoverà automaticamente ogni 3 mesi per $39.99 fino alla cancellazione. Cliccando su Continua confermi anche di accettare i nostri |TERMS_LINK|\nIl pagamento apparirà come mydreamcompanion. Per ulteriori informazioni contatta support@mydreamcompanion.com",
-            "156": "Continuando, confermi di avere almeno 18 anni e accetti il pagamento di $49.99 per un abbonamento trimestrale. L'abbonamento si rinnoverà automaticamente ogni 3 mesi per $49.99 fino alla cancellazione. Cliccando su Continua confermi anche di accettare i nostri |TERMS_LINK|\nIl pagamento apparirà come mydreamcompanion. Per ulteriori informazioni contatta support@mydreamcompanion.com"
+            "156": "Continuando, confermi di avere almeno 18 anni e accetti il pagamento di $49.99 per un abbonamento trimestrale. L'abbonamento si rinnoverà automaticamente ogni 3 mesi per $49.99 fino alla cancellazione. Cliccando su Continua confermi anche di accettare i nostri |TERMS_LINK|\nIl pagamento apparirà come mydreamcompanion. Per ulteriori informazioni contatta support@mydreamcompanion.com",
+            "157": "Continuando, confermi di avere almeno 18 anni e accetti il pagamento di $29.99 per un abbonamento trimestrale. L'abbonamento si rinnoverà automaticamente ogni 3 mesi per $29.99 fino alla cancellazione. Cliccando su Continua confermi anche di accettare i nostri |TERMS_LINK|\nIl pagamento apparirà come mydreamcompanion. Per ulteriori informazioni contatta support@mydreamcompanion.com",
+            "158": "Continuando, confermi di avere almeno 18 anni e accetti il pagamento di $34.99 per un abbonamento trimestrale. L'abbonamento si rinnoverà automaticamente ogni 3 mesi per $34.99 fino alla cancellazione. Cliccando su Continua confermi anche di accettare i nostri |TERMS_LINK|\nIl pagamento apparirà come mydreamcompanion. Per ulteriori informazioni contatta support@mydreamcompanion.com",
+            "159": "Continuando, confermi di avere almeno 18 anni e accetti il pagamento di $44.99 per un abbonamento trimestrale. L'abbonamento si rinnoverà automaticamente ogni 3 mesi per $44.99 fino alla cancellazione. Cliccando su Continua confermi anche di accettare i nostri |TERMS_LINK|\nIl pagamento apparirà come mydreamcompanion. Per ulteriori informazioni contatta support@mydreamcompanion.com"
         }
     },
     "hooks": {
@@ -724,6 +728,7 @@
         },
         "usePaymentForm": {
             "errors": {
+                "noInternet": "Nessuna connessione internet. Controlla la tua rete e riprova.",
                 "paymentConfigError": "Errore di configurazione del sistema di pagamento.",
                 "paymentSystemUnavailable": "Il sistema di pagamento non è disponibile. Si prega di aggiornare la pagina.",
                 "initializationFailed": "Impossibile inizializzare il modulo di pagamento. Si prega di aggiornare la pagina.",
@@ -731,7 +736,8 @@
                 "paymentWentWrong": "Qualcosa è andato storto durante il pagamento. Si prega di riprovare.",
                 "paymentTakingLong": "Il pagamento sta impiegando più tempo del previsto. Si prega di riprovare.",
                 "failedCheckStatus": "Impossibile verificare lo stato del pagamento. Si prega di riprovare.",
-                "paymentInAnotherTab": "Il pagamento è in fase di elaborazione in un'altra scheda."
+                "paymentInAnotherTab": "Il pagamento è in fase di elaborazione in un'altra scheda.",
+                "sessionExpired": "La tua sessione è scaduta. La pagina si ricaricherà automaticamente."
             }
         },
         "turnsOfYou": {

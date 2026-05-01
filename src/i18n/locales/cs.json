@@ -302,7 +302,8 @@
             "paymentUnavailable": "Platba nedostupná",
             "altLogo": "My Dream Companion",
             "altVisa": "Visa",
-            "altMastercard": "Mastercard"
+            "altMastercard": "Mastercard",
+            "redirecting": "Vaše předplatné je aktivní. Přesměrováváme vás..."
         }
     },
     "constants": {
@@ -711,7 +712,10 @@
             "36": "Pokračováním potvrzujete, že vám je alespoň 18 let a souhlasíte s úvodní platbou $19.99 za měsíční předplatné. Pokud nezrušíte alespoň 24 hodin před koncem úvodního období, bude vám automaticky účtováno $19.99 za každé následující období, dokud nezrušíte. Kliknutím na Pokračovat také potvrzujete, že souhlasíte s našimi |TERMS_LINK|\nPlatba se zobrazí jako mydreamcompanion",
             "2": "Pokračováním potvrzujete, že vám je alespoň 18 let a souhlasíte s platbou $69.99 za roční předplatné. Předplatné bude automaticky obnovováno ročně za $69.99, dokud nezrušíte. Kliknutím na Pokračovat také potvrzujete, že souhlasíte s našimi |TERMS_LINK|\nPlatba se zobrazí jako mydreamcompanion. Pro více informací kontaktujte support@mydreamcompanion.com",
             "155": "Pokračováním potvrzujete, že vám je alespoň 18 let a souhlasíte s platbou $39.99 za čtvrtletní předplatné. Předplatné bude automaticky obnovováno každé 3 měsíce za $39.99, dokud nezrušíte. Kliknutím na Pokračovat také potvrzujete, že souhlasíte s našimi |TERMS_LINK|\nPlatba se zobrazí jako mydreamcompanion. Pro více informací kontaktujte support@mydreamcompanion.com",
-            "156": "Pokračováním potvrzujete, že vám je alespoň 18 let a souhlasíte s platbou $49.99 za čtvrtletní předplatné. Předplatné bude automaticky obnovováno každé 3 měsíce za $49.99, dokud nezrušíte. Kliknutím na Pokračovat také potvrzujete, že souhlasíte s našimi |TERMS_LINK|\nPlatba se zobrazí jako mydreamcompanion. Pro více informací kontaktujte support@mydreamcompanion.com"
+            "156": "Pokračováním potvrzujete, že vám je alespoň 18 let a souhlasíte s platbou $49.99 za čtvrtletní předplatné. Předplatné bude automaticky obnovováno každé 3 měsíce za $49.99, dokud nezrušíte. Kliknutím na Pokračovat také potvrzujete, že souhlasíte s našimi |TERMS_LINK|\nPlatba se zobrazí jako mydreamcompanion. Pro více informací kontaktujte support@mydreamcompanion.com",
+            "157": "Pokračováním potvrzujete, že vám je alespoň 18 let a souhlasíte s platbou $29.99 za čtvrtletní předplatné. Předplatné bude automaticky obnovováno každé 3 měsíce za $29.99, dokud nezrušíte. Kliknutím na Pokračovat také potvrzujete, že souhlasíte s našimi |TERMS_LINK|\nPlatba se zobrazí jako mydreamcompanion. Pro více informací kontaktujte support@mydreamcompanion.com",
+            "158": "Pokračováním potvrzujete, že vám je alespoň 18 let a souhlasíte s platbou $34.99 za čtvrtletní předplatné. Předplatné bude automaticky obnovováno každé 3 měsíce za $34.99, dokud nezrušíte. Kliknutím na Pokračovat také potvrzujete, že souhlasíte s našimi |TERMS_LINK|\nPlatba se zobrazí jako mydreamcompanion. Pro více informací kontaktujte support@mydreamcompanion.com",
+            "159": "Pokračováním potvrzujete, že vám je alespoň 18 let a souhlasíte s platbou $44.99 za čtvrtletní předplatné. Předplatné bude automaticky obnovováno každé 3 měsíce za $44.99, dokud nezrušíte. Kliknutím na Pokračovat také potvrzujete, že souhlasíte s našimi |TERMS_LINK|\nPlatba se zobrazí jako mydreamcompanion. Pro více informací kontaktujte support@mydreamcompanion.com"
         }
     },
     "hooks": {
@@ -725,6 +729,7 @@
         },
         "usePaymentForm": {
             "errors": {
+                "noInternet": "Žádné připojení k internetu. Zkontrolujte síť a zkuste to znovu.",
                 "paymentConfigError": "Chyba konfigurace platebního systému.",
                 "paymentSystemUnavailable": "Platební systém není k dispozici. Obnovte prosím stránku.",
                 "initializationFailed": "Nepodařilo se inicializovat platební formulář. Obnovte prosím stránku.",
@@ -732,7 +737,8 @@
                 "paymentWentWrong": "Během platby se něco pokazilo. Zkuste to prosím znovu.",
                 "paymentTakingLong": "Platba trvá déle, než se očekávalo. Zkuste to prosím znovu.",
                 "failedCheckStatus": "Nepodařilo se zkontrolovat stav platby. Zkuste to prosím znovu.",
-                "paymentInAnotherTab": "Platba se zpracovává v jiné záložce."
+                "paymentInAnotherTab": "Platba se zpracovává v jiné záložce.",
+                "sessionExpired": "Vaše relace vypršela. Stránka se automaticky načte znovu."
             }
         },
         "turnsOfYou": {

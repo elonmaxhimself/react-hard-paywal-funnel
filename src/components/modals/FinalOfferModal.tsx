@@ -39,6 +39,14 @@ export default function FinalOfferModal() {
 
     useEffect(() => {
         if (isFinalOfferModalOpen) {
+            // Don't change product if a payment was already completed or is in progress
+            try {
+                const completed = localStorage.getItem('shift4_payment_completed');
+                const inProgress = localStorage.getItem('shift4_payment_in_progress');
+                if (completed || inProgress) return;
+            } catch {
+                // localStorage not available
+            }
             form.setValue('productId', finalOffer.productId);
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps -- finalOffer is stable from useMemo
